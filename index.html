@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+       	<title>Shape Expressions (ShEx) Primer</title>
+    	<meta charset='utf-8'></meta>
+    	<script src='//www.w3.org/Tools/respec/respec-w3c-common' async class='remove'></script>
+	    <script class='remove'>
+	      var respecConfig = {
+	          specStatus: "ED",
+	          shortName:  "shex-primer",
+            edDraftURI: "w3c.github.io/data-shapes/semantics/",
+	          editors: [
+	                {   name:       "Eric Prud'hommeaux",
+	                    url:        "http://www.w3.org/People/Eric/",
+	                    company:    "W3C/MIT",
+	                    companyURL: "http://www.w3.org/" }
+	          ],
+	          wg:           "Shape Expressions ",
+	          wgURI:        "https://shex.io/",
+	          wgPublicList: "public-shex-dev",
+	          // wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
+	      };
+	    </script>
+		<style>
+			.todo {
+				color: red;
+			}
+		    pre {
+				tab-size: 4;
+		    }
+			th {
+				text-align: left;
+			}
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .example {
+        display: inline-block;
+      }
+      .example.wrapper {
+        background-color: #fff;
+      }
+      .example.wrapper pre {
+        background-color: #fcfaee;
+        margin-left: 0;
+        line-height: 1.2;
+      }
+      .example.wrapper .fail {
+        background-color: #fceefa
+      }
+      .verticalDivider {
+        float: left;
+        width: .5em;
+        border:thin solid #fff; /* disappears without this */
+      }
+
+.highlight1     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 176, 0, .5); border-right: 5px solid rgba(176, 176, 0, .5); } /* font-weight: bold  ;  */
+.highlight1.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+.highlight1.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+.lowlight1      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid transparent; border-right: 5px solid transparent;                     } /* font-weight: normal;  */
+.lowlight1.top  {    margin-top: -5px;                      border-top: 5px solid transparent;                                                          } /* font-weight: normal;  */
+.lowlight1.bot  { margin-bottom: -5px;                   border-bottom: 5px solid transparent;                                                          } /* font-weight: normal;  */
+.highlight2     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 0, 176, .5); border-right: 5px solid rgba(176, 0, 176, .5); } /* font-weight: bold  ;  */
+.highlight2.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+.highlight2.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+.lowlight2      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(127, 127, 127, .07); border-right: 5px solid rgba(127, 127, 127, .07);         } /* font-weight: normal;  */
+.lowlight2.top  {    margin-top: -5px;                      border-top: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+.lowlight2.bot  { margin-bottom: -5px;                   border-bottom: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+
+.highlightBG1   { /* border: 5px solid transparent; */ background-color: #bb0; font-weight: bold; }
+.lowlightBG1    { /* border: 5px solid transparent; */ font-weight: normal; }
+.highlightBG2   { /* border: 5px solid transparent; */ background-color: #b00; font-weight: bold; }
+.lowlightBG2    { /* border: 5px solid transparent; */ font-weight: normal; }
+
+.new            { font-weight: bold; }
+.errorSite      { color: red; }
+		</style>
+    <script src="http://www.w3.org/2013/ShEx/demobits/jquery.min.js" type= "text/javascript"></script>
+    <script type="text/javascript"><!--
+function prepareHighlight (highlightables, onClass, offClass, slide) {
+  if (slide === undefined)
+    slide = $("body .namespace").last();
+  $.each( highlightables, function( index, value ){
+    var elts = slide.find( "."+value );
+    elts
+  	.mouseenter(function() {
+  	    elts.removeClass(offClass).addClass(onClass);
+  	})
+  	.mouseleave(function() {
+  	    elts.removeClass(onClass).addClass(offClass);
+  	})
+    .addClass(offClass);
+  })
+}
+--> </script>
+  	</head>
+  	<body>
+
+    	<section id="abstract">
+			<p>
+				The Shape Expressions (ShEx) language describes RDF graph structures.
+        A <code>shape</code> describes the triples involving nodes in RDF graphs.
+				These descriptions identify predicates and their associated cardinalities and datatypes.
+        ShEx shapes can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
+			</p>
+			<p>
+				This document introduces ShEx to people familiar with basic concepts of RDF and SPARQL.
+				This primer develops examples from an issue tracking application to introduce all major features of ShEx, including the construction of shapes and their correspondence with RDF graphs.
+				This primer is a possible companion to the <a href="../semantics/">langauge specifation</a> that serves as a language reference and full specification.
+			</p>  	
+		  </section>
+    
+  	</body>
+</html>
