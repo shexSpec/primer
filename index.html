@@ -22,6 +22,7 @@
 	      };
 	    </script>
 		<style>
+      tr th { text-align: center; }
 			.todo {
 				color: red;
 			}
@@ -35,11 +36,16 @@
         /* font-lock-comment-face */
         color: #b22222;
       }
+      .shh { color: #bbb; margin:0; padding-left: 2em; }
       .constant {
         /* font-lock-constant-face */
         color: #008b8b;
       }
       .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .function-name:visited {
         /* font-lock-function-name-face */
         color: #0000ff;
       }
@@ -55,6 +61,22 @@
         /* font-lock-type-face */
         color: #228b22;
       }
+      .shape-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .shape-name:visited {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .predicate {
+        /* font-lock-variable-name-face */
+        color: #522da0;
+      }
+      .value-constraint {
+        /* font-lock-variable-name-face */
+        color: #2d52a0;
+      }
       .example {
         display: inline-block;
       }
@@ -65,6 +87,7 @@
         background-color: #fcfaee;
         margin-left: 0;
         line-height: 1.2;
+        display: inline-block;
       }
       .example.wrapper .fail {
         background-color: #fceefa
@@ -1338,13 +1361,8 @@ setTimeout(function () {
     	<section id="syntax">
     		<h2>Document Conventions</h2>
 
-        <p>
-          RDF has several syntaxes speciallized for different purposes.
-          In principle, any of those can be used to convey constraints or data.
-          This schemas in this Primer are available in <a href="https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax (ShExC)</a> and <a href="http://www.w3.org/TR/json-ld/">JSON</a>.
-        </p>
       		<p>
-      			Within this document, the following namespace prefix bindings are used:
+      			This document uses the following namespace prefixes are used:
       		</p>
       		<table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
       			<tr>
@@ -1363,20 +1381,41 @@ setTimeout(function () {
       				<td>xsd:</td>
       				<td>http://www.w3.org/2001/XMLSchema#</td>
       			</tr>
+            <tr>
+              <th colspan="2">example namespaces</th>
+              <th>Used in</th>
+            </tr>
+      			<tr>
+      				<td>foaf:</td>
+      				<td>http://xmlns.com/foaf/0.1/</td>
+              <td>Friend Of A Friend ontology</td>
+      			</tr>
       			<tr>
       				<td>ex:</td>
-      				<td>http://example.com/ns#</td>
+      				<td>http://ex.example/ns#</td>
+              <td>random application ontology</td>
+      			</tr>
+      			<tr>
+      				<td>my:</td>
+      				<td>http://my.example/ns#</td>
+              <td>shape declarations</td>
+      			</tr>
+      			<tr>
+      				<td>inst:</td>
+      				<td>http://inst.example/ns#</td>
+              <td>instance data</td>
       			</tr>
       		</table>
 
         <p>
           This schemas in this Primer are available in <a href="https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax (ShExC)</a> and <a href="http://www.w3.org/TR/json-ld/">JSON</a>.
         </p>
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">Turtle (press 't')</input> <input type="radio" name="presLang" value="json-ld">JSON-LD (press 'j')</input> .</form>
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="shexc" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
       </section>
 
-    	<section id="rules">
-    		<h2>Atomic Rules</h2>
+    	<section id="tripleConstraints">
+    		<h2>Triple Constraints</h2>
+        <div class="namespace">
         <p>
           ShEx's facilities for describing the structure of graphs are based on rules that describe triples in a graph.
           These rules are evaluated against particular nodes in the instance data; these are called <code>focus nodes</code>.
@@ -1386,194 +1425,253 @@ setTimeout(function () {
 
         <p>
           The rules can be written in ShExC or JSON (recall that you can press 'c' or 'j') as a set of properties on a <code>property constraint</code>.
-          In this example, the <span class="type">sh:</span><span class="constant">predicate</span> property identifies the predicate, <span class="type">foaf:</span><span class="constant">name</span>, to be matched on the focus node.
-          The <span class="type">sh:</span><span class="constant">valueType</span> here specifies that the matching triples must have an object with is an RDF literal with a datatype of <span class="type">xsd:</span><span class="constant">string</span>.
-          The last two triples say that there should be exactly one because the <span class="type">sh:</span><span class="constant">minCount</span> and <span class="type">sh:</span><span class="constant">maxCount</span>, also known as the <code>minimum cardinality</code> and <code>maximum cardinality</code>, are both 1.
+          This example consists of a single shape declaration for a shape called <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>.
+          A validation process tests selected nodes in the instance data, <code>focus nodes</code>, against this shape.
+          The shape in this example consists of a single <code class="hilight-tripleConstraint lowlight1 top bot">triple constraint</code> on the property <span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span>.
+          The only <code>value-constraint</code> in this example is that the object of any <span class="predicate">foaf:name</span> triple must be an RDF literal with a datatype of <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>.
         </p>
 
-        <p>
-          In summary, we execpt that the <code>focus node</code> will have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and the object will be a literal with a datatype <span class="type">xsd:</span><span class="constant">string</span>.
-          If we validate the nodes <span class="function-name">inst:User1</span>, <span class="function-name">inst:User2</span> and <span class="function-name">inst:User3</span> below, we see that the first passes this requirement.
-          <span class="function-name">inst:User2</span> has the wrong datatype and <span class="function-name">inst:User3</span> has too many <span class="type">foaf:</span><span class="constant">name</span> properties:
-        </p>
-
-        <div class="example wrapper">
-          <!-- Turtle example -->
-    		  <pre class="schema turtle" style="float:left;"><span class="comment"># property constraint (Turtle)</span>
-[
-    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">name</span> ;
-    <span class="type">sh:</span><span class="constant">valueType</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1
-] .</pre>
-
-          <!-- JSON-LD example -->
-    		  <pre class="schema json-ld" style="float:left;"><span class="comment">// shapes (JSON-LD)</span>
-{
-  "<span class="type">sh:</span><span class="constant">predicate</span>": {
-    "@id": "<span class="type">foaf:</span><span class="constant">name</span>"
-  },
-  "<span class="type">sh:</span><span class="constant">valueType</span>": {
-    "@id": "<span class="type">xsd:</span><span class="constant">string</span>"
-  },
-  "<span class="type">sh:</span><span class="constant">maxCount</span>": 1,
-  "<span class="type">sh:</span><span class="constant">minCount</span>": 1
+        <div id="my:UserShape-1" class="example wrapper">
+          <!-- ShExC example -->
+    		  <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
+  <span class="hilight-tripleConstraint lowlight1 top bot"><span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span> <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span></span>
 }</pre>
-          <div class="verticalDivider"><!-- acts as a divider --></div>
-          <div style="float:left;">
+
+          <!-- JSON example -->
+    		  <pre class="schema json"><span class="comment">// schema (JSON)</span>
+{
+  <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>: {
+    "type": "shape",
+    "expression": {
+     <span class="hilight-tripleConstraint lowlight1 top"> "type": "tripleConstraint",</span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="predicate hilight-predicate lowlight2 top bot">"predicate": "foaf:name"</span>,  </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2 top">"value": {                </span> </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "type": "valueClass",   </span> </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "datatype": "xsd:string"</span> </span>
+     <span class="hilight-tripleConstraint lowlight1 bot"> <span class="value-constraint hilight-valueConstraint lowlight2 bot">}                         </span> </span>
+    }
+  }
+}</pre>
+
+          <p>
+            A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property.
+            The datatype of the property would be <span class="string">xsd:string</span>:
+          </p>
+
+    	  	<pre class="instance turtle"><span class="comment"># passing data</span>
+<span id="inst:User1-1" class="function-name">inst:User1</span>
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^xsd:string</span></span> .</pre>
+
+          <p>
+            Nodes with the wrong number of <span class="type">foaf:</span><span class="constant">name</span> properties or with <span class="type">foaf:</span><span class="constant">name</span> properties that were not of datatype <span class="string">xsd:string</span> do not match the shape <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>:
+          </p>
+
+          <pre class="instance turtle fail"><span class="comment"># failing data</span>
+<span id="inst:User2-1" class="function-name">inst:User2</span>
+    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Joe Jones"^^xsd:string</span></span> ;
+    <span class="errorSite">foaf:name  "Joseph Jones"^^xsd:string</span> .
+
+<span id="inst:User3-1" class="function-name">inst:User3</span>
+    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .</pre>
+
+          <p>Note that in Turtle (and other RDF representations), literals expressed with no datatype are interpreted as being of type <code cass="string">xsd:string</code> so the following is also valid data:</p>
     	  	<pre class="instance turtle"><span class="comment"># passing data</span>
 <span class="function-name">inst:User1</span>
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"</span></span> .</pre>
-
-          <pre class="instance turtle fail"><span class="comment"># failing data</span>
-<span class="function-name">inst:User2</span>
-    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .
-
-<span class="function-name">inst:User3</span>
-    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Joe Jones"</span></span> ;
-    <span class="errorSite">foaf:name  "Joseph Jones"</span> .</pre>
           </div>
 
-          <div style="clear:both;"></div>
-      </div>
+        </div>
+
+      <script type="text/javascript">
+      <!--
+prepareHighlight(["hilight-shapeName", "hilight-predicate", "hilight-valueConstraint", "hilight-focusNodes"], "highlight2", "lowlight2");
+prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
+      -->
+      </script>
+      </section>
+
+      <section id="vocabulary">
+        <h2>Vocabulary</h2>
+
         <p>
-          Above is an example of a <code>property constraint</code> with a <code>value type</code> constraint.
-          <code>Property constraints</code> can include one of the following constraints:
+          This section introduces some vocabulary which will help us discuss ShEx and the validation process.
+        </p>
+
+        <p>
+          In the examples in <a href="#tripleConstraints">section 3</a>, we examined tested the nodes <a href="#inst:User1-1" class="function-name">inst:User1</a>, <a href="#inst:User2-1" class="function-name">inst:User2</a> and <a href="#inst:User3-1" class="function-name">inst:User3</a> against <a href="#my:UserShape-1" class="shape-name">my:UserShape</a>.
+          We treated each one in turn as the <code>focus node</code> and tested the triples involving that node against the <code>triple constraint</code> in the shape.
+          This triple constraint had a single <code>value constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
+          <code>Property constraints</code> can include combinations of the following constraints:
         </p>
         <ul>
-          <li><code>value type</code>: identifies the datatype of an RDF literal.</li>
-          <li><code>node kind</code>: identifies the kind of RDF node (IRI, RDF literal, or Blank Node).</li>
-          <li><code>allowed value</code>: enumerates specific expected values.</li>
-          <li><code>value shape</code>: asserts that the object is described by another shape (described below).</li>
+          <li><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
+    		  <pre class="schema shexc shh">my:UserShape {
+  foaf:name <span class="value-constraint">xsd:string</span>
+}</pre>
+    		  <pre class="schema json shh">{ "my:UserShape": { "type": "shape",
+  "expression": {
+    "type": "tripleConstraint", "predicate": "foaf:name",
+    "value": { "type": "valueClass", <span class="value-constraint">"datatype": "xsd:string"</span> } } } }</pre>
+
+          </li>
+          <li><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
+    		  <pre class="schema shexc shh">my:UserShape {
+  ex:shoeSize xsd:float <span class="value-constraint">MinInclusive 5.5 maxInclusive 12.5</span>
+}</pre>
+    		  <pre class="schema json shh">{ "my:UserShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "ex:shoeSize",
+    "value": { "type": "valueClass", "datatype": "http://www.w3.org/2001/XMLSchema#float",
+               <span class="value-constraint">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
+
+          <p>
+            These <code>numeric facets</code> apply only to numeric RDF literals: <code class="value-constraint">MinInclusive</code>, <code class="value-constraint">MinExclusive</code>, <code class="value-constraint">MaxInclusive</code>, <code class="value-constraint">MaxExclusive</code>, <code class="value-constraint">TotalDigits</code>, <code class="value-constraint">FractionDigits</code>.
+            These <code>string facets</code> apply only to all RDF literals: <code class="value-constraint">Length</code>, <code class="value-constraint">MinLength</code>, <code class="value-constraint">MaxLength</code>, <code class="value-constraint">Pattern</code>.
+            Facets names are not case-sensitive in ShExC.
+          </p>
+          </li>
+          <li><code>node kind</code>: identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
+    		  <pre class="schema shexc shh">my:UserShape {
+  foaf:mbox <span class="value-constraint">IRI</span>
+}</pre>
+    		  <pre class="schema json shh">{ "my:UserShape": { "type": "shape",
+  "expression": {
+    "type": "tripleConstraint", "predicate": "foaf:mbox",
+    "value": { "type": "valueClass", <span class="value-constraint">"nodeKind": "IRI"</span> } } } }</pre>
+          <p>
+            The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
+            The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
+            Node kinds are not case-sensitive in ShExC.
+          </p>
+          </li>
+          <li><code>value set</code>: enumerates specific expected values, e.g.
+    		  <pre class="schema shexc shh">my:IssueShape {
+  ex:state <span class="value-constraint">(ex:unassigned ex:assigned)</span>
+}</pre>
+          <pre class="schema json shh">
+{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "ex:status",
+    "value": { "type": "valueClass", "values": <span class="value-constraint">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+          <p style="margin: 0;">
+            Fixed values are represented as value sets with one member.
+            For example, a required type triple can be expressed like
+          </p>
+    		  <pre class="schema shexc shh">my:UserShape {
+  rdf:type <span class="value-constraint">(foaf:Person)</span>
+}</pre>
+          <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "rdf:type",
+    "value": { "type": "valueClass", "values": [ <span class="value-constraint">"foaf:Person"</span> ] } } } }</pre>
+          <p style="margin: 0;">
+            or using the keyword <code class="keyword">a</code>:
+          </p>
+    		  <pre class="schema shexc shh">my:UserShape {
+  <span class="keyword">a</span> <span class="value-constraint">(foaf:Person)</span>
+}</pre>
+          <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "a",
+    "value": { "type": "valueClass", "values": [ <span class="value-constraint">"foaf:Person"</span> ] } } } }</pre>
+          </li>
+          <li><code>value shape</code>: asserts that the object is described by another shape, e.g.
+    		  <pre class="schema shexc shh">my:IssueShape {
+  ex:reportedBy <span class="value-constraint">@my:UserShape</span>
+}</pre>
+    		  <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "ex:reportedBy",
+      "value": { "type": "valueClass", <span class="value-constraint">"reference": "my:PersonShape"</span> } } } }</pre>
+          </li>
         </ul>
       </section>
 
-    	<section id="shapes">
-    		<h2>Shape Declarations</h2>
+    	<section id="simpleExpressions">
+    		<h2>Simple Expressions</h2>
         <div class="namespace">
         <p>
-          <code>Property constraints</code> attached to a construct called a <code>shape</code> which enumerates a useful set of constraints to be applied to a <code>focus node</code>.
-          <code>Property constraints</code> can be attached indirectly through logical constructs for AND and OR, but here we introduce a simple form where they are attached directly to the <code>shape</code> with the <span class="type">sh:</span><span class="constant">property</span>.
+          The above examples include only a single <code>Triple Constraint</code> in each shape.
+          Most realistic shape declarations will include multiple constraints.
+          In ShExC, triple constraints are separated by a ','.
         </p>
+    		<pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
+  <span class="predicate">ex:state</span> <span class="value-constraint">(ex:unassigned ex:assigned)</span>,
+  <span class="predicate">ex:reportedBy</span> <span class="value-constraint">@my:UserShape</span>
+}</pre>
     		<p>
-    		  To illustrate this, we can invent some rules for our issue example.
-          We can describe the <code>shape</code> of our example issue by identifying the triples which are part of an issue.
+    		  To illustrate this, we can declare a schema for the data described in the <a href="#introduction">introduction</a>.
           (Mousing over the the following list items items will highlight the corresponding elements in the example text.)
           Our first example issue must doesn't include <span class="type">ex:</span><span class="constant">assignedTo</span> as illustrated in the image above, but it must have:
     		</p>
 
       <ul>
-        <li class="state lowlight1 top bot">exactly one <span id="state"><span class="type">ex:</span><span class="constant">state</span></span> with a value of <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant">unassigned</span> or <span class="type">ex:</span><span class="constant">assigned</span></span>, here enumerated with <code>allowed value</code>,</li>
-        <li class="reportedBy lowlight1 top bot">exactly one <span id="mbox"><span class="type">ex:</span><span class="constant">reportedBy</span></span> which references a user, here expressed as a <code>value shape</code> referenceing some <span class="user lowlight2 top bot">user shape</span>.</li>
+        <li class="state lowlight1 top bot">exactly one <span id="state" class="predicate">ex:state</span> with a value in the <code>value set</code> <span class="stateValue lowlight2 top bot value-constraint">ex:unassigned or ex:assigned</span>,</li>
+        <li class="reportedBy lowlight1 top bot">exactly one <span id="mbox" class="predicate">ex:reportedBy</span> which references a user, here expressed as a <code>value shape</code> referencing <span class="user lowlight2 top bot value-constraint">my:UserShape</span>.</li>
       </ul>
 
       <p>
-        The user referenced by the <span class="type">ex:</span><span class="constant">reportedBy</span> property must have:
+        The user referenced by the <span class="predicate">ex:reportedBy</span> property must have:
       </p>
 
       <ul>
-        <li class="name lowlight1 top bot">exactly one <span id="name"><span class="type">foaf:</span><span class="constant">name</span></span> with a value of an RDF Literal with a datatype of <span class="string lowlight2 top bot"><span class="type">xsd:</span><span class="constant">string</span></span>, here specified by <code>value type</code>,</li>
-        <li class="mbox lowlight1 top bot"><span class="oneOrMore lowlight2 top bot" id="oneOrMore">one or more</span> <span id="mbox"><span class="type">foaf:</span><span class="constant">mbox</span>es</span> with a value of an <span class="IRI lowlight2 top bot" id="IRI">RDF IRI</span>, here specified by <code>node kind</code>.</li>
+        <li class="name lowlight1 top bot">exactly one <span id="name" class="predicate">foaf:name</span> with a <code>literal datatype</code> of <span class="string lowlight2 top bot"><span class="value-constraint">xsd:string</span></span></li>
+        <li class="mbox lowlight1 top bot"><span class="oneOrMore lowlight2 top bot" id="oneOrMore">one or more</span> <span id="mbox" class="predicate">foaf:mbox</span>es with a <code>node kind</code> of <span class="IRI lowlight2 top bot value-constraint" id="IRI">IRI</span>.</li>
       </ul>
 
         <div class="example wrapper">
-          <!-- Turtle example -->
-    		  <pre class="schema turtle" style="float:left;"><span class="comment"># shapes (Turtle)</span>
-<span class="function-name">my:IssueShape</span> <span class="keyword">a</span> <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="state      lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span>    <span class="type">ex:</span><span class="constant">state</span> ;                    </span>
-<div class="enumChoice collection">    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">allowedValue</span> <span class="stateValue lowlight2 top bot">(<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span>)</span> ; </span>
-</div><div class="enumChoice objectlist">    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">allowedValue</span> <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant">unassigned</span> , <span class="type">ex:</span><span class="constant">assigned</span></span> ; </span>
-</div>    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1                 </span>
-    <span class="state      lowlight1 bot">] ;                                               </span>
-    <span class="reportedBy lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="reportedBy lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span>    <span class="type">ex:</span><span class="constant">reportedBy</span> ;               </span>
-    <span class="reportedBy lowlight1    ">    <span class="type">sh:</span><span class="constant">valueShape</span>   <span class="user lowlight2 top bot"><span class="function-name">my:UserShape</span></span> ;                </span>
-    <span class="reportedBy lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1                 </span>
-    <span class="reportedBy lowlight1 bot">] <span class="keyword">.</span>                                               </span>
-
-<span class="user lowlight2 top bot"><span class="function-name">my:UserShape</span></span> <span class="keyword">a</span> <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="name       lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span>    <span class="type">foaf:</span><span class="constant">name</span> ;                   </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">valueType</span>    <span class="string lowlight2 top bot"><span class="type">xsd:</span><span class="constant">string</span></span> ;                  </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1                 </span>
-    <span class="name       lowlight1 bot">] ;                                               </span>
-    <span class="mbox       lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span>    <span class="type">foaf:</span><span class="constant">mbox</span> ;                   </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">nodeKind</span>     <span class="IRI lowlight2 top bot"><span class="type">sh:</span><span class="constant">IRI</span></span> ;                      </span>
-    <span class="mbox       lowlight1    ">    <span class="oneOrMore lowlight2 top bot"><span class="type">sh:</span><span class="constant">minCount</span> 1</span>                                 </span>
-    <span class="mbox       lowlight1 bot">] <span class="keyword">.                                               </span></span></pre>
-
-          <!-- JSON-LD example -->
-    		  <pre class="schema json-ld" style="float:left;"><span class="comment">// shapes (JSON-LD)</span>
-{
-<span style="font-size: 67%; ">  "@context": {
-    "ex": "http://example.com/ns/ex#",
-    "foaf": "http://xmlns.com/foaf/",
-    "sh": "http://example.com/ns/sh#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },</span>
-  "@graph": [
-    {
-      "@id": "my:IssueShape",
-      "@type": "sh:Shape",
-      "sh:property": [
-        <span class="state      lowlight1 top">{                              </span>
-        <span class="state      lowlight1    ">  "sh:predicate": {            </span>
-        <span class="state      lowlight1    ">    "@id": "ex:state"          </span>
-        <span class="state      lowlight1    ">  },                           </span>
-<div class="enumChoice collection">        <span class="state      lowlight1    ">  "sh:allowedValue": {         </span>
-        <span class="state      lowlight1    ">    "@list": [                 </span>
-        <span class="state      lowlight1    ">      { <span class="stateValue lowlight2 top">"@id": "ex:unassigned"</span> },</span>
-        <span class="state      lowlight1    ">      { <span class="stateValue lowlight2 bot">"@id": "ex:assigned"  </span> } </span>
-        <span class="state      lowlight1    ">    ]                          </span>
-        <span class="state      lowlight1    ">  },                           </span>
-</div><div class="enumChoice objectlist">        <span class="state      lowlight1    ">  "sh:allowedValue": [         </span>
-        <span class="state      lowlight1    ">    { <span class="stateValue lowlight2 top">"@id": "ex:unassigned"</span> },</span>
-        <span class="state      lowlight1    ">    { <span class="stateValue lowlight2 bot">"@id": "ex:assigned"  </span> } </span>
-        <span class="state      lowlight1    ">  ],                           </span>
-</div>        <span class="state      lowlight1    ">  "sh:minCount": 1,            </span>
-        <span class="state      lowlight1    ">  "sh:maxCount": 1             </span>
-        <span class="state      lowlight1 bot">},                             </span>
-        <span class="reportedBy lowlight1 top">{                              </span>
-        <span class="reportedBy lowlight1    ">  "sh:predicate": {            </span>
-        <span class="reportedBy lowlight1    ">    "@id": "ex:reportedBy"     </span>
-        <span class="reportedBy lowlight1    ">  },                           </span>
-        <span class="reportedBy lowlight1    ">  "sh:valueShape": {           </span>
-        <span class="reportedBy lowlight1    ">    <span class="user lowlight2 top bot">"@id": "my:UserShape"</span>      </span>
-        <span class="reportedBy lowlight1    ">  },                           </span>
-        <span class="reportedBy lowlight1    ">  "sh:minCount": 1,            </span>
-        <span class="reportedBy lowlight1    ">  "sh:maxCount": 1             </span>
-        <span class="reportedBy lowlight1 bot">}                              </span>
-      ]
-    },
-    {
-      "@id": "my:UserShape",
-      "@type": "sh:Shape",
-      "sh:property": [
-        <span class="name       lowlight1 top">{                              </span>
-        <span class="name       lowlight1    ">  "sh:predicate": {            </span>
-        <span class="name       lowlight1    ">    "@id": "foaf:name"         </span>
-        <span class="name       lowlight1    ">  },                           </span>
-        <span class="name       lowlight1    ">  "sh:valueType": {            </span>
-        <span class="name       lowlight1    ">    <span class="string lowlight2 top bot">"@id": "xsd:string"</span>        </span>
-        <span class="name       lowlight1    ">  },                           </span>
-        <span class="name       lowlight1    ">  "sh:minCount": 1,            </span>
-        <span class="name       lowlight1    ">  "sh:maxCount": 1             </span>
-        <span class="name       lowlight1 bot">},                             </span>
-        <span class="mbox       lowlight1 top">{                              </span>
-        <span class="mbox       lowlight1    ">  "sh:predicate": {            </span>
-        <span class="mbox       lowlight1    ">    "@id": "foaf:mbox"         </span>
-        <span class="mbox       lowlight1    ">  },                           </span>
-        <span class="mbox       lowlight1    ">  "sh:nodeKind": {             </span>
-        <span class="mbox       lowlight1    ">    <span class="IRI lowlight2 top bot">"@id": "sh:IRI"</span>            </span>
-        <span class="mbox       lowlight1    ">  },                           </span>
-        <span class="mbox       lowlight1    ">  "sh:minCount": 1             </span>
-        <span class="mbox       lowlight1 bot">}                              </span>
-      ]
-    }
-  ]
+          <!-- ShExC example -->
+    		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
+  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> (<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>)</span>,
+  <span class="reportedBy lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span>
 }
-</pre>
+
+<span class="user lowlight2 top bot shape-name">my:UserShape</span> {
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="string lowlight2 top bot value-constraint">xsd:string</span></span>,
+  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="IRI lowlight2 top bot value-constraint">IRI</span><span class="oneOrMore lowlight2 top bot">+</span></span>
+}</pre>
+
+          <!-- JSON example -->
+    		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ "type": "schema",
+  "shapes": {
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="state      lowlight1    ">  <span class="predicate">"predicate": "ex:state"</span>,                      </span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
+          <span class="state      lowlight1 bot">},                                              </span>
+          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span>                 </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
+          <span class="reportedBy lowlight1 bot">}                                               </span>
+        ]
+      }
+    },
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
+          <span class="name       lowlight1 bot">},                                              </span>
+          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span>
+          <span class="mbox       lowlight1    ">  <span class="oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>           </span>               </span>
+          <span class="mbox       lowlight1 bot">}                                               </span>
+        ]
+      }
+    }
+  }
+}</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
     	  	<pre class="instance turtle"><span class="comment"># passing data</span>
@@ -1589,7 +1687,7 @@ setTimeout(function () {
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 top"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span></span> ;
     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 bot"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span></span>.</pre>
-
+          <div></div>
     	  	<pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
 </span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
@@ -1608,8 +1706,8 @@ setTimeout(function () {
       </div>
       <script type="text/javascript">
       <!--
-prepareHighlight(['oneOrMore', 'IRI', 'stateValue', 'user', 'string'], "highlight2", "lowlight2");
-prepareHighlight(['state', 'reportedBy', 'name', 'mbox'], "highlight1", "lowlight1");
+prepareHighlight(["oneOrMore", "IRI", "stateValue", "user", "string"], "highlight2", "lowlight2");
+prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowlight1");
       -->
       </script>
       </div>
@@ -1619,172 +1717,17 @@ prepareHighlight(['state', 'reportedBy', 'name', 'mbox'], "highlight1", "lowligh
       <ul>
         <li>The first property restriction in <span class="function-name">my:IssueShape</span> asserts that the object of the <span class="type">ex:</span><span class="constant">state</span> must have one of two values: <span class="type">ex:</span><span class="constant">unassigned</span> or <span class="type">ex:</span><span class="constant">assigned</span>.</li>
         <li>The second property restriction asserts that the object of the <span class="type">ex:</span><span class="constant">reportedBy</span> arc (<span class="function-name">inst:User2</span>) must match the <span class="function-name">my:UserShape</span> shape.</li>
-        <li>The first property restriction in <span class="function-name">my:userShape</span> requires the object of the <span class="type">foaf:</span><span class="constant">name</span> to be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-language-tagged-string">RDF language-tagged string</a> with a datatype of <span class="type">xsd:</span><span class="constant">string</span>.
-        Note that as of RDF 1.1, simple literals have a datatype of xsd:string.</li>
+        <li>The first property restriction in <span class="function-name">my:userShape</span> requires the object of the <span class="type">foaf:</span><span class="constant">name</span> to be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-language-tagged-string">RDF language-tagged string</a> with a datatype of <span class="type">xsd:</span><span class="constant">string</span>.</li>
         <li>The final property restriction asserts that the object of <span class="type">foaf:</span><span class="constant">mbox</span> be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>.</li>
       </ul>
-      <p class="issue">
-        There are two proposed forms for enumerations:
-        (The form below should be in this issue block.)
-        <form id="enumOptions" action="">View as: <input type="radio" name="enumForm" value="collection" checked="checked">RDF Collection (press 'c')</input> <input type="radio" name="enumForm" value="objectlist">multi-valued property, here represented as a turtle objectList (press 'o')</input> .</form>
-      </p>
-			<p class="issue">
-				Shapes my extend other shapes by referencing them with the <code>sh:extends</code> property.
-				The property <code>sh:abstract</code> that can be set to <code>true</code>
-				for shapes that serve only as building blocks for more complex shapes.
-				Furthermore, shapes may be marked <code>sh:private</code> to indicate that they
-				are only meant to be used inside of the graph that they have been defined in.
-				This can be used to discourage instantiation outside of controlled scenarios.
-			</p>
 		</section>
 
-		<section id="properties">
-			<h2>Property Constraints</h2>
-    		<p>
-				  The above example shows how <code>property constraints</code> identify predicates and their associated cardinalities and object constraints.
-    			The following sections describe more attributes of of <code>property constraints</code>.
-    		</p>
-    		<section id="basic-properties">
-    			<h3>Basic Property Characteristics</h3>
-	    		<p>
-	    			It is common (in UML etc) to specify the name of a property and its
-	    			cardinality (min/max value count) as well as the value type.
-	    			In SHACL, these declarations can be attached to a class as follows:
-	    		</p>
-
-        <div class="example wrapper">
-          <!-- Turtle example -->
-    		  <pre class="schema turtle"><span class="comment"># shapes (Turtle)</span>
-<span class="function-name"><span class="type">my:</span><span class="constant">IssueShape</span></span> a <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="type">sh:</span><span class="constant">property</span> [
-        <span class="new">a sh:PropertyConstraint</span> ;     <span class="comment"># This type declaration is optional</span>
-        <span class="new">rdfs:label "state"</span> ;
-        <span class="new">rdfs:comment "whether this shape has been assigned to someone."</span> ;
-        <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">ex:</span><span class="constant">state</span> ;
-        <span class="type">sh:</span><span class="constant">allowedValue</span> <span class="type">ex:</span><span class="constant">unassigned</span> , <span class="type">ex:</span><span class="constant">assigned</span> ;
-        <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1
-    ] ;
-    <span class="type">sh:</span><span class="constant">property</span> [
-        <span class="new">a sh:PropertyConstraint</span> ;
-        <span class="new">rdfs:label "reported by"</span> ;
-        <span class="new">rdfs:comment "who submitted a report about this bug."</span> ;
-        <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">ex:</span><span class="constant">reportedBy</span> ;
-        <span class="type">sh:</span><span class="constant">valueShape</span> <span class="function-name"><span class="type">my:</span><span class="constant">UserShape</span></span> ;
-        <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1
-    ] .                                                 
-</pre>
-
-          <!-- JSON-LD example -->
-    		  <pre class="schema json-ld"><span class="comment">// shapes (JSON-LD)</span>
-{
-  "@graph": [
-    {
-      "@id": "<span class="type">my:</span><span class="constant">IssueShape</span>",
-      "@type": "<span class="type">sh:</span><span class="constant">Shape</span>",
-      "<span class="type">sh:</span><span class="constant">property</span>": [
-        {
-          <span class="new">"@type": "sh:PropertyConstraint"</span>,     <span class="comment"># This type declaration is optional</span>
-          <span class="new">"rdfs:label": "state"</span>,
-          <span class="new">"rdfs:comment": "whether this shape has been assigned to someone."</span>,
-          "<span class="type">sh:</span><span class="constant">predicate</span>": {
-            "@id": "<span class="type">ex:</span><span class="constant">state</span>"
-          },
-          "<span class="type">sh:</span><span class="constant">allowedValue</span>": [
-            { "@id": "<span class="type">ex:</span><span class="constant">unassigned</span>" },
-            { "@id": "<span class="type">ex:</span><span class="constant">assigned</span>"   }
-          ],
-          "<span class="type">sh:</span><span class="constant">minCount</span>": 1,
-          "<span class="type">sh:</span><span class="constant">maxCount</span>": 1
-        },
-        {
-          <span class="new">"@type": "sh:PropertyConstraint"</span>,
-          <span class="new">"rdfs:label": "reported by"</span>,
-          <span class="new">"rdfs:comment": "who submitted a report about this bug."</span>,
-          "<span class="type">sh:</span><span class="constant">predicate</span>": {
-            "@id": "<span class="type">ex:</span><span class="constant">reportedBy</span>"
-          },
-          "<span class="type">sh:</span><span class="constant">valueShape</span>": {
-            "@id": "<span class="type">my:</span><span class="constant">UserShape</span>"
-          },
-          "<span class="type">sh:</span><span class="constant">minCount</span>": 1,
-          "<span class="type">sh:</span><span class="constant">maxCount</span>": 1
-        }
-      ]
-    }
-  ]
-}</pre>
-      </div>
-
-				<p>
-					Tools that understand SHACL can use the information above for many purposes.
-					For example, they can figure out which fields should appear for an input form,
-					and what values those fields can have, as well as labels and comments.
-					Furthermore, they can verify that a given node in a graph fulfills the requirements for a <span class="function-name">my:IssueShape</span>.
-				</p>
-				<p>
-					The system property <code>sh:property</code> is used to link a shape with its
-					property declarations.
-					The values of this property are nodes with the following properties:
-				</p>
-				<table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
-					<tr>
-						<th>Property</th>
-						<th>Description</th>
-					</tr>
-					<tr>
-						<td><code>sh:predicate</code></td>
-						<td>
-							Required. Must point to the URI of an RDF property used to store the
-							values of the property.
-						</td>
-					</tr>
-					<tr>
-						<td><code>sh:minCount</code></td>
-						<td>Type: integer &gt;= 0, the minimum number of values required. Defaults to 0.</td>
-					</tr>
-					<tr>
-						<td><code>sh:maxCount</code></td>
-						<td>Type: integer &gt;= 0, the maximum number of values required. Defaults to unlimited.</td>
-					</tr>
-					<tr>
-						<td><code>sh:valueShape</code></td>
-						<td>
-							The object matches the refrenced <code>sh:Shape</code>. 
-						</td>
-					</tr>
-					<tr>
-						<td><code>sh:valueType</code></td>
-						<td>
-							identifies the datatype for an RDF literal.
-						</td>
-					</tr>
-					<tr class="issue">
-						<td><code>sh:allowedValues</code></td>
-						<td>Type: <code>sh:Set</code> (with property <code>sh:member</code>), points to a set enumerating the allowed values.</td>
-					</tr>
-					<tr class="issue">
-						<td><code>sh:allowedValue</code></td>
-						<td>Type: the same as the sh:valueType of the surrounding property.</td>
-					</tr>
-					<tr>
-						<td><code>rdfs:label</code></td>
-						<td>
-							A human-readable label of the property in the context of the associated class.
-						</td>
-					</tr>
-					<tr>
-						<td><code>rdfs:comment</code></td>
-						<td>
-							A description of the property's role in the context of the associated class.
-						</td>
-					</tr>
-				</table>
-    		</section>
-      <section id="choices">
-				<h3>Choices</h3>
-				<p>
-          We can extend our first example to include a more flexible user which includes given and family names.
-        </p>
+    <section id="choices">
+			<h2>Choices</h2>
+			<p>
+        Most schema language offer a way to express choices.
+        We can extend our first example to include a more flexible user which includes given and family names.
+      </p>
 
 <svg fill-opacity="0" xmlns:xlink="http://www.w3.org/1999/xlink" color-rendering="auto" color-interpolation="auto" stroke="rgb(0,0,0)" text-rendering="auto" stroke-linecap="square" width="466" stroke-miterlimit="10" stroke-opacity="0" shape-rendering="auto" fill="rgb(0,0,0)" stroke-dasharray="none" font-weight="normal" stroke-width="1" height="151" xmlns="http://www.w3.org/2000/svg" font-family="&apos;Dialog&apos;" font-style="normal" stroke-linejoin="miter" font-size="12" stroke-dashoffset="0" image-rendering="auto"
 ><!--Generated by the Batik Graphics2D SVG Generator--><defs id="genericDefs"
@@ -1986,89 +1929,48 @@ prepareHighlight(['state', 'reportedBy', 'name', 'mbox'], "highlight1", "lowligh
         <p class="mbox lowlight1 top bot">The user must have exactly one <span class="type">foaf:</span><span class="constant">mbox</span>.</p>
 
         <div class="example wrapper">
-          <!-- Turtle example -->
-    		  <pre class="schema turtle" style="float:left;"><span class="comment"># shapes (Turtle)</span>
-<span class="function-name">my:UserShape</span> <span class="keyword">a</span> <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="eitherOr   lowlight2 top"><span class="type">sh:</span><span class="constant">choice</span> [                                  </span>
-    <span class="name       lowlight1 top">    sh:property [                            </span>
-    <span class="name       lowlight1    ">        <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">name</span> ;             </span>
-    <span class="name       lowlight1    ">        <span class="type">sh:</span><span class="constant">valueType</span> <span class="type">xsd:</span><span class="constant">string</span> ;            </span>
-    <span class="name       lowlight1    ">        <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1        </span>
-    <span class="name       lowlight1 bot">    ] ;                                      </span>
-    <span class="eitherOr   lowlight2 bot">                                             </span>
-    <span class="eitherOr   lowlight2 top">    sh:propertyGroup [                       </span>
-    <span class="gname      lowlight1 top">        <span class="type">sh:</span><span class="constant">property</span> [                        </span>
-    <span class="gname      lowlight1    ">            <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">givenName</span> ;    </span>
-    <span class="gname      lowlight1    ">            <span class="type">sh:</span><span class="constant">valueType</span> <span class="type">xsd:</span><span class="constant">string</span> ;        </span>
-    <span class="gname      lowlight1    ">            <span class="type">sh:</span><span class="constant">minCount</span> 1                    </span>
-    <span class="gname      lowlight1 bot">        ] ;                                  </span>
-    <span class="fname      lowlight1 top">        <span class="type">sh:</span><span class="constant">property</span> [                        </span>
-    <span class="fname      lowlight1    ">            <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">familyName</span> ;   </span>
-    <span class="fname      lowlight1    ">            <span class="type">sh:</span><span class="constant">valueType</span> <span class="type">xsd:</span><span class="constant">string</span> ;        </span>
-    <span class="fname      lowlight1    ">            <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1    </span>
-    <span class="fname      lowlight1 bot">        ]                                    </span>
-    <span class="eitherOr   lowlight2 bot">    ]                                        </span>
-    ] ;                                          
-    <span class="mbox       lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">mbox</span> ;                 </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">nodeKind</span> <span class="type">sh:</span><span class="constant">IRI</span> ;                     </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1                            </span>
-    <span class="mbox       lowlight1 bot">] <span class="keyword">.                                          </span></span></pre>
+          <!-- ShExC example -->
+    		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name">my:UserShape</span> {
+  <span class="eitherOr   lowlight2 top">(                              </span>
+     <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>
+  <span class="eitherOr   lowlight2 bot">                               </span>
+  <span class="eitherOr   lowlight2 top">  |                            </span>
+      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>,
+      <span class="fname      lowlight1 top bot"><span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span></span>
+  <span class="eitherOr   lowlight2 bot">),                             </span>
+  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
+}</pre>
 
-          <!-- JSON-LD example -->
-    		  <pre class="schema json-ld" style="float:left;"><span class="comment">// shapes (JSON-LD)</span>
-{
-  "@graph": [
-    {
-      "@id": "<span class="type">my:</span><span class="constant">UserShape</span>",
-      "@type": "<span class="type">sh:</span><span class="constant">Shape</span>",
-      <span class="eitherOr   lowlight2 top">"<span class="type">sh:</span><span class="constant">choice</span>": {                    </span>
-        <span class="name       lowlight1 top">"<span class="type">sh:</span><span class="constant">property</span>": {                </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">predicate</span>": {             </span>
-        <span class="name       lowlight1    ">    "@id": "<span class="type">foaf:</span><span class="constant">name</span>"          </span>
-        <span class="name       lowlight1    ">  },                            </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">valueType</span>": {             </span>
-        <span class="name       lowlight1    ">      "@id": "<span class="type">xsd:</span><span class="constant">string</span>"       </span>
-        <span class="name       lowlight1    ">  },                            </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">maxCount</span>": 1,             </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">minCount</span>": 1              </span>
-        <span class="name       lowlight1 bot">},                              </span>
-        <span class="eitherOr   lowlight2 bot">                                </span>
-        <span class="eitherOr   lowlight2 top">"<span class="type">sh:</span><span class="constant">propertyGroup</span>": {           </span>
-          "<span class="type">sh:</span><span class="constant">property</span>": [
-            <span class="gname      lowlight1 top">{                           </span>
-            <span class="gname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">predicate</span>": {         </span>
-            <span class="gname      lowlight1    ">    "@id": "<span class="type">foaf:</span><span class="constant">givenName</span>" </span>
-            <span class="gname      lowlight1    ">  },                        </span>
-            <span class="gname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">valueType</span>": {         </span>
-            <span class="gname      lowlight1    ">    "@id": "<span class="type">xsd:</span><span class="constant">string</span>"     </span>
-            <span class="gname      lowlight1    ">  },                        </span>
-            <span class="gname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">minCount</span>": 1          </span>
-            <span class="gname      lowlight1 bot">},                          </span>
-            <span class="fname      lowlight1 top">{                           </span>
-            <span class="fname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">predicate</span>": {         </span>
-            <span class="fname      lowlight1    ">    "@id": "<span class="type">foaf:</span><span class="constant">familyName</span>"</span>
-            <span class="fname      lowlight1    ">  },                        </span>
-            <span class="fname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">valueType</span>": {         </span>
-            <span class="fname      lowlight1    ">    "@id": "<span class="type">xsd:</span><span class="constant">string</span>"     </span>
-            <span class="fname      lowlight1    ">  },                        </span>
-            <span class="fname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">maxCount</span>": 1,         </span>
-            <span class="fname      lowlight1    ">  "<span class="type">sh:</span><span class="constant">minCount</span>": 1          </span>
-            <span class="fname      lowlight1 bot">}                           </span>
+          <!-- JSON example -->
+    		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+    "expression": { "type": "group",
+      "expressions": [
+        { "type": "someOf",
+          "expressions": [
+            <span class="eitherOr   lowlight2 top">                                                                  </span>
+            <span class="name       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
+            <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span> }</span>,
+            <span class="eitherOr   lowlight2 bot">                                                                  </span>
+            <span class="eitherOr   lowlight2 top">                                                                  </span>
+            { "type": "group",
+              "expressions": [
+                <span class="gname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
+                <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,</span>
+                <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
+                <span class="fname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
+                <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span> }</span>
+              ]
+            }
+            <span class="eitherOr   lowlight2 bot">                                                                  </span>
           ]
-        <span class="eitherOr   lowlight2 bot">}                               </span>
-      },
-      <span class="mbox       lowlight1 top">"<span class="type">sh:</span><span class="constant">property</span>":     {              </span>
-      <span class="mbox       lowlight1    ">  "<span class="type">sh:</span><span class="constant">predicate</span>": {               </span>
-      <span class="mbox       lowlight1    ">    "@id": "<span class="type">foaf:</span><span class="constant">mbox</span>"            </span>
-      <span class="mbox       lowlight1    ">  },                              </span>
-      <span class="mbox       lowlight1    ">  "<span class="type">sh:</span><span class="constant">nodeKind</span>": {                </span>
-      <span class="mbox       lowlight1    ">    "@id": "<span class="type">sh:</span><span class="constant">IRI</span>"               </span>
-      <span class="mbox       lowlight1    ">  },                              </span>
-      <span class="mbox       lowlight1    ">  "<span class="type">sh:</span><span class="constant">minCount</span>": 1                </span>
-      <span class="mbox       lowlight1 bot">}                                 </span>
+        },
+        <span class="mbox       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
+        <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "IRI" }</span> }</span>
+      ]
     }
-  ]
+  }
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
@@ -2082,7 +1984,7 @@ prepareHighlight(['state', 'reportedBy', 'name', 'mbox'], "highlight1", "lowligh
     <span class="gname lowlight1 bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Paris"</span> </span>;
     <span class="fname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">familyName</span> <span class="string top bot">"Moses"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rpmoses@example.org&gt;</span><span class="keyword"></span></span> .</pre>
-
+          <div></div>
           <pre class="instance turtle fail"><span class="comment"># failing data</span>
 <span class="function-name">inst:User3</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Smith"</span></span> ;
@@ -2106,123 +2008,17 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       -->
       </script>
       </div>
-      </section>
-    		<section id="datatype-properties">
-    			<h3>Datatype Property Characteristics</h3>
-        <div class="namespace">
-				<p>
-					In addition to those basic property characteristics, it is possible to use others such as min/max value ranges for properties that have datatype literals as values.
-          Here we constrain the length of a foaf:name to be <span class="min lowlight2 top bot">&gt;= 3</span> and <span class="max lowlight2 top bot">&lt;= 255</span>:
-				</p>
+    </section>
 
-        <div class="example wrapper">
-          <!-- Turtle example -->
-    		  <pre class="schema turtle" style="float:left;"><span class="comment"># shapes (Turtle)</span>
-<span class="user lowlight2 top bot"><span class="function-name">my:UserShape</span></span> <span class="keyword">a</span> <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="name       lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">name</span> ;                 </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">valueType</span> <span class="type">xsd:</span><span class="constant">string</span> ;                </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1            </span>
-    <span class="name       lowlight1    ">    <span class="min lowlight2 top bot new"><span class="type">sh:</span><span class="constant">minLength</span> 3</span> ; <span class="max lowlight2 top bot new"><span class="type">sh:</span><span class="constant">maxLength</span> 255</span>        </span>
-    <span class="name       lowlight1 bot">] <span class="keyword">.                                          </span></span></pre>
-
-          <!-- JSON-LD example -->
-    		  <pre class="schema json-ld" style="float:left;"><span class="comment">// shapes (JSON-LD)</span>
-{
-  "@graph": [
-    {
-      "@id": "<span class="type">my:</span><span class="constant">UserShape</span>",
-      "@type": "<span class="type">sh:</span><span class="constant">Shape</span>",
-      "<span class="type">sh:</span><span class="constant">property</span>": [
-        <span class="name       lowlight1 top">{                               </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">predicate</span>": {           </span>
-        <span class="name       lowlight1    ">    "@id": "<span class="type">foaf:</span><span class="constant">name</span>"          </span>
-        <span class="name       lowlight1    ">  },                            </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">valueType</span>": {           </span>
-        <span class="name       lowlight1    ">    "@id": "<span class="type">xsd:</span><span class="constant">string</span>          </span>
-        <span class="name       lowlight1    ">  },                            </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">minCount</span>": 1,           </span>
-        <span class="name       lowlight1    ">  "<span class="type">sh:</span><span class="constant">maxCount</span>": 1,           </span>
-        <span class="name       lowlight1    ">  <span class="min lowlight2 top bot">"<span class="type">sh:</span><span class="constant">minLength</span>": 3</span>,          </span>
-        <span class="name       lowlight1    ">  <span class="max lowlight2 top bot">"<span class="type">sh:</span><span class="constant">maxLength</span>": 255</span>         </span>
-        <span class="name       lowlight1 bot">}                               </span>
-      ]
-    }
-  ]
-}
-</pre>
-          <div class="verticalDivider"><!-- acts as a divider --></div>
-          <div style="float:left;">
-    	  	<pre class="instance turtle"><span class="comment"># passing data</span>
-<span class="name lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> .</pre>
-
-    	  	<pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
-<span class="name lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User9</span></span> <span class="type">foaf:</span><span class="constant">name</span>       <span class="min lowlight2 top bot"><span class="string top bot errorSite">"BS"</span></span></span>.</pre>
-  </div>
-          <div style="clear:both;"></div>
-      </div>
-      <script type="text/javascript">
-      <!--
-prepareHighlight(['min', 'max'], "highlight2", "lowlight2");
-prepareHighlight(['name999'], "highlight1", "lowlight1");
-      -->
-      </script>
-      </div>
-				<p>
-					The following built-in constraints are available for datatype values.
-					<span class="todo">(XML schema has additional facets: whiteSpace, fractionDigits, totalDigits. Schema.org also suggests: stepValue).</span>
-				</p>
-				<table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
-					<tr>
-						<th>Property</th>
-						<th>Description</th>
-					</tr>
-					<tr>
-						<td><code>sh:length</code></td>
-						<td>Type: <code>xsd:integer</code>, number of characters of valid values.</td>
-					</tr>
-					<tr>
-						<td><code>sh:maxLength</code></td>
-						<td>Type: <code>xsd:integer</code>, maximum number of characters of valid values.</td>
-					</tr>
-					<tr>
-						<td><code>sh:minLength</code></td>
-						<td>Type: <code>xsd:integer</code>, minimum number of characters of valid values.</td>
-					</tr>
-					<tr>
-						<td><code>sh:maxExclusive</code></td>
-						<td>Type: the same as the sh:valueType of the surrounding property.</td>
-					</tr>
-					<tr>
-						<td><code>sh:maxInclusive</code></td>
-						<td>Type: the same as the sh:valueType of the surrounding property.</td>
-					</tr>
-					<tr>
-						<td><code>sh:minExclusive</code></td>
-						<td>Type: the same as the sh:valueType of the surrounding property.</td>
-					</tr>
-					<tr>
-						<td><code>sh:minInclusive</code></td>
-						<td>Type: the same as the sh:valueType of the surrounding property.</td>
-					</tr>
-					<tr>
-						<td><code>sh:pattern</code></td>
-						<td>Type: <code>xsd:string</code>, a regular expression to match.</td>
-					</tr>
-				</table>
-			</section>
+		<section id="properties">
+			<h2>Advanced Property Constraints</h2>
+    		<p>
+				  The above example shows how <code>property constraints</code> identify predicates and their associated cardinalities and object constraints.
+    			The following sections describe more attributes of of <code>property constraints</code>.
+    		</p>
 			<section id="inverse-properties">
 				<h3>Inverse Property Declarations</h3>
         <div class="namespace">
-				<p>
-					Due to the triple-based data model of RDF, it is possible to "walk" a relationship
-					in both directions - from subject to object and from object to subject.
-					SHACL can be used to declare that a property is associated with a class, even
-					if the predicate is actually used in the inverse direction.
-					As shown below, the system property <code class="inversePredicate top bot">sh:inverseProperty</code> is used
-					in such cases, and very similar characteristics as previously mentioned can
-					be applied in these inverse property declarations.
-				</p>
     		<p>
           Here we change the first example so that instead of an issue having a 
           <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span> identifying a node corresponding to <span class="function-name">my:UserShape</span></span>,
@@ -2230,97 +2026,62 @@ prepareHighlight(['name999'], "highlight1", "lowlight1");
     		</p>
 
         <div class="example wrapper">
-          <!-- Turtle example -->
-    		  <pre class="schema turtle" style="float:left;"><span class="comment"># shapes (Turtle)</span>
-<span class="function-name">my:IssueShape</span> <span class="keyword">a</span> <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="state      lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">ex:</span><span class="constant">state</span> ;                       </span>
-    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">allowedValue</span> <span class="type">ex:</span><span class="constant">unassigned</span> , <span class="type">ex:</span><span class="constant">assigned</span> ; </span>
-    <span class="state      lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1               </span>
-    <span class="state      lowlight1 bot">] ;                                                 </span>
-    <span class="reportedIssue lowlight1 top new"><span class="inversePredicate lowlight2 top bot"><span class="type999">sh:</span><span class="constant999">inverseProperty</span></span> [                              </span>
-    <span class="reportedIssue lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">ex:</span><span class="constant">reportedIssue</span> ;               </span>
-    <span class="reportedIssue lowlight1    ">    <span class="type">sh:</span><span class="constant">valueShape</span> <span class="function-name">my:UserShape</span> ;                  </span>
-    <span class="reportedIssue lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1                 </span>
-    <span class="reportedIssue lowlight1 bot">] <span class="keyword">.</span>                                               </span>
-
-<span class="function-name">my:UserShape</span> <span class="keyword">a</span> <span class="type">sh:</span><span class="constant">Shape</span> ;
-    <span class="name       lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">name</span> ;                      </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">valueType</span> <span class="type">xsd:</span><span class="constant">string</span> ;                     </span>
-    <span class="name       lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1 ; <span class="type">sh:</span><span class="constant">maxCount</span> 1               </span>
-    <span class="name       lowlight1 bot">] ;                                                 </span>
-    <span class="mbox       lowlight1 top"><span class="type">sh:</span><span class="constant">property</span> [                                     </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">predicate</span> <span class="type">foaf:</span><span class="constant">mbox</span> ;                      </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">nodeKind</span> <span class="type">sh:</span><span class="constant">IRI</span> ;                        </span>
-    <span class="mbox       lowlight1    ">    <span class="type">sh:</span><span class="constant">minCount</span> 1                                 </span>
-    <span class="mbox       lowlight1 bot">] <span class="keyword">.                                                 </span></span></pre>
-
-          <!-- JSON-LD example -->
-    		  <pre class="schema json-ld" style="float:left;"><span class="comment">// shapes (JSON-LD)</span>
-{
-<span style="font-size: 67%; ">  "@context": {
-    "ex": "http://example.com/ns/ex#",
-    "foaf": "http://xmlns.com/foaf/",
-    "sh": "http://example.com/ns/sh#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#"
-  },</span>
-  "@graph": [
-    {
-      "@id": "my:IssueShape",
-      "@type": "sh:Shape",
-      "sh:property": [
-        <span class="state      lowlight1 top">{                              </span>
-        <span class="state      lowlight1    ">  "sh:predicate": {            </span>
-        <span class="state      lowlight1    ">    "@id": "ex:state"          </span>
-        <span class="state      lowlight1    ">  },                           </span>
-        <span class="state      lowlight1    ">  "sh:allowedValue": [         </span>
-        <span class="state      lowlight1    ">    { "@id": "ex:unassigned" },</span>
-        <span class="state      lowlight1    ">    { "@id": "ex:assigned"   } </span>
-        <span class="state      lowlight1    ">  ],                           </span>
-        <span class="state      lowlight1    ">  "sh:minCount": 1,            </span>
-        <span class="state      lowlight1    ">  "sh:maxCount": 1             </span>
-        <span class="state      lowlight1 bot">},                             </span>
-        <span class="reportedIssue lowlight1 top">{                             </span>
-        <span class="reportedIssue lowlight1    ">  <span class="inversePredicate lowlight2 top bot">"sh:inversePredicate"</span>: {    </span>
-        <span class="reportedIssue lowlight1    ">    "@id": "ex:reportedIssue" </span>
-        <span class="reportedIssue lowlight1    ">  },                          </span>
-        <span class="reportedIssue lowlight1    ">  "sh:valueShape": {          </span>
-        <span class="reportedIssue lowlight1    ">    "@id": "my:UserShape"     </span>
-        <span class="reportedIssue lowlight1    ">  },                          </span>
-        <span class="reportedIssue lowlight1    ">  "sh:minCount": 1,           </span>
-        <span class="reportedIssue lowlight1    ">  "sh:maxCount": 1            </span>
-        <span class="reportedIssue lowlight1 bot">}                             </span>
-      ]
-    },
-    {
-      "@id": "my:UserShape",
-      "@type": "sh:Shape",
-      "sh:property": [
-        <span class="name       lowlight1 top">{                              </span>
-        <span class="name       lowlight1    ">  "sh:predicate": {            </span>
-        <span class="name       lowlight1    ">    "@id": "foaf:name"         </span>
-        <span class="name       lowlight1    ">  },                           </span>
-        <span class="name       lowlight1    ">  "sh:valueType": {            </span>
-        <span class="name       lowlight1    ">    "@id": "xsd:string"        </span>
-        <span class="name       lowlight1    ">  },                           </span>
-        <span class="name       lowlight1    ">  "sh:minCount": 1,            </span>
-        <span class="name       lowlight1    ">  "sh:maxCount": 1             </span>
-        <span class="name       lowlight1 bot">},                             </span>
-        <span class="mbox       lowlight1 top">{                              </span>
-        <span class="mbox       lowlight1    ">  "sh:predicate": {            </span>
-        <span class="mbox       lowlight1    ">    "@id": "foaf:mbox"         </span>
-        <span class="mbox       lowlight1    ">  },                           </span>
-        <span class="mbox       lowlight1    ">  "sh:nodeKind": {             </span>
-        <span class="mbox       lowlight1    ">    "@id": "sh:IRI"            </span>
-        <span class="mbox       lowlight1    ">  },                           </span>
-        <span class="mbox       lowlight1    ">  "sh:minCount": 1             </span>
-        <span class="mbox       lowlight1 bot">}                              </span>
-      ]
-    }
-  ]
+          <!-- ShExC example -->
+    		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
+  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> (<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>)</span>
 }
-</pre>
+
+<span class="user lowlight2 top bot shape-name">my:UserShape</span> {
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="string lowlight2 top bot value-constraint">xsd:string</span></span>,
+  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="IRI lowlight2 top bot value-constraint">IRI</span><span class="oneOrMore lowlight2 top bot">+</span></span>,
+  <span class="reportedIssue lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:IssueShape</span></span>
+}</pre>
+
+          <!-- JSON example -->
+    		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ "type": "schema",
+  "shapes": {
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="state      lowlight1    ">  <span class="predicate">"predicate": "ex:state"</span>,                      </span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
+          <span class="state      lowlight1 bot">}                                               </span>
+        ]
+      }
+    },
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
+          <span class="name       lowlight1 bot">},                                              </span>
+          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span>
+          <span class="mbox       lowlight1    ">  <span class="oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>           </span>               </span>
+          <span class="mbox       lowlight1 bot">},                                              </span>
+          <span class="reportedIssue lowlight1 top">{ "type": "tripleConstraint",                      </span>
+          <span class="reportedIssue lowlight1    ">  <span class="predicate">"predicate": "ex:reportedIssue"</span>, "inverse": true,</span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>                 </span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">  "reference": <span class="user lowlight2 top bot">"my:IssueShape"</span></span>                    </span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">}              </span>                                  </span>
+          <span class="reportedIssue lowlight1 bot">}                                                  </span>
+        ]
+      }
+    }
+  }
+}</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
     	  	<pre class="instance turtle"><span class="comment"># passing data</span>
@@ -2332,7 +2093,7 @@ prepareHighlight(['name999'], "highlight1", "lowlight1");
     <span class="reportedIssue lowlight1 top bot new"><span class="type999">ex:</span><span class="constant999">reportedIssue</span> <span class="function-name">inst:User2</span></span> ;
     <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
     <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</pre>
-
+          <div></div>
     	  	<pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
 <span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> ;
@@ -2354,26 +2115,71 @@ prepareHighlight(['state999', 'reportedBy', 'reportedIssue', 'name999', 'mbox999
       </div>
 			</section>
 
+  			<section id="repeated-properties">
+  				<h3>Repeated Property Declarations</h3>
+        </section>
+
     	</section>
     	
-      <p class="note">[for editors] current beauty contest switches:<br/>
-      (<code>j</code>)son-ld vs. (<code>t</code>)urtle<br/>
-      SPARQL as SHACL (<code>b</code>)uilt-in vs. (<code>e</code>)xtension<br/>
-      Value enumerations as RDF (<code>c</code>)ollection or (<code>o</code>)bject list.
+  		<section id="examples">
+  			<h3>Additional Examples</h3>
+    		<section id="xsd:length">
+    			<h3>xsd:length</h3>
+        <div class="namespace">
+				<p>
+          Constrain the length of a foaf:name to be <span class="min lowlight2 top bot">&gt;= 3</span> and <span class="max lowlight2 top bot">&lt;= 255</span>:
+				</p>
+
+        <div class="example wrapper">
+          <!-- ShExC example -->
+    		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name">my:UserShape</span> {
+  <span class="predicate">foaf:name</span> <span class="value-constraint">http://www.w3.org/2001/XMLSchema#string <span class="min lowlight2 top bot new">MinLength 3</span> <span class="max lowlight2 top bot new">MaxLength 255</span></span>
+}</pre>
+
+          <!-- JSON example -->
+    		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+  "expression": { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
+    <span class="value-constraint">"value": { "type": "valueClass", "datatype": "http://www.w3.org/2001/XMLSchema#string",
+      <span class="min lowlight2 top bot new">"minlength": 3</span>, <span class="max lowlight2 top bot new">"maxlength": 255</span> }</span> } } }</pre>
+          <div class="verticalDivider"><!-- acts as a divider --></div>
+          <div style="float:left;">
+    	  	<pre class="instance turtle"><span class="comment"># passing data</span>
+<span class="name lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> .</pre>
+          <div></div>
+    	  	<pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
+<span class="name lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User9</span></span> <span class="type">foaf:</span><span class="constant">name</span>       <span class="min lowlight2 top bot"><span class="string top bot errorSite">"BS"</span></span></span>.</pre>
+  </div>
+          <div style="clear:both;"></div>
+      </div>
+      <script type="text/javascript">
+      <!--
+prepareHighlight(['min', 'max'], "highlight2", "lowlight2");
+prepareHighlight(['name999'], "highlight1", "lowlight1");
+      -->
+      </script>
+
+      </div>
+			</section>
+    </section>
+
+      <p class="note">[for editors] current switches:<br/>
+      (<code>j</code>)son vs. shex(<code>c</code>).
       </p>
 
         <script type="application/javascript">
 	var bodyKeypressCallbacks = {};
 
 	/* a form like
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">Turtle (press 't')</input> <input type="radio" name="presLang" value="json-ld">JSON-LD (press 'j')</input> .</form>
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
 	controls display of sections like 
-	<pre class="schema turtle">...</pre>
-	<pre class="schema json-ld">...</pre>
+	<pre class="schema shexc">...</pre>
+	<pre class="schema json">...</pre>
 	 */
 	[
 	  { lookIn: ".schema", form: "#langOptions", radioName: "presLang", keys:
-	    { 74: "json-ld", 106: "json-ld", 67: "turtle", 99: "turtle" }
+	    { 74: "json", 106: "json", 67: "shexc", 99: "shexc" }
 	  }
 	].forEach(function (x) {
 
