@@ -2134,14 +2134,18 @@ prepareHighlight(['state999', 'reportedBy', 'reportedIssue', 'name999', 'mbox999
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:UserShape</span> {
-  <span class="predicate">foaf:name</span> <span class="value-constraint">http://www.w3.org/2001/XMLSchema#string <span class="min lowlight2 top bot new">MinLength 3</span> <span class="max lowlight2 top bot new">MaxLength 255</span></span>
+  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string
+        <span class="min lowlight2 top bot new">MinLength 3</span>
+        <span class="max lowlight2 top bot new">MaxLength 255</span></span>
 }</pre>
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
 { <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
-  "expression": { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
-    <span class="value-constraint">"value": { "type": "valueClass", "datatype": "http://www.w3.org/2001/XMLSchema#string",
+  "expression": {
+    "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
+    <span class="value-constraint">"value": {
+      "type": "valueClass", "datatype": "xsd:string",
       <span class="min lowlight2 top bot new">"minlength": 3</span>, <span class="max lowlight2 top bot new">"maxlength": 255</span> }</span> } } }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
