@@ -2010,6 +2010,78 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       </div>
     </section>
 
+    
+  	<section id="shexc">
+  		<h2>ShExC Structure</h2>
+      <p>
+        We've seen several examples of ShExC.
+        Here we'll describe more completely the structure of a ShExC schema.
+      </p>
+  		<section id="Comments">
+  			<h3>Comments</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+
+  		<section id="RDF-terms">
+  			<h3>RDF Terms</h3>
+        <p class="todo">
+          TODO
+        </p>
+        <ul>
+          <li><code>Shape labels</code> and <code>value shapes</code> are IRIs or blank nodes.</li>
+          <li>Predicates are IRIs (reflecting a restriction in RDF that predicates are IRIs).
+          As in other RDF languages, the keyword <code class="keyword">a</code> is shorthand for <code>rdf:type</code>.
+          </li>
+          <li><code>Literal datatypes</code> are IRIs.</li>
+        </ul>
+        <p class="note">An additional non-RDF term called a <code>stem</code> is permitted in <a href="#value-sets"><code>value sets</code></a>.</p>
+      </section>
+
+  		<section id="prefix-base">
+  			<h3>Prefix and Base</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+
+  		<section id="nested-expressions">
+  			<h3>Nested Expression</h3>
+        <p class="todo">
+          In the examples so far, every shape has had an IRI or a blank node for a label.
+          Every shape in ShEx has a label.
+          It is possible to write ShExC without a label.
+          In this case, the label is a blank node 
+          TODO
+        </p>
+        <p class="note">
+          The JSON representation of ShEx has no corresponding shortcut.
+        </p>
+      </section>
+
+  		<section id="combined-constraints">
+  			<h3>Combined Constraints</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+
+  		<section id="labeled-constraints">
+  			<h3>Labeled Constraints</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+
+  		<section id="semantic-actions">
+  			<h3>Semantic Actions</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+    </section>
+
 		<section id="properties">
 			<h2>Other Property Constraints</h2>
     	<p>
@@ -2201,10 +2273,10 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 <span class="function-name">inst:Issue4</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> <span class="keyword">.</span>
 
-<span class="fail"><span class="function-name inst-User6 lowlight2 top bot">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
-    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
-    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
-    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</span>
+<span class="fail inst-User6 lowlight2 top"><span class="function-name">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;                    </span>
+<span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;             </span>
+<span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;</span>
+<span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>. </span>
 
 <span class="function-name">inst:User7</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
@@ -2233,15 +2305,160 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 
   			<section id="repeated-properties">
   				<h3>Repeated Property Declarations</h3>
+          <div class="namespace">
+            <p>
+              The use of generic predicates sometimes leads to their being used multiple times in the same shape.
+              In this example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced by a tester and a programmer:
+            </p>
+
+            <div class="example wrapper">
+              <!-- ShExC example -->
+    		      <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+my:IssueShape {
+  ex:state (ex:accepted ex:resolved),
+  ex:reproduced @my:TesterShape,    # Make sure it's checked by testing
+  ex:reproduced @my:ProgrammerShape # and by a programmer.
+}
+
+my:TesterShape {
+  foaf:name xsd:string,
+  ex:role (ex:testingRole)
+}
+
+my:ProgrammerShape {
+  foaf:name xsd:string,
+  ex:department (ex:ProgrammingDepartment)
+}
+</pre>
+
+              <!-- JSON example -->
+    		      <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{
+  "my:IssueShape": { "type": "shape",
+    "expression": { "type": "group",
+      "expressions": [
+        { "type": "tripleConstraint", "predicate": "ex:state",
+          "value": { "type": "valueClass", "values": [ "ex:accepted", "ex:resolved" ] }
+        },
+        { "type": "tripleConstraint", "predicate": "ex:reproduced",
+          "value": { "type": "valueClass", "reference": "my:TesterShape" }
+        },
+        { "type": "tripleConstraint", "predicate": "ex:reproduced",
+          "value": { "type": "valueClass", "reference": "my:ProgrammerShape" }
+        }
+      ]
+    }
+  },
+  "my:TesterShape": { "type": "shape",
+    "expression": { "type": "group",
+      "expressions": [
+        { "type": "tripleConstraint", "predicate": "foaf:name",
+          "value": { "type": "valueClass", "datatype": "xsd:string" }
+        },
+        { "type": "tripleConstraint", "predicate": "ex:role",
+          "value": { "type": "valueClass", "values": [ "ex:testingRole" ] }
+        }
+      ]
+    }
+  },
+  "my:ProgrammerShape": { "type": "shape",
+    "expression": { "type": "group",
+      "expressions": [
+        { "type": "tripleConstraint", "predicate": "foaf:name",
+          "value": { "type": "valueClass", "datatype": "xsd:string" }
+        },
+        { "type": "tripleConstraint", "predicate": "ex:department",
+          "value": { "type": "valueClass", "values": [ "ex:Programming" ] }
+        }
+      ]
+    }
+  }
+}</pre>
+              <div class="verticalDivider"><!-- acts as a divider --></div>
+              <div style="float:left;">
+    	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
+</pre>
+              <div></div>
+              <pre class="instance turtle fail"><span class="comment"># failing data</span>
+</pre>
+              </div>
+
+              <div style="clear:both;"></div>
+            </div>
+            <script type="text/javascript">
+            <!--
+prepareHighlight(['oneOrMore', 'eitherOr'], "highlight2", "lowlight2");
+prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
+            -->
+            </script>
+          </div>
+        </section>
+
+    	</section>
+    	
+  		<section id="value-sets">
+  			<h2>Value Sets</h2>
+        <p class="todo">
+          TODO
+        </p>
+  			<section id="stems">
+  				<h3>Stems</h3>
           <p class="todo">
             TODO
           </p>
         </section>
 
-    	</section>
+      </section>
     	
+  		<section id="other-triples">
+  			<h2>Other Triples</h2>
+        <p class="todo">
+          TODO
+        </p>
+
+  			<section id="extra-properties">
+  				<h3>Extra Properties</h3>
+          <p class="todo">
+            TODO
+          </p>
+        </section>
+
+  			<section id="closed-shapes">
+  				<h3>Closed Shapes</h3>
+          <p class="todo">
+            TODO
+          </p>
+        </section>
+
+      </section>
+    	
+  		<section id="validation-results">
+  			<h2>Validation Results</h2>
+        <p class="todo">
+          TODO
+        </p>
+  			<section id="stems">
+  				<h3>Stems</h3>
+          <p class="todo">
+            TODO
+          </p>
+        </section>
+
+      </section>
+
+  		<section id="rel-to-shacl">
+  			<h2>Relationship to SHACL</h2>
+        <p>
+          It is current unclear to what extend ShEx can be represented in SHACL.
+          The differences are mostly captured as open issues:
+        </p>
+        <ul class="todo">
+          <li></li>
+        </ul>
+      </section>
+
   		<section id="examples">
-  			<h3>Additional Examples</h3>
+  			<h2>Additional Examples</h2>
     		<section id="xsd:length">
     			<h3>xsd:length</h3>
         <div class="namespace">
