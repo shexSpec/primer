@@ -2135,7 +2135,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
         <div class="namespace">
           <p>
             We could avoid the inverse by placing a regular <code>triple constraint</code> on <span class="shape-name">my:UserShape</span> but that would require that all users have reported an issue.
-            In this example, <span class="function-name">inst:User6</span> would fail to match <span class="shape-name">my:UserShape</span>:
+            In this example, <span class="function-name inst-User6 lowlight2 top bot">inst:User6</span> would fail to match <span class="shape-name">my:UserShape</span>:
           </p>
 
           <div class="example wrapper">
@@ -2201,12 +2201,12 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 <span class="function-name">inst:Issue4</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> <span class="keyword">.</span>
 
-<span class="fail"><span class="user lowlight2 top bot"><span class="function-name">inst:User6</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+<span class="fail"><span class="function-name inst-User6 lowlight2 top bot">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
     <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</span>
 
-<span class="user lowlight2 top bot"><span class="function-name">inst:User7</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+<span class="function-name">inst:User7</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
     <span class="reportedIssue lowlight1 top bot new">ex:reportedIssue <span class="function-name">inst:Issue4</span></span> ;
     <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
@@ -2216,7 +2216,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
           </div>
           <script type="text/javascript">
           <!--
-prepareHighlight(["inversePredicate"], "highlight2", "lowlight2");
+prepareHighlight(["inst-User6"], "highlight2", "lowlight2");
 prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999"], "highlight1", "lowlight1");
               -->
             </script>
