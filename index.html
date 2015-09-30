@@ -10,7 +10,7 @@
 	          shortName:  "shex-primer",
             edDraftURI: "http://w3c.github.io/data-shapes/semantics/",
 	          editors: [
-	                {   name:       "Eric Prud'hommeaux",
+	                {   name:       "Eric Prud′hommeaux",
 	                    url:        "http://www.w3.org/People/Eric/",
 	                    company:    "W3C/MIT",
 	                    companyURL: "http://www.w3.org/" }
@@ -155,7 +155,7 @@ setTimeout(function () {
     	<section id="abstract">
 			<p>
 				The Shape Expressions (ShEx) language describes RDF graph structures.
-        A <code>shape</code> describes the triples involving nodes in RDF graphs.
+        A <code>shape</code> describes the triples touching nodes in RDF graphs.
 				These descriptions identify predicates and their associated cardinalities and datatypes.
         ShEx shapes can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
 			</p>
@@ -963,7 +963,7 @@ setTimeout(function () {
          y="12"
          clip-path="url(#clipPath20)"
          id="text3526"
-         style="stroke:none">:assignedTo</text>
+         style="stroke:none">:reproducedBy</text>
     </g>
     <g
        font-size="11"
@@ -1147,7 +1147,7 @@ setTimeout(function () {
          sodipodi:role="line"
          id="tspan6640-4-9"
          x="197.05046"
-         y="0.80997449">ex:assignedTo</tspan></text>
+         y="0.80997449">ex:reproducedBy</tspan></text>
     <path
        transform="matrix(0.50272101,0,0,0.54610605,359.65638,22.934707)"
        d="m 209.2936,29.75872 a 94.486916,34.543606 0 1 1 -188.973829,0 94.486916,34.543606 0 1 1 188.973829,0 z"
@@ -1598,7 +1598,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     		<p>
     		  To illustrate this, we can declare a schema for the data described in the <a href="#introduction">introduction</a>.
           (Mousing over the the following list items items will highlight the corresponding elements in the example text.)
-          Our first example issue must doesn't include <span class="type">ex:</span><span class="constant">assignedTo</span> as illustrated in the image above, but it must have:
+          Our first example issue must doesn't include <span class="type">ex:</span><span class="constant">reproducedBy</span> as illustrated in the image above, but it must have:
     		</p>
 
       <ul>
@@ -1681,7 +1681,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 </span>
 <span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
-    <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span></span> <span class="keyword">.</span>
+    <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span></span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
@@ -1695,7 +1695,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 </span>
 <span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant errorSite">unsinged</span></span></span> ;
-    <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span></span> <span class="keyword">.</span>
+    <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span></span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span>, <span class="string top bot errorSite">"Robert Smith"</span></span> ;
@@ -2019,15 +2019,55 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       </p>
   		<section id="Comments">
   			<h3>Comments</h3>
-        <p class="todo">
-          TODO
+        <p>
+          As in Turtle, Trig and SPARQL, comments in ShExC are prefixed by a <code class="comment">#</code> character.
+          There are <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file">no comments in JSON</a>, though there are some <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file#answer-18018493">diabolical workarounds</a>.
         </p>
+        <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name">my:UserShape</span> {                   <span class="comment"># a user has</span>
+  (                              <span class="comment">#   either</span>
+     <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>        <span class="comment">#     a user name</span>
+    |                            <span class="comment">#   or</span>
+      <span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span><span class="keyword">+</span>,<span class="comment">#     one or more given names</span>
+      <span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span> <span class="comment">#     and a family name</span>
+  ),                             
+  <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>                  <span class="comment"># and always an mbox</span>
+}</pre>
+        <pre class="schema json" style="float:left;"><span class="comment"># schema (JSON)</span>
+{ "my:UserShape": { "type": "shape", "expression": "a user has",
+    "expression": { "type": "group",
+      "expressions": [
+        { "type": "someOf",
+          "expressions": [
+                                                                              
+            { "type": "tripleConstraint", "predicate": "foaf:name",        
+              "value": { "type": "valueClass", "datatype": "xsd:string" } },
+                                                                              
+                                                                              
+            { "type": "group",
+              "expressions": [
+                { "type": "tripleConstraint", "predicate": "foaf:givenName",  
+                  "value": { "type": "valueClass", "datatype": "xsd:string" },
+                  "min": 1, "max": "*" },                                     
+                { "type": "tripleConstraint", "predicate": "foaf:familyName",  
+                  "value": { "type": "valueClass", "datatype": "xsd:string" } }
+              ]
+            }
+                                                                              
+          ]
+        },
+        { "type": "tripleConstraint", "predicate": "foaf:mbox", 
+          "value": { "type": "valueClass", "datatype": "IRI" } }
+      ]
+    }
+  }
+}</pre>
       </section>
 
   		<section id="RDF-terms">
   			<h3>RDF Terms</h3>
         <p class="todo">
-          TODO
+          The 
         </p>
         <ul>
           <li><code>Shape labels</code> and <code>value shapes</code> are IRIs or blank nodes.</li>
@@ -2082,6 +2122,28 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       </section>
     </section>
 
+  	<section id="other-triples">
+  		<h2>Other Triples</h2>
+      <p class="todo">
+        TODO
+      </p>
+
+  		<section id="extra-properties">
+  			<h3>Extra Properties</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+
+  		<section id="closed-shapes">
+  			<h3>Closed Shapes</h3>
+        <p class="todo">
+          TODO
+        </p>
+      </section>
+
+    </section>
+    	
 		<section id="properties">
 			<h2>Other Property Constraints</h2>
     	<p>
@@ -2159,7 +2221,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <div style="float:left;">
     	  	  <pre class="instance turtle"><span class="comment"># passing data</span>
 <span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
-    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> <span class="keyword">.</span>
+    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
@@ -2170,7 +2232,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     	  	  <pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
 <span class="function-name">inst:Issue2</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>         <span class="type">ex:</span><span class="constant">unassigned</span></span> ;
-    <span class="reportedIssue lowlight1 top bot errorSite">ex:reportedIssue <span class="function-name">inst:User4</span></span> <span class="keyword">.</span>
+    <span class="reportedIssue lowlight1 top bot errorSite">ex:reportedIssue <span class="function-name">inst:User4</span></span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>        <span class="string top bot">"Bob Smith"</span></span> ;
@@ -2180,7 +2242,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     	  	  <pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
 <span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>         <span class="type">ex:</span><span class="constant">unassigned</span></span> ;
-    <span class="reportedBy lowlight1 top bot errorSite">ex:reportedBy <span class="function-name">inst:User5</span></span> <span class="keyword">.</span>
+    <span class="reportedBy lowlight1 top bot errorSite">ex:reportedBy <span class="function-name">inst:User5</span></span> .
 <span class="user lowlight2 top bot"><span class="function-name">inst:User5</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>        <span class="string top bot">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>        <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
@@ -2271,7 +2333,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
             <div style="float:left;">
     	  	  <pre class="instance turtle"><span class="comment"># passing data</span>
 <span class="function-name">inst:Issue4</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
-    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> <span class="keyword">.</span>
+    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .
 
 <span class="fail inst-User6 lowlight2 top"><span class="function-name">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;                    </span>
 <span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;             </span>
@@ -2308,7 +2370,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
           <div class="namespace">
             <p>
               The use of generic predicates sometimes leads to their being used multiple times in the same shape.
-              In this example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced by a <span class="hilight-tester lowlight1 top bot">tester</span> and a <span class="hilight-programmer lowlight1 top bot">programmer</span>:
+              In this example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced by a <span class="hilight-tester lowlight2 top bot">tester</span> and a <span class="hilight-programmer lowlight2 top bot">programmer</span>:
             </p>
 
             <div class="example wrapper">
@@ -2316,19 +2378,19 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
     		      <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> (<span class="value-constraint">ex:accepted ex:resolved</span>),
-  <span class="hilight-tester lowlight1 top bot new"><span class="predicate">ex:reproduced</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>,    <span class="comment"># Make sure it's checked by testing</span>
-  <span class="hilight-programmer lowlight1 top bot new"><span class="predicate">ex:reproduced</span> <span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span></span> <span class="comment"># and by a programmer.</span>
+  <span class="hilight-tester lowlight2 top bot new"><span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>,    <span class="comment"># Make sure it's checked by testing</span>
+  <span class="hilight-programmer lowlight2 top bot new"><span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span></span> <span class="comment"># and by a programmer.</span>
 }
 
-<span class="hilight-tester lowlight1 top"><span class="shape-name">my:TesterShape</span> {          </span>
-<span class="hilight-tester lowlight1    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,   </span>
-<span class="hilight-tester lowlight1    ">  <span class="predicate">ex:role</span> (<span class="value-constraint">ex:testingRole</span>)</span>
-<span class="hilight-tester lowlight1 bot">}                         </span>
+<span class="hilight-tester lowlight2 top"><span class="shape-name">my:TesterShape</span> {          </span>
+<span class="hilight-tester lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,   </span>
+<span class="hilight-tester lowlight2    ">  <span class="predicate">ex:role</span> (<span class="value-constraint">ex:testingRole</span>)</span>
+<span class="hilight-tester lowlight2 bot">}                         </span>
 
-<span class="hilight-programmer lowlight1 top"><span class="shape-name">my:ProgrammerShape</span> {                      </span>
-<span class="hilight-programmer lowlight1    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,                   </span>
-<span class="hilight-programmer lowlight1    ">  <span class="predicate">ex:department</span> (<span class="value-constraint">ex:ProgrammingDepartment</span>)</span>
-<span class="hilight-programmer lowlight1 bot">}                                         </span>
+<span class="hilight-programmer lowlight2 top"><span class="shape-name">my:ProgrammerShape</span> {                      </span>
+<span class="hilight-programmer lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,                   </span>
+<span class="hilight-programmer lowlight2    ">  <span class="predicate">ex:department</span> (<span class="value-constraint">ex:ProgrammingDepartment</span>)</span>
+<span class="hilight-programmer lowlight2 bot">}                                         </span>
 </pre>
 
               <!-- JSON example -->
@@ -2340,77 +2402,135 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
         { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
           <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproduced"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-tester lowlight1 top bot">"reference": "my:TesterShape"</span></span> }
+        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproduced"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-programmer lowlight1 top bot">"reference": "my:ProgrammerShape"</span></span> }
+        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-programmer lowlight2 top bot">"reference": "my:ProgrammerShape"</span></span> }
         }
       ]
     }
   },
-  <span class="hilight-tester lowlight1 top">"my:TesterShape": { "type": "shape",                                     </span>
-  <span class="hilight-tester lowlight1    ">  "expression": { "type": "group",                                       </span>
-  <span class="hilight-tester lowlight1    ">    "expressions": [                                                     </span>
-  <span class="hilight-tester lowlight1    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-tester lowlight1    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
-  <span class="hilight-tester lowlight1    ">      },                                                                 </span>
-  <span class="hilight-tester lowlight1    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:role"</span>,              </span>
-  <span class="hilight-tester lowlight1    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:testingRole" ] }</span></span>
-  <span class="hilight-tester lowlight1    ">      }                                                                  </span>
-  <span class="hilight-tester lowlight1    ">    ]                                                                    </span>
-  <span class="hilight-tester lowlight1    ">  }                                                                      </span>
-  <span class="hilight-tester lowlight1 bot">},                                                                       </span>
-  <span class="hilight-programmer lowlight1 top">"my:ProgrammerShape": { "type": "shape",                                 </span>
-  <span class="hilight-programmer lowlight1    ">  "expression": { "type": "group",                                       </span>
-  <span class="hilight-programmer lowlight1    ">    "expressions": [                                                     </span>
-  <span class="hilight-programmer lowlight1    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-programmer lowlight1    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
-  <span class="hilight-programmer lowlight1    ">      },                                                                 </span>
-  <span class="hilight-programmer lowlight1    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-programmer lowlight1    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:Programming" ] }</span></span>
-  <span class="hilight-programmer lowlight1    ">      }                                                                  </span>
-  <span class="hilight-programmer lowlight1    ">    ]                                                                    </span>
-  <span class="hilight-programmer lowlight1    ">  }                                                                      </span>
-  <span class="hilight-programmer lowlight1 bot">}                                                                        </span>
+  <span class="hilight-tester lowlight2 top">"my:TesterShape": { "type": "shape",                                     </span>
+  <span class="hilight-tester lowlight2    ">  "expression": { "type": "group",                                       </span>
+  <span class="hilight-tester lowlight2    ">    "expressions": [                                                     </span>
+  <span class="hilight-tester lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-tester lowlight2    ">      },                                                                 </span>
+  <span class="hilight-tester lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:role"</span>,              </span>
+  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:testingRole" ] }</span></span>
+  <span class="hilight-tester lowlight2    ">      }                                                                  </span>
+  <span class="hilight-tester lowlight2    ">    ]                                                                    </span>
+  <span class="hilight-tester lowlight2    ">  }                                                                      </span>
+  <span class="hilight-tester lowlight2 bot">},                                                                       </span>
+  <span class="hilight-programmer lowlight2 top">"my:ProgrammerShape": { "type": "shape",                                 </span>
+  <span class="hilight-programmer lowlight2    ">  "expression": { "type": "group",                                       </span>
+  <span class="hilight-programmer lowlight2    ">    "expressions": [                                                     </span>
+  <span class="hilight-programmer lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-programmer lowlight2    ">      },                                                                 </span>
+  <span class="hilight-programmer lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
+  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-programmer lowlight2    ">      }                                                                  </span>
+  <span class="hilight-programmer lowlight2    ">    ]                                                                    </span>
+  <span class="hilight-programmer lowlight2    ">  }                                                                      </span>
+  <span class="hilight-programmer lowlight2 bot">}                                                                        </span>
 }</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
-  <span class="type">ex:</span><span class="constant">reproduced</span> <span class="type">inst:</span><span class="constant">Tester2</span> ;
-  <span class="type">ex:</span><span class="constant">reproduced</span> <span class="type">inst:</span><span class="constant">Programmer3</span> <span class="keyword">.</span>
+  <span class="hilight-tester lowlight2 top bot"><span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="type">inst:</span><span class="constant">Tester2</span></span> ;
+  <span class="hilight-programmer lowlight2 top bot"><span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="type">inst:</span><span class="constant">Programmer3</span></span> .
 
-<span class="type">inst:</span><span class="constant">Tester2</span> 
-  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> <span class="keyword">.</span>
+<span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester2</span>              </span>
+<span class="hilight-tester lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;  </span>
+<span class="hilight-tester lowlight2 bot">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> .</span>
 
-<span class="type">inst:</span><span class="constant">Programmer3</span>
-  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> <span class="keyword">.</span></pre>
+<span class="hilight-programmer lowlight2 top"><span class="type">inst:</span><span class="constant">Programmer3</span>                          </span>
+<span class="hilight-programmer lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-programmer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
               <div></div>
               <pre class="instance turtle fail"><span class="comment"># failing data</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
-  <span class="type">ex:</span><span class="constant">reproduced</span> <span class="type">inst:</span><span class="constant">Tester2</span> ;
-  <span class="type">ex:</span><span class="constant">reproduced</span> <span class="type">inst:</span><span class="constant">Tester4</span> <span class="keyword">.</span>
+  <span class="hilight-tester lowlight2 top"><span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="type">inst:</span><span class="constant">Tester2</span></span> ;
+  <span class="hilight-tester lowlight2 bot"><span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="type">inst:</span><span class="constant">Tester4</span></span> .
 
-<span class="type">inst:</span><span class="constant">Tester2</span> 
-  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> <span class="keyword">.</span>
+<span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester2</span>              </span>
+<span class="hilight-tester lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;  </span>
+<span class="hilight-tester lowlight2 bot">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> .</span>
 
-<span class="type">inst:</span><span class="constant">Tester4</span>
-  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> <span class="keyword">.</span></pre>
+<span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester4</span>              </span>
+<span class="hilight-tester lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;  </span>
+<span class="hilight-tester lowlight2 bot">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> .</span></pre>
               </div>
 
-              <div style="clear:both;"></div>
+            <script type="text/javascript">
+            <!--
+prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlight2");
+            -->
+            </script>
+          </div>
+          <div class="namespace">
+
+              <div class="issue" style="clear:both;">
+              <p>
+                There is some question as to what the preferred behavior should be if one triple satisfied more than one property constraint.
+                In the example above, someone acting as <span class="hilight-testgrammer lowlight2 top bot">both a programmer and a tester</span> would appear to satisfy the schema.
+              </p>
+
+    		      <pre class="instance turtle" style="float:left;"><span class="comment"># one combination tester/programmer</span>
+<span class="type">inst:</span><span class="constant">Issue1</span>
+  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-testgrammer lowlight2 top bot"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> .
+
+<span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer23</span>                        </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
+<span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
+              <div class="verticalDivider"><!-- acts as a divider --></div>
+    	  	    <pre class="instance turtle" style="float:left"><span class="comment"># one tester and one combination </span>
+<span class="type">inst:</span><span class="constant">Issue1</span>
+  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="type">inst:</span><span class="constant">Tester2</span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-testgrammer lowlight2 top bot"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> .
+
+<span class="type">inst:</span><span class="constant">Tester2</span>              
+  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;  
+  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> .
+
+<span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer23</span>                        </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
+<span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
+              <div class="verticalDivider"><!-- acts as a divider --></div>
+              <pre class="instance turtle" style="float:left"><span class="comment"># two combinations</span>
+<span class="type">inst:</span><span class="constant">Issue1</span>
+  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-testgrammer lowlight2 bot"><span class="type">inst:</span><span class="constant">Testgrammer45</span></span> .
+
+<span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer23</span>                        </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
+<span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span>
+
+<span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer45</span>                        </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
+<span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
+
+              <p style="clear:both;">
+                The behavior in this case is currently undefined with the expectation that a future version will standardize this.
+              </p>
+            </div>
+
             </div>
             <script type="text/javascript">
             <!--
-prepareHighlight(["oneOrMore999", "eitherOr999"], "highlight2", "lowlight2");
-prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight1", "lowlight1");
+prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer"], "highlight2", "lowlight2");
             -->
             </script>
           </div>
@@ -2425,28 +2545,6 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight1", "lowlig
         </p>
   			<section id="stems">
   				<h3>Stems</h3>
-          <p class="todo">
-            TODO
-          </p>
-        </section>
-
-      </section>
-    	
-  		<section id="other-triples">
-  			<h2>Other Triples</h2>
-        <p class="todo">
-          TODO
-        </p>
-
-  			<section id="extra-properties">
-  				<h3>Extra Properties</h3>
-          <p class="todo">
-            TODO
-          </p>
-        </section>
-
-  			<section id="closed-shapes">
-  				<h3>Closed Shapes</h3>
           <p class="todo">
             TODO
           </p>
