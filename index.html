@@ -131,6 +131,8 @@
 #respecHeader img { display: none; }
 .issue div p { margin-left: 1em; }
 pre.shh { display: table; }
+.compact p { margin: 0; }
+.compact li { margin-bottom: 1ex; }
 		</style>
     <script src="jquery.min.js" type= "text/javascript"></script>
     <script type="text/javascript"><!--
@@ -1510,7 +1512,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
           This triple constraint had a single <code>value constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
           <code>Property constraints</code> can include combinations of the following constraints:
         </p>
-        <ul>
+        <ul class="compact">
           <li><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
     		  <pre class="schema shexc shh">my:UserShape {
   foaf:name <span class="value-constraint new">xsd:string</span>
@@ -1550,7 +1552,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
             Node kinds are not case-sensitive in ShExC.
           </p>
           </li>
-          <li><code>value set</code>: enumerates specific expected values, e.g.
+          <li id="vocab-value-set"><code>value set</code>: enumerates specific expected values, e.g.
     		  <pre class="schema shexc shh">my:IssueShape {
   ex:state <span class="value-constraint new">(ex:unassigned ex:assigned)</span>
 }</pre>
@@ -1558,25 +1560,9 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 { "my:IssueShape": { "type": "shape",
   "expression": { "type": "tripleConstraint", "predicate": "ex:status",
     "value": { "type": "valueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
-          <p style="margin: 0;">
-            Fixed values are represented as value sets with one member.
-            For example, a required type triple can be expressed like
+          <p>
+            See the <a href="#value-sets">Value Sets description below</a> for details.
           </p>
-    		  <pre class="schema shexc shh">my:UserShape {
-  rdf:type <span class="value-constraint new">(foaf:Person)</span>
-}</pre>
-          <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "rdf:type",
-    "value": { "type": "valueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
-          <p style="margin: 0;">
-            or using the keyword <code class="keyword">a</code>:
-          </p>
-    		  <pre class="schema shexc shh">my:UserShape {
-  <span class="keyword">a</span> <span class="value-constraint new">(foaf:Person)</span>
-}</pre>
-          <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "a",
-    "value": { "type": "valueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
           </li>
           <li><code>value shape</code>: asserts that the object is described by another shape, e.g.
     		  <pre class="schema shexc shh">my:IssueShape {
@@ -3162,9 +3148,35 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
     	
   		<section id="value-sets">
   			<h2>Value Sets</h2>
-        <p class="todo">
-          TODO
+        <p>
+          As described <a href="#vocab-value-set">above in Vocabulary</a>, <code>value sets</code> in a <code>value constraint</code> enumerate permissible values for some property.
         </p>
+    		<pre class="schema shexc shh">my:IssueShape {
+  ex:state <span class="value-constraint new">(ex:unassigned ex:assigned)</span>
+}</pre>
+        <pre class="schema json shh">
+{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "ex:status",
+    "value": { "type": "valueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+        <p style="margin: 0;">
+          Fixed values are represented as value sets with one member.
+          For example, a required type triple can be expressed like
+        </p>
+    		<pre class="schema shexc shh">my:UserShape {
+  rdf:type <span class="value-constraint new">(foaf:Person)</span>
+}</pre>
+        <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "rdf:type",
+    "value": { "type": "valueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+        <p style="margin: 0;">
+          or using the keyword <code class="keyword">a</code>:
+        </p>
+    		<pre class="schema shexc shh">my:UserShape {
+  <span class="keyword">a</span> <span class="value-constraint new">(foaf:Person)</span>
+}</pre>
+        <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
+  "expression": { "type": "tripleConstraint", "predicate": "a",
+    "value": { "type": "valueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
   			<section id="stems">
   				<h3>Stems</h3>
           <p class="todo">
