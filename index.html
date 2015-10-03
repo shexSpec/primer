@@ -6,7 +6,7 @@
     	<script src='respec-w3c-common.js' async class='remove'></script>
 	    <script class='remove'>
 	      var respecConfig = {
-	          specStatus: "ED",
+	          specStatus: "base",
 	          shortName:  "shex-primer",
             edDraftURI: "http://w3c.github.io/data-shapes/semantics/",
 	          editors: [
@@ -124,15 +124,11 @@
 .errorSite      { color: red; }
 
 
-#respecHeader dl dt:nth-child(3) { display: none; }
-#respecHeader dl dt:nth-child(3) + dd { display: none; }
-.copyright { display: none; }
-#sotd { display: none; }
-#respecHeader img { display: none; }
 .issue div p { margin-left: 1em; }
 pre.shh { display: table; }
 .compact p { margin: 0; }
 .compact li { margin-bottom: 1ex; }
+#respecDocument img { width: 72px; }
 		</style>
     <script src="jquery.min.js" type= "text/javascript"></script>
     <script type="text/javascript"><!--
@@ -151,15 +147,11 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     .addClass(offClass);
   })
 }
-
-// horrible hack to not claim to be a W3C spec.
-setTimeout(function () {
-  $('#respecHeader img').attr('src', 'http://www.w3.org/2015/ShEx-Icon.svg').fadeTo(1000, 1);
-}, 1000);
 --> </script>
   	</head>
   	<body>
 
+      <img src="http://www.w3.org/2015/ShEx-Icon.svg"></img>
     	<section id="abstract">
 			<p>
 				The Shape Expressions (ShEx) language describes RDF graph structures.
