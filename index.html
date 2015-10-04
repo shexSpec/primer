@@ -1365,7 +1365,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     		<h2>Document Conventions</h2>
 
       		<p>
-      			This document uses the following namespace prefixes are used:
+      			This document uses the following namespace prefixes are frequently used in this document:
       		</p>
       		<table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
       			<tr>
@@ -3300,8 +3300,10 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
     	
   		<section id="validation-results">
   			<h2>Validation Results</h2>
-        <p class="todo">
-          TODO
+        <p>
+          When ShEx is used for validation, the results have a defined JSON representation which captures all expressions which passed validation and all triple patterns which matched some triples in the tested data.
+          This structure reports the tree traversed in a successful validation, using the same expression structures as the JSON representation of ShEx.
+          Each validated <code>triple constraint</code> includes the matching triple, including the tree reported from validating any <code>value shapes</code> in the triple constraint.
         </p>
       </section>
 
@@ -3309,10 +3311,15 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   			<h2>Relationship to SHACL</h2>
         <p>
           It is current unclear to what extend ShEx can be represented in SHACL.
-          The differences are mostly captured as open issues:
+          Some of the obvious differences are captured as open issues:
         </p>
-        <ul class="todo">
-          <li></li>
+        <ul>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/92">Should repeated properties be interpreted as additive or conjunctive?</a></li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/22">Treatment of recursive shape definitions</a></li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/23">Shapes as classes</a></li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/52">Define an Abstract Syntax for SHACL</a></li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/57">Cardinalities on expressions or groups of triple constraints</a></li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/80">Constraint to limit IRIs against scheme/namespace, possibly with dereferencing</a></li>
         </ul>
       </section>
 
