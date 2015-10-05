@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+  	<head>
+       	<title>Shape Expressions (ShEx) JSON Formats</title>
+    	<meta charset='utf-8'></meta>
+    	<script src='respec-w3c-common.js' async class='remove'></script>
+	    <script class='remove'>
+	      var respecConfig = {
+	          specStatus: "base",
+	          shortName:  "shex-primer",
+            edDraftURI: "http://w3c.github.io/data-shapes/ShExJ/",
+	          editors: [
+	                {   name:       "Eric Prud′hommeaux",
+	                    url:        "http://www.w3.org/People/Eric/",
+	                    company:    "W3C/MIT",
+	                    companyURL: "http://www.w3.org/" }
+	          ],
+	          // wg:           "Shape Expressions ",
+	          // wgURI:        "https://shex.io/",
+	          // wgPublicList: "public-shex-dev",
+	          // wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
+	      };
+	    </script>
+		<style>
+      tr th { text-align: center; }
+			.todo {
+				color: red;
+			}
+		    pre {
+				tab-size: 4;
+		    }
+			th {
+				text-align: left;
+			}
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .shh { color: #bbb; margin:0; }
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .function-name {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .function-name:visited {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .shape-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .shape-name:visited {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .constraint-name { color: #a08000; }
+      .predicate {
+        /* font-lock-variable-name-face */
+        color: #522da0;
+      }
+      .value-constraint {
+        /* font-lock-variable-name-face */
+        color: #2d52a0;
+      }
+      .example {
+        display: inline-block;
+      }
+      .example.wrapper {
+        background-color: #fff;
+      }
+      .example.wrapper pre {
+        background-color: #fcfaee;
+        margin-left: 0;
+        line-height: 1.2;
+        display: table;
+      }
+      .example.wrapper .fail {
+        background-color: #fceefa
+      }
+      pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
+      pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
+      pre.instance { border: thick solid #f8f6ea; }
+      .verticalDivider {
+        float: left;
+        width: .5em;
+        border:thin solid #fff; /* disappears without this */
+      }
+
+.highlight1     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 176, 0, .5); border-right: 5px solid rgba(176, 176, 0, .5); } /* font-weight: bold  ;  */
+.highlight1.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+.highlight1.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+.lowlight1      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid transparent; border-right: 5px solid transparent;                     } /* font-weight: normal;  */
+.lowlight1.top  {    margin-top: -5px;                      border-top: 5px solid transparent;                                                          } /* font-weight: normal;  */
+.lowlight1.bot  { margin-bottom: -5px;                   border-bottom: 5px solid transparent;                                                          } /* font-weight: normal;  */
+.highlight2     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 0, 176, .5); border-right: 5px solid rgba(176, 0, 176, .5); } /* font-weight: bold  ;  */
+.highlight2.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+.highlight2.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+.lowlight2      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(127, 127, 127, .07); border-right: 5px solid rgba(127, 127, 127, .07);         } /* font-weight: normal;  */
+.lowlight2.top  {    margin-top: -5px;                      border-top: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+.lowlight2.bot  { margin-bottom: -5px;                   border-bottom: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+
+.highlightBG1   { /* border: 5px solid transparent; */ background-color: #bb0; font-weight: bold; }
+.lowlightBG1    { /* border: 5px solid transparent; */ font-weight: normal; }
+.highlightBG2   { /* border: 5px solid transparent; */ background-color: #b00; font-weight: bold; }
+.lowlightBG2    { /* border: 5px solid transparent; */ font-weight: normal; }
+
+.new            { font-weight: bold; }
+.errorSite      { color: red; }
+
+
+.issue div p { margin-left: 1em; }
+pre.shh { display: table; }
+.compact p { margin: 0; }
+.compact li { margin-bottom: 1ex; }
+#respecDocument img { width: 72px; }
+a.ref { color: #c83500; font-family: monospace; }
+a.ref:visited { color: #a00550; font-family: monospace; }
+.example.wrapper pre+pre { margin-top: 0; }
+#closed-shapes-example-2 pre { margin-top: 0; }
+
+a.dfnref  { background-color: #e0e0ff; }
+a.dclref  { background-color: #e0ffe0; }
+.dfnspan { color: #000080; }
+.dclspan { color: #008000; }
+		</style>
+    <script src="jquery.min.js" type= "text/javascript"></script>
+    <script type="text/javascript"><!--
+function prepareHighlight (highlightables, onClass, offClass, slide) {
+  if (slide === undefined)
+    slide = $("body .namespace").last();
+  $.each( highlightables, function( index, value ){
+    var elts = slide.find( "."+value );
+    elts
+  	.mouseenter(function() {
+  	    elts.removeClass(offClass).addClass(onClass);
+  	})
+  	.mouseleave(function() {
+  	    elts.removeClass(onClass).addClass(offClass);
+  	})
+    .addClass(offClass);
+  })
+}
+--> </script>
+  	</head>
+  	<body>
+
+    	<section id="abstract">
+			<p>
+				The Shape Expressions (ShEx) language describes RDF graph structures.
+        A <code>shape</code> describes the triples touching nodes in RDF graphs.
+				These descriptions identify predicates and their associated cardinalities and datatypes.
+        ShEx shapes can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
+			</p>
+			<p>
+				This document defines the Shape Expressions JASON (ShExJ) format.
+			</p>  	
+		  </section>
+    
+    	<section id="introduction">
+      		<h2>Introduction</h2>
+      		<p>
+            Most applications that share data do so using prescribed data structures.
+            While RDFS and OWL enable one to make assertions about the objects in some domain, ShEx describes data structures.
+      			This document defines the portable JSON structure which expresses ShEx schemas.
+      		</p>
+
+    	</section>
+    	
+    	<section id="syntax">
+    		<h2>Notation</h2>
+
+      		<p>
+      			The ShExJ structure is consists of lists and maps typed objects.
+            These are represented as <span class="dfnspan">definitions</span> in the following grammar.
+            The content of some constructs involve many choices.
+            These are represented as <span class="dclspan">declarations</span>.
+      		</p>
+
+          <ul>
+            <li><span class="dfnspan">typeName</span> - a JSON object with a type property with the value "typeName" and the attributes listed to the right of the ":"</li>
+            <li>Each attribute is followed by a ":" identifying its type.
+            "[typeName]" identifies a list of objects with a type "typeName".
+            "[type1-&gt;type2] identifies a map from type1 to type2.</li>
+            <li><span class="dclspan">declName</span> - a hierarchical representation of choices in the grammar similar to BNF.
+            Declarations don't directly produce JSON objects; instead they capture the possible choices of defined objects or terminals.</li>
+          </ul>
+
+          <p style="margin:0;">
+            For example, the first production:
+          </p>
+          <pre style="margin:0;">
+<span class="dfnspan" id="dfn-schema">schema           : prefixes:[<a class="dclref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="dclref" href="#dcl-IRI">IRI</a>] startActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>] start:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> shapes:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="dfnref" href="#dfn-shape">shape</a>]</span></pre>
+          <p style="margin:0;">
+            indicates that a schema object will have these properties:
+          </p>
+          <ul>
+            <li>"type": "schema"</li>
+            <li>"prefixes": a JSON object which maps <a class="dclref" href="#dcl-PREFIX">PREFIX</a>es to <a class="dclref" href="#dcl-IRI">IRI</a>s.
+            The <a href="#dcl-PREFIX">PREFIX declaration</a> below identifies the terminal in the Turtle grammar which defines the lexical form of prefix.
+            </li>
+            <li>"startActs": a JSON structure with the type "<a class="dfnref" href="#dfn-semAct">semAct</a>"</li>
+            <li>"shapes": a JSON object which maps <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>s to <a class="dfnref" href="#dfn-shape">shape</a>s.</li>
+          </ul>
+
+          <p>
+            The <a class="dfnref" href="#dfn-valueClass">valueClass</a> definition asserts that a value class object can have any of:
+          </p>
+
+          <ul>
+            <li>A "nodeKind" of "literal" and any number of <a class="dclref" href="#dcl-xsFacet">xsFacet</a>s.
+            The xsFacets are declared as being either a <a class="dclref" href="#dcl-stringFacet">stringFacet</a> or a <a class="dclref" href="#dcl-numericFacet">numericFacet</a>.
+            These are in turn defined below.
+            For instance, a <a class="dclref" href="#dcl-stringFacet">stringFacet</a> can be e.g. "length":5 or "pattern":"^http://".
+            <pre>{"type":"valueClass", "length":5, "pattern":"http://"}</pre>
+            </li>
+            <li>A "nodeKind" of "iri", "bnode" or "nonliteral",  </li>
+            <li class="todo">...</li>
+            <li></li>
+            <li></li>
+          </ul>
+
+      </section>
+
+    	<section id="tripleConstraints">
+    		<h2>Triple Constraints</h2>
+        <pre>
+<span class="dfnspan" id="dfn-schema">schema</span>           : prefixes:[<a class="dclref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="dclref" href="#dcl-IRI">IRI</a>] startActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>] start:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> shapes:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="dfnref" href="#dfn-shape">shape</a>]
+<span class="dclspan" id="dcl-PREFIX">PREFIX</span>           = <a href="http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS">&lt;http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS&gt;</a>
+<span class="dclspan" id="dcl-shapeLabel">shapeLabel</span>       = <a class="dclref" href="#dcl-IRI">IRI</a>
+<span class="dclspan" id="dcl-IRI">IRI</span>              = <a href="http://www.w3.org/TR/turtle/#grammar-production-IRIREF">&lt;http://www.w3.org/TR/turtle/#grammar-production-IRIREF&gt;</a>
+<span class="dclspan" id="dcl-BOOL">BOOL</span>             = "true"|"false"
+<span class="dfnspan" id="dfn-shape">shape</span>            : virtual:<a class="dclref" href="#dcl-BOOL">BOOL</a>? closed:<a class="dclref" href="#dcl-BOOL">BOOL</a>? extra:[<a class="dclref" href="#dcl-IRI">IRI</a>] expression:<a class="dclref" href="#dcl-expr">expr</a>? inherit:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>]
+<span class="dfnspan" id="dfn-semAct">semAct</span>           : name:<a class="dclref" href="#dcl-IRI">IRI</a> code:<a class="dclref" href="#dcl-STRING">STRING</a>
+<span class="dclspan" id="dcl-expr">expr</span>             = <a class="dfnref" href="#dfn-group">group</a>
+                 | <a class="dfnref" href="#dfn-someOf">someOf</a>
+                 | <a class="dfnref" href="#dfn-tripleConstraint">tripleConstraint</a>
+                 | <a class="dfnref" href="#dfn-inclusion">inclusion</a>
+<span class="dfnspan" id="dfn-group">group</span>            : expressions:[<a class="dclref" href="#dcl-expr">expr</a>] min:<a class="dclref" href="#dcl-BOOL">BOOL</a>? max:<a class="dclref" href="#dcl-BOOL">BOOL</a>? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]
+<span class="dfnspan" id="dfn-someOf">someOf</span>           : expressions:[<a class="dclref" href="#dcl-expr">expr</a>] min:<a class="dclref" href="#dcl-BOOL">BOOL</a>? max:<a class="dclref" href="#dcl-BOOL">BOOL</a>? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]
+<span class="dfnspan" id="dfn-inclusion">inclusion</span>        : include:shapeLabel
+<span class="dfnspan" id="dfn-tripleConstraint">tripleConstraint</span> : value:<a class="dfnref" href="#dfn-valueClass">valueClass</a> min:<a class="dclref" href="#dcl-BOOL">BOOL</a>? max:<a class="dclref" href="#dcl-BOOL">BOOL</a>? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]
+<span class="dfnspan" id="dfn-valueClass">valueClass</span>       : nodeKind:"literal" <a class="dclref" href="#dcl-xsFacet">xsFacet</a>*
+                 | nodeKind:("iri"|"bnode"|"nonliteral") <a class="dclref" href="#dcl-groupShapeConstr">groupShapeConstr</a>? <a class="dclref" href="#dcl-stringFacet">stringFacet*</a>
+                 | datatype:IRI <a class="dclref" href="#dcl-xsFacet">xsFacet</a>*
+                 | <a class="dclref" href="#dcl-groupShapeConstr">groupShapeConstr</a>
+                 | values[valueSetValue] @@
+                 | 
+<span class="dclspan" id="dcl-groupShapeConstr">groupShapeConstr</span> = reference:(valueConstraintLabel @@ | <a class="dfnref" href="#dfn-or">or</a>)
+<span class="dfnspan" id="dfn-or">or</span>               : disjuncts[<a class="dclref" href="#dcl-expr">expr</a>]
+<span class="dclspan" id="dcl-xsFacet">xsFacet</span>          = <a class="dclref" href="#dcl-stringFacet">stringFacet</a> | <a class="dclref" href="#dcl-numericFacet">numericFacet</a>
+<span class="dclspan" id="dcl-stringFacet">stringFacet</span>      = ("length"|"minlength"|"maxlength"):<a class="dclref" href="#dcl-INTEGER">INTEGER</a> | "pattern":<a class="dclref" href="#dcl-STRING">STRING</a>
+<span class="dclspan" id="dcl-numericFacet">numericFacet</span>     = ("mininclusive"|"minexclusive"|"maxinclusive"|"maxexclusive"):<a class="dclref" href="#dcl-numericLiteral">numericLiteral</a>
+                 | ("totaldigits"|"fractiondigits"):<a class="dclref" href="#dcl-INTEGER">INTEGER</a>
+<span class="dclspan" id="dcl-numericLiteral">numericLiteral</span>   = <a class="dclref" href="#dcl-INTEGER">INTEGER</a>|<a class="dclref" href="#dcl-DECIMAL">DECIMAL</a>|<a class="dclref" href="#dcl-DOUBLE">DOUBLE</a>
+<span class="dclspan" id="dcl-INTEGER">INTEGER</span>          = <a href="http://www.w3.org/TR/turtle/#grammar-production-INTEGER">&lt;http://www.w3.org/TR/turtle/#grammar-production-INTEGER&gt;</a>
+<span class="dclspan" id="dcl-DECIMAL">DECIMAL</span>          = <a href="http://www.w3.org/TR/turtle/#grammar-production-DECIMAL">&lt;http://www.w3.org/TR/turtle/#grammar-production-DECIMAL&gt;</a>
+<span class="dclspan" id="dcl-DOUBLE">DOUBLE</span>           = <a href="http://www.w3.org/TR/turtle/#grammar-production-DOUBLE">&lt;http://www.w3.org/TR/turtle/#grammar-production-DOUBLE&gt;</a>
+<span class="dclspan" id="dcl-STRING">STRING</span>           = '"' ([^"] | '\\' '"')* '"' # JSON string with '"' at beginning and end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </pre>
+      </section>
+
+        <script type="application/javascript">
+	var bodyKeypressCallbacks = {};
+
+	/* a form like
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
+	controls display of sections like 
+	<pre class="schema shexc">...</pre>
+	<pre class="schema json">...</pre>
+	 */
+	[
+	  { lookIn: ".schema", form: "#langOptions", radioName: "presLang", keys:
+	    { 74: "json", 106: "json", 67: "shexc", 99: "shexc" }
+	  }
+	].forEach(function (x) {
+
+	  /* In lookIn, reveal classes selected by radioName; hide others.
+	   */
+	  function revealClass (lookIn, form, radioName) {
+            $(lookIn+"."+$(form+" input[name="+radioName+"]").not(":checked").val()).hide();
+            $(lookIn+"."+$(form+" input[name="+radioName+"]" +    ":checked").val()).show();
+          }
+	  /* Look in all lookIn containers for the height different of from and to targets.
+	   */
+          function adjustHeight (lookIn, from, to) {
+            var visibleTop = $(window).scrollTop();
+            var all = $(lookIn+"."+from); // all containers of from (and presumably, to)
+            var adj = 0;
+            for (var i = 0; i < all.length; ++i) {
+              var elt = all.slice(i, i+1);
+              if (elt.offset().top >= visibleTop) // stop when we pass the current scroll top.
+		break;
+              adj += elt.siblings("."+to).height() - elt.height();
+            }
+            $(window).scrollTop($(window).scrollTop() + adj); // move the scroll top.
+          }
+
+          var inputs = $(x.form + " input[name="+x.radioName+"]");
+	  // Listen for checkbox changes.
+          inputs.change(function() {revealClass(x.lookIn, x.form, x.radioName);})
+	  // Show only the currently selected class.
+          revealClass(x.lookIn, x.form, x.radioName);
+	  // Assign callbacks the the associated keycodes.
+	  Object.keys(x.keys).forEach(function (k) {
+	    bodyKeypressCallbacks[k] = function () {
+	      // If the corresponding radio button isn't already selected,
+              if(!inputs.filter("[value="+x.keys[k]+"]").is(":checked")) {
+		// adjust the height from the current class to the new class;
+		adjustHeight(x.lookIn, $("input[name="+x.radioName+"]:checked", x.form).val(), ""+x.keys[k]+"");
+		// set it as "checked";
+		inputs.filter("[value="+x.keys[k]+"]").prop("checked", true); // .change() did nothing
+		// swap which is displayed.
+		revealClass(x.lookIn, x.form, x.radioName);
+              }
+	      return false;
+	    };
+	  });
+	});
+        $("html > body").keypress(function (evt) {
+          if (evt.ctrlKey)
+            return true; // don't interfere with browser control keys.
+	  if (evt.which in bodyKeypressCallbacks)
+	    return bodyKeypressCallbacks[evt.which]();
+	  return true;
+        });
+        </script>
+  	</body>
+</html>
