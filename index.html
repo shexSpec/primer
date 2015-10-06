@@ -2468,7 +2468,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
 
         <div class="namespace">
           <p>
-            We could avoid the inverse by placing a regular <code>triple constraint</code> on <span class="shape-name">my:UserShape</span> but that would require that all users have reported an issue.
+            Note that  placing a regular <code>triple constraint</code> on <span class="shape-name">my:UserShape</span> would require that all users have reported an issue, and is thus different from using the inverse property on <span class="shape-name">my:IssueShape</span>.
             In this example, <span class="function-name inst-User6 lowlight2 top bot">inst:User6</span> would fail to match <span class="shape-name">my:UserShape</span>:
           </p>
 
@@ -2535,10 +2535,10 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
 <span class="function-name">inst:Issue4</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .
 
-<span class="fail inst-User6 lowlight2 top"><span class="function-name">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;                    </span>
-<span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;             </span>
-<span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;</span>
-<span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>. </span>
+<span class="fail inst-User6 lowlight2 top"><span class="function-name">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ; <span class="comment"># fails my:UserShape</span></span>
+<span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;              </span>
+<span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ; </span>
+<span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.  </span>
 
 <span class="function-name">inst:User7</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
@@ -2585,14 +2585,16 @@ TODO</pre>
     <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;
     <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> .
 
-<span class="fail hilight-Issue2-block lowlight1 top"><span class="function-name">inst:Issue2</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;               </span>
-<span class="fail hilight-Issue2-block lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">dc:</span><span class="constant">creator</span>      <span class="string">"Alice"</span></span> ;          </span>
-<span class="fail hilight-Issue2-block lowlight1    ">    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> ;    </span>
-<span class="fail hilight-Issue2-block lowlight1 bot">    </span><span class="hilight-component hilight-invComponent lowlight1 top bot errorSite">ex:component</span> <span class="fail hilight-Issue2-block lowlight1 bot">   <span class="function-name">inst:Issue3</span> .      </span>
+<span class="fail hilight-Issue2-block lowlight1 top"><span class="comment"># inst:Issue2 fails my:SolitaryIssueShape</span></span>
+<span class="fail hilight-Issue2-block lowlight1    "><span class="function-name">inst:Issue2</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
+<span class="fail hilight-Issue2-block lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">dc:</span><span class="constant">creator</span>      <span class="string">"Alice"</span></span> ;            </span>
+<span class="fail hilight-Issue2-block lowlight1    ">    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> ;      </span>
+<span class="fail hilight-Issue2-block lowlight1 bot">    </span><span class="hilight-component hilight-invComponent lowlight1 top bot errorSite">ex:component</span> <span class="fail hilight-Issue2-block lowlight1 bot">   <span class="function-name">inst:Issue3</span> .        </span>
 
-<span class="fail hilight-Issue3-block lowlight1 top"><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;               </span>
-<span class="fail hilight-Issue3-block lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;</span>
-<span class="fail hilight-Issue3-block lowlight1 bot">    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .    </span></pre>
+<span class="fail hilight-Issue3-block lowlight1 top"><span class="comment"># inst:Issue3 fails my:SolitaryIssueShape</span></span>
+<span class="fail hilight-Issue3-block lowlight1    "><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
+<span class="fail hilight-Issue3-block lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;  </span>
+<span class="fail hilight-Issue3-block lowlight1 bot">    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .      </span></pre>
 </div>
               <div style="clear:both;"></div>
               <p style="margin-bottom: 0;">
