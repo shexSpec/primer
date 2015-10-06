@@ -1365,7 +1365,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     		<h2>Document Conventions</h2>
 
       		<p>
-      			This document uses the following namespace prefixes are frequently used in this document:
+      			The following namespace prefixes are frequently used in this document:
       		</p>
       		<table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
       			<tr>
@@ -1427,7 +1427,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
 
         <p>
-          The rules can be written in ShExC or JSON (recall that you can press 'c' or 'j') as a set of properties on a <code>property constraint</code>.
+          The rules can be written in ShExC or JSON (recall that you can press 'c' or 'j') as a set of properties on a <code>triple constraint</code>.
           This example consists of a single <code id="shape-declaration">shape declaration</code> for a shape called <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>.
           A validation process tests selected nodes in the instance data, <code>focus nodes</code>, against this shape.
           The shape in this example consists of a single <code class="hilight-tripleConstraint lowlight1 top bot">triple constraint</code> on the property <span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span>.
@@ -1505,7 +1505,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
           In the examples in <a href="#tripleConstraints">section 3</a>, we examined tested the nodes <a href="#inst:User1-1" class="function-name">inst:User1</a>, <a href="#inst:User2-1" class="function-name">inst:User2</a> and <a href="#inst:User3-1" class="function-name">inst:User3</a> against <a href="#my:UserShape-1" class="shape-name">my:UserShape</a>.
           We treated each one in turn as the <code>focus node</code> and tested the triples involving that node against the <code>triple constraint</code> in the shape.
           This triple constraint had a single <code>value constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
-          <code>Property constraints</code> can include combinations of the following constraints:
+          <code>Triple constraints</code> can include combinations of the following constraints:
         </p>
         <ul class="compact">
           <li><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
@@ -2346,12 +2346,12 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
     </section>
 
 		<section id="properties">
-			<h2>Other Property Constraints</h2>
+			<h2>Other Triple Constraints</h2>
     	<p>
-				<code>Property constraints</code> can be inverse, negated or repeated.
+				<code>Triple constraints</code> can be inverse, negated and repeated.
     	</p>
 			<section id="inverse-properties">
-				<h3>Inverse Property Constraints</h3>
+				<h3>Inverse Triple Constraints</h3>
         <div class="namespace">
     		  <p>
             Here we change the first example so that instead of an issue having an <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span> identifying a node corresponding to <span class="function-name">my:UserShape</span></span>, the user node has a <span class="reportedIssue lowlight1 top bot">predicate <span class="type">ex:</span><span class="constant">reportedIssue</span> which identifies the issue</span>.
@@ -2740,7 +2740,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
                 </li>
               </ul>
               <p>
-                These two strategies differ when some triples satisfy more than one property constraint.
+                These two strategies differ when some triples satisfy more than one triple constraint.
                 In the example above, someone acting as <span class="hilight-testgrammer lowlight2 top bot">both a programmer and a tester</span> would appear to satisfy the schema.
               </p>
 
