@@ -2734,16 +2734,15 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               </p>
               <ul>
                 <li>
-                  <code>partition</code> - a node satisfies a shape if some arrangement of the triples satisfies each of the constraints.
-                  No triple can be used to satisfy more than one constraint.
+                  <code>partition</code> - no triple can be used to satisfy more than one constraint.
                 </li>
                 <li>
                   <code>conjunction</code> - triples are allowed to satisfy more than one constraint.
                 </li>
               </ul>
               <p>
-                These two strategies differ when some triples satisfy more than one triple constraint.
-                In the example above, someone acting as <span class="hilight-testgrammer lowlight2 top bot">both a programmer and a tester</span> would appear to satisfy the schema.
+                These two strategies are equivalent when no triple satisfies more than one constraint.
+		In the example above, depending on the strategy being used, someone acting as <span class="hilight-testgrammer lowlight2 top bot">both a programmer and a tester</span> might or might not allow to satisfy the schema.
               </p>
 
               <p>
@@ -2847,8 +2846,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               </div>
 
               <p style="clear:both;" class="TODO">
-                The behavior in these cases is currently undefined with the expectation that a future version will standardize this.
-                Please send feedback to <a href="mailto:public-shex-dev@w3.org">public-shex-dev@w3.org</a> with advice and use cases.
+                The behavior in these cases currently uses the <code>partition</code> strategy. 
+                Please send feedback to <a href="mailto:public-shex-dev@w3.org">public-shex-dev@w3.org</a> with advice and use cases, if the <code>conjunction</code> strategy is better suited for your use cases.
               </p>
             </div>
 
