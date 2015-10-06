@@ -186,7 +186,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     		<h2>Notation</h2>
 
       		<p>
-      			The ShExJ structure is consists of lists and maps typed objects.
+      			The ShExJ structure is a sublanguage of <a href="http://www.json.org/">JSON</a>. consists of lists and maps of typed objects and values.
             These are represented as <span class="dfnspan">definitions</span> in the following grammar.
             The content of some constructs involve many choices.
             These are represented as <span class="dclspan">declarations</span>.
@@ -235,10 +235,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
             <li></li>
           </ul>
 
+        <p>
+          The grammars below can be viewed with or without human language annotations:
+        </p>
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="shexc" checked="checked">just grammar (press 'g')</input> <input type="radio" name="presLang" value="json">with annotations (press 'a')</input> .</form>
       </section>
 
     	<section id="tripleConstraints">
-    		<h2>Triple Constraints</h2>
+    		<h2>ShExJ Grammar</h2>
         <pre>
 <span class="dfnspan" id="dfn-schema">schema</span>           : prefixes:[<a class="dclref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="dclref" href="#dcl-IRI">IRI</a>] startActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>] start:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> shapes:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="dfnref" href="#dfn-shape">shape</a>]
 <span class="dclspan" id="dcl-PREFIX">PREFIX</span>           = <a href="http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS">&lt;http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS&gt;</a>
