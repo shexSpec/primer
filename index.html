@@ -1508,7 +1508,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
           <code>Triple constraints</code> can include combinations of the following constraints:
         </p>
         <ul class="compact">
-          <li><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
+          <li id="vocab-literal-datatype"><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
     		  <pre class="schema shexc shh">my:UserShape {
   foaf:name <span class="value-constraint new">xsd:string</span>
 }</pre>
@@ -1518,7 +1518,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     "value": { "type": "valueClass", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
 
           </li>
-          <li><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
+          <li id="vocab-literal-facetsw"><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
     		  <pre class="schema shexc shh">my:UserShape {
   ex:shoeSize xsd:float <span class="value-constraint new">MinInclusive 5.5 maxInclusive 12.5</span>
 }</pre>
@@ -1533,7 +1533,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
             Facets names are not case-sensitive in ShExC.
           </p>
           </li>
-          <li><code>node kind</code>: identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
+          <li id="vocab-node-kind"><code>node kind</code>: identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
     		  <pre class="schema shexc shh">my:UserShape {
   foaf:mbox <span class="value-constraint new">IRI</span>
 }</pre>
@@ -1559,7 +1559,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
             See the <a href="#value-sets">Value Sets description below</a> for details.
           </p>
           </li>
-          <li><code id="value-shape">value shape</code>: asserts that the object is described by another shape, e.g.
+          <li id="vocab-value-shape"><code id="value-shape">value shape</code>: asserts that the object is described by another shape, e.g.
     		  <pre class="schema shexc shh">my:IssueShape {
   ex:reportedBy <span class="value-constraint new">@my:UserShape</span>
 }</pre>
