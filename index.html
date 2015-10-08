@@ -2348,7 +2348,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
 		<section id="properties">
 			<h2>Other Triple Constraints</h2>
     	<p>
-				<code>Triple constraints</code> can be inverse, negated and repeated.
+				<code>Triple constraints</code> can be inverse and negated.
+        Multiple triple constraints on the same property are interpreted as <a href="#additive-properties">additive</a>; each triple constraint is independently fulfilled by different triples in the instance data.
     	</p>
 			<section id="inverse-properties">
 				<h3>Inverse Triple Constraints</h3>
@@ -2618,8 +2619,8 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
           </div>
         </section>
 
-  			<section id="repeated-properties">
-  				<h3>Repeated Property Declarations</h3>
+  			<section id="additive-properties">
+  				<h3>Additive Property Declarations</h3>
           <div class="namespace">
             <p>
               The use of generic predicates sometimes leads to their being used multiple times in the same shape.
@@ -2872,7 +2873,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
   		    <section id="extra-properties">
   			    <h4>Extra Properties</h4>
             <p>
-              As described above in <a href="#repeated-properties">Repeated Property Declarations</a>, <code>triple constraint</code> constrain all triples with the given predicate to match one of the <code>triple constraints</code>.
+              As described above in <a href="#additive-properties">Additive Property Declarations</a>, <code>triple constraint</code> constrain all triples with the given predicate to match one of the <code>triple constraints</code>.
               This is called "closing a property".
               It is often useful to open a property to permit instances of it which are not included in the schema.
               Here is a predicate that is closed by some mention of it in an expression:
