@@ -224,7 +224,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           The grammars below can be viewed with or without human language annotations:
         </p>
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="grammar" checked="checked">just grammar (press 'g')</input> <input type="radio" name="presLang" value="annotation">with annotations (press 'a')</input>.</form>
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="grammar" checked="checked">just grammar (press 'g')</input> <input type="radio" name="presLang" value="annotation">with annotations (press 'a')</input>. Double-clicking on production labels, e.g. <span class="dfnspan">schema</span> or <span class="dclspan">PREFIX</span> below, toggles their annotation display.</form>
       </section>
 
     	<section id="schema" class="grammarSection">
@@ -298,8 +298,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 </span>
 <span class="dfnspan" id="dfn-inclusion">inclusion</span>        : include:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a><span class="annotation">
 <span class="text">An <span class="dfnspan">inclusion</span> object has: <code>type</code>:"inclusion" and <code>include</code>:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>.</span>
-<span  id="exm-inclusion" class="example">{ "type":"includsion", "include":"http://co.example/IssueShape" }</span></span>
-
+<span  id="exm-inclusion" class="example">{ "type":"includsion", "include":"http://co.example/IssueShape" }</span>
+</span>
 <span class="dfnspan" id="dfn-tripleConstraint">tripleConstraint</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> (value:<a class="dfnref" href="#dfn-valueClass">valueClass</a>|valueClassRef:<a class="dfnref" href="#dfn-valueClassLabel">valueClassLabel</a>) min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
 <span class="text">A <span class="dfnspan">tripleConstraint</span> object has: <code>type"</code>:"tripleConstraint", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a> <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? <code>max</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span  id="exm-tripleConstraint" class="example">{
@@ -308,8 +308,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   "min":"1",
   "max":"*",
   "semActs":[ <a class="dfnref" href="#exm-semAct">semAct</a> ]
-}</span></span>
-
+}</span>
+</span>
 <span class="dfnspan" id="dfn-valueClass">valueClass</span>       : nodeKind:"literal" <a class="dclref" href="#dcl-xsFacet">xsFacet</a>*
                  | nodeKind:("iri"|"bnode"|"nonliteral") reference:<a class="dclref" href="#dcl-groupShapeConstr">groupShapeConstr</a>? <a class="dclref" href="#dcl-stringFacet">stringFacet*</a>
                  | datatype:<a class="dclref" href="#dcl-IRI">IRI</a> <a class="dclref" href="#dcl-xsFacet">xsFacet</a>*
@@ -498,7 +498,6 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
         <script type="application/javascript">
 	var bodyKeypressCallbacks = {};
-debugger;
 	/* a form like
         <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
 	controls display of sections like 
@@ -537,6 +536,12 @@ debugger;
           inputs.change(function() {revealClass(x.lookIn, x.form, x.radioName);})
 	  // Show only the currently selected class.
           revealClass(x.lookIn, x.form, x.radioName);
+          $(x.lookIn+".dfnspan,"+x.lookIn+".dclspan").each(function (ord, node) {
+            // $(node).contents().replaceWith('<a href="#">'+$(node).text()+'</a>');
+            node.ondblclick = function () {
+              $($(this).nextAll(".annotation").get(0)).toggle();
+            };
+          });
 	  // Assign callbacks the the associated keycodes.
 	  Object.keys(x.keys).forEach(function (kStr) {
       var k = kStr.charCodeAt(0);
