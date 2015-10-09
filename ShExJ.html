@@ -240,22 +240,28 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   "startActs": [ <a class="exmref" href="#exm-semAct">semAct</a>* ],
   "start":"http://co.example/IssueShape",
   "shapes":{ "http://co.example/IssueShape": <a class="exmref" href="#exm-shape">shape</a> }
-}</span></span>
+}</span>
+</span>
 <span class="dclspan" id="dcl-PREFIX">PREFIX</span>           = <a href="http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS">&lt;http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS&gt;</a><span class="annotation">
 <span class="text">A <span class="dclspan">PREFIX</span> is a JSON string with a lexical value matching <a href="http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS">Turtle PNAME_NS</a>.</span>
-<span  id="exm-PREFIX" class="example">"foaf"</span>, <span  id="exm-PREFIX2" class="example">"dc"</span>, the emtpy string <span  id="exm-PREFIX3" class="example">""</span></span>
+<span  id="exm-PREFIX" class="example">"foaf"</span>, <span  id="exm-PREFIX2" class="example">"dc"</span>, the emtpy string <span  id="exm-PREFIX3" class="example">""</span>
+</span>
 <span class="dclspan" id="dcl-valueClassLabel">valueClassLabel</span>  = <a class="dclref" href="#dcl-IRI">IRI</a><span class="annotation">
 <span class="text">A <span class="dclspan">valueClassLabel</span> is an <a class="dclref" href="#dcl-IRI">IRI</a>.</span>
-<span  id="exm-valueClassLabel" class="example">"http://a.example/vs1"</span></span>
+<span  id="exm-valueClassLabel" class="example">"http://a.example/vs1"</span>
+</span>
 <span class="dclspan" id="dcl-shapeLabel">shapeLabel</span>       = <a class="dclref" href="#dcl-IRI">IRI</a><span class="annotation">
 <span class="text">A <span class="dclspan">shapeLabel</span> is an <a class="dclref" href="#dcl-IRI">IRI</a>.</span>
-<span  id="exm-shapeLabel" class="example">"http://co.example/IssueShape"</span></span>
+<span  id="exm-shapeLabel" class="example">"http://co.example/IssueShape"</span>
+</span>
 <span class="dclspan" id="dcl-IRI">IRI</span>              = <a href="http://www.w3.org/TR/turtle/#grammar-production-IRIREF">&lt;http://www.w3.org/TR/turtle/#grammar-production-IRIREF&gt;</a><span class="annotation">
 <span class="text">An <span class="dclspan">IRI</span> is a JSON string with a lexical value matching <a href="http://www.w3.org/TR/turtle/#grammar-production-IRIREF">Turtle IRIREF</a>.</span>
-<span  id="exm-IRI" class="example">"http://co.example/IssueShape"</span>, <span  id="exm-IRI2" class="example">"http://xmlns.com/foaf/0.1/"</span></span>
+<span  id="exm-IRI" class="example">"http://co.example/IssueShape"</span>, <span  id="exm-IRI2" class="example">"http://xmlns.com/foaf/0.1/"</span>
+</span>
 <span class="dclspan" id="dcl-BOOL">BOOL</span>             = true|false <span class="comment"># JSON tokens</span><span class="annotation">
 <span class="text">A <span class="dclspan">BOOL</span> is a JSON-native type with a value of <code>true</code> or <code>false</code>.</span>
-<span  id="exm-BOOL" class="example">true</span>, <span  id="exm-BOOL2" class="example">false</span></span>
+<span  id="exm-BOOL" class="example">true</span>, <span  id="exm-BOOL2" class="example">false</span>
+</span>
 <span class="dfnspan" id="dfn-shape">shape</span>            : virtual:<a class="dclref" href="#dcl-BOOL">BOOL</a>? closed:<a class="dclref" href="#dcl-BOOL">BOOL</a>? extra:[<a class="dclref" href="#dcl-IRI">IRI</a>] expression:<a class="dclref" href="#dcl-expr">expr</a>? inherit:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>]?<span class="annotation">
 <span class="text">A <span class="dfnspan">shape</span> object has: <code>type</code>:"shape", (optional) <code>virtual</code>: <a class="dclref" href="#dcl-BOOL">boolean</a>, (optional) <code>closed</code>: <a class="dclref" href="#dcl-BOOL">boolean</a>, (optional) <code>extra</code>: array of <a class="dclref" href="#dcl-IRI">IRI</a>, (optional) <code>expression</code>:<a class="dclref" href="#dcl-expr">expr</a>, (optional) <code>inherit</code>: array of <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>.</span>
 <span  id="exm-shape" class="example">{
@@ -265,31 +271,37 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   "extra":["http://www.w3.org/2000/01/rdf-schema#label"],
   "expression":{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "max":"*" },
   "inherit":[]
-}</span></span>
+}</span>
+</span>
 <span class="dfnspan" id="dfn-semAct">semAct</span>           : name:<a class="dclref" href="#dcl-IRI">IRI</a> code:<a class="dclref" href="#dcl-STRING">STRING</a><span class="annotation">
 <span class="text">A <span class="dfnspan">semAct</span> object has: <code>type</code>:"semAct", <code>name</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and <code>code</code>:<a class="dclref" href="#dcl-STRING">STRING</a>.</span>
 <span  id="exm-semAct" class="example">{
   "type":"semAct",
   "name":"http://a.example/extension1",
   "code":"val dt=o.datatype(); assert(dt.substr(20) == \"http://b.example/dt#\"); "
-}</span></span>
+}</span>
+</span>
 <span class="dclspan" id="dcl-expr">expr</span>             = <a class="dfnref" href="#dfn-group">group</a>
                  | <a class="dfnref" href="#dfn-someOf">someOf</a>
                  | <a class="dfnref" href="#dfn-tripleConstraint">tripleConstraint</a>
                  | <a class="dfnref" href="#dfn-inclusion">inclusion</a><span class="annotation">
 <span class="text">An <span class="dclspan">expr</span> is one of (<a class="dfnref" href="#dfn-group">group</a>, <a class="dfnref" href="#dfn-someOf">someOf</a>, <a class="dfnref" href="#dfn-tripleConstraint">tripleConstraint</a>, <a class="dfnref" href="#dfn-inclusion">inclusion</a>).</span>
-<span  id="exm-expr" class="example">{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "max":"*" }</span></span>
+<span  id="exm-expr" class="example">{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "max":"*" }</span>
+</span>
 <span class="dfnspan" id="dfn-group">group</span>            : expressions:[<a class="dclref" href="#dcl-expr">expr</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
 <span class="text">A <span class="dfnspan">group</span> object has: <code>type</code>:"group", <code>expressions</code>: array of <a class="dclref" href="#dcl-expr">expr</a>, (optional) <code>min</code> and <code>max</code> and (optional) <code>semActs</code>: list of <a class="dfnref" href="#dfn-semAct">semAct</a>.</span>
-<span  id="exm-group" class="example">{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "max":"*" }</span></span>
+<span  id="exm-group" class="example">{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "max":"*" }</span>
+</span>
 <span class="dfnspan" id="dfn-someOf">someOf</span>           : expressions:[<a class="dclref" href="#dcl-expr">expr</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
 <span class="text">A <span class="dfnspan">someOf</span> object has: <code>type</code>:"group", <code>expressions</code>: array of <a class="dclref" href="#dcl-expr">expr</a>, optional <code>min</code> and <code>max</code> and an optional <code>semActs</code>: list of <a class="dfnref" href="#dfn-semAct">semAct</a>.</span>
-<span  id="exm-someOf" class="example">{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "min":0 }</span></span>
+<span  id="exm-someOf" class="example">{ "type":"group", "expressions":[<a class="dclref" href="#dcl-expr">expr</a>], "min":0 }</span>
+</span>
 <span class="dfnspan" id="dfn-inclusion">inclusion</span>        : include:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a><span class="annotation">
 <span class="text">An <span class="dfnspan">inclusion</span> object has: <code>type</code>:"inclusion" and <code>include</code>:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>.</span>
 <span  id="exm-inclusion" class="example">{ "type":"includsion", "include":"http://co.example/IssueShape" }</span></span>
-<span class="dfnspan" id="dfn-tripleConstraint">tripleConstraint</span> : (value:<a class="dfnref" href="#dfn-valueClass">valueClass</a>|valueClassRef:<a class="dfnref" href="#dfn-valueClassLabel">valueClassLabel</a>) min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="dfnspan">tripleConstraint</span> object has: <code>type"</code>:"tripleConstraint", <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a> <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? <code>max</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
+
+<span class="dfnspan" id="dfn-tripleConstraint">tripleConstraint</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> (value:<a class="dfnref" href="#dfn-valueClass">valueClass</a>|valueClassRef:<a class="dfnref" href="#dfn-valueClassLabel">valueClassLabel</a>) min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">tripleConstraint</span> object has: <code>type"</code>:"tripleConstraint", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a> <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? <code>max</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span  id="exm-tripleConstraint" class="example">{
   "type":"tripleConstraint",
   "value":<a class="dfnref" href="#exm-valueClass">valueClass</a>,
@@ -297,6 +309,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   "max":"*",
   "semActs":[ <a class="dfnref" href="#exm-semAct">semAct</a> ]
 }</span></span>
+
 <span class="dfnspan" id="dfn-valueClass">valueClass</span>       : nodeKind:"literal" <a class="dclref" href="#dcl-xsFacet">xsFacet</a>*
                  | nodeKind:("iri"|"bnode"|"nonliteral") reference:<a class="dclref" href="#dcl-groupShapeConstr">groupShapeConstr</a>? <a class="dclref" href="#dcl-stringFacet">stringFacet*</a>
                  | datatype:<a class="dclref" href="#dcl-IRI">IRI</a> <a class="dclref" href="#dcl-xsFacet">xsFacet</a>*
@@ -314,7 +327,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   "nodeKind":"IRI",
   "reference":"http://co.example/UserShape"
   "pattern":"^http://a.example/users/"
-}</span></span>
+}</span>
+</span>
 <span class="dclspan" id="dcl-groupShapeConstr">groupShapeConstr</span> = <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> | <a class="dfnref" href="#dfn-and">and</a><span class="annotation">
 <span class="text">A <span class="dclspan">groupShapeConstr</span> is either a <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> or an <a class="dfnref" href="#dfn-and">and</a> object.</span>
 <span  id="exm-groupShapeConstr" class="example">"http://co.example/IssueShape"</span>,
@@ -324,7 +338,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     "http://co.example/IssueShape",
     "http://co.example/RecordShape"
   ]
-}</span></span>
+}</span>
+</span>
 <span class="dfnspan" id="dfn-and">and</span>              : disjuncts[<a class="dclref" href="#dcl-expr">expr</a>]<span class="annotation">
 <span class="text">An <span class="dfnspan">and</span> object has: <code>type</code>:"and", <code>disjuncts</code>: list of <a class="dclref" href="#dcl-expr">expr</a>.</span>
 <span  id="exm-and2" class="example">{
@@ -333,43 +348,53 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     "http://co.example/IssueShape",
     "http://co.example/RecordShape"
   ]
-}</span></span>
+}</span>
+</span>
 <span class="dclspan" id="dcl-xsFacet">xsFacet</span>          = <a class="dclref" href="#dcl-stringFacet">stringFacet</a> | <a class="dclref" href="#dcl-numericFacet">numericFacet</a><span class="annotation">
 <span class="text">An <span class="dclspan">xsFacet</span> is either a <a class="dclref" href="#dcl-stringFacet">stringFacet</a> or a <a class="dclref" href="#dcl-numericFacet">numericFacet</a>.</span>
-<span  id="exm-xsFacet" class="example">"length":20</span>, <span  id="exm-xsFacet2" class="example">"mininclusive":6.02e23</span></span>
+<span  id="exm-xsFacet" class="example">"length":20</span>, <span  id="exm-xsFacet2" class="example">"mininclusive":6.02e23</span>
+</span>
 <span class="dclspan" id="dcl-stringFacet">stringFacet</span>      = ("length"|"minlength"|"maxlength"):<a class="dclref" href="#dcl-INTEGER">INTEGER</a> | "pattern":<a class="dclref" href="#dcl-STRING">STRING</a><span class="annotation">
 <span class="text">A <span class="dclspan">stringFacet</span> is either:
   one of ("length","minlength","maxlength"):<a class="dclref" href="#dcl-INTEGER">INTEGER</a>.
   "pattern":<a class="dclref" href="#dcl-STRING">STRING</a></span>
-<span  id="exm-stringFacet" class="example">"lenght":20</span>, <span  id="exm-stringFacet2" class="example">"pattern":"^http://"</span></span>
+<span  id="exm-stringFacet" class="example">"lenght":20</span>, <span  id="exm-stringFacet2" class="example">"pattern":"^http://"</span>
+</span>
 <span class="dclspan" id="dcl-numericFacet">numericFacet</span>     = ("mininclusive"|"minexclusive"|"maxinclusive"|"maxexclusive"):<a class="dclref" href="#dcl-numericLiteral">numericLiteral</a><span class="annotation">
                  | ("totaldigits"|"fractiondigits"):<a class="dclref" href="#dcl-INTEGER">INTEGER</a>
 <span class="text">A <span class="dclspan">numericFacet</span> is either:
   one of ("mininclusive"|"minexclusive"|"maxinclusive"|"maxexclusive"):<a class="dclref" href="#dcl-numericLiteral">numericLiteral</a>.
   ("totaldigits"|"fractiondigits"):<a class="dclref" href="#dcl-INTEGER">INTEGER</a>.</span>
-<span  id="exm-numericFacet" class="example">"mininclusive":3.14</span>, <span  id="exm-numericFacet2" class="example">"totaldigits":1024</span></span>
+<span  id="exm-numericFacet" class="example">"mininclusive":3.14</span>, <span  id="exm-numericFacet2" class="example">"totaldigits":1024</span>
+</span>
 <span class="dclspan" id="dcl-numericLiteral">numericLiteral</span>   = <a class="dclref" href="#dcl-INTEGER">INTEGER</a>|<a class="dclref" href="#dcl-DECIMAL">DECIMAL</a>|<a class="dclref" href="#dcl-DOUBLE">DOUBLE</a><span class="annotation">
 <span class="text">A <span class="dclspan">numericLiteral</span> is a JSON <a class="dclref" href="#dcl-INTEGER">INTEGER</a>, <a class="dclref" href="#dcl-DECIMAL">DECIMAL</a> or <a class="dclref" href="#dcl-DOUBLE">DOUBLE</a>.</span>
-<span  id="exm-numericLiteral" class="example">1</span>, <span  id="exm-numericLiteral" class="example">2.2</span>, <span  id="exm-numericLiteral" class="example">3.3e3</span></span>
+<span  id="exm-numericLiteral" class="example">1</span>, <span  id="exm-numericLiteral" class="example">2.2</span>, <span  id="exm-numericLiteral" class="example">3.3e3</span>
+</span>
 <span class="dclspan" id="dcl-INTEGER">INTEGER</span>          = <a href="http://www.w3.org/TR/turtle/#grammar-production-INTEGER">&lt;http://www.w3.org/TR/turtle/#grammar-production-INTEGER&gt;</a><span class="annotation">
 <span class="text">A JSON number of the form "int" per <a href="http://www.json.org/">&lt;http://www.json.org/&gt;</a>.</span>
-<span  id="exm-INTEGER" class="example">1</span></span>
+<span  id="exm-INTEGER" class="example">1</span>
+</span>
 <span class="dclspan" id="dcl-DECIMAL">DECIMAL</span>          = <a href="http://www.w3.org/TR/turtle/#grammar-production-DECIMAL">&lt;http://www.w3.org/TR/turtle/#grammar-production-DECIMAL&gt;</a><span class="annotation">
 <span class="text">A JSON number of the form "int frac" per <a href="http://www.json.org/">&lt;http://www.json.org/&gt;</a>.</span>
-<span  id="exm-DECIMAL" class="example">2.2</span></span>
+<span  id="exm-DECIMAL" class="example">2.2</span>
+</span>
 <span class="dclspan" id="dcl-DOUBLE">DOUBLE</span>           = <a href="http://www.w3.org/TR/turtle/#grammar-production-DOUBLE">&lt;http://www.w3.org/TR/turtle/#grammar-production-DOUBLE&gt;</a><span class="annotation">
 <span class="text">A JSON number of the form "int frac exp" per <a href="http://www.json.org/">&lt;http://www.json.org/&gt;</a>.</span>
-<span  id="exm-DOUBLE" class="example">3.3e3</span></span>
+<span  id="exm-DOUBLE" class="example">3.3e3</span>
+</span>
 <span class="dclspan" id="dcl-STRING">STRING</span>           = '"' ([^"] | '\\' '"')* '"' <span class="comment"># JSON string with '"' at beginning and end</span><span class="annotation">
 <span class="text">A <span class="dclspan">STRING</span> is a JSON string with quotation marks at the beginning and end.</span>
-<span  id="exm-STRING" class="example">"\"abc\""</span>, <span  id="exm-STRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span></span>
+<span  id="exm-STRING" class="example">"\"abc\""</span>, <span  id="exm-STRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span>
+</span>
 <span class="dclspan" id="dcl-valueSetValue">valueSetValue</span>    = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-STRING">STRING</a>|<a class="dclref" href="#dfn-stemRange">stemRange</a><span class="annotation">
 <span class="text">A <span class="dclspan">valueSetValue</span> is a JSON <a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-STRING">STRING</a> or <a class="dclref" href="#dcl-stemRange">stemRange</a>.</span>
 <span  id="exm-valueSetValue" class="example">"http://a.example/assigned"</span>, <span  id="exm-valueSetValue" class="example">"\"repair\""</span>,
 <span  id="exm-valueSetValue" class="example">{
   "type":"stemRange",
   "stem":"http://a.example/"
-}</span></span>
+}</span>
+</span>
 <span class="dfnspan" id="dfn-stemRange">stemRange</span>        : stem:<a class="dclref" href="#dcl-IRI">IRI</a> exclusions:[<a class="dclref" href="#dfn-stemRange">stemRange</a>]<span class="annotation">
 <span class="text">A <span class="dfnspan">stemRange</span> object has: <code>type</code>:"stemRange", <code>stem</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>exclusions</code>:<a class="dclref" href="#dcl-stemRange">stemRange</a>.</span>
 <span  id="exm-stemRange" class="example">{
@@ -390,7 +415,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </ul>
       </section>
 
-    	<section id="validation">
+    	<section id="validation" class="grammarSection">
     		<h2>ShExJ Validation Results Grammar</h2>
         <h3>status: experimental</h3>
 
@@ -398,153 +423,77 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           The validation results grammar uses some objects from the schema grammar:
         </p>
         <pre>
-<span class="dfnspan" id="dfn-validation">validation</span>       : node:<a class="dclref" href="#dcl-IRI">IRI</a>, shape:<a class="dclref" href="#dcl-IRI">IRI</a>, solution:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
-<span class="text">A <span class="dfnspan">validation</span> object has: <code>type</code>:"<span class="dfnspan">validation</span>", <code>node</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>shape</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and either <code>solutions</code>:<a class="dclref" href="#dcl-soln">soln</a> or <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>.</span>
+<span class="dfnspan" id="dfn-validation">validation</span>       : node:<a class="dclref" href="#dcl-IRI">IRI</a>, shape:<a class="dclref" href="#dcl-IRI">IRI</a>, solutions:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
+<span class="text">A <span class="dfnspan">validation</span> object has: <code>type</code>:"<span class="dfnspan">validation</span>", <code>node</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>shape</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>.</span>
 <span id="exm-validation" class="example">{
   "type": "test",
   "node": "http://a.example/Issue1",
   "shape": "http://co.example/IssueShape",
   "solutions": [ <a class="exmref" href="#exm-soln">soln</a>* ]
-}</span></span>
+}</span>
 
+</span>
 <span class="dclspan" id="dcl-soln">soln</span>             = <a class="dfnref" href="#dfn-groupSolutions">groupSolutions</a>
                  | <a class="dfnref" href="#dfn-someOfSolutions">someOfSolutions</a>
                  | <a class="dfnref" href="#dfn-tripleConstraintSolutions">tripleConstraintSolutions</a><span class="annotation">
-<span class="text">An <span class="dclspan">soln</span> is one of (<a class="dfnref" href="#dfn-group">group</a>, <a class="dfnref" href="#dfn-someOf">someOf</a>, <a class="dfnref" href="#dfn-tripleConstraint">tripleConstraint</a>).</span>
-<span  id="exm-soln" class="example">{ "type":"group", "solutions":[<a class="dclref" href="#dcl-soln">soln</a>], "max":"*" }</span></span>
+<span class="text">A <span class="dclspan">soln</span> is either (<a class="dfnref" href="#dfn-group">group</a>, <a class="dfnref" href="#dfn-someOf">someOf</a> or <a class="dfnref" href="#dfn-tripleConstraint">tripleConstraint</a>).</span>
+<span  id="exm-soln" class="example">{ "type":"group", "solutions":[<a class="dclref" href="#dcl-soln">soln</a>], "max":"*" }</span>
 
-<span class="dfnspan" id="dfn-groupSolutions">groupSolutions</span>       : node:<a class="dclref" href="#dcl-IRI">IRI</a>, shape:<a class="dclref" href="#dcl-IRI">IRI</a>, solution:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
-<span class="text">A <span class="dfnspan">groupSolutions</span> object has: <code>type</code>:"<span class="dfnspan">groupSolutions</span>", <code>node</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>shape</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and either <code>solutions</code>:<a class="dclref" href="#dcl-soln">soln</a> or <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>.</span>
+</span>
+<span class="dfnspan" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="dclref" href="#dcl-soln">soln</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"?<span class="annotation">
+<span class="text">A <span class="dfnspan">groupSolutions</span> object has: <code>type</code>:"<span class="dfnspan">groupSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*").</span>
 <span id="exm-groupSolutions" class="example">{
   "type": "groupSolutions",
   "solutions": [ <a class="exmref" href="#exm-groupSolution">groupSolution</a>* ]
-}</span></span>
+}</span>
 
-<span class="dfnspan" id="dfn-groupSolution">groupSolution</span>       : node:<a class="dclref" href="#dcl-IRI">IRI</a>, shape:<a class="dclref" href="#dcl-IRI">IRI</a>, solution:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
-<span class="text">A <span class="dfnspan">groupSolution</span> object has: <code>type</code>:"<span class="dfnspan">groupSolution</span>", <code>node</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>shape</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and either <code>solutions</code>:<a class="dclref" href="#dcl-soln">soln</a> or <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>.</span>
+</span>
+<span class="dfnspan" id="dfn-groupSolution">groupSolution</span>    : expressions:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
+<span class="text">A <span class="dfnspan">groupSolution</span> object has: <code>type</code>:"<span class="dfnspan">groupSolution</span>", <code>expressions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>.</span>
 <span id="exm-groupSolution" class="example">{
   "type": "groupSolution",
-  "node": "http://a.example/Issue1",
-  "shape": "http://co.example/IssueShape",
-  "solutions": [ <a class="exmref" href="#exm-soln">soln</a>* ]
-}</span></span>
+  "expressions": [ <a class="exmref" href="#exm-soln">soln</a>* ],
+}</span>
 
-{
+</span>
+<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dclref" href="#dcl-soln">soln</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"?<span class="annotation">
+<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*").</span>
+<span id="exm-someOfSolutions" class="example">{
+  "type": "someOfSolutions",
+  "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ]
+}</span>
+
+</span>
+<span class="dfnspan" id="dfn-someOfSolution">someOfSolution</span>   : expressions:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
+<span class="text">A <span class="dfnspan">someOfSolution</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolution</span>", <code>expressions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>.</span>
+<span id="exm-someOfSolution" class="example">{
+  "type": "someOfSolution",
+  "expressions": [ <a class="exmref" href="#exm-soln">soln</a>* ],
+}</span>
+
+</span>
+<span class="dfnspan" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> value:<a class="dfnref" href="#dfn-valueClass">valueClass</a> solutions:[<a class="dclref" href="#dcl-testedTriple">testedTriple</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"?<span class="annotation">
+<span class="text">A <span class="dfnspan">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="dfnspan">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a>, <code>solutions</code>: an array of <a class="dclref" href="#dcl-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*").</span>
+<span id="exm-tripleConstraintSolutions" class="example">{
+  "type": "tripleConstraintSolutions",
+  "solutions": [ <a class="exmref" href="#exm-tripleConstraintSolution">tripleConstraintSolution</a>* ]
+}</span>
+
+</span>
+<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:<a class="dclref" href="#dcl-IRI">IRI</a>, predicate:<a class="dclref" href="#dcl-IRI">IRI</a>, object:<a class="dclref" href="#dcl-IRI">IRI</a> referenced:<a class="dclref" href="#dcl-validation">validation</a>?<span class="annotation">
+<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>referenced</code>:<a class="dclref" href="#dcl-refereenced">referenced</a>.</span>
+<span id="exm-testedTriple" class="example">{
   "type": "test",
-  "node": "http://inst.example/#Issue1",
-  "shape": "http://my.example/#IssueShape",
-  "solution": {
-    "type": "someOfSolutions",
-    "solutions": [
-      {
-        "type": "someOfSolution",
-        "expressions": [
-          {
-            "type": "groupSolutions",
-            "solutions": [
-              {
-                "type": "groupSolution",
-                "expressions": [
-                  {
-                    "type": "tripleConstraintSolutions",
-                    "predicate": "http://ex.example/#state",
-                    "value": {
-                      "type": "valueClass",
-                      "values": [
-                        "http://ex.example/#unassigned",
-                        "http://ex.example/#assigned"
-                      ]
-                    },
-                    "solutions": [
-                      {
-                        "type": "testedTriple",
-                        "subject": "http://inst.example/#Issue1",
-                        "predicate": "http://ex.example/#state",
-                        "object": "http://ex.example/#unassigned"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "tripleConstraintSolutions",
-                    "predicate": "http://ex.example/#reportedBy",
-                    "value": {
-                      "type": "valueClass",
-                      "reference": "http://my.example/#UserShape"
-                    },
-                    "solutions": [
-                      {
-                        "type": "testedTriple",
-                        "subject": "http://inst.example/#Issue1",
-                        "predicate": "http://ex.example/#reportedBy",
-                        "object": "http://inst.example/#User2",
-                        "referenced": {
-                          "type": "test",
-                          "node": "http://inst.example/#User2",
-                          "shape": "http://my.example/#UserShape",
-                          "solution": {
-                            "type": "groupSolutions",
-                            "solutions": [
-                              {
-                                "type": "groupSolution",
-                                "expressions": [
-                                  {
-                                    "type": "tripleConstraintSolutions",
-                                    "predicate": "http://xmlns.com/foaf/name",
-                                    "value": {
-                                      "type": "valueClass",
-                                      "datatype": "http://www.w3.org/2001/XMLSchema#string"
-                                    },
-                                    "solutions": [
-                                      {
-                                        "type": "testedTriple",
-                                        "subject": "http://inst.example/#User2",
-                                        "predicate": "http://xmlns.com/foaf/name",
-                                        "object": "\"Bob Smith\""
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "tripleConstraintSolutions",
-                                    "predicate": "http://xmlns.com/foaf/mbox",
-                                    "value": {
-                                      "type": "valueClass",
-                                      "nodeKind": "iri"
-                                    },
-                                    "solutions": [
-                                      {
-                                        "type": "testedTriple",
-                                        "subject": "http://inst.example/#User2",
-                                        "predicate": "http://xmlns.com/foaf/mbox",
-                                        "object": "mailto:bob@example.org"
-                                      },
-                                      {
-                                        "type": "testedTriple",
-                                        "subject": "http://inst.example/#User2",
-                                        "predicate": "http://xmlns.com/foaf/mbox",
-                                        "object": "mailto:rs@example.org"
-                                      }
-                                    ],
-                                    "min": 1,
-                                    "max": "*"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
+  "subject": "http://inst.example/#Issue1",
+  "predicate": "http://ex.example/#reportedBy",
+  "object": "http://inst.example/#User3",
+  "referenced":{
+    "type": "test",
+    "node": "http://a.example/User2",
+    "shape": "http://co.example/UserShape",
+    "solutions": [ <a class="exmref" href="#exm-soln">soln</a>* ]
   }
-}
-</pre>
+}</span></span></pre>
       </section>
 
         <script type="application/javascript">
