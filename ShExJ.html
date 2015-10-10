@@ -440,11 +440,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span  id="exm-soln" class="example">{ "type":"group", "solutions":[<a class="dclref" href="#dcl-soln">soln</a>], "max":"*" }</span>
 
 </span>
-<span class="dfnspan" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="dclref" href="#dcl-soln">soln</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"?<span class="annotation">
-<span class="text">A <span class="dfnspan">groupSolutions</span> object has: <code>type</code>:"<span class="dfnspan">groupSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*").</span>
+<span class="dfnspan" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="dclref" href="#dcl-soln">soln</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">groupSolutions</span> object has: <code>type</code>:"<span class="dfnspan">groupSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-groupSolutions" class="example">{
   "type": "groupSolutions",
-  "solutions": [ <a class="exmref" href="#exm-groupSolution">groupSolution</a>* ]
+  "solutions": [ <a class="exmref" href="#exm-groupSolution">groupSolution</a>* ],
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="dfnref" href="#exm-semAct">semAct</a> ]
 }</span>
 
 </span>
@@ -456,11 +459,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dclref" href="#dcl-soln">soln</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"?<span class="annotation">
-<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*").</span>
+<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dclref" href="#dcl-soln">soln</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-soln">soln</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-someOfSolutions" class="example">{
   "type": "someOfSolutions",
-  "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ]
+  "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ],
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="dfnref" href="#exm-semAct">semAct</a> ]
 }</span>
 
 </span>
@@ -472,11 +478,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> value:<a class="dfnref" href="#dfn-valueClass">valueClass</a> solutions:[<a class="dclref" href="#dcl-testedTriple">testedTriple</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"?<span class="annotation">
-<span class="text">A <span class="dfnspan">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="dfnspan">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a>, <code>solutions</code>: an array of <a class="dclref" href="#dcl-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*").</span>
+<span class="dfnspan" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> value:<a class="dfnref" href="#dfn-valueClass">valueClass</a> solutions:[<a class="dclref" href="#dcl-testedTriple">testedTriple</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="dfnspan">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a>, <code>solutions</code>: an array of <a class="dclref" href="#dcl-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-tripleConstraintSolutions" class="example">{
   "type": "tripleConstraintSolutions",
-  "solutions": [ <a class="exmref" href="#exm-tripleConstraintSolution">tripleConstraintSolution</a>* ]
+  "solutions": [ <a class="exmref" href="#exm-tripleConstraintSolution">tripleConstraintSolution</a>* ],
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="dfnref" href="#exm-semAct">semAct</a> ]
 }</span>
 
 </span>
