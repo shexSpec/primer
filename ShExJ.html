@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
-  	<head>
-       	<title>Shape Expressions (ShEx) JSON Formats</title>
-    	<meta charset='utf-8'></meta>
-    	<script src='respec-w3c-common.js' async class='remove'></script>
-	    <script class='remove'>
-	      var respecConfig = {
-	          specStatus: "base",
-	          shortName:  "shex-primer",
+    <head>
+      <title>Shape Expressions (ShEx) JSON Formats</title>
+      <meta charset='utf-8'></meta>
+      <script src='respec-w3c-common.js' async class='remove'></script>
+      <script class='remove'>
+        var respecConfig = {
+            specStatus: "base",
+            shortName:  "shex-primer",
             edDraftURI: "http://w3c.github.io/data-shapes/ShExJ/",
-	          editors: [
-	                {   name:       "Eric Prud′hommeaux",
-	                    url:        "http://www.w3.org/People/Eric/",
-	                    company:    "W3C/MIT",
-	                    companyURL: "http://www.w3.org/" }
-	          ],
-	          // wg:           "Shape Expressions ",
-	          // wgURI:        "https://shex.io/",
-	          // wgPublicList: "public-shex-dev",
-	          // wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
-	      };
-	    </script>
-		<style>
+            editors: [
+                  {   name:       "Eric Prud′hommeaux",
+                      url:        "http://www.w3.org/People/Eric/",
+                      company:    "W3C/MIT",
+                      companyURL: "http://www.w3.org/" }
+            ],
+            // wg:           "Shape Expressions ",
+            // wgURI:        "https://shex.io/",
+            // wgPublicList: "public-shex-dev",
+            // wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
+        };
+      </script>
+    <style>
       tr th { text-align: center; }
-			.todo {
-				color: red;
-			}
-		    pre {
-				tab-size: 4;
-		    }
-			th {
-				text-align: left;
-			}
+      .todo {
+        color: red;
+      }
+        pre {
+        tab-size: 4;
+        }
+      th {
+        text-align: left;
+      }
       .comment {
         /* font-lock-comment-face */
         color: #b22222;
@@ -141,7 +141,7 @@ a.dclref  { background-color: #e0ffe0; }
 .annotation .text { background-color: #fef; }
 .example { border: medium solid #ccd; background-color: #eef; }
 
-		</style>
+    </style>
     <script src="jquery.min.js" type= "text/javascript"></script>
     <script type="text/javascript"><!--
 function prepareHighlight (highlightables, onClass, offClass, slide) {
@@ -150,50 +150,50 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   $.each( highlightables, function( index, value ){
     var elts = slide.find( "."+value );
     elts
-  	.mouseenter(function() {
-  	    elts.removeClass(offClass).addClass(onClass);
-  	})
-  	.mouseleave(function() {
-  	    elts.removeClass(onClass).addClass(offClass);
-  	})
+    .mouseenter(function() {
+        elts.removeClass(offClass).addClass(onClass);
+    })
+    .mouseleave(function() {
+        elts.removeClass(onClass).addClass(offClass);
+    })
     .addClass(offClass);
   })
 }
 --> </script>
-  	</head>
-  	<body>
+    </head>
+    <body>
 
-    	<section id="abstract">
-			<p>
-				The Shape Expressions (ShEx) language describes RDF graph structures.
+      <section id="abstract">
+      <p>
+        The Shape Expressions (ShEx) language describes RDF graph structures.
         A <code>shape</code> describes the triples touching nodes in RDF [[!rdf11-concepts]] graphs.
-				These descriptions identify predicates and their associated cardinalities and datatypes.
+        These descriptions identify predicates and their associated cardinalities and datatypes.
         ShEx shapes can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
-			</p>
-			<p>
-				This document defines the Shape Expressions JASON (ShExJ) format.
-			</p>  	
-		  </section>
+      </p>
+      <p>
+        This document defines the Shape Expressions JASON (ShExJ) format.
+      </p>    
+      </section>
     
-    	<section id="introduction">
-      		<h2>Introduction</h2>
-      		<p>
+      <section id="introduction">
+          <h2>Introduction</h2>
+          <p>
             Most applications that share data do so using prescribed data structures.
             While RDFS and OWL enable one to make assertions about the objects in some domain, ShEx describes data structures.
-      			This document defines a JSON [[!json]] structure for expressing ShEx schemas.
-      		</p>
+            This document defines a JSON [[!json]] structure for expressing ShEx schemas.
+          </p>
 
-    	</section>
-    	
-    	<section id="syntax">
-    		<h2>Notation</h2>
+      </section>
+      
+      <section id="syntax">
+        <h2>Notation</h2>
 
-      		<p>
-      			The ShExJ structure is a sublanguage of <a href="http://www.json.org/">JSON</a>. consists of lists and maps of typed objects and values.
+          <p>
+            The ShExJ structure is a sublanguage of <a href="http://www.json.org/">JSON</a>. consists of lists and maps of typed objects and values.
             These are represented as <span class="dfnspan">definitions</span> in the following grammar.
             The content of some constructs involve many choices.
             These are represented as <span class="dclspan">declarations</span>.
-      		</p>
+          </p>
 
           <ul>
             <li><span class="dfnspan">typeName</span> - a JSON object with a type property with the value "typeName" and the attributes listed to the right of the ":"</li>
@@ -227,8 +227,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="grammar" checked="checked">just grammar (press 'g')</input> <input type="radio" name="presLang" value="annotation">with annotations (press 'a')</input>. Double-clicking on production labels, e.g. <span class="dfnspan">schema</span> or <span class="dclspan">PREFIX</span> below, toggles their annotation display.</form>
       </section>
 
-    	<section id="schema" class="grammarSection">
-    		<h2>ShExJ Schema Grammar</h2>
+      <section id="schema" class="grammarSection">
+        <h2>ShExJ Schema Grammar</h2>
         <pre>
 <span class="dfnspan" id="dfn-schema">schema</span>           : prefixes:[<a class="dclref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="dclref" href="#dcl-IRI">IRI</a>] valueClasses:[<a class="dclref" href="#dcl-IRI">IRI</a>-&gt;<a class="dfnref" href="#dfn-valueClass">valueClass</a>]? startActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]? start:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>? shapes:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="dfnref" href="#dfn-shape">shape</a>]<span class="annotation">
 <span class="text">A <span class="dfnspan">schema</span> object has: <code>type</code>:"<span class="dfnspan">schema</span>", <code>prefixes</code>: a map from <a class="dclref" href="#dcl-PREFIX">PREFIX</a> to <a class="dclref" href="#dcl-IRI">IRI</a>, (optional) <code>startActs</code>: a list of <a class="dfnref" href="#dfn-semAct">semAct</a>s, (optional) <code>start</code>: <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>, and <code>shapes</code>: a map from <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> to <a class="dfnref" href="#dfn-shape">shape</a>.</span>
@@ -415,8 +415,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </ul>
       </section>
 
-    	<section id="validation" class="grammarSection">
-    		<h2>ShExJ Validation Results Grammar</h2>
+      <section id="validation" class="grammarSection">
+        <h2>ShExJ Validation Results Grammar</h2>
         <h3>status: experimental</h3>
 
         <p>
@@ -506,27 +506,27 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       </section>
 
         <script type="application/javascript">
-	var bodyKeypressCallbacks = {};
-	/* a form like
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
-	controls display of sections like 
-	<pre class="schema shexc">...</pre>
-	<pre class="schema json">...</pre>
-	 */
-	[
-	  { lookIn: ".grammarSection ", form: "#langOptions", radioName: "presLang", keys:
-	    { "g": "grammar", "G": "grammar", "a": "annotation", "A": "annotation" }
-	  }
-	].forEach(function (x) {
+        var bodyKeypressCallbacks = {};
+        /* a form like
+           <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
+           controls display of sections like 
+           <pre class="schema shexc">...</pre>
+           <pre class="schema json">...</pre>
+        */
+        [
+          { lookIn: ".grammarSection ", form: "#langOptions", radioName: "presLang", keys:
+            { "g": "grammar", "G": "grammar", "a": "annotation", "A": "annotation" }
+          }
+        ].forEach(function (x) {
 
-	  /* In lookIn, reveal classes selected by radioName; hide others.
-	   */
-	  function revealClass (lookIn, form, radioName) {
+          /* In lookIn, reveal classes selected by radioName; hide others.
+           */
+          function revealClass (lookIn, form, radioName) {
             $(lookIn+"."+$(form+" input[name="+radioName+"]").not(":checked").val()).hide();
             $(lookIn+"."+$(form+" input[name="+radioName+"]" +    ":checked").val()).show();
           }
-	  /* Look in all lookIn containers for the height different of from and to targets.
-	   */
+          /* Look in all lookIn containers for the height different of from and to targets.
+           */
           function adjustHeight (lookIn, from, to) {
             var visibleTop = $(window).scrollTop();
             var all = $(lookIn+"."+from); // all containers of from (and presumably, to)
@@ -534,16 +534,16 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
             for (var i = 0; i < all.length; ++i) {
               var elt = all.slice(i, i+1);
               if (elt.offset().top >= visibleTop) // stop when we pass the current scroll top.
-		break;
+                break;
               adj += elt.siblings("."+to).height() - elt.height();
             }
             $(window).scrollTop($(window).scrollTop() + adj); // move the scroll top.
           }
 
           var inputs = $(x.form + " input[name="+x.radioName+"]");
-	  // Listen for checkbox changes.
+          // Listen for checkbox changes.
           inputs.change(function() {revealClass(x.lookIn, x.form, x.radioName);})
-	  // Show only the currently selected class.
+          // Show only the currently selected class.
           revealClass(x.lookIn, x.form, x.radioName);
           $(x.lookIn+".dfnspan,"+x.lookIn+".dclspan").each(function (ord, node) {
             // $(node).contents().replaceWith('<a href="#">'+$(node).text()+'</a>');
@@ -551,30 +551,30 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
               $($(this).nextAll(".annotation").get(0)).toggle();
             };
           });
-	  // Assign callbacks the the associated keycodes.
-	  Object.keys(x.keys).forEach(function (kStr) {
-      var k = kStr.charCodeAt(0);
-	    bodyKeypressCallbacks[k] = function () {
-	      // If the corresponding radio button isn't already selected,
+          // Assign callbacks the the associated keycodes.
+          Object.keys(x.keys).forEach(function (kStr) {
+            var k = kStr.charCodeAt(0);
+            bodyKeypressCallbacks[k] = function () {
+              // If the corresponding radio button isn't already selected,
               if(!inputs.filter("[value="+x.keys[kStr]+"]").is(":checked")) {
-		// adjust the height from the current class to the new class;
-		adjustHeight(x.lookIn, $("input[name="+x.radioName+"]:checked", x.form).val(), ""+x.keys[kStr]+"");
-		// set it as "checked";
-		inputs.filter("[value="+x.keys[kStr]+"]").prop("checked", true); // .change() did nothing
-		// swap which is displayed.
-		revealClass(x.lookIn, x.form, x.radioName);
+                // adjust the height from the current class to the new class;
+                adjustHeight(x.lookIn, $("input[name="+x.radioName+"]:checked", x.form).val(), ""+x.keys[kStr]+"");
+                // set it as "checked";
+                inputs.filter("[value="+x.keys[kStr]+"]").prop("checked", true); // .change() did nothing
+                // swap which is displayed.
+                revealClass(x.lookIn, x.form, x.radioName);
               }
-	      return false;
-	    };
-	  });
-	});
+              return false;
+            };
+          });
+        });
         $("html > body").keypress(function (evt) {
           if (evt.ctrlKey)
             return true; // don't interfere with browser control keys.
-	  if (evt.which in bodyKeypressCallbacks)
-	    return bodyKeypressCallbacks[evt.which]();
-	  return true;
+          if (evt.which in bodyKeypressCallbacks)
+            return bodyKeypressCallbacks[evt.which]();
+          return true;
         });
         </script>
-  	</body>
+    </body>
 </html>
