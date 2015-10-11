@@ -136,12 +136,13 @@ a.ref:visited { color: #a00550; font-family: monospace; }
 
 span.dfnref, a.dfnref  { background-color: #e0e0ff; }
 span.dclref, a.dclref  { background-color: #e0ffe0; }
-a.dfnspan, a.dfnspan:visited { color: #000080; }
-a.dclspan, a.dclspan:visited { color: #008000; }
+span.dfnspan, a.dfnspan, a.dfnspan:visited { color: #000080; }
+span.dclspan, a.dclspan, a.dclspan:visited { color: #008000; }
 
 .annotation .text { background-color: #fef; }
 .example { border: medium solid #ccd; background-color: #eef; }
 
+.fault { border: thick solid red; }
     </style>
     <script src="jquery.min.js" type= "text/javascript"></script>
     <script type="text/javascript"><!--
@@ -230,9 +231,15 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
       <section id="schema" class="grammarSection">
         <h2>ShExJ Schema Grammar</h2>
+
+        <p>
+          ShExJ Schema documents start with the <a class="dfnref" href="#dfn-schema">schema</a> production.
+          The root object will therefor have a "type":"schema" property.
+        </p>
+
         <pre>
 <span class="dfnspan" id="dfn-schema">schema</span>           : prefixes:[<a class="dclref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="dclref" href="#dcl-IRI">IRI</a>] valueClasses:[<a class="dclref" href="#dcl-IRI">IRI</a>-&gt;<a class="dfnref" href="#dfn-valueClass">valueClass</a>]? startActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]? start:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>? shapes:[<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="dfnref" href="#dfn-shape">shape</a>]<span class="annotation">
-<span class="text">A <span class="dfnspan">schema</span> object has: <code>type</code>:"<span class="dfnspan">schema</span>", <code>prefixes</code>: a map from <a class="dclref" href="#dcl-PREFIX">PREFIX</a> to <a class="dclref" href="#dcl-IRI">IRI</a>, (optional) <code>startActs</code>: a list of <a class="dfnref" href="#dfn-semAct">semAct</a>s, (optional) <code>start</code>: <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>, and <code>shapes</code>: a map from <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> to <a class="dfnref" href="#dfn-shape">shape</a>.</span>
+<span class="text">A <span class="dfnspan">schema</span> object has: <code>type</code>:"schema", <code>prefixes</code>: a map from <a class="dclref" href="#dcl-PREFIX">PREFIX</a> to <a class="dclref" href="#dcl-IRI">IRI</a>, (optional) <code>startActs</code>: a list of <a class="dfnref" href="#dfn-semAct">semAct</a>s, (optional) <code>start</code>: <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>, and <code>shapes</code>: a map from <a class="dclref" href="#dcl-shapeLabel">shapeLabel</a> to <a class="dfnref" href="#dfn-shape">shape</a>.</span>
 <span id="exm-schema" class="example">{
   "type":"schema",
   "prefixes": { "foaf": "http://xmlns.com/foaf/0.1/",
@@ -305,7 +312,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="text">An <span class="dfnspan">inclusion</span> object has: <code>type</code>:"inclusion" and <code>include</code>:<a class="dclref" href="#dcl-shapeLabel">shapeLabel</a>.</span>
 <span  id="exm-inclusion" class="example">{ "type":"includsion", "include":"http://co.example/IssueShape" }</span>
 </span>
-<span class="dfnspan" id="dfn-tripleConstraint">tripleConstraint</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> (value:<a class="dfnref" href="#dfn-valueClass">valueClass</a>|valueClassRef:<a class="dfnref" href="#dfn-valueClassLabel">valueClassLabel</a>) min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="dfnspan" id="dfn-tripleConstraint">tripleConstraint</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> (value:<a class="dfnref" href="#dfn-valueClass">valueClass</a>|valueClassRef:<a class="dclref" href="#dcl-valueClassLabel">valueClassLabel</a>) min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
 <span class="text">A <span class="dfnspan">tripleConstraint</span> object has: <code>type"</code>:"tripleConstraint", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a> <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? <code>max</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span  id="exm-tripleConstraint" class="example">{
   "type":"tripleConstraint",
@@ -400,16 +407,16 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="text">A <span class="dclspan">langSTRING</span> a <a class="dclref" href="#dcl-STRING">STRING</a> followed by "@" and a <a href="http://www.w3.org/TR/turtle/#grammar-production-LANGTAG">Turtle LANGTAG</a>.</span>
 <span  id="exm-langSTRING" class="example">"\"abc\""</span>, <span  id="exm-langSTRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span>
 </span>
-<span class="dclspan" id="dcl-valueSetValue">valueSetValue</span>    = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-STRING">STRING</a>|<a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>|<a class="dclref" href="#dcl-langSTRING">langSTRING</a>|<a class="dclref" href="#dfn-stemRange">stemRange</a><span class="annotation">
-<span class="text">A <span class="dclspan">valueSetValue</span> is a JSON <a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-STRING">STRING</a>, <a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>, <a class="dclref" href="#dcl-langSTRING">langSTRING</a> or <a class="dclref" href="#dcl-stemRange">stemRange</a>.</span>
+<span class="dclspan" id="dcl-valueSetValue">valueSetValue</span>    = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-STRING">STRING</a>|<a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>|<a class="dclref" href="#dcl-langSTRING">langSTRING</a>|<a class="dfnref" href="#dfn-stemRange">stemRange</a><span class="annotation">
+<span class="text">A <span class="dclspan">valueSetValue</span> is a JSON <a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-STRING">STRING</a>, <a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>, <a class="dclref" href="#dcl-langSTRING">langSTRING</a> or <a class="dfnref" href="#dfn-stemRange">stemRange</a>.</span>
 <span  id="exm-valueSetValue" class="example">"http://a.example/assigned"</span>, <span  id="exm-valueSetValue" class="example">"\"repair\""</span>,
 <span  id="exm-valueSetValue" class="example">{
   "type":"stemRange",
   "stem":"http://a.example/"
 }</span>
 </span>
-<span class="dfnspan" id="dfn-stemRange">stemRange</span>        : stem:<a class="dclref" href="#dcl-IRI">IRI</a> exclusions:[<a class="dclref" href="#dfn-stemRange">stemRange</a>]<span class="annotation">
-<span class="text">A <span class="dfnspan">stemRange</span> object has: <code>type</code>:"stemRange", <code>stem</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>exclusions</code>:<a class="dclref" href="#dcl-stemRange">stemRange</a>.</span>
+<span class="dfnspan" id="dfn-stemRange">stemRange</span>        : stem:<a class="dclref" href="#dcl-IRI">IRI</a> exclusions:[<a class="dfnref" href="#dfn-stemRange">stemRange</a>]<span class="annotation">
+<span class="text">A <span class="dfnspan">stemRange</span> object has: <code>type</code>:"stemRange", <code>stem</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>exclusions</code>:<a class="dfnref" href="#dfn-stemRange">stemRange</a>.</span>
 <span  id="exm-stemRange" class="example">{
   "type":"stemRange",
   "stem":"http://a.example/",
@@ -424,7 +431,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </pre>
         <ul>
           <li>The defaults for optional <code>min</code> and <code>max</code> attributes is the <a class="dclref" href="#dcl-INTEGER">INTEGER</a> 1.</li>
-          <li><a class="dclref" href="#dfn-stemRange">stemRange</a>s inside exclusions cannot have exclusions.</li>
+          <li><a class="dfnref" href="#dfn-stemRange">stemRange</a>s inside exclusions cannot have exclusions.</li>
         </ul>
       </section>
 
@@ -433,7 +440,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <h3>status: experimental</h3>
 
         <p>
-          The validation results grammar uses some objects from the schema grammar:
+          The validation results grammar uses some objects from the <a href="#schema">schema grammar</a>:
+          ShExJ Validation Results documents start with the <a class="dfnref" href="#dfn-validation">validation</a> production.
+          The root object will therefor have a "type":"validation" property.
         </p>
         <pre>
 <span class="dfnspan" id="dfn-validation">validation</span>       : node:<a class="dclref" href="#dcl-IRI">IRI</a>, shape:<a class="dclref" href="#dcl-IRI">IRI</a>, solutions:<a class="dclref" href="#dcl-soln">soln</a><span class="annotation">
@@ -472,8 +481,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dfnref" href="#dfn-groupSolution">groupSolution</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dfnref" href="#dfn-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dfnref" href="#dfn-someOfSolution">someOfSolution</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dfnref" href="#dfn-someOfSolution">someOfSolution</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-someOfSolutions" class="example">{
   "type": "someOfSolutions",
   "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ],
@@ -733,6 +742,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           // Show only the currently selected class.
           revealClass(x.lookIn, x.form, x.radioName);
           $(x.lookIn+".dfnspan,"+x.lookIn+".dclspan").each(function (ord, node) {
+            if ($(node).attr("id") === undefined)
+              return;
             // Create anchor
             var elt = $("<a href='#' title='double-click to display annotation'/>");
             //   with click and double-click
@@ -778,6 +789,30 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
             return bodyKeypressCallbacks[evt.which]();
           return true;
         });
+        function check (sec, span, dfn, ref) {
+          function fail (elt, msg) {
+            console.log(msg);
+            $(elt).addClass("fault");
+            $(elt).attr("title", msg);
+          }
+          $(sec+" ."+span).each(function (idx, elt) {
+            var name = $(elt).text();
+            var id = elt.id;
+            if (id === "")
+              return;
+            if (id.substr(0, dfn.length) !== dfn)
+              fail(elt, "expected "+id.substr(0, dfn.length)+" === "+dfn+": "+ $(elt).html());
+            var referers = $(sec+" a[href='#"+id+"']");
+            if (referers.length === 0)
+              fail(elt, "no references to " + id);
+            referers.each(function (idx2, innerElt) {
+              if (innerElt.className !== ref)
+                fail(innerElt, "expected "+innerElt.className+" === "+ref+": "+ $(innerElt).html());
+            });
+          });
+        }
+        check(".grammarSection", "dfnspan", "dfn-", "dfnref");
+        check(".grammarSection", "dclspan", "dcl-", "dclref");
         </script>
     </body>
 </html>
