@@ -511,8 +511,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:(<a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a>), predicate:<a class="dclref" href="#dcl-IRI">IRI</a> object:(<a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a>|<a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>|<a class="dclref" href="#dcl-langSTRING">langSTRING</a>) referenced:<a class="dfnref" href="#dfn-validation">validation</a>?<span class="annotation">
-<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:(<a class="dclref" href="#dcl-IRI">IRI</a> or <a class="dclref" href="#dcl-BNODE">BNODE</a>), <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:(<a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-BNODE">BNODE</a>, <a class="dclref" href="#dcl-dtSTRING">dtSTRING</a> or <a class="dclref" href="#dcl-langSTRING">langSTRING</a>), and (optional) <code>referenced</code>:<a class="dfnref" href="#dfn-validation">validation</a>.</span>
+<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:(<a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a>), predicate:<a class="dclref" href="#dcl-IRI">IRI</a> object:(<a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-STRING">STRING</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a>|<a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>|<a class="dclref" href="#dcl-langSTRING">langSTRING</a>) referenced:<a class="dfnref" href="#dfn-validation">validation</a>?<span class="annotation">
+<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:(<a class="dclref" href="#dcl-IRI">IRI</a> or <a class="dclref" href="#dcl-BNODE">BNODE</a>), <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:(<a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-STRING">STRING</a>, <a class="dclref" href="#dcl-BNODE">BNODE</a>, <a class="dclref" href="#dcl-dtSTRING">dtSTRING</a> or <a class="dclref" href="#dcl-langSTRING">langSTRING</a>), and (optional) <code>referenced</code>:<a class="dfnref" href="#dfn-validation">validation</a>.</span>
 <span id="exm-testedTriple" class="example">{
   "type": "test",
   "subject": "http://inst.example/#Issue1",
@@ -525,6 +525,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     "solutions": [ <a class="exmref" href="#exm-soln">soln</a>* ]
   }
 }</span></span></pre>
+        <ul>
+          <li>The defaults for optional <code>min</code> and <code>max</code> attributes is the <a class="dclref" href="#dcl-INTEGER">INTEGER</a> 1.</li>
+        </ul>
       </section>
 
       <section class="appendix" id="sec-mediaReg">
