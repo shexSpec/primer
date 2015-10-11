@@ -134,10 +134,11 @@ a.ref:visited { color: #a00550; font-family: monospace; }
 .example.wrapper pre+pre { margin-top: 0; }
 #closed-shapes-example-2 pre { margin-top: 0; }
 
-a.dfnref  { background-color: #e0e0ff; }
-a.dclref  { background-color: #e0ffe0; }
-a.dfnspan:visited { color: #000080; }
-a.dclspan:visited { color: #008000; }
+span.dfnref, a.dfnref  { background-color: #e0e0ff; }
+span.dclref, a.dclref  { background-color: #e0ffe0; }
+a.dfnspan, a.dfnspan:visited { color: #000080; }
+a.dclspan, a.dclspan:visited { color: #008000; }
+
 .annotation .text { background-color: #fef; }
 .example { border: medium solid #ccd; background-color: #eef; }
 
@@ -224,7 +225,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           The grammars below can be viewed with or without human language annotations:
         </p>
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="grammar" checked="checked">just grammar (press 'g')</input> <input type="radio" name="presLang" value="annotation">with annotations (press 'a')</input>. Double-clicking on production labels, e.g. <span class="dfnspan">schema</span> or <span class="dclspan">PREFIX</span> below, toggles their annotation display.</form>
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="grammar" checked="checked">just grammar (press 'g')</input> <input type="radio" name="presLang" value="annotation">with annotations (press 'a')</input>. Double-clicking on production labels, e.g. <a class="dfnspan" href="#dfn-schema">schema</a> or <a class="dclspan" href="#dcl-PREFIX">PREFIX</a> below, toggles their annotation display.</form>
       </section>
 
       <section id="schema" class="grammarSection">
@@ -440,8 +441,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span  id="exm-soln" class="example">{ "type":"group", "solutions":[<a class="dclref" href="#dcl-soln">soln</a>], "max":"*" }</span>
 
 </span>
-<span class="dfnspan" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="dclref" href="#dcl-groupSolution">groupSolution</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="dfnspan">groupSolutions</span> object has: <code>type</code>:"<span class="dfnspan">groupSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="dfnspan" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="dfnref" href="#dfn-groupSolution">groupSolution</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">groupSolutions</span> object has: <code>type</code>:"<span class="dfnspan">groupSolutions</span>", <code>solutions</code>: an array of <a class="dfnref" href="#dfn-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-groupSolutions" class="example">{
   "type": "groupSolutions",
   "solutions": [ <a class="exmref" href="#exm-groupSolution">groupSolution</a>* ],
@@ -459,8 +460,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dclref" href="#dcl-groupSolution">groupSolution</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dclref" href="#dcl-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="dfnspan" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="dfnref" href="#dfn-groupSolution">groupSolution</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">someOfSolutions</span> object has: <code>type</code>:"<span class="dfnspan">someOfSolutions</span>", <code>solutions</code>: an array of <a class="dfnref" href="#dfn-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-someOfSolutions" class="example">{
   "type": "someOfSolutions",
   "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ],
@@ -478,8 +479,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> value:<a class="dfnref" href="#dfn-valueClass">valueClass</a> solutions:[<a class="dclref" href="#dcl-testedTriple">testedTriple</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="dfnspan">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="dfnspan">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a>, <code>solutions</code>: an array of <a class="dclref" href="#dcl-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="dfnspan" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="dclref" href="#dcl-IRI">IRI</a> value:<a class="dfnref" href="#dfn-valueClass">valueClass</a> solutions:[<a class="dfnref" href="#dfn-testedTriple">testedTriple</a>] min:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>? max:<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*"? semActs:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
+<span class="text">A <span class="dfnspan">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="dfnspan">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>value</code>:<a class="dfnref" href="#dfn-valueClass">valueClass</a>, <code>solutions</code>: an array of <a class="dfnref" href="#dfn-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="dclref" href="#dcl-INTEGER">INTEGER</a> and (optional) <code>max</code>:(<a class="dclref" href="#dcl-INTEGER">INTEGER</a>|"*") <code>semActs</code>:[<a class="dfnref" href="#dfn-semAct">semAct</a>]?.</span>
 <span id="exm-tripleConstraintSolutions" class="example">{
   "type": "tripleConstraintSolutions",
   "solutions": [ <a class="exmref" href="#exm-tripleConstraintSolution">tripleConstraintSolution</a>* ],
@@ -489,8 +490,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:<a class="dclref" href="#dcl-IRI">IRI</a>, predicate:<a class="dclref" href="#dcl-IRI">IRI</a>, object:<a class="dclref" href="#dcl-IRI">IRI</a> referenced:<a class="dclref" href="#dcl-validation">validation</a>?<span class="annotation">
-<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>referenced</code>:<a class="dclref" href="#dcl-refereenced">referenced</a>.</span>
+<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:<a class="dclref" href="#dcl-IRI">IRI</a>, predicate:<a class="dclref" href="#dcl-IRI">IRI</a>, object:<a class="dclref" href="#dcl-IRI">IRI</a> referenced:<a class="dfnref" href="#dfn-validation">validation</a>?<span class="annotation">
+<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>referenced</code>:<a class="dfnref" href="#dfn-validation">validation</a>.</span>
 <span id="exm-testedTriple" class="example">{
   "type": "test",
   "subject": "http://inst.example/#Issue1",
