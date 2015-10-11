@@ -247,17 +247,21 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="text">A <span class="dclspan">PREFIX</span> is a JSON string with a lexical value matching <a href="http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS">Turtle PNAME_NS</a>.</span>
 <span  id="exm-PREFIX" class="example">"foaf"</span>, <span  id="exm-PREFIX2" class="example">"dc"</span>, the emtpy string <span  id="exm-PREFIX3" class="example">""</span>
 </span>
-<span class="dclspan" id="dcl-valueClassLabel">valueClassLabel</span>  = <a class="dclref" href="#dcl-IRI">IRI</a><span class="annotation">
-<span class="text">A <span class="dclspan">valueClassLabel</span> is an <a class="dclref" href="#dcl-IRI">IRI</a>.</span>
+<span class="dclspan" id="dcl-valueClassLabel">valueClassLabel</span>  = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a><span class="annotation">
+<span class="text">A <span class="dclspan">valueClassLabel</span> is an <a class="dclref" href="#dcl-IRI">IRI</a> or a <a class="dclref" href="#dcl-BNODE">BNODE</a>.</span>
 <span  id="exm-valueClassLabel" class="example">"http://a.example/vs1"</span>
 </span>
-<span class="dclspan" id="dcl-shapeLabel">shapeLabel</span>       = <a class="dclref" href="#dcl-IRI">IRI</a><span class="annotation">
-<span class="text">A <span class="dclspan">shapeLabel</span> is an <a class="dclref" href="#dcl-IRI">IRI</a>.</span>
+<span class="dclspan" id="dcl-shapeLabel">shapeLabel</span>       = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a><span class="annotation">
+<span class="text">A <span class="dclspan">shapeLabel</span> is an <a class="dclref" href="#dcl-IRI">IRI</a> or a <a class="dclref" href="#dcl-BNODE">BNODE</a>.</span>
 <span  id="exm-shapeLabel" class="example">"http://co.example/IssueShape"</span>
 </span>
 <span class="dclspan" id="dcl-IRI">IRI</span>              = <a href="http://www.w3.org/TR/turtle/#grammar-production-IRIREF">&lt;http://www.w3.org/TR/turtle/#grammar-production-IRIREF&gt;</a><span class="annotation">
 <span class="text">An <span class="dclspan">IRI</span> is a JSON string with a lexical value matching <a href="http://www.w3.org/TR/turtle/#grammar-production-IRIREF">Turtle IRIREF</a>.</span>
 <span  id="exm-IRI" class="example">"http://co.example/IssueShape"</span>, <span  id="exm-IRI2" class="example">"http://xmlns.com/foaf/0.1/"</span>
+</span>
+<span class="dclspan" id="dcl-BNODE">BNODE</span>            = <a href="http://www.w3.org/TR/turtle/#grammar-production-BLANK_NODE_LABEL">&lt;http://www.w3.org/TR/turtle/#grammar-production-BLANK_NODE_LABEL&gt;</a><span class="annotation">
+<span class="text">An <span class="dclspan">BNODE</span> is a JSON string with a lexical value matching <a href="http://www.w3.org/TR/turtle/#grammar-production-BLANK_NODE_LABEL">Turtle BLANK_NODE_LABEL</a>.</span>
+<span  id="exm-BNODE" class="example">"_:IssueShape"</span>, <span  id="exm-BNODE2" class="example">"_:b1"</span>
 </span>
 <span class="dclspan" id="dcl-BOOL">BOOL</span>             = true|false <span class="comment"># JSON tokens</span><span class="annotation">
 <span class="text">A <span class="dclspan">BOOL</span> is a JSON-native type with a value of <code>true</code> or <code>false</code>.</span>
@@ -388,8 +392,16 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="text">A <span class="dclspan">STRING</span> is a JSON string with quotation marks at the beginning and end.</span>
 <span  id="exm-STRING" class="example">"\"abc\""</span>, <span  id="exm-STRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span>
 </span>
-<span class="dclspan" id="dcl-valueSetValue">valueSetValue</span>    = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-STRING">STRING</a>|<a class="dclref" href="#dfn-stemRange">stemRange</a><span class="annotation">
-<span class="text">A <span class="dclspan">valueSetValue</span> is a JSON <a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-STRING">STRING</a> or <a class="dclref" href="#dcl-stemRange">stemRange</a>.</span>
+<span class="dclspan" id="dcl-dtSTRING">dtSTRING</span>         = '"' ([^"] | '\\' '"')* '"' '^^' <a class="dclref" href="#dcl-IRI">IRI</a> <span class="comment"># JSON string with '"' at beginning, an unescaped '"' followed by '^^' and an <a class="dclref" href="#dcl-IRI">IRI</a></span><span class="annotation">
+<span class="text">A <span class="dclspan">dtSTRING</span> a <a class="dclref" href="#dcl-STRING">STRING</a> followed by "^^" and an <a class="dclref" href="#dcl-IRI">IRI</a>.</span>
+<span  id="exm-dtSTRING" class="example">"\"abc\""</span>, <span  id="exm-dtSTRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span>
+</span>
+<span class="dclspan" id="dcl-langSTRING">langSTRING</span>       = '"' ([^"] | '\\' '"')* '"' '@' <a href="http://www.w3.org/TR/turtle/#grammar-production-LANGTAG">&lt;http://www.w3.org/TR/turtle/#grammar-production-LANGTAG&gt;</a> <span class="comment"># JSON string with '"' at beginning, an unescaped '"' followed by '@' and a <a href="http://www.w3.org/TR/turtle/#grammar-production-LANGTAG">Turtle LANGTAG</a></span><span class="annotation">
+<span class="text">A <span class="dclspan">langSTRING</span> a <a class="dclref" href="#dcl-STRING">STRING</a> followed by "@" and a <a href="http://www.w3.org/TR/turtle/#grammar-production-LANGTAG">Turtle LANGTAG</a>.</span>
+<span  id="exm-langSTRING" class="example">"\"abc\""</span>, <span  id="exm-langSTRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span>
+</span>
+<span class="dclspan" id="dcl-valueSetValue">valueSetValue</span>    = <a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-STRING">STRING</a>|<a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>|<a class="dclref" href="#dcl-langSTRING">langSTRING</a>|<a class="dclref" href="#dfn-stemRange">stemRange</a><span class="annotation">
+<span class="text">A <span class="dclspan">valueSetValue</span> is a JSON <a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-STRING">STRING</a>, <a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>, <a class="dclref" href="#dcl-langSTRING">langSTRING</a> or <a class="dclref" href="#dcl-stemRange">stemRange</a>.</span>
 <span  id="exm-valueSetValue" class="example">"http://a.example/assigned"</span>, <span  id="exm-valueSetValue" class="example">"\"repair\""</span>,
 <span  id="exm-valueSetValue" class="example">{
   "type":"stemRange",
@@ -490,8 +502,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:<a class="dclref" href="#dcl-IRI">IRI</a>, predicate:<a class="dclref" href="#dcl-IRI">IRI</a>, object:<a class="dclref" href="#dcl-IRI">IRI</a> referenced:<a class="dfnref" href="#dfn-validation">validation</a>?<span class="annotation">
-<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, and (optional) <code>referenced</code>:<a class="dfnref" href="#dfn-validation">validation</a>.</span>
+<span class="dfnspan" id="dfn-testedTriple">testedTriple</span>     : subject:(<a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a>), predicate:<a class="dclref" href="#dcl-IRI">IRI</a> object:(<a class="dclref" href="#dcl-IRI">IRI</a>|<a class="dclref" href="#dcl-BNODE">BNODE</a>|<a class="dclref" href="#dcl-dtSTRING">dtSTRING</a>|<a class="dclref" href="#dcl-langSTRING">langSTRING</a>) referenced:<a class="dfnref" href="#dfn-validation">validation</a>?<span class="annotation">
+<span class="text">A <span class="dfnspan">testedTriple</span> object has: <code>type</code>:"<span class="dfnspan">testedTriple</span>", <code>subject</code>:(<a class="dclref" href="#dcl-IRI">IRI</a> or <a class="dclref" href="#dcl-BNODE">BNODE</a>), <code>predicate</code>:<a class="dclref" href="#dcl-IRI">IRI</a>, <code>object</code>:(<a class="dclref" href="#dcl-IRI">IRI</a>, <a class="dclref" href="#dcl-BNODE">BNODE</a>, <a class="dclref" href="#dcl-dtSTRING">dtSTRING</a> or <a class="dclref" href="#dcl-langSTRING">langSTRING</a>), and (optional) <code>referenced</code>:<a class="dfnref" href="#dfn-validation">validation</a>.</span>
 <span id="exm-testedTriple" class="example">{
   "type": "test",
   "subject": "http://inst.example/#Issue1",
