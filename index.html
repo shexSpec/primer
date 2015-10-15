@@ -78,6 +78,7 @@
         /* font-lock-variable-name-face */
         color: #2d52a0;
       }
+      .code { color: #7bb; }
       .example {
         display: inline-block;
       }
@@ -2336,13 +2337,110 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
           </div>
         </div>
       </section>
+    </section>
 
-  		<!-- section id="semantic-actions">
-  			<h3>Semantic Actions</h3>
-        <p class="todo">
-          TODO
-        </p>
-      </section -->
+  	<section id="semact">
+  		<h2>Semantic Actions</h2>
+      <p>
+        <code>Semantic actions</code> are pieces of arbitrary code attached to expressions in a shape.
+        They can be used to signal a validation failure or perform opperations with side effects.
+        (The name "semantic action" comes from their serving a same role as semantic actions in parsers like Antlr or Yacc.)
+        Below is an example from a standard extension called "<a href="http://shex.io/extensions/Test/">Test</a>" which can only <code>print(msg)</code> or <code>fail(msg)</code>:
+      </p>
+        <div id="simple-expressions-example-1" class="example wrapper">
+          <!-- ShExC example -->
+    		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
+  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> (<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>)</span>,
+  <span class="reportedBy lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span>
+}
+
+<span class="user lowlight2 top bot shape-name">my:UserShape</span> {
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="string lowlight2 top bot value-constraint">xsd:string</span></span> <span class="code">%test:{ print(o) %}</span>,
+  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="IRI lowlight2 top bot value-constraint">IRI</span><span class="oneOrMore lowlight2 top bot">+</span></span> <span class="code">%test:{ fail("doomed") %}</span>
+}</pre>
+
+          <!-- JSON example -->
+    		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ "type": "schema",
+  "shapes": {
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="state      lowlight1    ">  <span class="predicate">"predicate": "ex:state"</span>,                      </span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
+          <span class="state      lowlight1 bot">},                                              </span>
+          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span>                 </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
+          <span class="reportedBy lowlight1 bot">}                                               </span>
+        ]
+      }
+    },
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
+          <span class="name       lowlight1 bot">},                                              </span>
+          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
+          <span class="mbox       lowlight1 bot">}                                               </span>
+        ]
+      }
+    }
+  }
+}</pre>
+          <div class="verticalDivider"><!-- acts as a divider --></div>
+          <div style="float:left;">
+    	  	<pre class="instance turtle"><span class="comment"># passing data</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
+</span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">
+</span>
+<span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
+    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
+    <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span></span> .
+
+<span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
+    <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 top"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span></span> ;
+    <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 bot"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span></span>.</pre>
+    	  	<pre class="instance turtle fail"><span class="comment"># failing data</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
+</span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">
+</span>
+<span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
+    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant errorSite">unsinged</span></span></span> ;
+    <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span></span> .
+
+<span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span>, <span class="string top bot errorSite">"Robert Smith"</span></span> ;
+    <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 top"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span></span> ;
+    <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 bot"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span></span>.</pre>
+  </div>
+          <div style="clear:both;"></div>
+      </div>
+      <script type="text/javascript">
+      <!--
+prepareHighlight(["oneOrMore", "IRI", "stateValue", "user", "string"], "highlight2", "lowlight2");
+prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowlight1");
+      -->
+      </script>
     </section>
 
 		<section id="properties">
