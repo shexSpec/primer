@@ -2345,7 +2345,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
         <code>Semantic actions</code> are pieces of arbitrary code attached to expressions in a shape.
         They can be used to signal a validation failure or perform opperations with side effects.
         (The name "semantic action" comes from their serving a same role as semantic actions in parsers like Antlr or Yacc.)
-        Below is an example from a standard extension called "<a href="http://shex.io/extensions/Test/">Test</a>" which can only <code>print(msg)</code> or <code>fail(msg)</code>:
+        Below is an example from a standard extension called "<a href="http://shex.io/extensions/Test/">Test</a>" which can only <code class="code">print(msg)</code> or <code class="code">fail(msg)</code>:
       </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
@@ -2355,9 +2355,15 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
   <span class="reportedBy lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span>
 }
 
-<span class="user lowlight2 top bot shape-name">my:UserShape</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="string lowlight2 top bot value-constraint">xsd:string</span></span> <span class="code">%test:{ print(o) %}</span>,
-  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="IRI lowlight2 top bot value-constraint">IRI</span><span class="oneOrMore lowlight2 top bot">+</span></span> <span class="code">%test:{ fail("doomed") %}</span>
+<span class="shape-name">my:UserShape</span> {
+  <span class="eitherOr   lowlight2 top">(                              </span>
+     <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span> <span class="code">%test:{ print(o) %}</span>
+  <span class="eitherOr   lowlight2 bot">                               </span>
+  <span class="eitherOr   lowlight2 top">  |                            </span>
+      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>,
+      <span class="fname      lowlight1 top bot"><span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span></span> <span class="code">%test:{ fail("doomed") %}</span>
+  <span class="eitherOr   lowlight2 bot">),                             </span>
+  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
 }</pre>
 
           <!-- JSON example -->
@@ -2367,38 +2373,48 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
     <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
-          <span class="state      lowlight1    ">  <span class="predicate">"predicate": "ex:state"</span>,                      </span>
+          <span class="state      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,</span>
           <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
-          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint",                   </span>
-          <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span>                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
+          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reportedBy"</span>,</span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span> <span class="value-constraint">"reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span> }</span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
         ]
       }
     },
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+    <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
-          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
-          <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
-          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
-          <span class="mbox       lowlight1 bot">}                                               </span>
+          { "type": "someOf",
+            "expressions": [
+              <span class="eitherOr   lowlight2 top">                                                                  </span>
+              <span class="name       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
+              <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,
+                "semActs": [
+                  { "type": "semAct", "name": "test:", "code": " print(o) " }
+                ] }</span>,
+              <span class="eitherOr   lowlight2 bot">                                                                  </span>
+              <span class="eitherOr   lowlight2 top">                                                                  </span>
+              { "type": "group",
+                "expressions": [
+                  <span class="gname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
+                  <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,</span>
+                  <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
+                  <span class="fname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
+                  <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,
+                    "semActs": [ { "type": "semAct", "name": "test:",
+                        "code": " fail(\"doomed\") "
+                      }
+                    ] }</span>
+                ]
+              }
+              <span class="eitherOr   lowlight2 bot">                                                                  </span>
+            ]
+          },
+          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
+          <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "nodeKind": "iri" }</span> }</span>
         ]
       }
     }
