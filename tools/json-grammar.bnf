@@ -1,0 +1,25 @@
+# yacker grammar for jsg files
+
+grammarDef       : (objectDef | nonObject)* "@terminals" terminal*
+objectDef        : ID ':' particle+ ('|' particle*)* ';'
+particle         : ID cardinality?
+                 | propertyOrGroup
+propertyOrGroup  : ID ':' propertyType cardinality?
+                 | '(' ID ('|' ID)+ ')' ':' propertyType cardinality?
+                 | '(' propertyOrGroup+ ('|' propertyOrGroup+)+ ')'
+propertyType     : ID
+                 | STRING
+                 | '[' ID ('->' ID)? ']'
+                 | '(' typeAlternatives ')'
+typeAlternatives : ID ('|' STRING)+
+                 | STRING ('|' STRING)+
+nonObject        : ID '=' particle+ ('|' particle*)* ';'
+terminal         : ID '=' STRING ('+' STRING)*
+cardinality      : '?' | '*'
+
+@terminals
+
+ID               : [a-zA-Z_]+
+STRING           : '"' [^"]+ '"'
+@pass            : [ \t\r\n]+
+                 | "#" [^\r\n]*
