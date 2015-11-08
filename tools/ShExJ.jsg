@@ -1,0 +1,42 @@
+schema           : prefixes:[PREFIX->IRI]? valueClasses:[IRI->valueClass]? startActs:[semAct]? start:shapeLabel? shapes:[shapeLabel->shape]? ;
+shape            : virtual:BOOL? closed:BOOL? extra:[IRI]? expression:expr? inherit:[shapeLabel]? ;
+semAct           : name:IRI code:STRING ;
+expr             = eachOf | someOf | tripleConstraint | inclusion ;
+eachOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? ;
+someOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? ;
+inclusion        : include:shapeLabel ;
+# tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:valueClass|valueClassRef:valueClassLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]?;
+tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI valueExpr:valueExpr min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]?;
+valueExpr        = valueClass | vcor | vcand ;
+valueClass       : nodeKind:"literal" xsFacet*
+                 | nodeKind:("iri"|"bnode"|"nonliteral") reference:shapeLabel? stringFacet*
+                 | datatype:IRI xsFacet*
+                 | reference:shapeLabel stringFacet*
+                 | values:[valueSetValue]
+                 | ; # empty
+vcor             : valueExprs:[valueClass] ;
+vand             : valueExprs:[valueClass] ;
+# and              : disjuncts:[expr] ;
+annotation       : predicate:IRI object:IRI ;
+
+xsFacet          = stringFacet | numericFacet ;
+stringFacet      = (length|minlength|maxlength):INTEGER | pattern:STRING ;
+numericFacet     = (mininclusive|minexclusive|maxinclusive|maxexclusive):numericLiteral
+                 | (totaldigits|fractiondigits):INTEGER ;
+valueClassLabel  = IRI|BNODE ;
+shapeLabel       = IRI|BNODE ;
+numericLiteral   = INTEGER|DECIMAL|DOUBLE ;
+valueSetValue    = IRI|STRING|DATATYPE_STRING|LANG_STRING|stemRange ;
+stemRange        : stem:IRI exclusions:[stemRange] ;
+
+@terminals
+PREFIX           = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS>
+IRI              = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-IRIREF>
+BNODE            = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-BLANK_NODE_LABEL>
+BOOL             = "^(true"+"|false)$" # JSON boolean tokens
+INTEGER          = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-INTEGER>
+DECIMAL          = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-DECIMAL>
+DOUBLE           = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-DOUBLE>
+STRING           = "^.*$" # '"' ([^"] | '\\' '"')* '"' # JSON string with '"' at beginning and end
+DATATYPE_STRING  = "^.*$" # '"' ([^"] | '\\' '"')* '"' '^^' IRI # JSON string with '"' at beginning, an unescaped '"' followed by '^^' and an IRI
+LANG_STRING      = "^.*$" # '"' ([^"] | '\\' '"')* '"' '@' "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-LANGTAG> # JSON string with '"' at beginning, an unescaped '"' followed by '@' and a Turtle LANGTAG
