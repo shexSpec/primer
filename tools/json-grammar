@@ -4,16 +4,55 @@ var Assert = require("assert");
 var OBJ = ">";
 var EXP = "="
 
-function Missing (msg) {
-  var ret = Error(msg);
-  ret.type = "missing";
+function Missing (attr, obj) {
+  var ret = Error("expected \"" + attr + "\" in " + obj);
+  ret.type = "Missing";
+  ret.object = obj;
+  ret.attribute = attr;
   return ret;
 }
 
-function Unexpected (un) {
-  return Error("unexpected type: \"" + un + "\".");
+function Unexpected (attr, obj) {
+  var ret = Error("unexpected \"" + attr + "\": \"" + obj[attr] + "\" in " + obj);
+  ret.type = "Unexpected";
+  ret.object = obj;
+  ret.attribute = attr;
+  return ret;
 }
-function throwUnexpected (un) { throw Unexpected(un); }
+// thrower for inline conditionals
+function throwUnexpected (attr, obj) { throw Unexpected(attr, value); }
+
+function Expected (attr, value, obj) {
+  var msg =
+    "Expected \"" + attr + "\"" +
+    (value === undefined ? "" : " to equal \"" + value + "\"") +
+    (!obj ? "" : " in " + obj);
+  var ret = Error(msg);
+  ret.type = "unexpected";
+  ret.object = obj;
+  ret.attribute = attr;
+  ret.value = value;
+  return ret;
+}
+
+function Epsilon (obj) {
+  var ret = Expected("expected " + JSON.stringify(elt) + " to be empty.");
+  ret.type = "Epsilon";
+  ret.object = obj;
+  return ret;
+}
+
+function NoMatching999 (attr, values, obj) {
+  var msg = !obj ?
+    "Expected \"" + attr + "\" to equal \"" + value + "\"" :
+    "Expected \"" + attr + "\": \"" + obj[attr] + "\" to equal \"" + value + "\" in " + obj;
+  var ret = Error(msg);
+  ret.type = "NoMatching";
+  ret.object = obj;
+  ret.attribute = attr;
+  ret.value = value;
+  return ret;
+}
 
 function novel (elt, key, known) {
   return known.indexOf(key) === -1 ? elt[key] : undefined;
@@ -29,7 +68,7 @@ function Schema (schema) {
             if (elt === ft.slice(1, -1)) {
               return [];
             } else {
-              return [Error("expected " + elt + " === " + ft.slice(1, -1))];
+              return [Expected(elt, ft.slice(1, -1))];
             }
           }
           var refd = schema.map[ft];
@@ -37,27 +76,13 @@ function Schema (schema) {
             return this.validateObject(elt, ft, lead);
           } else if (refd.type === "nonObject") {
             return this.validateExpr(elt, refd.expr, known, lead);
-
-            // console.log(lead, "non-elt:", elt);
-            var subErrors;
-            console.log(lead, "T      choice testing " + JSON.stringify(elt) + " against " + JSON.stringify(refd));
-            for (var i = 0; i < refd.vals.length; ++i) { // for(;;) for early return
-              var disj = refd.vals[i];
-              // console.log(lead, "as:", disj);
-              subErrors = _validator.validateLeafType(elt, disj, known, lead+EXP);
-              if (subErrors.length === 0) {
-                return [];
-              }
-            }
-            console.log(lead, "FAILED choice testing " + JSON.stringify(elt) + " against " + JSON.stringify(refd));
-            return [Error("no matching choice testing " + JSON.stringify(elt) + " against " + JSON.stringify(refd))];
           } else if (refd.type === "terminal") {
             if (!(""+elt).match(RegExp(refd.regexp))) {
-              return [Error(elt + " didn't match " + refd.regexp)];
+              return [Expected(elt, refd.regexp)];
             }
             return [];
           } else {
-            throwUnexpected(refd.type);
+            throwUnexpected("type", refd);
           }
         },
         validateType: function (elt, t, known, lead) {
@@ -78,10 +103,6 @@ function Schema (schema) {
               }
             }
             return [Error("no matching option testing " + JSON.stringify(elt) + " against " + JSON.stringify(t))];
-
-            return t.map(function (ti) {
-              return _validator.validateLeafType(elt, ti, known, lead+EXP);
-            });
           } else if (t.type === "array") {
             return elt.reduce(function (ret, e) {
               return ret.concat(_validator.validateLeafType(e, t.of, known, lead+EXP));
@@ -92,18 +113,18 @@ function Schema (schema) {
                 concat(_validator.validateLeafType(elt[from], t.to, known, lead+EXP));
             }, []);
           } else {
-            throwUnexpected(t.type);
+            throwUnexpected("type", t);
           }
         },
-        validateProperty: function (elt, prop, known, lead) {
+        validateProperty: function (elt, prop, known, lead, propName) {
           if (prop.type === "epsilon") {
-            return elt === undefined ? [] : [Error("expected " + JSON.stringify(elt) + " to be empty.")];
+            return elt === undefined ? [] : [Unexpected(propName, elt)];
           }
           if (elt === undefined) {
             if (false && prop.card === "?") {
               return [];
             } else {
-              return [Error("expected " + JSON.stringify(prop))]; // debugger; 
+              return [Expected(propName, undefined, elt)];
             }
           }
           return this.validateType(elt, prop.propertyType, known, lead);
@@ -114,13 +135,12 @@ function Schema (schema) {
             for (var i = 0; i < prop.ids.length; ++i) { // for(;;) for early return
               var disj = prop.ids[i];
               subKnown = known.slice();
-              subErrors = this.validateProperty(novel(elt, disj, known), prop, subKnown, lead);
-              // subErrors = this.validateLeafType(novel(elt, disj, known), prop.propertyType, subKnown, lead);
+              subErrors = this.validateProperty(novel(elt, disj, known), prop, subKnown, lead, disj);
               if (subErrors.length === 0) {
                 known.push(disj)
                 return [];
               }
-            } // debugger;
+            }
             return [Error("no matching enum testing " + JSON.stringify(elt) + " against " + JSON.stringify(prop))];
         },
         validateReference: function (elt, nob, known, lead) {
@@ -130,11 +150,12 @@ function Schema (schema) {
           var _validator = this;
           var errors = [];
           list.forEach(function (li) {
+            errors = errors.concat(_validator.validateExpr(elt, li, known, lead+EXP));
             // console.log(lead, "T      choice testing ", elt, " for ", li);
-            var t = errors.concat(_validator.validateExpr(elt, li, known, lead+EXP));
-            var disposition = t.length === 0 ? "PASSED" : "FAILED";
+            // var t = _validator.validateExpr(elt, li, known, lead+EXP);
+            // var disposition = t.length === 0 ? "PASSED" : "FAILED";
             // console.log(lead, disposition, " choice testing ", elt, " for ", li, " yielded ", t);
-            errors = t;
+            // errors = errors.concat(t);
           });
           return errors;
         },
@@ -143,15 +164,15 @@ function Schema (schema) {
         },
         validateExpr: function (elt, expr, known, lead) {
           var _validator = this;
-          var matched = 0; // for reference(?), property(?|*) and propertyEnumeration(?|*)
-          var lastErrors;
-          var lastKnown;
           // console.log(lead, expr);
-          switch (expr.type) {
-          case "reference":
+
+          function testCard (test) {
+            var matched = 0; // for reference(?), property(?|*) and propertyEnumeration(?|*)
+            var lastErrors;
+            var lastKnown;
             do {
               lastKnown = known.length;
-              if ((lastErrors = _validator.validateReference(elt, expr, known, lead+EXP)).length === 0) {
+              if ((lastErrors = test()).length === 0) {
                 ++matched;
               }
             } while (expr.card === "*" && known.length !== lastKnown && lastErrors.length === 0);
@@ -162,41 +183,33 @@ function Schema (schema) {
             } else {
               return  expr.card === "" ? lastErrors : [Error("unexpected " + matched + " matching " + JSON.stringify(expr))]
             }
+          }
+
+          switch (expr.type) {
+            // reference, property and propertyEnumeration can have a cardinality
+          case "reference":
+            return testCard(function () {
+              return _validator.validateReference(elt, expr, known, lead+EXP);
+            });
+
           case "property":
-            do {
-              lastKnown = known.length;
-              if ((lastErrors = _validator.validateProperty(novel(elt, expr.id, known), expr, known, lead)).length === 0) {
-                ++matched;
+//                known.push(expr.id);
+            return testCard(function () {
+              var e = _validator.validateProperty(novel(elt, expr.id, known), expr, known, lead, expr.id);
+              if (e.length === 0) {
                 known.push(expr.id);
               }
-            } while (expr.card === "*" && known.length !== lastKnown && lastErrors.length === 0);
-            if (matched === 1 ||
-                expr.card === "?" && matched === 0 ||
-                expr.card === "*") {
-              return [];
-            } else {
-              return  expr.card === "" ? lastErrors : [Error("unexpected " + matched + " matching " + JSON.stringify(expr))]
-            }
-            // var ret = _validator.validateProperty(novel(elt, expr.id, known), expr, known, lead);
-            // if (ret.length === 0) { known.push(expr.id); }
-            // return ret;
+              return e;
+            });
+
           case "propertyEnumeration":
-            do {
-              lastKnown = known.length;
-              if ((lastErrors = _validator.validatePropertyEnumeration(elt, expr, known, lead+EXP)).length === 0) {
-                ++matched;
-              }
-            } while (expr.card === "*" && known.length !== lastKnown && lastErrors.length === 0);
-            if (matched === 1 ||
-                expr.card === "?" && matched === 0 ||
-                expr.card === "*") {
-              return [];
-            } else {
-              return  expr.card === "" ? lastErrors : [Error("unexpected " + matched + " matching " + JSON.stringify(expr))]
-            }
-            // return _validator.validatePropertyEnumeration(elt, expr, known, lead+EXP);
+            return testCard(function () {
+              return _validator.validatePropertyEnumeration(elt, expr, known, lead+EXP);
+            });
+
           case "propertyList":
             return _validator.validatePropertyList(elt, expr.exprs, known, lead);
+
           case "or":
             var subErrors;
             var subKnown;
@@ -210,11 +223,13 @@ function Schema (schema) {
               }
             }
             return [Error("no matching enum testing " + JSON.stringify(elt) + " against " + JSON.stringify(expr))];
+
           case "epsilon":
             known.push(expr.id)
             return [];
+
           default:
-            throwUnexpected(expr.type);
+            throwUnexpected("type", expr);
           }
         },
         validateObject: function (elt, as, leadp) {
@@ -226,8 +241,7 @@ function Schema (schema) {
           Assert(defn.type === "object");
           Assert(defn !== undefined);
           Assert("type" in elt);
-          if (!("type" in elt)) { return [Error("expected type in " + JSON.stringify(elt))]; }
-          if (elt.type !== as) { return [Error("expected type " + JSON.stringify(elt.type) + " === " + JSON.stringify(as))]; }
+          if (elt.type !== as) { return [Expected("type", as, elt)]; }
           var known = ["type"];
           var errors = this.validateExpr(elt, defn.expr, known, lead);
           // console.log(lead, "known:", known);
@@ -239,7 +253,11 @@ function Schema (schema) {
             }
             return ret;
           }, Object.keys(elt));
-          if (unexpected.length !== 0) { errors.push(Error("unknown attribute" + (unexpected.length === 1 ? "" : "s") + ": " + unexpected.join(", "))) }
+          if (unexpected.length !== 0) {
+            unexpected.forEach(function (u) {
+              errors.push(Unexpected(u, elt));
+            });
+          }
           return errors;
         },
         validate: function (elt) {
@@ -257,7 +275,7 @@ function Schema (schema) {
             schema.map[ft].type === "object" ? "objref" :
             schema.map[ft].type === "nonObject" ? "nobref" :
             schema.map[ft].type === "terminal" ? "trmref" :
-            throwUnexpected(schema.map[ft].type);
+            throwUnexpected("type", schema.map[ft]);
           var anchor = schema.map[ft].type === "nonObject" ? "#dfn-" + ft : "#dcl-" + ft;
           return "<a class=\"" + dt + "\" href=\"" + anchor + "\">" + ft + "</a>";
         },
@@ -269,7 +287,7 @@ function Schema (schema) {
             }).join("|") + ")" :
           t.type === "array" ? "[" + _htmlSerializer.serializeLeafType(t.of) + "]" :
             t.type === "map" ? "[" + _htmlSerializer.serializeLeafType(t.from) + "-&gt;" + _htmlSerializer.serializeLeafType(t.to) + "]" :
-            throwUnexpected(t.type);
+            throwUnexpected("type", t);
         },
         serializeProperty: function (prop) {
           return prop.id + ":" + this.serializeType(prop.propertyType) + prop.card;
@@ -290,7 +308,7 @@ function Schema (schema) {
               }).join("|") + ")" :
             li.type === "reference" ? _htmlSerializer.serializeReference(li) :
               li.type === "propertyEnumeration" ? _htmlSerializer.serializePropertyEnumeration(li) :
-              throwUnexpected(li.type);
+              throwUnexpected("type", li);
           }).join(" ");
         },
         serializeEpsilon: function (ep) {
@@ -305,7 +323,7 @@ function Schema (schema) {
             //     return _htmlSerializer.serializeProperty(oi);
             //   }).join("|") + ")" :
             expr.type === "epsilon" ? this.serializeEpsilon (expr) :
-            throwUnexpected(expr.type);
+            throwUnexpected("type", expr);
         },
         serialize: function () {
           var _htmlSerializer = this;
@@ -333,7 +351,7 @@ function Schema (schema) {
               }
               return heading + "<tr class=\"trm\"><th>" + production.id + "</th><td>=</td><td>" + production.regexp + "</td></tr>\n";
             } else {
-              throw Unexpected(production.type);
+              throw Unexpected("type", production);
             }
           }).map(function (s) { return "  " + s; });
           return "<table>\n" + ret.join("") + "</table>\n";
@@ -343,836 +361,10 @@ function Schema (schema) {
   };
 }
 
-var all =   {
-  "type":"schema",
-  "prefixes":{
-    "prefix1":"http://all.example/",
-    "a":"http://all.example/",
-    "prefix":"http://all.example/",
-    "base":"http://all.example/",
-    "PREFIX":"http://all.example/",
-    "BaSe":"http://all.example/",
-    "virtual":"http://all.example/",
-    "closed":"http://all.example/",
-    "extra":"http://all.example/",
-    "iri":"http://all.example/",
-    "bnode":"http://all.example/",
-    "literal":"http://all.example/",
-    "nonliteral":"http://all.example/",
-    "or":"http://all.example/",
-    "pattern":"http://all.example/",
-    "S5":"http://all.example/S5",
-    "xsd":"http://www.w3.org/2001/XMLSchema#",
-    "":"http://all.example/"
-  },
-  "startActs": [
-    { "type": "semAct", "name": "http://all.example/act1", "code": " START1 "},
-    { "type": "semAct", "name": "http://all.example/act2", "code": " START2 "}
-  ],
-  "start":"http://all.example/S3",
-  "shapes":{
-    "http://all.example/S1":{
-      "type":"shape",
-      "expression":{
-	"type":"eachOf",
-	"expressions":[
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p1",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p2",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p3",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  }
-	]
-      },
-      "extra":[
-	"http://all.example/p1",
-	"http://all.example/p2",
-	"http://all.example/p3"
-      ]
-    },
-    "http://all.example/S2":{
-      "type":"shape",
-      "expression":{
-	"type":"eachOf",
-	"expressions":[
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p1-",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p2",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p3",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  }
-	]
-      },
-      "extra":[
-	"http://all.example/p1",
-	"http://all.example/p2",
-	"http://all.example/p3"
-      ]
-    },
-    "_:b0":{
-      "type":"shape",
-      "expression":{
-	"type":"tripleConstraint",
-	"predicate":"http://all.example/p1",
-	"valueExpr":{
-	  "type":"valueClass",
-	  "values":[
-	    "\"STRING_LITERAL2\"",
-	    "\"STRING_LITERAL2\"@en-uk",
-	    "http://all.example/",
-	    "http://all.example/val1",
-	    "http://all.example/",
-	    "scheme:!$%25&amp;'()*+,-./0123456789:/@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~?#",
-	    "http://a.example/p1",
-	    "\"0.0\"^^http://www.w3.org/2001/XMLSchema#decimal",
-	    "\"0e0\"^^http://www.w3.org/2001/XMLSchema#double",
-	    "\"0e0\"^^http://www.w3.org/2001/XMLSchema#double",
-	    "\"false\"^^http://www.w3.org/2001/XMLSchema#boolean",
-	    "\"0\"^^http://www.w3.org/2001/XMLSchema#integer",
-	    "\"ab\"^^http://all.example/bloodType",
-	    "\"o+\"^^http://all.example/bloodType",
-	    "\" !\"#$%&():;<=>?@[]^_`{|}~\"",
-	    "\"\t\u000b\f\u000e&([]\"",
-	    "\"߿ࠀ࿿က쿿퀀퟿�𐀀𿿽񀀀󿿽􀀀􏿽\"",
-	    "\"\"\\\"",
-	    "\"𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡\"",
-	    "\"STRING_LITERAL_LONG2\"@en-uk"
-	  ]
-	}
-      }
-    },
-    "http://all.example/S3":{
-      "type":"shape",
-      "virtual":true,"expression":{
-	"type":"eachOf",
-	"expressions":[
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/a",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/prefix",
-	    "valueExpr":{
-	      "type":"valueClass",
-	      "datatype":"http://all.example/dt",
-	      "length":2
-	    },
-	    "min":0,"max":1
-	  },
-	  {
-	    "type":"someOf",
-	    "expressions":[
-	      {
-		"type":"eachOf",
-		"expressions":[
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/base",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "nodeKind":"iri"
-		    },
-		    "min":0,"max":"*"
-		  },
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/PREFIX",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "nodeKind":"iri",
-		      "pattern":"^http://",
-		      "length":5
-		    },
-		    "min":1,"max":"*"
-		  },
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/BaSe",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "reference":"http://all.example/S5"
-		    },
-		    "min":2,"max":2
-		  }
-		]
-	      },
-	      {
-		"type":"tripleConstraint",
-		"predicate":"http://all.example/virtual",
-		"valueExpr":{
-		  "type":"valueClass",
-		  "nodeKind":"nonliteral",
-		  "reference":"http://all.example/S5"
-		},
-		"min":2,"max":"*"
-	      },
-	      {
-		"type":"tripleConstraint",
-		"predicate":"http://all.example/closed",
-		"valueExpr":{
-                  "type":"vcor",
-                  "valueExprs":[
-                    {
-		      "type":"valueClass",
-		      "nodeKind":"bnode",
-		      "reference":"http://all.example/S5"
-                    },
-                    {
-                      "type":"valueClass",
-                      "reference":"http://all.example/S5",
-		      "minlength":2,"maxlength":4
-                    }
-                  ]
-		},
-		"min":2,"max":"*"
-	      },
-	      {
-		"type":"eachOf",
-		"expressions":[
-		  {
-		    "type":"someOf",
-		    "expressions":[
-		      {
-			"type":"eachOf",
-			"expressions":[
-			  {
-			    "type":"tripleConstraint",
-			    "inverse":true,"predicate":"http://all.example/extra",
-			    "valueExpr":{
-			      "type":"valueClass",
-			      "reference":"_:b0"
-			    },
-			    "min":2,"max":3,"semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " }
-                            ]
-			  },
-			  {
-			    "type":"tripleConstraint",
-			    "negated":true,"predicate":"http://all.example/iri",
-			    "valueExpr":{
-			      "type":"valueClass",
-			      "nodeKind":"literal"
-			    },
-			    "min":1,"max":"*",
-			    "semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " %{printf(\"品川\\n\");%} " }
-                            ],
-			    "annotations":[
-			      [
-				"http://a.example/annot1",
-				"http://a.example/IRIREF"
-			      ],[
-				"http://a.example/annot2",
-				"\"STRING_LITERAL2\""
-			      ],[
-				"http://a.example/annot3",
-				"\"3\"^^http://www.w3.org/2001/XMLSchema#integer"
-			      ]
-			    ]
-			  }
-			]
-		      },
-		      {
-			"type":"eachOf",
-			"expressions":[
-			  {
-			    "type":"tripleConstraint",
-			    "inverse":true,"negated":true,"predicate":"http://all.example/bnode",
-			    "valueExpr":{
-			      "type":"valueClass"
-			    },
-			    "min":1,"max":"*",
-			    "semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " }
-                            ]
-			  },
-			  {
-			    "type":"tripleConstraint",
-			    "inverse":true,"negated":true,"predicate":"http://all.example/literal",
-			    "valueExpr":{
-			      "type":"valueClass"
-			    },
-			    "min":1,"max":"*",
-			    "semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " }
-                            ]
-			  }
-			]
-		      }
-		    ]
-		  },
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/nonliteral",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "datatype":"http://www.w3.org/2001/XMLSchema#integer",
-		      "mininclusive":5,"maxinclusive":5,"totaldigits":1,"fractiondigits":1
-		    }
-		  }
-		]
-	      }
-	    ]
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/or",
-	    "valueExpr":{
-	      "type":"valueClass",
-	      "values":[
-		"http://a.example/a1",
-		{
-		  "type":"stemRange",
-		  "stem":"http://all.example/",
-		  "exclusions":[
-		    {
-		      "type":"stem",
-		      "stem":"http://all.example/a"
-		    },
-		    "http://all.example/b"
-		  ]
-		}
-	      ]
-	    }
-	  },
-	  {
-		"type":"tripleConstraint",
-		"predicate":"http://all.example/pattern",
-		"valueExpr":{
-		  "type":"valueClass",
-		  "values":[
-		    {
-		      "type":"stemRange",
-		      "stem":{
-			"type":"wildcard"
-		      },
-		      "exclusions":[
-			{
-			  "type":"stem",
-			  "stem":"http://all.example/a"
-			},
-			"http://all.example/b"
-		      ]
-		    }
-		  ]
-	        },"semActs": [
-                  { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " },
-                  { "type": "semAct", "name": "http://all.example/act2", "code": " code2 " }
-                ]
-	  }
-	]
-      },
-      "extra":[
-	"http://all.example/a",
-	"http://all.example/prefix",
-	"http://all.example/base"
-      ],"inherit":[
-	"http://all.example/S1"
-      ]
-    },
-    "_:a·̀ͯ‿.⁀":{
-      "type":"shape",
-      "closed":true,"inherit":[
-	"_:a·̀ͯ‿.⁀",
-	"http://all.example/S2"
-      ]
-    },
-    "_:AZazÀÖØöø˿ͰͽͿ῿‌‍⁰↏Ⰰ⿯、퟿豈﷏ﷰ�𐀀󯿽":{
-      "type":"shape",
-      "expression":{
-	"type":"inclusion",
-	"include":"_:a·̀ͯ‿.⁀"
-      }
-    }
-  }
-};
-
-var most =   {
-  "type":"schema",
-  "prefixes":{
-    "prefix1":"http://all.example/",
-    "a":"http://all.example/",
-    "prefix":"http://all.example/",
-    "base":"http://all.example/",
-    "PREFIX":"http://all.example/",
-    "BaSe":"http://all.example/",
-    "virtual":"http://all.example/",
-    "closed":"http://all.example/",
-    "extra":"http://all.example/",
-    "iri":"http://all.example/",
-    "bnode":"http://all.example/",
-    "literal":"http://all.example/",
-    "nonliteral":"http://all.example/",
-    "or":"http://all.example/",
-    "pattern":"http://all.example/",
-    "S5":"http://all.example/S5",
-    "xsd":"http://www.w3.org/2001/XMLSchema#",
-    "":"http://all.example/"
-  },
-  "startActs": [
-    { "type": "semAct", "name": "http://all.example/act1", "code": " START1 "},
-    { "type": "semAct", "name": "http://all.example/act2", "code": " START2 "}
-  ],
-  "start":"http://all.example/S3",
-  "shapes":{
-    "http://all.example/S1":{
-      "type":"shape",
-      "expression":{
-	"type":"eachOf",
-	"expressions":[
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p1",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p2",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p3",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  }
-	]
-      },
-      "extra":[
-	"http://all.example/p1",
-	"http://all.example/p2",
-	"http://all.example/p3"
-      ]
-    },
-    "http://all.example/S2":{
-      "type":"shape",
-      "expression":{
-	"type":"eachOf",
-	"expressions":[
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p1-",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p2",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/p3",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  }
-	]
-      },
-      "extra":[
-	"http://all.example/p1",
-	"http://all.example/p2",
-	"http://all.example/p3"
-      ]
-    },
-    "_:b0":{
-      "type":"shape",
-      "expression":{
-	"type":"tripleConstraint",
-	"predicate":"http://all.example/p1",
-	"valueExpr":{
-	  "type":"valueClass",
-	  "values":[
-	    "\"STRING_LITERAL2\"",
-	    "\"STRING_LITERAL2\"@en-uk",
-	    "http://all.example/",
-	    "http://all.example/val1",
-	    "http://all.example/",
-	    "scheme:!$%25&amp;'()*+,-./0123456789:/@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz~?#",
-	    "http://a.example/p1",
-	    "\"0.0\"^^http://www.w3.org/2001/XMLSchema#decimal",
-	    "\"0e0\"^^http://www.w3.org/2001/XMLSchema#double",
-	    "\"0e0\"^^http://www.w3.org/2001/XMLSchema#double",
-	    "\"false\"^^http://www.w3.org/2001/XMLSchema#boolean",
-	    "\"0\"^^http://www.w3.org/2001/XMLSchema#integer",
-	    "\"ab\"^^http://all.example/bloodType",
-	    "\"o+\"^^http://all.example/bloodType",
-	    "\" !\"#$%&():;<=>?@[]^_`{|}~\"",
-	    "\"\t\u000b\f\u000e&([]\"",
-	    "\"߿ࠀ࿿က쿿퀀퟿�𐀀𿿽񀀀󿿽􀀀􏿽\"",
-	    "\"\"\\\"",
-	    "\"𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡\"",
-	    "\"STRING_LITERAL_LONG2\"@en-uk"
-	  ]
-	}
-      }
-    },
-    "http://all.example/S3":{
-      "type":"shape",
-      "virtual":true,"expression":{
-	"type":"eachOf",
-	"expressions":[
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/a",
-	    "valueExpr":{
-	      "type":"valueClass"
-	    }
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/prefix",
-	    "valueExpr":{
-	      "type":"valueClass",
-	      "datatype":"http://all.example/dt",
-	      "length":2
-	    },
-	    "min":0,"max":1
-	  },
-	  {
-	    "type":"someOf",
-	    "expressions":[
-	      {
-		"type":"eachOf",
-		"expressions":[
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/base",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "nodeKind":"iri"
-		    },
-		    "min":0,"max":"*"
-		  },
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/PREFIX",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "nodeKind":"iri",
-		      "pattern":"^http://",
-		      "length":5
-		    },
-		    "min":1,"max":"*"
-		  },
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/BaSe",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "reference":"http://all.example/S5"
-		    },
-		    "min":2,"max":2
-		  }
-		]
-	      },
-	      {
-	        "type":"tripleConstraint",
-	        "predicate":"http://all.example/virtual",
-	        "valueExpr":{
-	          "type":"valueClass",
-	          "nodeKind":"nonliteral",
-	          "reference":"http://all.example/S5"
-	        },
-	        "min":2,"max":"*"
-	      },
-	      {
-	        "type":"tripleConstraint",
-	        "predicate":"http://all.example/closed",
-	        "valueExpr":{
-                  "type":"vcor",
-                  "valueExprs":[
-                    {
-	              "type":"valueClass",
-	              "nodeKind":"bnode",
-	              "reference":"http://all.example/S5"
-                    },
-                    {
-                      "type":"valueClass",
-                      "reference":"http://all.example/S5",
-	              "minlength":2,"maxlength":4
-                    }
-                  ]
-	        },
-	        "min":2,"max":"*"
-	      },
-	      {
-		"type":"eachOf",
-		"expressions":[
-		  {
-		    "type":"someOf",
-		    "expressions":[
-		      {
-			"type":"eachOf",
-			"expressions":[
-			  {
-			    "type":"tripleConstraint",
-			    "inverse":true,
-                            "predicate":"http://all.example/extra",
-			    "valueExpr":{
-			      "type":"valueClass",
-			      "reference":"_:b0"
-			    },
-			    "min":2,"max":3,"semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " }
-                            ]
-			  },
-			  {
-			    "type":"tripleConstraint",
-			    "negated":true,
-                            "predicate":"http://all.example/iri",
-			    "valueExpr":{
-			      "type":"valueClass",
-			      "nodeKind":"literal"
-			    },
-			    "min":1,"max":"*",
-			    "semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " %{printf(\"品川\\n\");%} " }
-                            ],
-			    "annotations":[
-			      { type: "annotation",
-			        predicate: "http://a.example/annot1",
-			        object: "http://a.example/IRIREF"
-			      },{ type: "annotation",
-			        predicate: "http://a.example/annot2",
-			        object: "\"STRING_LITERAL2\""
-			      },{ type: "annotation",
-			        predicate: "http://a.example/annot3",
-			        object: "\"3\"^^http://www.w3.org/2001/XMLSchema#integer"
-			      }
-			    ]
-			  }
-			]
-		      },
-		      {
-		        "type":"eachOf",
-		        "expressions":[
-		          {
-		            "type":"tripleConstraint",
-		            "inverse":true,"negated":true,"predicate":"http://all.example/bnode",
-		            "valueExpr":{
-		              "type":"valueClass"
-		            },
-		            "min":1,"max":"*",
-		            "semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " }
-                            ]
-		          },
-		          {
-		            "type":"tripleConstraint",
-		            "inverse":true,"negated":true,"predicate":"http://all.example/literal",
-		            "valueExpr":{
-		              "type":"valueClass"
-		            },
-		            "min":1,"max":"*",
-		            "semActs": [
-                              { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " }
-                            ]
-		          }
-		        ]
-		      }
-		    ]
-		  },
-		  {
-		    "type":"tripleConstraint",
-		    "predicate":"http://all.example/nonliteral",
-		    "valueExpr":{
-		      "type":"valueClass",
-		      "datatype":"http://www.w3.org/2001/XMLSchema#integer",
-		      "mininclusive":5,"maxinclusive":5,"totaldigits":1,"fractiondigits":1
-		    }
-		  }
-		]
-	      }
-	    ]
-	  },
-	  {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/or",
-	    "valueExpr":{
-	      "type":"valueClass",
-	      "values":[
-		"http://a.example/a1",
-		{
-		  "type":"stemRange",
-		  "stem":"http://all.example/",
-		  "exclusions":[
-		    {
-		      "type":"stem",
-		      "stem":"http://all.example/a"
-		    },
-		    "http://all.example/b"
-		  ]
-		}
-	      ]
-	    }
-	  },
-	  {
-		"type":"tripleConstraint",
-		"predicate":"http://all.example/pattern",
-		"valueExpr":{
-		  "type":"valueClass",
-		  "values":[
-		    {
-		      "type":"stemRange",
-		      "stem":{
-			"type":"wildcard"
-		      },
-		      "exclusions":[
-			{
-			  "type":"stem",
-			  "stem":"http://all.example/a"
-			},
-			"http://all.example/b"
-		      ]
-		    }
-		  ]
-	        },"semActs": [
-                  { "type": "semAct", "name": "http://all.example/act1", "code": " code1 " },
-                  { "type": "semAct", "name": "http://all.example/act2", "code": " code2 " }
-                ]
-	  }
-	]
-      },
-      "extra":[
-	"http://all.example/a",
-	"http://all.example/prefix",
-	"http://all.example/base"
-      ],"inherit":[
-	"http://all.example/S1"
-      ]
-    },
-    "_:a·̀ͯ‿.⁀":{
-      "type":"shape",
-      "closed":true,"inherit":[
-	"_:a·̀ͯ‿.⁀",
-	"http://all.example/S2"
-      ]
-    },
-    "_:AZazÀÖØöø˿ͰͽͿ῿‌‍⁰↏Ⰰ⿯、퟿豈﷏ﷰ�𐀀󯿽":{
-      "type":"shape",
-      "expression":{
-	"type":"inclusion",
-	"include":"_:a·̀ͯ‿.⁀"
-      }
-    }
-  }
-};
-
-var some1 = {
-  "type":"schema",
-  "shapes":{
-    "http://all.example/S3":{
-      "type":"shape",
-      "expression":{
-	// "type":"eachOf",
-	// "expressions":[
-	//   {
-	    "type":"tripleConstraint",
-	    "predicate":"http://all.example/prefix",
-	    "valueExpr":{
-	      "type":"valueClass",
-              "nodeKind":"literal"
-	    }
-	//   }
-        // ]
-      }
-    }
-  }
-}
-var some2 = {
-  "type":"schema",
-  "prefixes":{
-  },
-  "shapes":{
-    "http://all.example/S3":{
-      "type":"shape",
-      "expression":	      {
-	        "type":"tripleConstraint",
-	        "predicate":"http://all.example/closed",
-	        "valueExpr":{
-                  "type":"vcor",
-                  "valueExprs":[
-                    {
-	              "type":"valueClass",
-	              "nodeKind":"bnode",
-	              "reference":"http://all.example/S5"
-                    },
-                    {
-                      "type":"valueClass",
-                      "reference":"http://all.example/S5",
-	              "minlength":2,"maxlength":4
-                    }
-                  ]
-	        },
-	        "min":2,"max":"*"
-	      },
-// {
-// 	// "type":"eachOf",
-// 	// "expressions":[
-// 	//   {
-// 	    "type":"tripleConstraint",
-// 	    "predicate":"http://all.example/nonliteral",
-// 	    "valueExpr":{
-// 	      "type":"valueClass",
-// 	      "datatype":"http://www.w3.org/2001/XMLSchema#integer",
-// 	      "mininclusive":5,"maxinclusive":5,"totaldigits":1,"fractiondigits":1
-// 	    }
-// 	//   }
-// 	// ]
-//       }
-    }
-  }
-}
-
-
-debugger;
 var p = Parser.parse(FS.readFileSync(process.argv[2], "utf8"));
 // console.log(JSON.stringify(p, null, 2));
 var s = Schema(p);
 // console.log(s.htmlSerializer().serialize());
-var errors = s.validator().validate(most)
+var errors = s.validator().validate(JSON.parse(FS.readFileSync(process.argv[3], "utf8")))
 console.log("errors:", errors);
 process.exit(errors.length === 0 ? 0 : 1);
