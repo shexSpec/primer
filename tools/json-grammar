@@ -5,7 +5,7 @@ var OBJ = ">";
 var EXP = "="
 
 function Missing (attr, obj) {
-  var ret = Error("expected \"" + attr + "\" in " + obj);
+  var ret = Error("Expected \"" + attr + "\" in " + obj);
   ret.type = "Missing";
   ret.object = obj;
   ret.attribute = attr;
@@ -13,7 +13,7 @@ function Missing (attr, obj) {
 }
 
 function Unexpected (attr, obj) {
-  var ret = Error("unexpected \"" + attr + "\": \"" + obj[attr] + "\" in " + obj);
+  var ret = Error("Unexpected \"" + attr + "\": \"" + obj[attr] + "\" in " + obj);
   ret.type = "Unexpected";
   ret.object = obj;
   ret.attribute = attr;
@@ -91,18 +91,17 @@ function Schema (schema) {
             return _validator.validateLeafType(elt, t, known, lead);
           } else if (t instanceof Array) {
 
-            var subErrors;
             var subKnown;
+            var subErrors;
             for (var i = 0; i < t.length; ++i) { // for(;;) for early return
               var disj = t[i];
               subKnown = known.slice();
               subErrors = this.validateLeafType(elt, disj, subKnown, lead);
               if (subErrors.length === 0) {
-                known.push(disj)
                 return [];
               }
             }
-            return [Error("no matching option testing " + JSON.stringify(elt) + " against " + JSON.stringify(t))];
+            return [Error("validateType: no matching choice testing " + JSON.stringify(elt) + " against " + JSON.stringify(t))];
           } else if (t.type === "array") {
             return elt.reduce(function (ret, e) {
               return ret.concat(_validator.validateLeafType(e, t.of, known, lead+EXP));
@@ -127,21 +126,24 @@ function Schema (schema) {
               return [Expected(propName, undefined, elt)];
             }
           }
-          return this.validateType(elt, prop.propertyType, known, lead);
+          known.push(propName);
+          return this.validateType(elt, prop.propertyType, known, lead, propName);
         },
         validatePropertyEnumeration: function (elt, prop, known, lead) {
-            var subErrors;
             var subKnown;
+            var subErrors;
             for (var i = 0; i < prop.ids.length; ++i) { // for(;;) for early return
               var disj = prop.ids[i];
               subKnown = known.slice();
               subErrors = this.validateProperty(novel(elt, disj, known), prop, subKnown, lead, disj);
-              if (subErrors.length === 0) {
+              if (disj in elt) {
                 known.push(disj)
+              }
+              if (subErrors.length === 0) {
                 return [];
               }
             }
-            return [Error("no matching enum testing " + JSON.stringify(elt) + " against " + JSON.stringify(prop))];
+            return [Error("No matching enum testing " + JSON.stringify(elt) + " against " + JSON.stringify(prop))];
         },
         validateReference: function (elt, nob, known, lead) {
           return this.validateLeafType(elt, nob.id, known, lead);
@@ -172,10 +174,14 @@ function Schema (schema) {
             var lastKnown;
             do {
               lastKnown = known.length;
-              if ((lastErrors = test()).length === 0) {
+              lastErrors = test();
+              if (known.length !== lastKnown) {
                 ++matched;
               }
             } while (expr.card === "*" && known.length !== lastKnown && lastErrors.length === 0);
+            if (known.length !== lastKnown) {
+              return lastErrors;
+            }
             if (matched === 1 ||
                 expr.card === "?" && matched === 0 ||
                 expr.card === "*") {
@@ -195,11 +201,7 @@ function Schema (schema) {
           case "property":
 //                known.push(expr.id);
             return testCard(function () {
-              var e = _validator.validateProperty(novel(elt, expr.id, known), expr, known, lead, expr.id);
-              if (e.length === 0) {
-                known.push(expr.id);
-              }
-              return e;
+              return _validator.validateProperty(novel(elt, expr.id, known), expr, known, lead, expr.id);
             });
 
           case "propertyEnumeration":
@@ -211,18 +213,18 @@ function Schema (schema) {
             return _validator.validatePropertyList(elt, expr.exprs, known, lead);
 
           case "or":
-            var subErrors;
             var subKnown;
+            var subErrors = [];
             for (var i = 0; i < expr.exprs.length; ++i) { // for(;;) for early return
               var disj = expr.exprs[i];
               subKnown = known.slice();
-              subErrors = _validator.validateExpr(elt, disj, subKnown, lead);
-              if (subErrors.length === 0) {
+              subErrors.push(_validator.validateExpr(elt, disj, subKnown, lead));
+              if (subErrors.slice(-1)[0].length === 0) {
                 subKnown.slice(known.length).forEach(function (i) { known.push(i); }) // concatonate into existing array.
                 return [];
               }
             }
-            return [Error("no matching enum testing " + JSON.stringify(elt) + " against " + JSON.stringify(expr))];
+            return [Error("No matching disjunction testing " + JSON.stringify(elt) + " against " + JSON.stringify(expr) + "\n" + subErrors.map(function (errors) { return errors.map(function (e) { return e.message.split(/\n/).map(function (s) { return "│ " + s; }).join("\n"); }).join(",\n"); }).join("\n├──────\n") + "\n└──────")];
 
           case "epsilon":
             known.push(expr.id)
@@ -240,7 +242,7 @@ function Schema (schema) {
           var defn = schema.map[as];
           Assert(defn.type === "object");
           Assert(defn !== undefined);
-          Assert("type" in elt);
+          Assert("type" in elt); if (elt.type === "valueClass") { debugger; }
           if (elt.type !== as) { return [Expected("type", as, elt)]; }
           var known = ["type"];
           var errors = this.validateExpr(elt, defn.expr, known, lead);
