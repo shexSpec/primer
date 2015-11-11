@@ -1,21 +1,23 @@
-schema           : prefixes:[PREFIX->IRI]? valueClasses:[IRI->valueClass]? startActs:[semAct]? start:shapeLabel? shapes:[shapeLabel->shape]? ;
-shape            : virtual:BOOL? closed:BOOL? extra:[IRI]? expression:expr? inherit:[shapeLabel]? ;
+schema           : prefixes:[PREFIX->IRI]? valueExprDefns:[IRI->valueExprDefn]? startActs:[semAct]? start:shapeLabel? shapes:[shapeLabel->shape]? ;
+shape            : virtual:BOOL? closed:BOOL? extra:[IRI]? expression:expr? inherit:[shapeLabel]? semActs:[semAct]? ;
 semAct           : name:IRI code:STRING ;
 expr             = eachOf | someOf | tripleConstraint | inclusion ;
-eachOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? ;
-someOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? ;
+eachOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
+someOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 inclusion        : include:shapeLabel ;
-# tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:valueClass|valueClassRef:valueClassLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]?;
-tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI valueExpr:valueExpr min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]?;
-valueExpr        = valueClass | vcor | vcand ;
+# tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:valueClass|valueClassRef:valueClassLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
+tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI valueExpr:valueExpr min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
+valueExprDefn    : valueExpr:valueExpr semActs:[semAct]? annotations:[annotation]? ;
+valueExpr        = valueClass | vcor | vcand | vcref ;
 valueClass       : nodeKind:"literal" xsFacet*
                  | nodeKind:("iri"|"bnode"|"nonliteral") reference:shapeLabel? stringFacet*
                  | datatype:IRI xsFacet*
                  | reference:shapeLabel stringFacet*
                  | values:[valueSetValue]
                  | ; # empty
-vcor             : valueExprs:[valueClass] ;
-vand             : valueExprs:[valueClass] ;
+vcref            : valueExprRef:shapeLabel ;
+vcor             : valueExprs:[valueExpr] ;
+vcand            : valueExprs:[valueExpr] ;
 # and              : disjuncts:[expr] ;
 annotation       : predicate:IRI object:IRI ;
 
