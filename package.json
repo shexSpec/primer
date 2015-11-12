@@ -32,5 +32,8 @@
   },
   "bugs": {
     "url": "https://github.com/shexSpec/primer/issues"
+  },
+  "dependencies": {
+    "json-grammar": "^0.1.0"
   }
 }

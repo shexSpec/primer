@@ -1,9 +1,9 @@
-JISON?=../node_modules/jison/lib/cli.js
+JSON-GRAMMAR?=../node_modules/json-grammar/lib/cli.js
 
-json-grammar.js: json-grammar.jison
-	$(JISON) $^ -o $@ -p lalr
+all: ShExJ.jsg ShExJ_all.json
+	node $(JSON-GRAMMAR) $^
 
-ShExJ-validator.js: ShExJ.jsg ShExJ_all.json json-grammar.js
-	node json-grammar $< ShExJ_all.json
+empty: ShExJ.jsg empty.json
+	node $(JSON-GRAMMAR) $^
 
-test: ShExJ-validator.js
+test: all empty
