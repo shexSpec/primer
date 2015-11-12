@@ -8,7 +8,8 @@ inclusion        : include:shapeLabel ;
 # tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:valueClass|valueClassRef:valueClassLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI valueExpr:valueExpr min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 valueExprDefn    : valueExpr:valueExpr semActs:[semAct]? annotations:[annotation]? ;
-valueExpr        = valueClass | vcor | vcand | vcref ;
+valueClassOrRef  = valueClass | vcref ;
+valueExpr        = valueClassOrRef | vcor | vcand ;
 valueClass       : nodeKind:"literal" xsFacet*
                  | nodeKind:("iri"|"bnode"|"nonliteral") reference:shapeLabel? stringFacet*
                  | datatype:IRI xsFacet*
@@ -16,8 +17,8 @@ valueClass       : nodeKind:"literal" xsFacet*
                  | values:[valueSetValue]
                  | ; # empty
 vcref            : valueExprRef:shapeLabel ;
-vcor             : valueExprs:[valueExpr] ;
-vcand            : valueExprs:[valueExpr] ;
+vcor             : valueExprs:[valueClassOrRef] ;
+vcand            : valueExprs:[valueClassOrRef] ;
 # and              : disjuncts:[expr] ;
 annotation       : predicate:IRI object:IRI ;
 
