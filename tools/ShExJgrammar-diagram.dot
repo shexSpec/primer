@@ -1,0 +1,61 @@
+digraph structs {
+	graph [rankdir = "TB"];
+	node [shape=record];
+	schema [label="<schema> schema:|{<prefixes> prefixes?|{[PREFIX→|IRI]}}|{<valueExprDefns> valueExprDefns?|{<shapeLabel> [shapeLabel→|<valueExprDefn> valueExprDefn]}}|{<startActs> startActs?|<semAct> [semact]}|{<start> start?|<shapeLabel> shapeLabel}|{<shapes> shapes?|{<shapeLabel> [shapeLabel→|<shape> shape]}}}"];
+	shape [label="<shape> shape:|{<virtual> virtual?|<BOOL> BOOL}|{<closed> closed?|<BOOL> BOOL}|{<extra> extra?|<IRI> [IRI]}|{<expression> expression?|<expr> expr}|{<inherit> inherit?|<shapeLabel> [shapeLabel]}|{<semActs> semActs?|<semAct> [semAct]}"];
+
+ 	subgraph cluster_expr {
+		graph [label="", style=filled, fillcolor=gray80];
+		expr [shape=none];
+		eachOf [label="{{<eachOf> eachOf|{<expressions> expressions|<expr> [expr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
+		someOf [label="{{<someOf> someOf|{<expressions> expressions|<expr> [expr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
+		inclusion [label="{{<inclusion> inclusion|{<include> include|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
+		tripleConstraint [label="{{<tripleConstraint> tripleConstraint|{<negated> negated?|<BOOL> BOOL}|{<valueExprs> valueExpr|<valueExpr> [valueExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
+		//expr [shape = none,label="",width=0, height=0];
+		expr -> eachOf -> someOf -> inclusion -> tripleConstraint [color=invis];
+		
+	}
+
+ 	subgraph cluster_valueExpr {
+		graph [label="", style=filled, fillcolor=gray80];
+		valueExpr [shape=none];
+ 		subgraph cluster_valueClassOrRef {
+			graph [label="", style=filled, fillcolor=gray70];
+			valueClassOrRef [shape=none];
+			valueClass [label="valueClass|{{{<nodeKind> nodeKind|{<literal> \"literal\"}}|{...*|{<xsFacet> xsFacet}}| }|{{<nodeKind> nodeKind|{<literal> \"iri\"\|\"bnode\"\|\"nonliteral\"}}|{reference?|{<shapeLabel> shapeLabel}}|{...*|{<stringFacet> stringFacet}}}|{{<datatype> datatype|{<IRI> IRI}}|{...*|{<xsFacet> xsFacet}}| }|{{reference?|{<shapeLabel> shapeLabel}}|{...*|{<stringFacet> stringFacet}}| }|{{values|{<valueSetValue> [valueSetValue]}}| }|{{#empty      |#valueClass}}}", style=filled, fillcolor=white];
+			vcref [label="{{<vcref> vcref|{<valueExprRef> valueExprRef|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
+			valueClassOrRef -> valueClass -> vcref [color=invis];
+		}
+		vcor [label="{{<vcor> vcor|{<valueExprs> valueExprs|<valueClassOrRef> valueClassOrRef}}}", style=filled, fillcolor=white];
+		vcand [label="{{<vcand> vcand|{<valueExprs> valueExprs|<valueClassOrRef> valueClassOrRef}}}", style=filled, fillcolor=white];
+		valueExpr -> vcor -> vcand -> valueClassOrRef -> vcref [color=invis];
+		
+	}
+
+	valueExprDefn [label="<valueExprDefn> valueExprDefn:|{<l_valueExpr> valueExpr|<valueExpr> [valueExpr]}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}"];
+
+	schema:schema -> shape:shape [color=invis];
+
+	shape:expr  -> expr;
+	eachOf:expr -> expr;
+	someOf:expr -> expr;
+	schema:shape -> shape:shape;
+
+	// semAct [label="<semAct> semAct|{<name> name|<IRI> IRI}|{<code> code|<STRING> STRING}"];
+	// annotation [label="<annotation> annotation|{<predicate> predicate|<IRI> IRI}|{<object> object|<STRING> STRING\|IRI}"];
+
+	// valueExprDefn:semAct -> semAct:semAct;
+	// schema:semAct -> semAct:semAct;
+	// shape:semAct  -> semAct:semAct;
+	// tripleConstraint:semAct -> semAct:semAct;
+
+	// schema:annotation -> annotation:annotation;
+	// shape:annotation  -> annotation:annotation;
+	// tripleConstraint:annotation -> annotation:annotation;
+
+	schema:valueExprDefn -> valueExprDefn;
+	valueExprDefn:valueExpr -> valueExpr;
+	tripleConstraint:valueExpr -> valueExpr;
+	vcor:valueClassOrRef -> valueClassOrRef;
+	vcand:valueClassOrRef -> valueClassOrRef;
+}
