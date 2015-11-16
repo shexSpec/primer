@@ -42,10 +42,11 @@
      <!-- trm -->
      span.trm, a.trm, a.trm:visited { color: #007070; }
      span.trm, a.trm, a.trm:visited {
-         color: #007070;
+         color: #800080;
      }
+     td.trmref, a.trmref { background-color: #c0ffff; }
      td.trmref, a.trmref {
-         background-color: #e0efef;
+         background-color: #ffd0ff;
      }
 
 /*
@@ -472,11 +473,19 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
       </section>
       <section id="schemaImg">
-        <h2>ShExJ Schema Graphical Representation</h2>
+        <h2>ShExJ Schema Graphical Representation (Informative)</h2>
 
         <p>
-            Following is a graphical representation of the <a href="ShExJ-grammar.jsg">ShExJ structure</a>:
+            Following is a graphical representation of the <a href="ShExJ-grammar.jsg">ShExJ structure</a>.
+            The interconnections in the ShExJ schema are between these structures:
         </p>
+        <ul>
+          <li>schema</li>
+          <li>shape</li>
+          <li>valueExprDefn</li>
+          <li>shapeExpr</li>
+          <li>valueExpr</li>
+        </ul>
 
         <img src="ShExJgrammar-diagram.svg" style="width:100%"/>"
 
