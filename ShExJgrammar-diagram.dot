@@ -2,16 +2,16 @@ digraph structs {
 	graph [rankdir = "TB"];
 	node [shape=record];
 	schema [label="<schema> schema:|{<prefixes> prefixes?|{[PREFIX→|IRI]}}|{<valueExprDefns> valueExprDefns?|{<shapeLabel> [shapeLabel→|<valueExprDefn> valueExprDefn]}}|{<startActs> startActs?|<semAct> [semact]}|{<start> start?|<shapeLabel> shapeLabel}|{<shapes> shapes?|{<shapeLabel> [shapeLabel→|<shape> shape]}}}"];
-	shape [label="<shape> shape:|{<virtual> virtual?|<BOOL> BOOL}|{<closed> closed?|<BOOL> BOOL}|{<extra> extra?|<IRI> [IRI]}|{<expression> expression?|<expr> expr}|{<inherit> inherit?|<shapeLabel> [shapeLabel]}|{<semActs> semActs?|<semAct> [semAct]}"];
+	shape [label="<shape> shape:|{<virtual> virtual?|<BOOL> BOOL}|{<closed> closed?|<BOOL> BOOL}|{<extra> extra?|<IRI> [IRI]}|{<expression> expression?|<shapeExpr> shapeExpr}|{<inherit> inherit?|<shapeLabel> [shapeLabel]}|{<semActs> semActs?|<semAct> [semAct]}"];
 
- 	subgraph cluster_expr {
+ 	subgraph cluster_shapeExpr {
 		graph [label="", style=filled, fillcolor=gray80];
-		expr [shape=none];
-		eachOf [label="{{<eachOf> eachOf|{<expressions> expressions|<expr> [expr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
-		someOf [label="{{<someOf> someOf|{<expressions> expressions|<expr> [expr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
+		shapeExpr [shape=none];
+		eachOf [label="{{<eachOf> eachOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
+		someOf [label="{{<someOf> someOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
 		inclusion [label="{{<inclusion> inclusion|{<include> include|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
 		tripleConstraint [label="{{<tripleConstraint> tripleConstraint|{<negated> negated?|<BOOL> BOOL}|{<valueExprs> valueExpr|<valueExpr> [valueExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
-		expr -> eachOf -> someOf -> inclusion -> tripleConstraint [color=invis];
+		shapeExpr -> eachOf -> someOf -> inclusion -> tripleConstraint [color=invis];
 		
 	}
 
@@ -33,11 +33,11 @@ digraph structs {
 
 	valueExprDefn [label="<valueExprDefn> valueExprDefn:|{<l_valueExpr> valueExpr|<valueExpr> [valueExpr]}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}"];
 
-	schema:schema -> shape:shape -> valueExprDefn ->expr [color=invis];
+	schema:schema -> shape:shape -> valueExprDefn ->shapeExpr [color=invis];
 
-	shape:expr  -> expr;
-	eachOf:expr -> expr;
-	someOf:expr -> expr;
+	shape:shapeExpr  -> shapeExpr;
+	eachOf:shapeExpr -> shapeExpr;
+	someOf:shapeExpr -> shapeExpr;
 	schema:shape -> shape:shape;
 
 	schema:valueExprDefn -> valueExprDefn;

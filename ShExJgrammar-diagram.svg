@@ -9,7 +9,7 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1362)">
 <title>structs</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-1362 906.456,-1362 906.456,4 -4,4"/>
-<g id="clust1" class="cluster"><title>cluster_expr</title>
+<g id="clust1" class="cluster"><title>cluster_shapeExpr</title>
 <polygon fill="#cccccc" stroke="black" points="25.2694,-726 25.2694,-1114 613.269,-1114 613.269,-726 25.2694,-726"/>
 </g>
 <g id="clust2" class="cluster"><title>cluster_valueExpr</title>
@@ -68,7 +68,7 @@
 <polyline fill="none" stroke="black" points="573.769,-1227 573.769,-1273 "/>
 <text text-anchor="middle" x="613.769" y="-1257.8" font-family="Times,serif" font-size="14.00">expression?</text>
 <polyline fill="none" stroke="black" points="573.769,-1250 653.769,-1250 "/>
-<text text-anchor="middle" x="613.769" y="-1234.8" font-family="Times,serif" font-size="14.00">expr</text>
+<text text-anchor="middle" x="613.769" y="-1234.8" font-family="Times,serif" font-size="14.00">shapeExpr</text>
 <polyline fill="none" stroke="black" points="653.769,-1227 653.769,-1273 "/>
 <text text-anchor="middle" x="697.269" y="-1257.8" font-family="Times,serif" font-size="14.00">inherit?</text>
 <polyline fill="none" stroke="black" points="653.769,-1250 740.769,-1250 "/>
@@ -136,14 +136,14 @@
 <path fill="none" stroke="mediumvioletred" d="M640.269,-1310C640.269,-1228.85 762.545,-1332.03 819.269,-1274 853.032,-1239.46 838.269,-1215.3 838.269,-1167 838.269,-1167 838.269,-1167 838.269,-1087 838.269,-978.075 861.269,-951.925 861.269,-843 861.269,-843 861.269,-843 861.269,-757 861.269,-712.854 862.855,-693.833 832.269,-662 801.427,-629.9 740.415,-667.261 730.612,-636.095"/>
 <polygon fill="mediumvioletred" stroke="mediumvioletred" points="734.058,-635.451 729.269,-626 727.119,-636.374 734.058,-635.451"/>
 </g>
-<!-- expr -->
-<g id="node3" class="node"><title>expr</title>
-<text text-anchor="middle" x="374.269" y="-1084.3" font-family="Times,serif" font-size="14.00">expr</text>
+<!-- shapeExpr -->
+<g id="node3" class="node"><title>shapeExpr</title>
+<text text-anchor="middle" x="373.269" y="-1084.3" font-family="Times,serif" font-size="14.00">shapeExpr</text>
 </g>
-<!-- shape&#45;&gt;expr -->
-<g id="edge14" class="edge"><title>shape:expr&#45;&gt;expr</title>
-<path fill="none" stroke="black" d="M614.269,-1226C614.269,-1133.78 478.964,-1102.81 411.541,-1093.1"/>
-<polygon fill="black" stroke="black" points="411.713,-1089.59 401.334,-1091.72 410.774,-1096.53 411.713,-1089.59"/>
+<!-- shape&#45;&gt;shapeExpr -->
+<g id="edge14" class="edge"><title>shape:shapeExpr&#45;&gt;shapeExpr</title>
+<path fill="none" stroke="black" d="M614.269,-1226C614.269,-1137.7 490.476,-1105.6 420.336,-1094.49"/>
+<polygon fill="black" stroke="black" points="420.806,-1091.03 410.397,-1093.01 419.768,-1097.95 420.806,-1091.03"/>
 </g>
 <!-- shape&#45;&gt;valueExprDefn -->
 <g id="edge12" class="edge"><title>shape:shape&#45;&gt;valueExprDefn</title>
@@ -157,68 +157,68 @@
 </g>
 <!-- eachOf -->
 <g id="node4" class="node"><title>eachOf</title>
-<polygon fill="white" stroke="black" points="143.769,-987 143.769,-1033 604.769,-1033 604.769,-987 143.769,-987"/>
-<text text-anchor="middle" x="171.769" y="-1006.3" font-family="Times,serif" font-size="14.00">eachOf</text>
-<polyline fill="none" stroke="black" points="199.769,-987 199.769,-1033 "/>
-<text text-anchor="middle" x="239.769" y="-1017.8" font-family="Times,serif" font-size="14.00">expressions</text>
-<polyline fill="none" stroke="black" points="199.769,-1010 279.769,-1010 "/>
-<text text-anchor="middle" x="239.769" y="-994.8" font-family="Times,serif" font-size="14.00">[expr]</text>
-<polyline fill="none" stroke="black" points="279.769,-987 279.769,-1033 "/>
-<text text-anchor="middle" x="316.769" y="-1017.8" font-family="Times,serif" font-size="14.00">min?</text>
-<polyline fill="none" stroke="black" points="279.769,-1010 353.769,-1010 "/>
-<text text-anchor="middle" x="316.769" y="-994.8" font-family="Times,serif" font-size="14.00">INTEGER</text>
-<polyline fill="none" stroke="black" points="353.769,-987 353.769,-1033 "/>
-<text text-anchor="middle" x="401.769" y="-1017.8" font-family="Times,serif" font-size="14.00">max?</text>
-<polyline fill="none" stroke="black" points="353.769,-1010 449.769,-1010 "/>
-<text text-anchor="middle" x="401.769" y="-994.8" font-family="Times,serif" font-size="14.00">INTEGER|&quot;*&quot;</text>
-<polyline fill="none" stroke="black" points="449.769,-987 449.769,-1033 "/>
-<text text-anchor="middle" x="484.769" y="-1017.8" font-family="Times,serif" font-size="14.00">semActs?</text>
-<polyline fill="none" stroke="black" points="449.769,-1010 519.769,-1010 "/>
-<text text-anchor="middle" x="484.769" y="-994.8" font-family="Times,serif" font-size="14.00">[semAct]</text>
-<polyline fill="none" stroke="black" points="519.769,-987 519.769,-1033 "/>
-<text text-anchor="middle" x="562.269" y="-1017.8" font-family="Times,serif" font-size="14.00">annotations?</text>
-<polyline fill="none" stroke="black" points="519.769,-1010 604.769,-1010 "/>
-<text text-anchor="middle" x="562.269" y="-994.8" font-family="Times,serif" font-size="14.00">[annotation]</text>
+<polygon fill="white" stroke="black" points="141.269,-987 141.269,-1033 605.269,-1033 605.269,-987 141.269,-987"/>
+<text text-anchor="middle" x="169.269" y="-1006.3" font-family="Times,serif" font-size="14.00">eachOf</text>
+<polyline fill="none" stroke="black" points="197.269,-987 197.269,-1033 "/>
+<text text-anchor="middle" x="238.769" y="-1017.8" font-family="Times,serif" font-size="14.00">expressions</text>
+<polyline fill="none" stroke="black" points="197.269,-1010 280.269,-1010 "/>
+<text text-anchor="middle" x="238.769" y="-994.8" font-family="Times,serif" font-size="14.00">[shapeExpr]</text>
+<polyline fill="none" stroke="black" points="280.269,-987 280.269,-1033 "/>
+<text text-anchor="middle" x="317.269" y="-1017.8" font-family="Times,serif" font-size="14.00">min?</text>
+<polyline fill="none" stroke="black" points="280.269,-1010 354.269,-1010 "/>
+<text text-anchor="middle" x="317.269" y="-994.8" font-family="Times,serif" font-size="14.00">INTEGER</text>
+<polyline fill="none" stroke="black" points="354.269,-987 354.269,-1033 "/>
+<text text-anchor="middle" x="402.269" y="-1017.8" font-family="Times,serif" font-size="14.00">max?</text>
+<polyline fill="none" stroke="black" points="354.269,-1010 450.269,-1010 "/>
+<text text-anchor="middle" x="402.269" y="-994.8" font-family="Times,serif" font-size="14.00">INTEGER|&quot;*&quot;</text>
+<polyline fill="none" stroke="black" points="450.269,-987 450.269,-1033 "/>
+<text text-anchor="middle" x="485.269" y="-1017.8" font-family="Times,serif" font-size="14.00">semActs?</text>
+<polyline fill="none" stroke="black" points="450.269,-1010 520.269,-1010 "/>
+<text text-anchor="middle" x="485.269" y="-994.8" font-family="Times,serif" font-size="14.00">[semAct]</text>
+<polyline fill="none" stroke="black" points="520.269,-987 520.269,-1033 "/>
+<text text-anchor="middle" x="562.769" y="-1017.8" font-family="Times,serif" font-size="14.00">annotations?</text>
+<polyline fill="none" stroke="black" points="520.269,-1010 605.269,-1010 "/>
+<text text-anchor="middle" x="562.769" y="-994.8" font-family="Times,serif" font-size="14.00">[annotation]</text>
 </g>
-<!-- expr&#45;&gt;eachOf -->
-<g id="edge1" class="edge"><title>expr&#45;&gt;eachOf</title>
-<path fill="none" stroke="none" d="M374.269,-1069.75C374.269,-1061.86 374.269,-1052.25 374.269,-1043.1"/>
-<polygon fill="none" stroke="none" points="377.769,-1043.09 374.269,-1033.09 370.769,-1043.09 377.769,-1043.09"/>
+<!-- shapeExpr&#45;&gt;eachOf -->
+<g id="edge1" class="edge"><title>shapeExpr&#45;&gt;eachOf</title>
+<path fill="none" stroke="none" d="M373.269,-1069.75C373.269,-1061.86 373.269,-1052.25 373.269,-1043.1"/>
+<polygon fill="none" stroke="none" points="376.769,-1043.09 373.269,-1033.09 369.769,-1043.09 376.769,-1043.09"/>
 </g>
-<!-- eachOf&#45;&gt;expr -->
-<g id="edge15" class="edge"><title>eachOf:expr&#45;&gt;expr</title>
-<path fill="none" stroke="black" d="M239.269,-986C239.269,-964.777 158.698,-971.914 143.769,-987 129.076,-1001.85 130.758,-1017.66 143.769,-1034 167.535,-1063.85 278.268,-1078.29 337.177,-1083.97"/>
-<polygon fill="black" stroke="black" points="336.917,-1087.46 347.197,-1084.89 337.563,-1080.49 336.917,-1087.46"/>
+<!-- eachOf&#45;&gt;shapeExpr -->
+<g id="edge15" class="edge"><title>eachOf:shapeExpr&#45;&gt;shapeExpr</title>
+<path fill="none" stroke="black" d="M238.269,-986C238.269,-964.443 156.433,-971.679 141.269,-987 126.575,-1001.85 128.247,-1017.67 141.269,-1034 163.913,-1062.4 264.894,-1076.79 325.922,-1083.02"/>
+<polygon fill="black" stroke="black" points="325.795,-1086.52 336.09,-1084.02 326.481,-1079.56 325.795,-1086.52"/>
 </g>
 <!-- someOf -->
 <g id="node5" class="node"><title>someOf</title>
-<polygon fill="white" stroke="black" points="126.769,-903 126.769,-949 591.769,-949 591.769,-903 126.769,-903"/>
-<text text-anchor="middle" x="156.769" y="-922.3" font-family="Times,serif" font-size="14.00">someOf</text>
-<polyline fill="none" stroke="black" points="186.769,-903 186.769,-949 "/>
-<text text-anchor="middle" x="226.769" y="-933.8" font-family="Times,serif" font-size="14.00">expressions</text>
-<polyline fill="none" stroke="black" points="186.769,-926 266.769,-926 "/>
-<text text-anchor="middle" x="226.769" y="-910.8" font-family="Times,serif" font-size="14.00">[expr]</text>
-<polyline fill="none" stroke="black" points="266.769,-903 266.769,-949 "/>
-<text text-anchor="middle" x="303.769" y="-933.8" font-family="Times,serif" font-size="14.00">min?</text>
-<polyline fill="none" stroke="black" points="266.769,-926 340.769,-926 "/>
-<text text-anchor="middle" x="303.769" y="-910.8" font-family="Times,serif" font-size="14.00">INTEGER</text>
-<polyline fill="none" stroke="black" points="340.769,-903 340.769,-949 "/>
-<text text-anchor="middle" x="388.769" y="-933.8" font-family="Times,serif" font-size="14.00">max?</text>
-<polyline fill="none" stroke="black" points="340.769,-926 436.769,-926 "/>
-<text text-anchor="middle" x="388.769" y="-910.8" font-family="Times,serif" font-size="14.00">INTEGER|&quot;*&quot;</text>
-<polyline fill="none" stroke="black" points="436.769,-903 436.769,-949 "/>
-<text text-anchor="middle" x="471.769" y="-933.8" font-family="Times,serif" font-size="14.00">semActs?</text>
-<polyline fill="none" stroke="black" points="436.769,-926 506.769,-926 "/>
-<text text-anchor="middle" x="471.769" y="-910.8" font-family="Times,serif" font-size="14.00">[semAct]</text>
-<polyline fill="none" stroke="black" points="506.769,-903 506.769,-949 "/>
-<text text-anchor="middle" x="549.269" y="-933.8" font-family="Times,serif" font-size="14.00">annotations?</text>
-<polyline fill="none" stroke="black" points="506.769,-926 591.769,-926 "/>
-<text text-anchor="middle" x="549.269" y="-910.8" font-family="Times,serif" font-size="14.00">[annotation]</text>
+<polygon fill="white" stroke="black" points="124.269,-903 124.269,-949 592.269,-949 592.269,-903 124.269,-903"/>
+<text text-anchor="middle" x="154.269" y="-922.3" font-family="Times,serif" font-size="14.00">someOf</text>
+<polyline fill="none" stroke="black" points="184.269,-903 184.269,-949 "/>
+<text text-anchor="middle" x="225.769" y="-933.8" font-family="Times,serif" font-size="14.00">expressions</text>
+<polyline fill="none" stroke="black" points="184.269,-926 267.269,-926 "/>
+<text text-anchor="middle" x="225.769" y="-910.8" font-family="Times,serif" font-size="14.00">[shapeExpr]</text>
+<polyline fill="none" stroke="black" points="267.269,-903 267.269,-949 "/>
+<text text-anchor="middle" x="304.269" y="-933.8" font-family="Times,serif" font-size="14.00">min?</text>
+<polyline fill="none" stroke="black" points="267.269,-926 341.269,-926 "/>
+<text text-anchor="middle" x="304.269" y="-910.8" font-family="Times,serif" font-size="14.00">INTEGER</text>
+<polyline fill="none" stroke="black" points="341.269,-903 341.269,-949 "/>
+<text text-anchor="middle" x="389.269" y="-933.8" font-family="Times,serif" font-size="14.00">max?</text>
+<polyline fill="none" stroke="black" points="341.269,-926 437.269,-926 "/>
+<text text-anchor="middle" x="389.269" y="-910.8" font-family="Times,serif" font-size="14.00">INTEGER|&quot;*&quot;</text>
+<polyline fill="none" stroke="black" points="437.269,-903 437.269,-949 "/>
+<text text-anchor="middle" x="472.269" y="-933.8" font-family="Times,serif" font-size="14.00">semActs?</text>
+<polyline fill="none" stroke="black" points="437.269,-926 507.269,-926 "/>
+<text text-anchor="middle" x="472.269" y="-910.8" font-family="Times,serif" font-size="14.00">[semAct]</text>
+<polyline fill="none" stroke="black" points="507.269,-903 507.269,-949 "/>
+<text text-anchor="middle" x="549.769" y="-933.8" font-family="Times,serif" font-size="14.00">annotations?</text>
+<polyline fill="none" stroke="black" points="507.269,-926 592.269,-926 "/>
+<text text-anchor="middle" x="549.769" y="-910.8" font-family="Times,serif" font-size="14.00">[annotation]</text>
 </g>
 <!-- eachOf&#45;&gt;someOf -->
 <g id="edge2" class="edge"><title>eachOf&#45;&gt;someOf</title>
-<path fill="none" stroke="none" d="M370.171,-986.593C368.62,-978.118 366.824,-968.297 365.142,-959.104"/>
-<polygon fill="none" stroke="none" points="368.554,-958.303 363.311,-949.096 361.668,-959.562 368.554,-958.303"/>
+<path fill="none" stroke="none" d="M369.171,-986.593C367.62,-978.118 365.824,-968.297 364.142,-959.104"/>
+<polygon fill="none" stroke="none" points="367.554,-958.303 362.311,-949.096 360.668,-959.562 367.554,-958.303"/>
 </g>
 <!-- annotation -->
 <g id="node17" class="node"><title>annotation</title>
@@ -238,10 +238,10 @@
 <path fill="none" stroke="mediumvioletred" d="M606.269,-998C680.97,-998 671.269,-917.701 671.269,-843 671.269,-843 671.269,-843 671.269,-679 671.269,-621.679 671.269,-604.83 671.269,-552.251"/>
 <polygon fill="mediumvioletred" stroke="mediumvioletred" points="674.769,-552 671.269,-542 667.769,-552 674.769,-552"/>
 </g>
-<!-- someOf&#45;&gt;expr -->
-<g id="edge16" class="edge"><title>someOf:expr&#45;&gt;expr</title>
-<path fill="none" stroke="black" d="M226.269,-902C226.269,-879.888 142.326,-887.286 126.769,-903 85.7213,-944.463 96.5044,-990.395 135.269,-1034 161.575,-1063.59 276.183,-1078.18 336.629,-1083.93"/>
-<polygon fill="black" stroke="black" points="336.623,-1087.45 346.9,-1084.88 337.262,-1080.48 336.623,-1087.45"/>
+<!-- someOf&#45;&gt;shapeExpr -->
+<g id="edge16" class="edge"><title>someOf:shapeExpr&#45;&gt;shapeExpr</title>
+<path fill="none" stroke="black" d="M225.269,-902C225.269,-879.554 140.062,-887.05 124.269,-903 83.228,-944.45 93.604,-990.326 132.269,-1034 157.421,-1062.41 263.154,-1076.88 325.91,-1083.1"/>
+<polygon fill="black" stroke="black" points="325.682,-1086.59 335.97,-1084.06 326.349,-1079.62 325.682,-1086.59"/>
 </g>
 <!-- inclusion -->
 <g id="node6" class="node"><title>inclusion</title>
@@ -254,8 +254,8 @@
 </g>
 <!-- someOf&#45;&gt;inclusion -->
 <g id="edge3" class="edge"><title>someOf&#45;&gt;inclusion</title>
-<path fill="none" stroke="none" d="M355.444,-902.593C353.997,-894.118 352.32,-884.297 350.751,-875.104"/>
-<polygon fill="none" stroke="none" points="354.175,-874.364 349.042,-865.096 347.275,-875.542 354.175,-874.364"/>
+<path fill="none" stroke="none" d="M354.717,-902.593C353.373,-894.118 351.817,-884.297 350.359,-875.104"/>
+<polygon fill="none" stroke="none" points="353.795,-874.424 348.772,-865.096 346.881,-875.521 353.795,-874.424"/>
 </g>
 <!-- someOf&#45;&gt;annotation -->
 <g id="edge33" class="edge"><title>someOf:annotation&#45;&gt;annotation:annotation</title>
@@ -448,10 +448,10 @@
 <path fill="none" stroke="none" d="M180.111,-494.875C179.914,-474.953 181.76,-445.309 192.269,-422 197.084,-411.321 204.553,-401.223 212.379,-392.501"/>
 <polygon fill="none" stroke="none" points="214.951,-394.874 219.291,-385.209 209.871,-390.058 214.951,-394.874"/>
 </g>
-<!-- valueExprDefn&#45;&gt;expr -->
-<g id="edge13" class="edge"><title>valueExprDefn&#45;&gt;expr</title>
-<path fill="none" stroke="none" d="M377.091,-1142.61C376.663,-1134.48 376.175,-1125.2 375.726,-1116.67"/>
-<polygon fill="none" stroke="none" points="379.207,-1116.21 375.186,-1106.41 372.216,-1116.58 379.207,-1116.21"/>
+<!-- valueExprDefn&#45;&gt;shapeExpr -->
+<g id="edge13" class="edge"><title>valueExprDefn&#45;&gt;shapeExpr</title>
+<path fill="none" stroke="none" d="M376.796,-1142.61C376.262,-1134.48 375.651,-1125.2 375.09,-1116.67"/>
+<polygon fill="none" stroke="none" points="378.564,-1116.16 374.415,-1106.41 371.579,-1116.62 378.564,-1116.16"/>
 </g>
 <!-- valueExprDefn&#45;&gt;valueExpr -->
 <g id="edge19" class="edge"><title>valueExprDefn:valueExpr&#45;&gt;valueExpr</title>
