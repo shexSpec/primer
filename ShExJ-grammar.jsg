@@ -1,11 +1,11 @@
-schema           : prefixes:[PREFIX->IRI]? valueExprDefns:[IRI->valueExprDefn]? startActs:[semAct]? start:shapeLabel? shapes:[shapeLabel->shape]? ;
+schema           : prefixes:[PREFIX->IRI]? valueExprDefns:[valueExprLabel->valueExprDefn]? startActs:[semAct]? start:shapeLabel? shapes:[shapeLabel->shape]? ;
 shape            : virtual:BOOL? closed:BOOL? extra:[IRI]? expression:expr? inherit:[shapeLabel]? semActs:[semAct]? ;
 semAct           : name:IRI code:STRING ;
 expr             = eachOf | someOf | tripleConstraint | inclusion ;
 eachOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 someOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 inclusion        : include:shapeLabel ;
-# tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:valueClass|valueClassRef:valueClassLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
+# tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:valueClass|valueClassRef:valueExprLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 tripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI valueExpr:valueExpr min:INTEGER? max:(INTEGER|"*")? semActs:[semAct]? annotations:[annotation]? ;
 valueExprDefn    : valueExpr:valueExpr semActs:[semAct]? annotations:[annotation]? ;
 valueClassOrRef  = valueClass | vcref ;
@@ -26,7 +26,7 @@ xsFacet          = stringFacet | numericFacet ;
 stringFacet      = (length|minlength|maxlength):INTEGER | pattern:STRING ;
 numericFacet     = (mininclusive|minexclusive|maxinclusive|maxexclusive):numericLiteral
                  | (totaldigits|fractiondigits):INTEGER ;
-valueClassLabel  = IRI|BNODE ;
+valueExprLabel   = IRI|BNODE ;
 shapeLabel       = IRI|BNODE ;
 numericLiteral   = INTEGER|DECIMAL|DOUBLE ;
 valueSetValue    = IRI|STRING|DATATYPE_STRING|LANG_STRING|stemRange ;
@@ -34,8 +34,8 @@ stemRange        : stem:IRI exclusions:[stemRange] ;
 
 @terminals
 PREFIX           = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-PNAME_NS>
-IRI              = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-IRIREF>
-BNODE            = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-BLANK_NODE_LABEL>
+IRI              = "^[^_].*$" # <http://www.w3.org/TR/turtle/#grammar-production-IRIREF>
+BNODE            = "^_.*$" # <http://www.w3.org/TR/turtle/#grammar-production-BLANK_NODE_LABEL>
 BOOL             = "^(true"+"|false)$" # JSON boolean tokens
 INTEGER          = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-INTEGER>
 DECIMAL          = "^.*$" # <http://www.w3.org/TR/turtle/#grammar-production-DECIMAL>

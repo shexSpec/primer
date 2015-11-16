@@ -24,7 +24,7 @@
     "node": ">=0.10.0"
   },
   "devDependencies": {
-    "jison": "0.4.x"
+    "json-grammar": "^0.1.0"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,5 @@
     "url": "https://github.com/shexSpec/primer/issues"
   },
   "dependencies": {
-    "json-grammar": "^0.1.0"
   }
 }
