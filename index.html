@@ -1446,12 +1446,12 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     		  <pre class="schema json"><span class="comment">// schema (JSON)</span>
 {
   <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>: {
-    "type": "shape",
+    "type": "Shape",
     "expression": {
-     <span class="hilight-tripleConstraint lowlight1 top"> "type": "tripleConstraint",</span>
+     <span class="hilight-tripleConstraint lowlight1 top"> "type": "TripleConstraint",</span>
      <span class="hilight-tripleConstraint lowlight1    "> <span class="predicate hilight-predicate lowlight2 top bot">"predicate": "foaf:name"</span>,  </span>
      <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2 top">"value": {                </span> </span>
-     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "type": "valueClass",   </span> </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "type": "ValueClass",   </span> </span>
      <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "datatype": "xsd:string"</span> </span>
      <span class="hilight-tripleConstraint lowlight1 bot"> <span class="value-constraint hilight-valueConstraint lowlight2 bot">}                         </span> </span>
     }
@@ -1513,19 +1513,19 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     		  <pre class="schema shexc shh">my:UserShape {
   foaf:name <span class="value-constraint new">xsd:string</span>
 }</pre>
-    		  <pre class="schema json shh">{ "my:UserShape": { "type": "shape",
+    		  <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
   "expression": {
-    "type": "tripleConstraint", "predicate": "foaf:name",
-    "value": { "type": "valueClass", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
+    "type": "TripleConstraint", "predicate": "foaf:name",
+    "value": { "type": "ValueClass", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
 
           </li>
           <li id="vocab-literal-facetsw"><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
     		  <pre class="schema shexc shh">my:UserShape {
   ex:shoeSize xsd:float <span class="value-constraint new">MinInclusive 5.5 maxInclusive 12.5</span>
 }</pre>
-    		  <pre class="schema json shh">{ "my:UserShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "ex:shoeSize",
-    "value": { "type": "valueClass", "datatype": "http://www.w3.org/2001/XMLSchema#float",
+    		  <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
+    "value": { "type": "ValueClass", "datatype": "http://www.w3.org/2001/XMLSchema#float",
                <span class="value-constraint new">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
 
           <p>
@@ -1538,10 +1538,10 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     		  <pre class="schema shexc shh">my:UserShape {
   foaf:mbox <span class="value-constraint new">IRI</span>
 }</pre>
-    		  <pre class="schema json shh">{ "my:UserShape": { "type": "shape",
+    		  <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
   "expression": {
-    "type": "tripleConstraint", "predicate": "foaf:mbox",
-    "value": { "type": "valueClass", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
+    "type": "TripleConstraint", "predicate": "foaf:mbox",
+    "value": { "type": "ValueClass", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
           <p>
             The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
             The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
@@ -1553,20 +1553,20 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
   ex:state <span class="value-constraint new">(ex:unassigned ex:assigned)</span>
 }</pre>
           <pre class="schema json shh">
-{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "ex:status",
-    "value": { "type": "valueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "ValueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
           <p>
             See the <a href="#value-sets">Value Sets description below</a> for details.
           </p>
           </li>
-          <li id="vocab-value-shape"><code id="value-shape">value shape</code>: asserts that the object is described by another shape, e.g.
+          <li id="vocab-value-Shape"><code id="value-shape">value shape</code>: asserts that the object is described by another shape, e.g.
     		  <pre class="schema shexc shh">my:IssueShape {
   ex:reportedBy <span class="value-constraint new">@my:UserShape</span>
 }</pre>
-    		  <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "ex:reportedBy",
-      "value": { "type": "valueClass", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
+    		  <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
+      "value": { "type": "ValueClass", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
           </li>
         </ul>
       </section>
@@ -1620,39 +1620,39 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="state      lowlight1    ">  <span class="predicate">"predicate": "ex:state"</span>,                      </span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
-          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span>                 </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
         ]
       }
     },
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -1933,30 +1933,30 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+{ <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
     "expression": { "type": "group",
       "expressions": [
-        { "type": "someOf",
+        { "type": "SomeOf",
           "expressions": [
             <span class="eitherOr   lowlight2 top">                                                                  </span>
-            <span class="name       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
-            <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span> }</span>,
+            <span class="name       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
+            <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span> }</span>,
             <span class="eitherOr   lowlight2 bot">                                                                  </span>
             <span class="eitherOr   lowlight2 top">                                                                  </span>
             { "type": "group",
               "expressions": [
-                <span class="gname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
-                <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,</span>
+                <span class="gname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
+                <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,</span>
                 <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
-                <span class="fname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
-                <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span> }</span>
+                <span class="fname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
+                <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span> }</span>
               ]
             }
             <span class="eitherOr   lowlight2 bot">                                                                  </span>
           ]
         },
-        <span class="mbox       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
-        <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "IRI" }</span> }</span>
+        <span class="mbox       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
+        <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "IRI" }</span> }</span>
       ]
     }
   }
@@ -2024,35 +2024,35 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
         <pre class="schema json"><span class="comment"># schema (JSON)</span>
 { <span class="shape-name">"my:UserShape"</span>: {                     <span class="comment">"type": "a user has"</span>,
-  "type": "shape",
+  "type": "Shape",
     "expression": { "type": "group",
       "expressions": [
         {                               <span class="comment">"type": "  either"</span>
-          "type": "someOf",
+          "type": "SomeOf",
           "expressions": [
             {                           <span class="comment">"type": "    a full name"</span>
-              "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        
-              <span class="predicate">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>
+              "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        
+              <span class="predicate">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>
              },
             {                           <span class="comment">"type": "  or"</span>
               "type": "group",
               "expressions": [
                 {                       <span class="comment">"type": "    one or more given names"</span>
-                  "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  
-                  <span class="predicate">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,
+                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  
+                  <span class="predicate">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,
                   "min": 1, "max": "*"
                 },                                     
                 {                       <span class="comment">"type": "    and a family name"</span>
-                  "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  
-                  <span class="predicate">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>
+                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  
+                  <span class="predicate">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>
                 }
               ]
             }
           ]
         },
         {                               <span class="comment">"type": "and always an mbox."</span>
-          "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, 
-          <span class="predicate">"value": { "type": "valueClass", "datatype": "IRI" }</span>
+          "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, 
+          <span class="predicate">"value": { "type": "ValueClass", "datatype": "IRI" }</span>
         }
       ]
     }
@@ -2106,39 +2106,39 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 
           <!-- JSON example -->
     		    <pre class="schema json"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name IssueShape lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name IssueShape lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "valueClass",              </span>
+            <span class="value-constraint">"value": { "type": "ValueClass",              </span>
             <span class="value-constraint">  "values": [ <span class="value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span>
             <span class="value-constraint">}                                             </span>
           },                                              
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:reportedBy"</span>,                 
-            <span class="value-constraint">"value": { "type": "valueClass",</span>              
+            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
             <span class="value-constraint">  "reference": <span class="bnode lowlight2 top bot">"_:b1"</span></span>                 
             <span class="value-constraint">}              </span>                               
           }                                               
         ]
       }
     },
-    <span class="bnode lowlight2 top bot">"_:b1"</span>: { "type": "shape",
+    <span class="bnode lowlight2 top bot">"_:b1"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:name"</span>,                     
             <span class="value-constraint">"value": {             </span>                       
-            <span class="value-constraint">  "type": "valueClass",</span>                       
+            <span class="value-constraint">  "type": "ValueClass",</span>                       
             <span class="value-constraint">  "datatype": "xsd:string"</span>                    
             <span class="value-constraint">}                      </span>                       
           },                                              
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "valueClass",</span>              
+            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
             <span class="value-constraint">  "nodeKind": "iri"             </span>              
             <span class="value-constraint">},                                            
             "min": 1, "max": "*"           </span>               
@@ -2184,26 +2184,26 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
 {
-  "my:IssueShape": { "type": "shape",
+  "my:IssueShape": { "type": "Shape",
     "expression": { "type": "group",
       "expressions": [
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         }
       ]
     }
   },
-  <span class="hilight-reproducedBy lowlight2 top">"my:EmployeeShape": { "type": "shape",                                   </span>
+  <span class="hilight-reproducedBy lowlight2 top">"my:EmployeeShape": { "type": "Shape",                                   </span>
   <span class="hilight-reproducedBy lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-reproducedBy lowlight2    ">    "expressions": [                                                     </span>
-  <span class="hilight-reproducedBy lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-reproducedBy lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-reproducedBy lowlight2    ">      },                                                                 </span>
-  <span class="hilight-reproducedBy lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-reproducedBy lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
+  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:Programming" ] }</span></span>
   <span class="hilight-reproducedBy lowlight2    ">      }                                                                  </span>
   <span class="hilight-reproducedBy lowlight2    ">    ]                                                                    </span>
   <span class="hilight-reproducedBy lowlight2    ">  }                                                                      </span>
@@ -2270,29 +2270,29 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
 {
-  "my:IssueShape": { "type": "shape",
+  "my:IssueShape": { "type": "Shape",
     "expression": { "type": "group",
       "expressions": [
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:assignedTo"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-assignedTo lowlight2 top bot">"reference": "my:EmployeeShape"</span></span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:assignedTo"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-assignedTo lowlight2 top bot">"reference": "my:EmployeeShape"</span></span> }
         }
       ]
     }
   },
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2 top">"my:EmployeeShape": { "type": "shape",                                   </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2 top">"my:EmployeeShape": { "type": "Shape",                                   </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    "expressions": [                                                     </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      },                                                                 </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:Programming" ] }</span></span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      }                                                                  </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    ]                                                                    </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  }                                                                      </span>
@@ -2368,43 +2368,43 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="state      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,</span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,</span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
-          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reportedBy"</span>,</span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span> <span class="value-constraint">"reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span> }</span>
+          <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reportedBy"</span>,</span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span> <span class="value-constraint">"reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span> }</span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
         ]
       }
     },
-    <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+    <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "someOf",
+          { "type": "SomeOf",
             "expressions": [
               <span class="eitherOr   lowlight2 top">                                                                  </span>
-              <span class="name       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
-              <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,
+              <span class="name       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
+              <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,
                 "semActs": [
-                  { "type": "semAct", "name": "test:", "code": " print(o) " }
+                  { "type": "SemAct", "name": "test:", "code": " print(o) " }
                 ] }</span>,
               <span class="eitherOr   lowlight2 bot">                                                                  </span>
               <span class="eitherOr   lowlight2 top">                                                                  </span>
               { "type": "group",
                 "expressions": [
-                  <span class="gname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
-                  <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,</span>
+                  <span class="gname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
+                  <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,</span>
                   <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
-                  <span class="fname      lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
-                  <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>,
-                    "semActs": [ { "type": "semAct", "name": "test:",
+                  <span class="fname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
+                  <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,
+                    "semActs": [ { "type": "SemAct", "name": "test:",
                         "code": " fail(\"doomed\") "
                       }
                     ] }</span>
@@ -2413,8 +2413,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
               <span class="eitherOr   lowlight2 bot">                                                                  </span>
             ]
           },
-          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
-          <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "valueClass", "nodeKind": "iri" }</span> }</span>
+          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
+          <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "nodeKind": "iri" }</span> }</span>
         ]
       }
     }
@@ -2491,39 +2491,39 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "valueClass",              </span>
+            <span class="value-constraint">"value": { "type": "ValueClass",              </span>
             <span class="value-constraint">  "values": [ "ex:unassigned", "ex:assigned" ]</span>
             <span class="value-constraint">}                                             </span>
           },                                              
-          <span class="reportedIssue lowlight1 top">{ "type": "tripleConstraint",                      </span>
+          <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate">"predicate": "ex:reportedIssue"</span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": true</span>,</span>
-          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>                 </span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>                 </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">  "reference": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">}              </span>                                  </span>
           <span class="reportedIssue lowlight1 bot">}                                                  </span>
         ]
       }
     },
-    <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+    <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:name"</span>,                     
             <span class="value-constraint">"value": {                </span>
-            <span class="value-constraint">  "type": "valueClass",   </span>
+            <span class="value-constraint">  "type": "ValueClass",   </span>
             <span class="value-constraint">  "datatype": "xsd:string"</span>
             <span class="value-constraint">}                         </span>
           },                                              
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "valueClass",</span>              
+            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
             <span class="value-constraint">  "nodeKind": "iri"             </span>              
             <span class="value-constraint">},                              </span>
             <span class="value-constraint">"min": 1, "max": "*"            </span>
@@ -2602,40 +2602,40 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
 
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "valueClass",              </span>
+            <span class="value-constraint">"value": { "type": "ValueClass",              </span>
             <span class="value-constraint">  "values": [ "ex:unassigned", "ex:assigned" ]</span>
             <span class="value-constraint">}                                             </span>
           }
         ]
       }
     },
-    <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+    <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:name"</span>,                     
             <span class="value-constraint">"value": {                </span>
-            <span class="value-constraint">  "type": "valueClass",   </span>
+            <span class="value-constraint">  "type": "ValueClass",   </span>
             <span class="value-constraint">  "datatype": "xsd:string"</span>
             <span class="value-constraint">}                         </span>
           },                                              
-          { "type": "tripleConstraint",                   
+          { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "valueClass",</span>              
+            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
             <span class="value-constraint">  "nodeKind": "iri"             </span>              
             <span class="value-constraint">},                              </span>
             "min": 1, "max": "*"
           },                                              
-          <span class="reportedIssue lowlight1 top">{ "type": "tripleConstraint",                      </span>
+          <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate">"predicate": "ex:reportedIssue"</span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": false</span>,</span>
-          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>                 </span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>                 </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">  "reference": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">}              </span>                                  </span>
           <span class="reportedIssue lowlight1 bot">}                                                  </span>
@@ -2764,41 +2764,41 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
               <!-- JSON example -->
     		      <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
 {
-  "my:IssueShape": { "type": "shape",
+  "my:IssueShape": { "type": "Shape",
     "expression": { "type": "group",
       "expressions": [
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         },
-        { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "valueClass", <span class="hilight-programmer lowlight2 top bot">"reference": "my:ProgrammerShape"</span></span> }
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-programmer lowlight2 top bot">"reference": "my:ProgrammerShape"</span></span> }
         }
       ]
     }
   },
-  <span class="hilight-tester lowlight2 top">"my:TesterShape": { "type": "shape",                                     </span>
+  <span class="hilight-tester lowlight2 top">"my:TesterShape": { "type": "Shape",                                     </span>
   <span class="hilight-tester lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-tester lowlight2    ">    "expressions": [                                                     </span>
-  <span class="hilight-tester lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-tester lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-tester lowlight2    ">      },                                                                 </span>
-  <span class="hilight-tester lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:role"</span>,              </span>
-  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:testingRole" ] }</span></span>
+  <span class="hilight-tester lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:role"</span>,              </span>
+  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:testingRole" ] }</span></span>
   <span class="hilight-tester lowlight2    ">      }                                                                  </span>
   <span class="hilight-tester lowlight2    ">    ]                                                                    </span>
   <span class="hilight-tester lowlight2    ">  }                                                                      </span>
   <span class="hilight-tester lowlight2 bot">},                                                                       </span>
-  <span class="hilight-programmer lowlight2 top">"my:ProgrammerShape": { "type": "shape",                                 </span>
+  <span class="hilight-programmer lowlight2 top">"my:ProgrammerShape": { "type": "Shape",                                 </span>
   <span class="hilight-programmer lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-programmer lowlight2    ">    "expressions": [                                                     </span>
-  <span class="hilight-programmer lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-programmer lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-programmer lowlight2    ">      },                                                                 </span>
-  <span class="hilight-programmer lowlight2    ">      { "type": "tripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "valueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-programmer lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
+  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:Programming" ] }</span></span>
   <span class="hilight-programmer lowlight2    ">      }                                                                  </span>
   <span class="hilight-programmer lowlight2    ">    ]                                                                    </span>
   <span class="hilight-programmer lowlight2    ">  }                                                                      </span>
@@ -3002,20 +3002,20 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="state      lowlight1    ">  <span class="predicate">"predicate": "rdf:type"</span>,                      </span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:Employee"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
-          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"foaf:Person"</span> ]</span></span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
@@ -3048,20 +3048,20 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "shape",
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="state      lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="state      lowlight1    ">  <span class="predicate">"predicate": "rdf:type"</span>,                      </span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:Employee"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
-          <span class="reportedBy lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"foaf:Person"</span> ]</span></span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
@@ -3094,21 +3094,21 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -3150,21 +3150,21 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -3208,21 +3208,21 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "schema",
+{ "type": "Schema",
   "shapes": {
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "shape",
+    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
-          <span class="name       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "valueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "tripleConstraint",                   </span>
+          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "valueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -3267,9 +3267,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   ex:state <span class="value-constraint new">(ex:unassigned ex:assigned)</span>
 }</pre>
         <pre class="schema json shh">
-{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "ex:status",
-    "value": { "type": "valueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "ValueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
         <p style="margin: 0;">
           The above examples could also be literals, e.g.
         </p>
@@ -3277,9 +3277,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   ex:state <span class="value-constraint new">("unassigned" "assigned")</span>
 }</pre>
         <pre class="schema json shh">
-{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "ex:status",
-    "value": { "type": "valueClass", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "ValueClass", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
         <p>
           Fixed values are represented as value sets with one member.
           For example, a required type triple can be expressed like:
@@ -3287,18 +3287,18 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
     		<pre class="schema shexc shh">my:UserShape {
   rdf:type <span class="value-constraint new">(foaf:Person)</span>
 }</pre>
-        <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "rdf:type",
-    "value": { "type": "valueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
+    "value": { "type": "ValueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
         <p style="margin: 0;">
           or using the keyword <code class="keyword">a</code>:
         </p>
     		<pre class="schema shexc shh">my:UserShape {
   <span class="keyword">a</span> <span class="value-constraint new">(foaf:Person)</span>
 }</pre>
-        <pre class="schema json shh">{ "my:IssueShape": { "type": "shape",
-  "expression": { "type": "tripleConstraint", "predicate": "a",
-    "value": { "type": "valueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "a",
+    "value": { "type": "ValueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
 
   			<section id="sec-iri-range">
   				<h3>IRI Range</h3>
@@ -3322,11 +3322,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="shape-status">"my:UserShape"</span>: { "type": "shape",
+{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
   "expression": {
-    "type": "tripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
+    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
-      "type": "valueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+      "type": "ValueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
@@ -3363,11 +3363,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="shape-status">"my:UserShape"</span>: { "type": "shape",
+{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
   "expression": {
-    "type": "tripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
+    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
-      "type": "valueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+      "type": "ValueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
@@ -3397,11 +3397,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
             <!-- JSON example -->
     		    <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="shape-status">"my:UserShape"</span>: { "type": "shape",
+{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
   "expression": {
-    "type": "tripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
+    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
-      "type": "valueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+      "type": "ValueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
@@ -3459,11 +3459,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
           <!-- JSON example -->
     		  <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="shape-name">"my:UserShape"</span>: { "type": "shape",
+{ <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
   "expression": {
-    "type": "tripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
+    "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
     <span class="value-constraint">"value": {
-      "type": "valueClass", "datatype": "xsd:string",
+      "type": "ValueClass", "datatype": "xsd:string",
       <span class="min lowlight2 top bot new">"minlength": 3</span>, <span class="max lowlight2 top bot new">"maxlength": 255</span> }</span> } } }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">

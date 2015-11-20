@@ -1,69 +1,69 @@
 digraph structs {
 	graph [rankdir = "TB"];
-	node [shape=record];
-	schema [label="<schema> schema:|{<prefixes> prefixes?|{[PREFIX→|IRI]}}|{<valueExprDefns> valueExprDefns?|{<shapeLabel> [shapeLabel→|<valueExprDefn> valueExprDefn]}}|{<startActs> startActs?|<semAct> [semact]}|{<start> start?|<shapeLabel> shapeLabel}|{<shapes> shapes?|{<shapeLabel> [shapeLabel→|<shape> shape]}}}"];
-	shape [label="<shape> shape:|{<virtual> virtual?|<BOOL> BOOL}|{<closed> closed?|<BOOL> BOOL}|{<extra> extra?|<IRI> [IRI]}|{<expression> expression?|<shapeExpr> shapeExpr}|{<inherit> inherit?|<shapeLabel> [shapeLabel]}|{<semActs> semActs?|<semAct> [semAct]}"];
+	node [Shape=record];
+	Schema [label="<Schema> Schema:|{<prefixes> prefixes?|{[PREFIX→|IRI]}}|{<valueExprDefns> valueExprDefns?|{<shapeLabel> [shapeLabel→|<ValueExprDefn> ValueExprDefn]}}|{<startActs> startActs?|<SemAct> [semact]}|{<start> start?|<shapeLabel> shapeLabel}|{<shapes> shapes?|{<shapeLabel> [shapeLabel→|<Shape> Shape]}}}"];
+	Shape [label="<Shape> Shape:|{<virtual> virtual?|<BOOL> BOOL}|{<closed> closed?|<BOOL> BOOL}|{<extra> extra?|<IRI> [IRI]}|{<expression> expression?|<shapeExpr> shapeExpr}|{<inherit> inherit?|<shapeLabel> [shapeLabel]}|{<semActs> semActs?|<SemAct> [SemAct]}"];
 
  	subgraph cluster_shapeExpr {
 		graph [label="", style=filled, fillcolor=gray80];
-		shapeExpr [shape=none];
-		eachOf [label="{{<eachOf> eachOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
-		someOf [label="{{<someOf> someOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
-		inclusion [label="{{<inclusion> inclusion|{<include> include|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
-		tripleConstraint [label="{{<tripleConstraint> tripleConstraint|{<negated> negated?|<BOOL> BOOL}|{<valueExprs> valueExpr|<valueExpr> [valueExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}}}", style=filled, fillcolor=white];
-		shapeExpr -> eachOf -> someOf -> inclusion -> tripleConstraint [color=invis];
+		shapeExpr [Shape=none];
+		EachOf [label="{{<EachOf> EachOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
+		SomeOf [label="{{<SomeOf> SomeOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
+		Inclusion [label="{{<Inclusion> Inclusion|{<include> include|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
+		TripleConstraint [label="{{<TripleConstraint> TripleConstraint|{<negated> negated?|<BOOL> BOOL}|{<valueExprs> valueExpr|<valueExpr> [valueExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
+		shapeExpr -> EachOf -> SomeOf -> Inclusion -> TripleConstraint [color=invis];
 		
 	}
 
  	subgraph cluster_valueExpr {
 		graph [label="", style=filled, fillcolor=gray80];
-		valueExpr [shape=none];
+		valueExpr [Shape=none];
  		subgraph cluster_valueClassOrRef {
 			graph [label="", style=filled, fillcolor=gray70];
-			valueClassOrRef [shape=none];
-			valueClass [label="valueClass|{{{<nodeKind> nodeKind|{<literal> \"literal\"}}|{...*|{<xsFacet> xsFacet}}| }|{{<nodeKind> nodeKind|{<literal> \"iri\"\|\"bnode\"\|\"nonliteral\"}}|{reference?|{<shapeLabel> shapeLabel}}|{...*|{<stringFacet> stringFacet}}}|{{<datatype> datatype|{<IRI> IRI}}|{...*|{<xsFacet> xsFacet}}| }|{{reference?|{<shapeLabel> shapeLabel}}|{...*|{<stringFacet> stringFacet}}| }|{{values|{<valueSetValue> [valueSetValue]}}| }|{{#empty      |#valueClass}}}", style=filled, fillcolor=white];
-			vcref [label="{{<vcref> vcref|{<valueExprRef> valueExprRef|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
-			valueClassOrRef -> vcref -> valueClass [color=invis];
+			valueClassOrRef [Shape=none];
+			ValueClass [label="ValueClass|{{{<nodeKind> nodeKind|{<literal> \"literal\"}}|{...*|{<xsFacet> xsFacet}}| }|{{<nodeKind> nodeKind|{<literal> \"iri\"\|\"bnode\"\|\"nonliteral\"}}|{reference?|{<shapeLabel> shapeLabel}}|{...*|{<stringFacet> stringFacet}}}|{{<datatype> datatype|{<IRI> IRI}}|{...*|{<xsFacet> xsFacet}}| }|{{reference?|{<shapeLabel> shapeLabel}}|{...*|{<stringFacet> stringFacet}}| }|{{values|{<valueSetValue> [valueSetValue]}}| }|{{#empty      |#ValueClass}}}", style=filled, fillcolor=white];
+			ValueRef [label="{{<ValueRef> ValueRef|{<valueExprRef> valueExprRef|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
+			valueClassOrRef -> ValueRef -> ValueClass [color=invis];
 		}
-		vcor [label="{{<vcor> vcor|{<valueExprs> valueExprs|<valueClassOrRef> valueClassOrRef}}}", style=filled, fillcolor=white];
-		vcand [label="{{<vcand> vcand|{<valueExprs> valueExprs|<valueClassOrRef> valueClassOrRef}}}", style=filled, fillcolor=white];
-		valueExpr -> vcor -> vcand -> vcref -> valueClass [color=invis];
+		ValueOr [label="{{<ValueOr> ValueOr|{<valueExprs> valueExprs|<valueClassOrRef> valueClassOrRef}}}", style=filled, fillcolor=white];
+		ValueAnd [label="{{<ValueAnd> ValueAnd|{<valueExprs> valueExprs|<valueClassOrRef> valueClassOrRef}}}", style=filled, fillcolor=white];
+		valueExpr -> ValueOr -> ValueAnd -> ValueRef -> ValueClass [color=invis];
 		
 	}
 
-	valueExprDefn [label="<valueExprDefn> valueExprDefn:|{<l_valueExpr> valueExpr|<valueExpr> [valueExpr]}|{<semActs> semActs?|<semAct> [semAct]}|{<annotations> annotations?|<annotation> [annotation]}"];
+	ValueExprDefn [label="<ValueExprDefn> ValueExprDefn:|{<l_valueExpr> valueExpr|<valueExpr> [valueExpr]}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}"];
 
-	schema:schema -> shape:shape -> valueExprDefn ->shapeExpr [color=invis];
+	Schema:Schema -> Shape:Shape -> ValueExprDefn ->shapeExpr [color=invis];
 
-	shape:shapeExpr  -> shapeExpr;
-	eachOf:shapeExpr -> shapeExpr;
-	someOf:shapeExpr -> shapeExpr;
-	schema:shape -> shape:shape;
+	Shape:shapeExpr  -> shapeExpr;
+	EachOf:shapeExpr -> shapeExpr;
+	SomeOf:shapeExpr -> shapeExpr;
+	Schema:Shape -> Shape:Shape;
 
-	schema:valueExprDefn -> valueExprDefn;
-	valueExprDefn:valueExpr -> valueExpr;
-	tripleConstraint:valueExpr -> valueExpr;
-	vcor:valueClassOrRef -> valueClassOrRef;
-	vcand:valueClassOrRef -> valueClassOrRef;
+	Schema:ValueExprDefn -> ValueExprDefn;
+	ValueExprDefn:valueExpr -> valueExpr;
+	TripleConstraint:valueExpr -> valueExpr;
+	ValueOr:valueClassOrRef -> valueClassOrRef;
+	ValueAnd:valueClassOrRef -> valueClassOrRef;
 
 
-	pushSemActDown [shape = none,label="",width=0, height=0];
-	semAct [label="<semAct> semAct|{<name> name|<IRI> IRI}|{<code> code|<STRING> STRING}", color=mediumvioletred];
-	annotation [label="<annotation> annotation|{<predicate> predicate|<IRI> IRI}|{<object> object|<STRING> STRING\|IRI}", color=mediumvioletred];
-	schema:shape -> pushSemActDown -> semAct:STRING -> annotation [color=invis];
-	tripleConstraint:annotation -> pushSemActDown [color=invis];
+	pushSemActDown [Shape = none,label="",width=0, height=0];
+	SemAct [label="<SemAct> SemAct|{<name> name|<IRI> IRI}|{<code> code|<STRING> STRING}", color=mediumvioletred];
+	Annotation [label="<Annotation> Annotation|{<predicate> predicate|<IRI> IRI}|{<object> object|<STRING> STRING\|IRI}", color=mediumvioletred];
+	Schema:Shape -> pushSemActDown -> SemAct:STRING -> Annotation [color=invis];
+	TripleConstraint:Annotation -> pushSemActDown [color=invis];
 
-	valueExprDefn:semAct -> semAct:semAct [color=mediumvioletred];
-	schema:semAct -> semAct:semAct [color=mediumvioletred];
-	shape:semAct  -> semAct:semAct [color=mediumvioletred];
-	// eachOf:semAct  -> semAct:semAct [color=mediumvioletred]; // screws up layout
-	// someOf:semAct  -> semAct:semAct [color=mediumvioletred];
-	tripleConstraint:semAct -> semAct:semAct [color=mediumvioletred];
+	ValueExprDefn:SemAct -> SemAct:SemAct [color=mediumvioletred];
+	Schema:SemAct -> SemAct:SemAct [color=mediumvioletred];
+	Shape:SemAct  -> SemAct:SemAct [color=mediumvioletred];
+	// EachOf:SemAct  -> SemAct:SemAct [color=mediumvioletred]; // screws up layout
+	// SomeOf:SemAct  -> SemAct:SemAct [color=mediumvioletred];
+	TripleConstraint:SemAct -> SemAct:SemAct [color=mediumvioletred];
 
-	valueExprDefn:annotation -> annotation:annotation [color=mediumvioletred];
-	eachOf:annotation  -> annotation:annotation [color=mediumvioletred];
-	someOf:annotation  -> annotation:annotation [color=mediumvioletred];
-	tripleConstraint:annotation -> annotation:annotation [color=mediumvioletred];
+	ValueExprDefn:Annotation -> Annotation:Annotation [color=mediumvioletred];
+	EachOf:Annotation  -> Annotation:Annotation [color=mediumvioletred];
+	SomeOf:Annotation  -> Annotation:Annotation [color=mediumvioletred];
+	TripleConstraint:Annotation -> Annotation:Annotation [color=mediumvioletred];
 
-	//{rank=same; valueClass:stringFacet pushSemActDown}
+	//{rank=same; ValueClass:stringFacet pushSemActDown}
 }

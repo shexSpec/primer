@@ -240,170 +240,170 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
             For example, the first production:
           </p>
           <pre style="margin:0;">
-<span class="obj">schema           : prefixes:[<a class="nobref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="nobref" href="#dcl-IRI">IRI</a>] startActs:[<a class="objref" href="#dfn-semAct">semAct</a>] start:<a class="nobref" href="#dcl-shapeLabel">shapeLabel</a> shapes:[<a class="nobref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="objref" href="#dfn-shape">shape</a>]</span></pre>
+<span class="obj">Schema           : prefixes:[<a class="nobref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="nobref" href="#dcl-IRI">IRI</a>] startActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>] start:<a class="nobref" href="#dcl-shapeLabel">shapeLabel</a> shapes:[<a class="nobref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="objref" href="#dfn-Shape">Shape</a>]</span></pre>
           <p style="margin:0;">
-            indicates that a schema object will have these properties:
+            indicates that a Schema object will have these properties:
           </p>
           <ul>
-            <li>"type": "schema"</li>
+            <li>"type": "Schema"</li>
             <li>"prefixes": a JSON object which maps <a class="nobref" href="#dcl-PREFIX">PREFIX</a>es to <a class="nobref" href="#dcl-IRI">IRI</a>s.
             The <a href="#dcl-PREFIX">PREFIX declaration</a> below identifies the terminal in the Turtle grammar which defines the lexical form of prefix.
             </li>
-            <li>"startActs": a JSON structure with the type "<a class="objref" href="#dfn-semAct">semAct</a>"</li>
-            <li>"shapes": a JSON object which maps <a class="nobref" href="#dcl-shapeLabel">shapeLabel</a>s to <a class="objref" href="#dfn-shape">shape</a>s.</li>
+            <li>"startActs": a JSON structure with the type "<a class="objref" href="#dfn-SemAct">SemAct</a>"</li>
+            <li>"shapes": a JSON object which maps <a class="nobref" href="#dcl-shapeLabel">shapeLabel</a>s to <a class="objref" href="#dfn-Shape">Shape</a>s.</li>
           </ul>
 
         <p>
           The grammars below can be viewed with or without human language annotations:
         </p>
-        <form id="langOptions" action="">View with descriptions (press 'd') <input type="checkbox" name="description"></input>, examples (press 'e') <input type="checkbox" name="example"></input>. Double-clicking on production labels, e.g. <a class="obj" href="#dfn-schema">schema</a> or <a class="nob" href="#dcl-PREFIX">PREFIX</a> below, toggles their annotation display.</form>
+        <form id="langOptions" action="">View with descriptions (press 'd') <input type="checkbox" name="description"></input>, examples (press 'e') <input type="checkbox" name="example"></input>. Double-clicking on production labels, e.g. <a class="obj" href="#dfn-Schema">Schema</a> or <a class="nob" href="#dcl-PREFIX">PREFIX</a> below, toggles their annotation display.</form>
       </section>
 
       <section id="schema" class="grammarSection">
         <h2>ShExJ Schema Grammar</h2>
 
         <p>
-          ShExJ Schema documents start with the <a class="objref" href="#dfn-schema">schema</a> production.
-          The root object will therefor have a "type":"schema" property.
+          ShExJ schema documents start with the <a class="objref" href="#dfn-Schema">Schema</a> production.
+          The root object will therefor have a "type":"Schema" property.
         </p>
 
         <ul>
           <li>The defaults for optional <code>min</code> and <code>max</code> attributes is the <a class="nobref" href="#dcl-INTEGER">INTEGER</a> 1.</li>
-          <li><a class="objref" href="#dfn-stemRange">stemRange</a>s inside exclusions cannot have exclusions.</li>
+          <li><a class="objref" href="#dfn-StemRange">StemRange</a>s inside exclusions cannot have exclusions.</li>
         </ul>
 
 
 
 <table>
-  <tr class="obj"><th id="dfn-schema" class="obj">schema</th><td>:</td><td>prefixes:[<a class="trmref" href="#dfn-PREFIX">PREFIX</a>-&gt;<a class="trmref" href="#dfn-IRI">IRI</a>]? valueExprDefns:[<a class="nobref" href="#dfn-valueExprLabel">valueExprLabel</a>-&gt;<a class="objref" href="#dfn-valueExprDefn">valueExprDefn</a>]? startActs:[<a class="objref" href="#dfn-semAct">semAct</a>]? start:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>? shapes:[<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>-&gt;<a class="objref" href="#dfn-shape">shape</a>]? ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">schema</span> has a <code>type</code>: <span class="literal">"schema"</span>, <code>prefixes</code>: an optional a map from <a class="trmref" href="#dfn-PREFIX">PREFIX</a> to <a class="trmref" href="#dfn-IRI">IRI</a>, <code>valueExprDefns</code>: an optional a map from <a class="nobref" href="#dfn-valueExprLabel">valueExprLabel</a> to <a class="objref" href="#dfn-valueExprDefn">valueExprDefn</a>, <code>startActs</code>: an optional a list of <a class="objref" href="#dfn-semAct">semAct</a>s, <code>start</code>: an optional <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <code>shapes</code>: an optional a map from <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> to <a class="objref" href="#dfn-shape">shape</a>.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-schema" class="example">{
-  "type":"schema",
+  <tr class="obj"><th id="dfn-Schema" class="obj">Schema</th><td>:</td><td>prefixes:[<a class="trmref" href="#dfn-PREFIX">PREFIX</a>-&gt;<a class="trmref" href="#dfn-IRI">IRI</a>]? valueExprDefns:[<a class="nobref" href="#dfn-valueExprLabel">valueExprLabel</a>-&gt;<a class="objref" href="#dfn-ValueExprDefn">ValueExprDefn</a>]? startActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? start:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>? shapes:[<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>-&gt;<a class="objref" href="#dfn-Shape">Shape</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">Schema</span> has a <code>type</code>: <span class="literal">"Schema"</span>, <code>prefixes</code>: an optional a map from <a class="trmref" href="#dfn-PREFIX">PREFIX</a> to <a class="trmref" href="#dfn-IRI">IRI</a>, <code>valueExprDefns</code>: an optional a map from <a class="nobref" href="#dfn-valueExprLabel">valueExprLabel</a> to <a class="objref" href="#dfn-ValueExprDefn">ValueExprDefn</a>, <code>startActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, <code>start</code>: an optional <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <code>shapes</code>: an optional a map from <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> to <a class="objref" href="#dfn-Shape">Shape</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-Schema" class="example">{
+  "type":"Schema",
   "prefixes": { "foaf": "http://xmlns.com/foaf/0.1/",
                 "dc": "http://purl.org/dc/elements/1.1/"},
-  "valueClasses": { "http://a.example/vs1" <a class="exmref" href="#exm-valueClass">valueClass</a>* },
-  "startActs": [ <a class="exmref" href="#exm-semAct">semAct</a>* ],
+  "valueClasses": { "http://a.example/vs1" <a class="exmref" href="#exm-ValueClass">ValueClass</a>* },
+  "startActs": [ <a class="exmref" href="#exm-SemAct">SemAct</a>* ],
   "start":"http://co.example/IssueShape",
-  "shapes":{ "http://co.example/IssueShape": <a class="exmref" href="#exm-shape">shape</a> }
+  "shapes":{ "http://co.example/IssueShape": <a class="exmref" href="#exm-Shape">Shape</a> }
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-shape" class="obj">shape</th><td>:</td><td>virtual:<a class="trmref" href="#dfn-BOOL">BOOL</a>? closed:<a class="trmref" href="#dfn-BOOL">BOOL</a>? extra:[<a class="trmref" href="#dfn-IRI">IRI</a>]? expression:<a class="nobref" href="#dfn-expr">expr</a>? inherit:[<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>]? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]? ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">shape</span> has a <code>type</code>: <span class="literal">"shape"</span>, <code>virtual</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>closed</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>extra</code>: an optional a list of <a class="trmref" href="#dfn-IRI">IRI</a>s, <code>expression</code>: an optional <a class="nobref" href="#dfn-expr">expr</a>, <code>inherit</code>: an optional a list of <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>s, and <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-semAct">semAct</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-shape" class="example">{
-  "type":"shape",
+  <tr class="obj"><th id="dfn-Shape" class="obj">Shape</th><td>:</td><td>virtual:<a class="trmref" href="#dfn-BOOL">BOOL</a>? closed:<a class="trmref" href="#dfn-BOOL">BOOL</a>? extra:[<a class="trmref" href="#dfn-IRI">IRI</a>]? expression:<a class="nobref" href="#dfn-expr">expr</a>? inherit:[<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>]? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">Shape</span> has a <code>type</code>: <span class="literal">"Shape"</span>, <code>virtual</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>closed</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>extra</code>: an optional a list of <a class="trmref" href="#dfn-IRI">IRI</a>s, <code>expression</code>: an optional <a class="nobref" href="#dfn-expr">expr</a>, <code>inherit</code>: an optional a list of <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>s, and <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-Shape" class="example">{
+  "type":"Shape",
   "virtual":true,
   "closed":false,
-  "extra":["http://www.w3.org/2000/01/rdf-schema#label"],
-  "expression":{ "type":"eachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" },
+  "extra":["http://www.w3.org/2000/01/rdf-Schema#label"],
+  "expression":{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" },
   "inherit":[]
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-semAct" class="obj">semAct</th><td>:</td><td>name:<a class="trmref" href="#dfn-IRI">IRI</a> code:<a class="trmref" href="#dfn-STRING">STRING</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">semAct</span> has a <code>type</code>: <span class="literal">"semAct"</span>, <code>name</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>code</code>: <a class="trmref" href="#dfn-STRING">STRING</a>.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-semAct" class="example">{
-  "type":"semAct",
+  <tr class="obj"><th id="dfn-SemAct" class="obj">SemAct</th><td>:</td><td>name:<a class="trmref" href="#dfn-IRI">IRI</a> code:<a class="trmref" href="#dfn-STRING">STRING</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">SemAct</span> has a <code>type</code>: <span class="literal">"SemAct"</span>, <code>name</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>code</code>: <a class="trmref" href="#dfn-STRING">STRING</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-SemAct" class="example">{
+  "type":"SemAct",
   "name":"http://a.example/extension1",
   "code":"val dt=o.datatype(); assert(dt.substr(20) == \"http://b.example/dt#\"); "
 }</span></td></tr>
-  <tr class="nob"><th id="dfn-expr" class="nob">expr</th><td>=</td><td><a class="objref" href="#dfn-eachOf">eachOf</a> | <a class="objref" href="#dfn-someOf">someOf</a> | <a class="objref" href="#dfn-tripleConstraint">tripleConstraint</a> | <a class="objref" href="#dfn-inclusion">inclusion</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">An <span class="nob">expr</span> is either:<br /> ‣ <a class="objref" href="#dfn-eachOf">eachOf</a><br /> ‣ <a class="objref" href="#dfn-someOf">someOf</a><br /> ‣ <a class="objref" href="#dfn-tripleConstraint">tripleConstraint</a><br /> ‣ <a class="objref" href="#dfn-inclusion">inclusion</a>.</td></tr>
+  <tr class="nob"><th id="dfn-expr" class="nob">expr</th><td>=</td><td><a class="objref" href="#dfn-EachOf">EachOf</a> | <a class="objref" href="#dfn-SomeOf">SomeOf</a> | <a class="objref" href="#dfn-TripleConstraint">TripleConstraint</a> | <a class="objref" href="#dfn-Inclusion">Inclusion</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="nob">expr</span> is either:<br /> ‣ <a class="objref" href="#dfn-EachOf">EachOf</a><br /> ‣ <a class="objref" href="#dfn-SomeOf">SomeOf</a><br /> ‣ <a class="objref" href="#dfn-TripleConstraint">TripleConstraint</a><br /> ‣ <a class="objref" href="#dfn-Inclusion">Inclusion</a>.</td></tr>
 <tr class="example"><td></td><td class="example" colspan="2"><span id="exm-expr" class="example">{
-  "type":"tripleConstraint",
+  "type":"TripleConstraint",
   "valueExpr":{
-    "type": "valueClass",
+    "type": "ValueClass",
     "reference": "http://a.example/UserShape"
   },
   "max":"*"
-}</span>, <span id="exm-expr2" class="example">{ "type":"eachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" }</span></td></tr>
-  <tr class="obj"><th id="dfn-eachOf" class="obj">eachOf</th><td>:</td><td>expressions:[<a class="nobref" href="#dfn-expr">expr</a>] min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]? annotations:[<a class="objref" href="#dfn-annotation">annotation</a>]? ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">eachOf</span> has a <code>type</code>: <span class="literal">"eachOf"</span>, <code>expressions</code>: a list of <a class="nobref" href="#dfn-expr">expr</a>s, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-semAct">semAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-annotation">annotation</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-group" class="example">{ "type":"eachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" }</span></td></tr>
-  <tr class="obj"><th id="dfn-someOf" class="obj">someOf</th><td>:</td><td>expressions:[<a class="nobref" href="#dfn-expr">expr</a>] min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]? annotations:[<a class="objref" href="#dfn-annotation">annotation</a>]? ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">someOf</span> has a <code>type</code>: <span class="literal">"someOf"</span>, <code>expressions</code>: a list of <a class="nobref" href="#dfn-expr">expr</a>s, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-semAct">semAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-annotation">annotation</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-someOf" class="example">{ "type":"eachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "min":0 }</span></td></tr>
-  <tr class="obj"><th id="dfn-inclusion" class="obj">inclusion</th><td>:</td><td>include:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">inclusion</span> has a <code>type</code>: <span class="literal">"inclusion"</span>, <code>include</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-inclusion" class="example">{ "type":"inclusion", "include":"http://co.example/IssueShape" }</span></td></tr>
-  <tr class="obj"><th id="dfn-tripleConstraint" class="obj">tripleConstraint</th><td>:</td><td>inverse:<a class="trmref" href="#dfn-BOOL">BOOL</a>? negated:<a class="trmref" href="#dfn-BOOL">BOOL</a>? predicate:<a class="trmref" href="#dfn-IRI">IRI</a> valueExpr:<a class="nobref" href="#dfn-valueExpr">valueExpr</a> min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]? annotations:[<a class="objref" href="#dfn-annotation">annotation</a>]? ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">tripleConstraint</span> has a <code>type</code>: <span class="literal">"tripleConstraint"</span>, <code>inverse</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>negated</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>predicate</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, <code>valueExpr</code>: <a class="nobref" href="#dfn-valueExpr">valueExpr</a>, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-semAct">semAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-annotation">annotation</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-tripleConstraint" class="example">{
-  "type":"tripleConstraint",
-  "value":<a class="dfnref" href="#exm-valueClass">valueClass</a>,
+}</span>, <span id="exm-expr2" class="example">{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" }</span></td></tr>
+  <tr class="obj"><th id="dfn-EachOf" class="obj">EachOf</th><td>:</td><td>expressions:[<a class="nobref" href="#dfn-expr">expr</a>] min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">EachOf</span> has a <code>type</code>: <span class="literal">"EachOf"</span>, <code>expressions</code>: a list of <a class="nobref" href="#dfn-expr">expr</a>s, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-group" class="example">{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" }</span></td></tr>
+  <tr class="obj"><th id="dfn-SomeOf" class="obj">SomeOf</th><td>:</td><td>expressions:[<a class="nobref" href="#dfn-expr">expr</a>] min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">SomeOf</span> has a <code>type</code>: <span class="literal">"SomeOf"</span>, <code>expressions</code>: a list of <a class="nobref" href="#dfn-expr">expr</a>s, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-SomeOf" class="example">{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "min":0 }</span></td></tr>
+  <tr class="obj"><th id="dfn-Inclusion" class="obj">Inclusion</th><td>:</td><td>include:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">Inclusion</span> has a <code>type</code>: <span class="literal">"Inclusion"</span>, <code>include</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-Inclusion" class="example">{ "type":"Inclusion", "include":"http://co.example/IssueShape" }</span></td></tr>
+  <tr class="obj"><th id="dfn-TripleConstraint" class="obj">TripleConstraint</th><td>:</td><td>inverse:<a class="trmref" href="#dfn-BOOL">BOOL</a>? negated:<a class="trmref" href="#dfn-BOOL">BOOL</a>? predicate:<a class="trmref" href="#dfn-IRI">IRI</a> valueExpr:<a class="nobref" href="#dfn-valueExpr">valueExpr</a> min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">TripleConstraint</span> has a <code>type</code>: <span class="literal">"TripleConstraint"</span>, <code>inverse</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>negated</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>predicate</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, <code>valueExpr</code>: <a class="nobref" href="#dfn-valueExpr">valueExpr</a>, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-TripleConstraint" class="example">{
+  "type":"TripleConstraint",
+  "value":<a class="dfnref" href="#exm-ValueClass">ValueClass</a>,
   "min":"1",
   "max":"*",
-  "semActs":[ <a class="dfnref" href="#exm-semAct">semAct</a> ]
+  "semActs":[ <a class="dfnref" href="#exm-SemAct">SemAct</a> ]
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-valueExprDefn" class="obj">valueExprDefn</th><td>:</td><td>valueExpr:<a class="nobref" href="#dfn-valueExpr">valueExpr</a> semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]? annotations:[<a class="objref" href="#dfn-annotation">annotation</a>]? ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">valueExprDefn</span> has a <code>type</code>: <span class="literal">"valueExprDefn"</span>, <code>valueExpr</code>: <a class="nobref" href="#dfn-valueExpr">valueExpr</a>, <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-semAct">semAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-annotation">annotation</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueClass" class="example">{
-  "type":"valueExprDefn",
+  <tr class="obj"><th id="dfn-ValueExprDefn" class="obj">ValueExprDefn</th><td>:</td><td>valueExpr:<a class="nobref" href="#dfn-valueExpr">valueExpr</a> semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueExprDefn</span> has a <code>type</code>: <span class="literal">"ValueExprDefn"</span>, <code>valueExpr</code>: <a class="nobref" href="#dfn-valueExpr">valueExpr</a>, <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueClass" class="example">{
+  "type":"ValueExprDefn",
   "valueExpr": {
-    "type":"valueClass",
+    "type":"ValueClass",
     "nodeKind":"IRI",
     "reference":"http://co.example/UserShape"
     "pattern":"^http://a.example/users/"
   }
 }</span></td></tr>
-  <tr class="nob"><th id="dfn-valueClassOrRef" class="nob">valueClassOrRef</th><td>=</td><td><a class="objref" href="#dfn-valueClass">valueClass</a> | <a class="objref" href="#dfn-vcref">vcref</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueClassOrRef</span> is either:<br /> ‣ <a class="objref" href="#dfn-valueClass">valueClass</a><br /> ‣ <a class="objref" href="#dfn-vcref">vcref</a>.</td></tr>
+  <tr class="nob"><th id="dfn-valueClassOrRef" class="nob">valueClassOrRef</th><td>=</td><td><a class="objref" href="#dfn-ValueClass">ValueClass</a> | <a class="objref" href="#dfn-ValueRef">ValueRef</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueClassOrRef</span> is either:<br /> ‣ <a class="objref" href="#dfn-ValueClass">ValueClass</a><br /> ‣ <a class="objref" href="#dfn-ValueRef">ValueRef</a>.</td></tr>
 <tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueClassOrRef" class="example">{
-  "type":"valueClass",
+  "type":"ValueClass",
   "reference":"http://co.example/IssueShape"
 }</span>, <span id="exm-valueClassOrRef2" class="example">{
-  "type": "vcref",
+  "type": "ValueRef",
   "valueExprRef": "http://co.example/valueDefn3"
 }</span></td></tr>
-  <tr class="nob"><th id="dfn-valueExpr" class="nob">valueExpr</th><td>=</td><td><a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a> | <a class="objref" href="#dfn-vcor">vcor</a> | <a class="objref" href="#dfn-vcand">vcand</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueExpr</span> is either:<br /> ‣ <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a><br /> ‣ <a class="objref" href="#dfn-vcor">vcor</a><br /> ‣ <a class="objref" href="#dfn-vcand">vcand</a>.</td></tr>
+  <tr class="nob"><th id="dfn-valueExpr" class="nob">valueExpr</th><td>=</td><td><a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a> | <a class="objref" href="#dfn-ValueOr">ValueOr</a> | <a class="objref" href="#dfn-ValueAnd">ValueAnd</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueExpr</span> is either:<br /> ‣ <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a><br /> ‣ <a class="objref" href="#dfn-ValueOr">ValueOr</a><br /> ‣ <a class="objref" href="#dfn-ValueAnd">ValueAnd</a>.</td></tr>
 <tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueExpr2" class="example">{
-  "type": "valueClass",
+  "type": "ValueClass",
   "reference":"http://co.example/IssueShape"
 }</span>, <span id="exm-valueExpr2" class="example">{
-  "type": "vcand",
+  "type": "ValueAnd",
   "valueExprs": [
-    { "type":"valueClass",
+    { "type":"ValueClass",
       "reference":"http://co.example/IssueShape" },
-    { "type":"valueClass",
+    { "type":"ValueClass",
       "reference":"http://co.example/RecordShape" }
   ]
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-valueClass" class="obj">valueClass</th><td>:</td><td>nodeKind:<span class="literal">"literal"</span> <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*</td></tr>
+  <tr class="obj"><th id="dfn-ValueClass" class="obj">ValueClass</th><td>:</td><td>nodeKind:<span class="literal">"literal"</span> <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*</td></tr>
     <tr><th></th><td>|</td><td>nodeKind:(<span class="literal">"iri"</span> | <span class="literal">"bnode"</span> | <span class="literal">"nonliteral"</span>) reference:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>? <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*</td></tr>
     <tr><th></th><td>|</td><td>datatype:<a class="trmref" href="#dfn-IRI">IRI</a> <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*</td></tr>
     <tr><th></th><td>|</td><td>reference:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*</td></tr>
     <tr><th></th><td>|</td><td>values:[<a class="nobref" href="#dfn-valueSetValue">valueSetValue</a>]</td></tr>
     <tr><th></th><td>|</td><td><span class="comment">/* empty */</span> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">valueClass</span> has a <code>type</code>: <span class="literal">"valueClass"</span>, either:<br /> ‣ <code>nodeKind</code>: <span class="literal">"literal"</span>, and <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*<br /> ‣ <code>nodeKind</code>: (<span class="literal">"iri"</span> | <span class="literal">"bnode"</span> | <span class="literal">"nonliteral"</span>), <code>reference</code>: an optional <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*<br /> ‣ <code>datatype</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*<br /> ‣ <code>reference</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*<br /> ‣ <code>values</code>: a list of <a class="nobref" href="#dfn-valueSetValue">valueSetValue</a>s<br /> ‣ no additional properties.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueClass" class="example">{
-  "type":"valueClass",
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueClass</span> has a <code>type</code>: <span class="literal">"ValueClass"</span>, either:<br /> ‣ <code>nodeKind</code>: <span class="literal">"literal"</span>, and <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*<br /> ‣ <code>nodeKind</code>: (<span class="literal">"iri"</span> | <span class="literal">"bnode"</span> | <span class="literal">"nonliteral"</span>), <code>reference</code>: an optional <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*<br /> ‣ <code>datatype</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*<br /> ‣ <code>reference</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*<br /> ‣ <code>values</code>: a list of <a class="nobref" href="#dfn-valueSetValue">valueSetValue</a>s<br /> ‣ no additional properties.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueClass" class="example">{
+  "type":"ValueClass",
   "nodeKind":"IRI",
   "reference":"http://co.example/UserShape"
   "pattern":"^http://a.example/users/"
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-vcref" class="obj">vcref</th><td>:</td><td>valueExprRef:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">vcref</span> has a <code>type</code>: <span class="literal">"vcref"</span>, <code>valueExprRef</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-vcref" class="example">{
-  "type": "vcref",
+  <tr class="obj"><th id="dfn-ValueRef" class="obj">ValueRef</th><td>:</td><td>valueExprRef:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueRef</span> has a <code>type</code>: <span class="literal">"ValueRef"</span>, <code>valueExprRef</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueRef" class="example">{
+  "type": "ValueRef",
   "valueExprRef": "http://co.example/valueDefn3"
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-vcor" class="obj">vcor</th><td>:</td><td>valueExprs:[<a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>] ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">vcor</span> has a <code>type</code>: <span class="literal">"vcor"</span>, <code>valueExprs</code>: a list of <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>s.</td></tr>
+  <tr class="obj"><th id="dfn-ValueOr" class="obj">ValueOr</th><td>:</td><td>valueExprs:[<a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>] ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueOr</span> has a <code>type</code>: <span class="literal">"ValueOr"</span>, <code>valueExprs</code>: a list of <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>s.</td></tr>
 <tr class="example"><td></td><td class="example" colspan="2"><span id="exm-vor2" class="example">{
-  "type": "vcand",
+  "type": "ValueAnd",
   "valueExprs": [
-    { "type":"valueClass", "reference":"http://co.example/ResolvedIssueShape" },
-    { "type":"valueClass", "reference":"http://co.example/RejectedIssueShape" }
+    { "type":"ValueClass", "reference":"http://co.example/ResolvedIssueShape" },
+    { "type":"ValueClass", "reference":"http://co.example/RejectedIssueShape" }
   ]
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-vcand" class="obj">vcand</th><td>:</td><td>valueExprs:[<a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>] ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">vcand</span> has a <code>type</code>: <span class="literal">"vcand"</span>, <code>valueExprs</code>: a list of <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-vcand2" class="example">{
-  "type": "vcand",
+  <tr class="obj"><th id="dfn-ValueAnd" class="obj">ValueAnd</th><td>:</td><td>valueExprs:[<a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>] ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueAnd</span> has a <code>type</code>: <span class="literal">"ValueAnd"</span>, <code>valueExprs</code>: a list of <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueAnd2" class="example">{
+  "type": "ValueAnd",
   "valueExprs": [
-    { "type":"valueClass", "reference":"http://co.example/IssueShape" },
-    { "type":"valueClass", "reference":"http://co.example/RecordShape" }
+    { "type":"ValueClass", "reference":"http://co.example/IssueShape" },
+    { "type":"ValueClass", "reference":"http://co.example/RecordShape" }
   ]
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-annotation" class="obj">annotation</th><td>:</td><td>predicate:<a class="trmref" href="#dfn-IRI">IRI</a> object:<a class="trmref" href="#dfn-IRI">IRI</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">annotation</span> has a <code>type</code>: <span class="literal">"annotation"</span>, <code>predicate</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>object</code>: <a class="trmref" href="#dfn-IRI">IRI</a>.</td></tr>
+  <tr class="obj"><th id="dfn-Annotation" class="obj">Annotation</th><td>:</td><td>predicate:<a class="trmref" href="#dfn-IRI">IRI</a> object:<a class="trmref" href="#dfn-IRI">IRI</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">Annotation</span> has a <code>type</code>: <span class="literal">"Annotation"</span>, <code>predicate</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>object</code>: <a class="trmref" href="#dfn-IRI">IRI</a>.</td></tr>
 <tr class="example"><td></td><td class="example" colspan="2"></td></tr>
   <tr class="nob"><th id="dfn-xsFacet" class="nob">xsFacet</th><td>=</td><td><a class="nobref" href="#dfn-stringFacet">stringFacet</a> | <a class="nobref" href="#dfn-numericFacet">numericFacet</a> ;</td></tr>
 <tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">xsFacet</span> is either:<br /> ‣ <a class="nobref" href="#dfn-stringFacet">stringFacet</a><br /> ‣ <a class="nobref" href="#dfn-numericFacet">numericFacet</a>.</td></tr>
@@ -428,22 +428,22 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     <tr><th></th><td>|</td><td><a class="trmref" href="#dfn-STRING">STRING</a></td></tr>
     <tr><th></th><td>|</td><td><a class="trmref" href="#dfn-DATATYPE_STRING">DATATYPE_STRING</a></td></tr>
     <tr><th></th><td>|</td><td><a class="trmref" href="#dfn-LANG_STRING">LANG_STRING</a></td></tr>
-    <tr><th></th><td>|</td><td><a class="objref" href="#dfn-stemRange">stemRange</a> ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueSetValue</span> is either:<br /> ‣ <a class="trmref" href="#dfn-IRI">IRI</a><br /> ‣ <a class="trmref" href="#dfn-STRING">STRING</a><br /> ‣ <a class="trmref" href="#dfn-DATATYPE_STRING">DATATYPE_STRING</a><br /> ‣ <a class="trmref" href="#dfn-LANG_STRING">LANG_STRING</a><br /> ‣ <a class="objref" href="#dfn-stemRange">stemRange</a>.</td></tr>
+    <tr><th></th><td>|</td><td><a class="objref" href="#dfn-StemRange">StemRange</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueSetValue</span> is either:<br /> ‣ <a class="trmref" href="#dfn-IRI">IRI</a><br /> ‣ <a class="trmref" href="#dfn-STRING">STRING</a><br /> ‣ <a class="trmref" href="#dfn-DATATYPE_STRING">DATATYPE_STRING</a><br /> ‣ <a class="trmref" href="#dfn-LANG_STRING">LANG_STRING</a><br /> ‣ <a class="objref" href="#dfn-StemRange">StemRange</a>.</td></tr>
 <tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueSetValue" class="example">"http://a.example/assigned"</span>, <span id="exm-valueSetValue" class="example">"\"repair\""</span>,
 <span id="exm-valueSetValue" class="example">{
-  "type":"stemRange",
+  "type":"StemRange",
   "stem":"http://a.example/"
 }</span></td></tr>
-  <tr class="obj"><th id="dfn-stemRange" class="obj">stemRange</th><td>:</td><td>stem:<a class="trmref" href="#dfn-IRI">IRI</a> exclusions:[<a class="objref" href="#dfn-stemRange">stemRange</a>] ;</td></tr>
-<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">stemRange</span> has a <code>type</code>: <span class="literal">"stemRange"</span>, <code>stem</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>exclusions</code>: a list of <a class="objref" href="#dfn-stemRange">stemRange</a>s.</td></tr>
-<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-stemRange" class="example">{
-  "type":"stemRange",
+  <tr class="obj"><th id="dfn-StemRange" class="obj">StemRange</th><td>:</td><td>stem:<a class="trmref" href="#dfn-IRI">IRI</a> exclusions:[<a class="objref" href="#dfn-StemRange">StemRange</a>] ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">StemRange</span> has a <code>type</code>: <span class="literal">"StemRange"</span>, <code>stem</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>exclusions</code>: a list of <a class="objref" href="#dfn-StemRange">StemRange</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-StemRange" class="example">{
+  "type":"StemRange",
   "stem":"http://a.example/",
   "exclusions":[
     "http://a.example/a",
     {
-      "type":"stemRange",
+      "type":"StemRange",
       "http://a.example/b",
     }
   ]
@@ -480,9 +480,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
             The interconnections in the ShExJ schema are between these structures:
         </p>
         <ul>
-          <li>schema</li>
-          <li>shape</li>
-          <li>valueExprDefn</li>
+          <li>Schema</li>
+          <li>Shape</li>
+          <li>ValueExprDefn</li>
           <li>shapeExpr</li>
           <li>valueExpr</li>
         </ul>
@@ -501,8 +501,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           The root object will therefor have a "type":"validation" property.
         </p>
         <pre>
-<span class="obj" id="dfn-validation">validation</span>       : node:<a class="nobref" href="#dfn-IRI">IRI</a>, shape:<a class="nobref" href="#dfn-IRI">IRI</a>, solutions:<a class="nobref" href="#dfn-soln">soln</a><span class="annotation">
-<span class="text">A <span class="obj">validation</span> object has: <code>type</code>:"<span class="obj">validation</span>", <code>node</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>shape</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, and <code>solutions</code>: an array of <a class="nobref" href="#dfn-soln">soln</a>.</span>
+<span class="obj" id="dfn-validation">validation</span>       : node:<a class="nobref" href="#dfn-IRI">IRI</a>, Shape:<a class="nobref" href="#dfn-IRI">IRI</a>, solutions:<a class="nobref" href="#dfn-soln">soln</a><span class="annotation">
+<span class="text">A <span class="obj">validation</span> object has: <code>type</code>:"<span class="obj">validation</span>", <code>node</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>Shape</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, and <code>solutions</code>: an array of <a class="nobref" href="#dfn-soln">soln</a>.</span>
 <span id="exm-validation" class="example">{
   "type": "test",
   "node": "http://a.example/Issue1",
@@ -514,18 +514,18 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="nob" id="dfn-soln">soln</span>             = <a class="objref" href="#dfn-groupSolutions">groupSolutions</a>
                  | <a class="objref" href="#dfn-someOfSolutions">someOfSolutions</a>
                  | <a class="objref" href="#dfn-tripleConstraintSolutions">tripleConstraintSolutions</a><span class="annotation">
-<span class="text">A <span class="nob">soln</span> is either (<a class="objref" href="#dfn-group">group</a>, <a class="objref" href="#dfn-someOf">someOf</a> or <a class="objref" href="#dfn-tripleConstraint">tripleConstraint</a>).</span>
+<span class="text">A <span class="nob">soln</span> is either (<a class="objref" href="#dfn-group">group</a>, <a class="objref" href="#dfn-SomeOf">SomeOf</a> or <a class="objref" href="#dfn-TripleConstraint">TripleConstraint</a>).</span>
 <span  id="exm-soln" class="example">{ "type":"group", "solutions":[<a class="nobref" href="#dfn-soln">soln</a>], "max":"*" }</span>
 
 </span>
-<span class="obj" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="objref" href="#dfn-groupSolution">groupSolution</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="obj">groupSolutions</span> object has: <code>type</code>:"<span class="obj">groupSolutions</span>", <code>solutions</code>: an array of <a class="objref" href="#dfn-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="obj" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="objref" href="#dfn-groupSolution">groupSolution</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?<span class="annotation">
+<span class="text">A <span class="obj">groupSolutions</span> object has: <code>type</code>:"<span class="obj">groupSolutions</span>", <code>solutions</code>: an array of <a class="objref" href="#dfn-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?.</span>
 <span id="exm-groupSolutions" class="example">{
   "type": "groupSolutions",
   "solutions": [ <a class="exmref" href="#exm-groupSolution">groupSolution</a>* ],
   "min":"1",
   "max":"*",
-  "semActs":[ <a class="objref" href="#exm-semAct">semAct</a> ]
+  "semActs":[ <a class="objref" href="#exm-SemAct">SemAct</a> ]
 }</span>
 
 </span>
@@ -537,14 +537,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="obj" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="objref" href="#dfn-someOfSolution">someOfSolution</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="obj">someOfSolutions</span> object has: <code>type</code>:"<span class="obj">someOfSolutions</span>", <code>solutions</code>: an array of <a class="objref" href="#dfn-someOfSolution">someOfSolution</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="obj" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="objref" href="#dfn-someOfSolution">someOfSolution</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?<span class="annotation">
+<span class="text">A <span class="obj">someOfSolutions</span> object has: <code>type</code>:"<span class="obj">someOfSolutions</span>", <code>solutions</code>: an array of <a class="objref" href="#dfn-someOfSolution">someOfSolution</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?.</span>
 <span id="exm-someOfSolutions" class="example">{
   "type": "someOfSolutions",
   "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ],
   "min":"1",
   "max":"*",
-  "semActs":[ <a class="objref" href="#exm-semAct">semAct</a> ]
+  "semActs":[ <a class="objref" href="#exm-SemAct">SemAct</a> ]
 }</span>
 
 </span>
@@ -556,14 +556,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</span>
 
 </span>
-<span class="obj" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="nobref" href="#dfn-IRI">IRI</a> value:<a class="objref" href="#dfn-valueClass">valueClass</a> solutions:[<a class="objref" href="#dfn-testedTriple">testedTriple</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-semAct">semAct</a>]?<span class="annotation">
-<span class="text">A <span class="obj">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="obj">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>value</code>:<a class="objref" href="#dfn-valueClass">valueClass</a>, <code>solutions</code>: an array of <a class="objref" href="#dfn-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-semAct">semAct</a>]?.</span>
+<span class="obj" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="nobref" href="#dfn-IRI">IRI</a> value:<a class="objref" href="#dfn-ValueClass">ValueClass</a> solutions:[<a class="objref" href="#dfn-testedTriple">testedTriple</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?<span class="annotation">
+<span class="text">A <span class="obj">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="obj">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>value</code>:<a class="objref" href="#dfn-ValueClass">ValueClass</a>, <code>solutions</code>: an array of <a class="objref" href="#dfn-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?.</span>
 <span id="exm-tripleConstraintSolutions" class="example">{
   "type": "tripleConstraintSolutions",
   "solutions": [ <a class="exmref" href="#exm-tripleConstraintSolution">tripleConstraintSolution</a>* ],
   "min":"1",
   "max":"*",
-  "semActs":[ <a class="objref" href="#exm-semAct">semAct</a> ]
+  "semActs":[ <a class="objref" href="#exm-SemAct">SemAct</a> ]
 }</span>
 
 </span>
