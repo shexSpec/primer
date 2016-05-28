@@ -1581,7 +1581,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         </p>
         <div class="example wrapper">
     		<pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> <span class="value-constraint">[ex:unassigned ex:assigned]</span>,
+  <span class="predicate">ex:state</span> <span class="value-constraint">[ex:unassigned ex:assigned]</span>;
   <span class="predicate">ex:reportedBy</span> <span class="value-constraint">@my:UserShape</span>
 }</pre>
         </div>
@@ -1609,12 +1609,12 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
-  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>]</span>,
+  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span>
 }
 
 <span class="user lowlight2 top bot shape-name">my:UserShape</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="string lowlight2 top bot value-constraint">xsd:string</span></span>,
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="string lowlight2 top bot value-constraint">xsd:string</span></span>;
   <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="IRI lowlight2 top bot value-constraint">IRI</span><span class="oneOrMore lowlight2 top bot">+</span></span>
 }</pre>
 
@@ -1925,9 +1925,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
      <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>
   <span class="eitherOr   lowlight2 bot">                               </span>
   <span class="eitherOr   lowlight2 top">  |                            </span>
-      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>,
+      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>;
       <span class="fname      lowlight1 top bot"><span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span></span>
-  <span class="eitherOr   lowlight2 bot">),                             </span>
+  <span class="eitherOr   lowlight2 bot">);                             </span>
   <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
 }</pre>
 
@@ -2017,9 +2017,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
   (                              <span class="comment">#   either</span>
      <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>        <span class="comment">#     a full name</span>
     |                            <span class="comment">#   or</span>
-      <span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span><span class="keyword">+</span>,<span class="comment">#     one or more given names</span>
+      <span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span><span class="keyword">+</span>;<span class="comment">#     one or more given names</span>
       <span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span> <span class="comment">#     and a family name</span>
-  ),                             
+  );                             
   <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>                  <span class="comment"># and always an mbox.</span>
 }</pre>
         <pre class="schema json"><span class="comment"># schema (JSON)</span>
@@ -2097,9 +2097,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <!-- ShExC example -->
     		    <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>],
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>];
   <span class="predicate">ex:reportedBy</span> <span class="curlies lowlight2 top bot">{</span>
-    <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,
+    <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;
     <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span>
   <span class="curlies lowlight2 top bot">}</span>
 }</pre>
@@ -2170,13 +2170,13 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <!-- ShExC example -->
     		    <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>],
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot new"><span class="value-constraint">IRI @<span class="shape-name">my:EmployeeShape</span>
     PATTERN <span class="string">"^http://hr.example/id#[0-9]+"</span></span></span>
 }
 
 <span class="hilight-reproducedBy lowlight2 top"><span class="shape-name">my:EmployeeShape</span> {                        </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,                   </span>
+<span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;                   </span>
 <span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
 <span class="hilight-reproducedBy lowlight2 bot">}                                         </span>
 </pre>
@@ -2256,13 +2256,13 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 <span class="hilight-employeeConstraint lowlight2 bot">  PATTERN <span class="string">"^http://hr.example/id#[0-9]+"</span></span>
 
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>],
-  <span class="hilight-reproducedBy lowlight2 top bot new"><span class="predicate">ex:reproducedBy</span></span> <span class="constraint-name hilight-employeeConstraint hilight-reproducedBy lowlight2 top bot">$my:EmployeeConstraint</span>,
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
+  <span class="hilight-reproducedBy lowlight2 top bot new"><span class="predicate">ex:reproducedBy</span></span> <span class="constraint-name hilight-employeeConstraint hilight-reproducedBy lowlight2 top bot">$my:EmployeeConstraint</span>;
   <span class="hilight-assignedTo lowlight2 top bot new"><span class="predicate">ex:assignedTo</span></span> <span class="constraint-name hilight-employeeConstraint hilight-assignedTo lowlight2 top bot">$my:EmployeeConstraint</span>
 }
 
 <span class="hilight-EmployeeShape lowlight2 top"><span class="shape-name">my:EmployeeShape</span> {                        </span>
-<span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,                   </span>
+<span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;                   </span>
 <span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
 <span class="hilight-EmployeeShape lowlight2 bot">}                                         </span>
 </pre>
@@ -2351,7 +2351,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
-  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>]</span>,
+  <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span>
 }
 
@@ -2360,9 +2360,9 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
      <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span> <span class="code">%test:{ print(o) %}</span>
   <span class="eitherOr   lowlight2 bot">                               </span>
   <span class="eitherOr   lowlight2 top">  |                            </span>
-      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>,
+      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>;
       <span class="fname      lowlight1 top bot"><span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span></span> <span class="code">%test:{ fail("doomed") %}</span>
-  <span class="eitherOr   lowlight2 bot">),                             </span>
+  <span class="eitherOr   lowlight2 bot">);                             </span>
   <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
 }</pre>
 
@@ -2480,12 +2480,12 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
             <!-- ShExC example -->
     		    <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>],
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>];
  <span class="inversePredicate top bot keyword lowlight2">^</span><span class="reportedIssue lowlight1 top bot"><span class="predicate">ex:reportedIssue</span> <span class="value-constraint">@</span><span class="shape-name">my:UserShape</span></span>
 }
 
 <span class="shape-name">my:UserShape</span> {
-  <span class="predicate">foaf:name</span> <span class="constraint">xsd:string</span>,
+  <span class="predicate">foaf:name</span> <span class="constraint">xsd:string</span>;
   <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>+
 }</pre>
 
@@ -2595,8 +2595,8 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
 }
 
 <span class="shape-name">my:UserShape</span> {
-  <span class="predicate">foaf:name</span> <span class="constraint">xsd:string</span>,
-  <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>+,
+  <span class="predicate">foaf:name</span> <span class="constraint">xsd:string</span>;
+  <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>+;
   <span class="reportedIssue lowlight1 top bot"><span class="predicate">ex:reportedIssue</span> <span class="value-constraint">@</span><span class="shape-name">my:UserShape</span></span>
 }</pre>
 
@@ -2685,8 +2685,8 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
               <!-- ShExC example -->
       		    <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:SolitaryIssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>],
-<span class="hilight-invComponent top bot keyword lowlight2">!^<span class="predicate">ex:component</span> .</span>,
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>];
+<span class="hilight-invComponent top bot keyword lowlight2">!^<span class="predicate">ex:component</span> .</span>;
  <span class="hilight-component top bot keyword lowlight2">!<span class="predicate">ex:component</span> .</span>
 }</pre>
 
@@ -2745,18 +2745,18 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
               <!-- ShExC example -->
     		      <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>],
-  <span class="predicate">ex:reproducedBy</span> <span class="hilight-tester lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>,    <span class="comment"># Make sure it's checked by testing</span>
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
+  <span class="predicate">ex:reproducedBy</span> <span class="hilight-tester lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>;    <span class="comment"># Make sure it's checked by testing</span>
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-programmer lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span></span> <span class="comment"># and by a programmer.</span>
 }
 
 <span class="hilight-tester lowlight2 top"><span class="shape-name">my:TesterShape</span> {          </span>
-<span class="hilight-tester lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,   </span>
+<span class="hilight-tester lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;   </span>
 <span class="hilight-tester lowlight2    ">  <span class="predicate">ex:role</span> [<span class="value-constraint">ex:testingRole</span>]</span>
 <span class="hilight-tester lowlight2 bot">}                         </span>
 
 <span class="hilight-programmer lowlight2 top"><span class="shape-name">my:ProgrammerShape</span> {                      </span>
-<span class="hilight-programmer lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>,                   </span>
+<span class="hilight-programmer lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;                   </span>
 <span class="hilight-programmer lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
 <span class="hilight-programmer lowlight2 bot">}                                         </span>
 </pre>
@@ -2879,8 +2879,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               <p>fails <code>partition</code>, <span class="hilight-workaround1 lowlight2 top bot">workaround</span> is:</p>
     		      <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>],
-  ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>,
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
+  ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>;
     <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span>
   <span class="hilight-workaround1 lowlight2 top new">| <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span>    </span></span>
   <span class="hilight-workaround1 lowlight2 bot new">              <span class="value-constraint">AND @<span class="shape-name">my:ProgrammerShape</span></span></span>
@@ -2911,8 +2911,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               <p>fails <code>conjunction</code>, <span class="hilight-workaround2 lowlight2 top bot">workaround</span> is:</p>
     		      <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>],
-  ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>,
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
+  ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>;
     <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span>
   <span class="hilight-workaround2 lowlight2 top new">| <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>    </span>
   <span class="hilight-workaround2 lowlight2     new">          <span class="value-constraint">AND NOT @<span class="shape-name">my:ProgrammerShape</span></span></span>
@@ -2950,8 +2950,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               <p>fails <code>conjunction</code>, <span class="hilight-workaround3 lowlight2 top bot">workaround</span> is:</p>
     		      <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>],
-  ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>,
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
+  ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>;
     <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span>
   <span class="hilight-workaround3 lowlight2 top new">| <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>       </span>
   <span class="hilight-workaround3 lowlight2 bot new">              <span class="value-constraint">AND @<span class="shape-name">my:ProgrammerShape</span>{2}</span></span>
@@ -2996,7 +2996,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
-  <span class="state      lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:Employee</span>]</span>,
+  <span class="state      lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:Employee</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">foaf:Person</span>]</span>
 }</pre>
 
@@ -3042,7 +3042,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> EXTRA <span class="keyword">a</span> {
-  <span class="state      lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:Employee</span>]</span>,
+  <span class="state      lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:Employee</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">foaf:Person</span>]</span>
 }</pre>
 
@@ -3088,7 +3088,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="user lowlight2 top bot shape-name">my:UserShape</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>,
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
   <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span></span>
 }</pre>
 
@@ -3144,7 +3144,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="user lowlight2 top bot shape-name">my:UserShape</span> <span class="keyword closed">CLOSED</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>,
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
   <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span></span>
 }</pre>
 
@@ -3202,7 +3202,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           <!-- ShExC example -->
     		  <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="user lowlight2 top bot shape-name">my:UserShape</span> <span class="keyword closed">CLOSED</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>,
+  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
   <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span></span>
 }</pre>
 
