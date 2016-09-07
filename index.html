@@ -1451,7 +1451,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
      <span class="hilight-tripleConstraint lowlight1 top"> "type": "TripleConstraint",</span>
      <span class="hilight-tripleConstraint lowlight1    "> <span class="predicate hilight-predicate lowlight2 top bot">"predicate": "foaf:name"</span>,  </span>
      <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2 top">"value": {                </span> </span>
-     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "type": "ValueClass",   </span> </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "type": "NodeConstraint",   </span> </span>
      <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "datatype": "xsd:string"</span> </span>
      <span class="hilight-tripleConstraint lowlight1 bot"> <span class="value-constraint hilight-valueConstraint lowlight2 bot">}                         </span> </span>
     }
@@ -1460,6 +1460,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
           <p>
             A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property.
+            E.g. testing <span id="inst:User1-1" class="function-name">inst:User1</span> as ...
+            We assume you have identified the nodes you wish to validate as some shape.
+            Here, we, capture this information in a structure like <span class="invocationGraph">...</span>.
             The datatype of the property would be <span class="string">xsd:string</span>:
           </p>
 
@@ -1516,7 +1519,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     		  <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", "predicate": "foaf:name",
-    "value": { "type": "ValueClass", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
 
           </li>
           <li id="vocab-literal-facetsw"><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
@@ -1525,7 +1528,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 }</pre>
     		  <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
-    "value": { "type": "ValueClass", "datatype": "http://www.w3.org/2001/XMLSchema#float",
+    "value": { "type": "NodeConstraint", "datatype": "http://www.w3.org/2001/XMLSchema#float",
                <span class="value-constraint new">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
 
           <p>
@@ -1541,7 +1544,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     		  <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", "predicate": "foaf:mbox",
-    "value": { "type": "ValueClass", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
           <p>
             The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
             The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
@@ -1555,7 +1558,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
           <pre class="schema json shh">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "ValueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
           <p>
             See the <a href="#value-sets">Value Sets description below</a> for details.
           </p>
@@ -1566,7 +1569,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 }</pre>
     		  <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
-      "value": { "type": "ValueClass", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
+      "value": { "type": "ShapeRef", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
           </li>
         </ul>
       </section>
@@ -1627,13 +1630,13 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         "expressions": [
           <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="state      lowlight1    ">  <span class="predicate">"predicate": "ex:state"</span>,                      </span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
           <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ShapeRef",</span>              </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span>                 </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
@@ -1646,13 +1649,13 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
           <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
           <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -1940,23 +1943,23 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           "expressions": [
             <span class="eitherOr   lowlight2 top">                                                                  </span>
             <span class="name       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
-            <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span> }</span>,
+            <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span> }</span>,
             <span class="eitherOr   lowlight2 bot">                                                                  </span>
             <span class="eitherOr   lowlight2 top">                                                                  </span>
             { "type": "group",
               "expressions": [
                 <span class="gname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
-                <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,</span>
+                <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,</span>
                 <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
                 <span class="fname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
-                <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span> }</span>
+                <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span> }</span>
               ]
             }
             <span class="eitherOr   lowlight2 bot">                                                                  </span>
           ]
         },
         <span class="mbox       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
-        <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "IRI" }</span> }</span>
+        <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "IRI" }</span> }</span>
       ]
     }
   }
@@ -2032,19 +2035,19 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           "expressions": [
             {                           <span class="comment">"type": "    a full name"</span>
               "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        
-              <span class="predicate">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>
+              <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
              },
             {                           <span class="comment">"type": "  or"</span>
               "type": "group",
               "expressions": [
                 {                       <span class="comment">"type": "    one or more given names"</span>
                   "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  
-                  <span class="predicate">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,
+                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,
                   "min": 1, "max": "*"
                 },                                     
                 {                       <span class="comment">"type": "    and a family name"</span>
                   "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  
-                  <span class="predicate">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>
+                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
                 }
               ]
             }
@@ -2052,7 +2055,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         },
         {                               <span class="comment">"type": "and always an mbox."</span>
           "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, 
-          <span class="predicate">"value": { "type": "ValueClass", "datatype": "IRI" }</span>
+          <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "IRI" }</span>
         }
       ]
     }
@@ -2113,13 +2116,13 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         "expressions": [
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "ValueClass",              </span>
+            <span class="value-constraint">"value": { "type": "NodeConstraint",              </span>
             <span class="value-constraint">  "values": [ <span class="value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span>
             <span class="value-constraint">}                                             </span>
           },                                              
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:reportedBy"</span>,                 
-            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
+            <span class="value-constraint">"value": { "type": "ShapeRef",</span>              
             <span class="value-constraint">  "reference": <span class="bnode lowlight2 top bot">"_:b1"</span></span>                 
             <span class="value-constraint">}              </span>                               
           }                                               
@@ -2132,13 +2135,13 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:name"</span>,                     
             <span class="value-constraint">"value": {             </span>                       
-            <span class="value-constraint">  "type": "ValueClass",</span>                       
+            <span class="value-constraint">  "type": "NodeConstraint",</span>                       
             <span class="value-constraint">  "datatype": "xsd:string"</span>                    
             <span class="value-constraint">}                      </span>                       
           },                                              
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
+            <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              
             <span class="value-constraint">  "nodeKind": "iri"             </span>              
             <span class="value-constraint">},                                            
             "min": 1, "max": "*"           </span>               
@@ -2188,10 +2191,10 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     "expression": { "type": "group",
       "expressions": [
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+          <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         }
       ]
     }
@@ -2200,10 +2203,10 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
   <span class="hilight-reproducedBy lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-reproducedBy lowlight2    ">    "expressions": [                                                     </span>
   <span class="hilight-reproducedBy lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-reproducedBy lowlight2    ">      },                                                                 </span>
   <span class="hilight-reproducedBy lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:Programming" ] }</span></span>
   <span class="hilight-reproducedBy lowlight2    ">      }                                                                  </span>
   <span class="hilight-reproducedBy lowlight2    ">    ]                                                                    </span>
   <span class="hilight-reproducedBy lowlight2    ">  }                                                                      </span>
@@ -2274,13 +2277,13 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     "expression": { "type": "group",
       "expressions": [
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+          <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         },
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:assignedTo"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-assignedTo lowlight2 top bot">"reference": "my:EmployeeShape"</span></span> }
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-assignedTo lowlight2 top bot">"reference": "my:EmployeeShape"</span></span> }
         }
       ]
     }
@@ -2289,10 +2292,10 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    "expressions": [                                                     </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      },                                                                 </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:Programming" ] }</span></span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      }                                                                  </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    ]                                                                    </span>
   <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  }                                                                      </span>
@@ -2374,12 +2377,12 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
       "expression": { "type": "group",
         "expressions": [
           <span class="state      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,</span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
           <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reportedBy"</span>,</span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span> <span class="value-constraint">"reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span> }</span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ShapeRef",</span> <span class="value-constraint">"reference": <span class="user lowlight2 top bot">"my:UserShape"</span></span> }</span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
         ]
       }
@@ -2391,7 +2394,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
             "expressions": [
               <span class="eitherOr   lowlight2 top">                                                                  </span>
               <span class="name       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
-              <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,
+              <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,
                 "semActs": [
                   { "type": "SemAct", "name": "test:", "code": " print(o) " }
                 ] }</span>,
@@ -2400,10 +2403,10 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
               { "type": "group",
                 "expressions": [
                   <span class="gname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
-                  <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,</span>
+                  <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,</span>
                   <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
                   <span class="fname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
-                  <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>,
+                  <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,
                     "semActs": [ { "type": "SemAct", "name": "test:",
                         "code": " fail(\"doomed\") "
                       }
@@ -2414,7 +2417,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
             ]
           },
           <span class="mbox       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
-          <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "ValueClass", "nodeKind": "iri" }</span> }</span>
+          <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "nodeKind": "iri" }</span> }</span>
         ]
       }
     }
@@ -2498,13 +2501,13 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         "expressions": [
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "ValueClass",              </span>
+            <span class="value-constraint">"value": { "type": "NodeConstraint",              </span>
             <span class="value-constraint">  "values": [ "ex:unassigned", "ex:assigned" ]</span>
             <span class="value-constraint">}                                             </span>
           },                                              
           <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate">"predicate": "ex:reportedIssue"</span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": true</span>,</span>
-          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>                 </span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "ShapeRef",</span>                 </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">  "reference": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">}              </span>                                  </span>
           <span class="reportedIssue lowlight1 bot">}                                                  </span>
@@ -2517,13 +2520,13 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:name"</span>,                     
             <span class="value-constraint">"value": {                </span>
-            <span class="value-constraint">  "type": "ValueClass",   </span>
+            <span class="value-constraint">  "type": "NodeConstraint",   </span>
             <span class="value-constraint">  "datatype": "xsd:string"</span>
             <span class="value-constraint">}                         </span>
           },                                              
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
+            <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              
             <span class="value-constraint">  "nodeKind": "iri"             </span>              
             <span class="value-constraint">},                              </span>
             <span class="value-constraint">"min": 1, "max": "*"            </span>
@@ -2609,7 +2612,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
         "expressions": [
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "ValueClass",              </span>
+            <span class="value-constraint">"value": { "type": "NodeConstraint",              </span>
             <span class="value-constraint">  "values": [ "ex:unassigned", "ex:assigned" ]</span>
             <span class="value-constraint">}                                             </span>
           }
@@ -2622,20 +2625,20 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:name"</span>,                     
             <span class="value-constraint">"value": {                </span>
-            <span class="value-constraint">  "type": "ValueClass",   </span>
+            <span class="value-constraint">  "type": "NodeConstraint",   </span>
             <span class="value-constraint">  "datatype": "xsd:string"</span>
             <span class="value-constraint">}                         </span>
           },                                              
           { "type": "TripleConstraint",                   
             <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "ValueClass",</span>              
+            <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              
             <span class="value-constraint">  "nodeKind": "iri"             </span>              
             <span class="value-constraint">},                              </span>
             "min": 1, "max": "*"
           },                                              
           <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate">"predicate": "ex:reportedIssue"</span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": false</span>,</span>
-          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>                 </span>
+          <span class="reportedIssue lowlight1    ">  <span class="value-constraint">"value": { "type": "ShapeRef",</span>                 </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">  "reference": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
           <span class="reportedIssue lowlight1    ">  <span class="value-constraint">}              </span>                                  </span>
           <span class="reportedIssue lowlight1 bot">}                                                  </span>
@@ -2768,13 +2771,13 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
     "expression": { "type": "group",
       "expressions": [
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+          <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
         },
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ValueClass", <span class="hilight-programmer lowlight2 top bot">"reference": "my:ProgrammerShape"</span></span> }
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-programmer lowlight2 top bot">"reference": "my:ProgrammerShape"</span></span> }
         }
       ]
     }
@@ -2783,10 +2786,10 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
   <span class="hilight-tester lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-tester lowlight2    ">    "expressions": [                                                     </span>
   <span class="hilight-tester lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-tester lowlight2    ">      },                                                                 </span>
   <span class="hilight-tester lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:role"</span>,              </span>
-  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:testingRole" ] }</span></span>
+  <span class="hilight-tester lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:testingRole" ] }</span></span>
   <span class="hilight-tester lowlight2    ">      }                                                                  </span>
   <span class="hilight-tester lowlight2    ">    ]                                                                    </span>
   <span class="hilight-tester lowlight2    ">  }                                                                      </span>
@@ -2795,10 +2798,10 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
   <span class="hilight-programmer lowlight2    ">  "expression": { "type": "group",                                       </span>
   <span class="hilight-programmer lowlight2    ">    "expressions": [                                                     </span>
   <span class="hilight-programmer lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>      </span>
   <span class="hilight-programmer lowlight2    ">      },                                                                 </span>
   <span class="hilight-programmer lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "ValueClass", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-programmer lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:Programming" ] }</span></span>
   <span class="hilight-programmer lowlight2    ">      }                                                                  </span>
   <span class="hilight-programmer lowlight2    ">    ]                                                                    </span>
   <span class="hilight-programmer lowlight2    ">  }                                                                      </span>
@@ -3009,13 +3012,13 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
         "expressions": [
           <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="state      lowlight1    ">  <span class="predicate">"predicate": "rdf:type"</span>,                      </span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:Employee"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
           <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"foaf:Person"</span> ]</span></span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
@@ -3055,13 +3058,13 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
         "expressions": [
           <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="state      lowlight1    ">  <span class="predicate">"predicate": "rdf:type"</span>,                      </span>
-          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",              </span></span>
+          <span class="state      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",              </span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"ex:Employee"</span> ]</span></span>
           <span class="state      lowlight1    ">  <span class="value-constraint">}                                             </span></span>
           <span class="state      lowlight1 bot">},                                              </span>
           <span class="reportedBy lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="reportedBy lowlight1    ">  <span class="predicate">"predicate": "ex:reportedBy"</span>,                 </span>
-          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="reportedBy lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">  "values": [ <span class="stateValue lowlight2 top bot value-constraint">"foaf:Person"</span> ]</span></span>
           <span class="reportedBy lowlight1    ">  <span class="value-constraint">}              </span>                               </span>
           <span class="reportedBy lowlight1 bot">}                                               </span>
@@ -3102,13 +3105,13 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
           <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -3158,13 +3161,13 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
           <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -3216,13 +3219,13 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "ValueClass",</span>                       </span>
+          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
           <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
           <span class="name       lowlight1 bot">},                                              </span>
           <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
           <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "ValueClass",</span>              </span>
+          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
           <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
@@ -3269,7 +3272,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         <pre class="schema json shh">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "ValueClass", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
         <p style="margin: 0;">
           The above examples could also be literals, e.g.
         </p>
@@ -3279,7 +3282,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         <pre class="schema json shh">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "ValueClass", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
         <p>
           Fixed values are represented as value sets with one member.
           For example, a required type triple can be expressed like:
@@ -3289,7 +3292,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
         <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
-    "value": { "type": "ValueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
         <p style="margin: 0;">
           or using the keyword <code class="keyword">a</code>:
         </p>
@@ -3298,7 +3301,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
         <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "a",
-    "value": { "type": "ValueClass", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
 
   			<section id="sec-iri-range">
   				<h3>IRI Range</h3>
@@ -3326,7 +3329,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   "expression": {
     "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
-      "type": "ValueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
@@ -3367,7 +3370,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   "expression": {
     "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
-      "type": "ValueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
@@ -3401,7 +3404,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   "expression": {
     "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
-      "type": "ValueClass", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
     	  	    <pre class="instance turtle"><span class="comment"># passing data</span>
@@ -3463,7 +3466,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   "expression": {
     "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
     <span class="value-constraint">"value": {
-      "type": "ValueClass", "datatype": "xsd:string",
+      "type": "NodeConstraint", "datatype": "xsd:string",
       <span class="min lowlight2 top bot new">"minlength": 3</span>, <span class="max lowlight2 top bot new">"maxlength": 255</span> }</span> } } }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
