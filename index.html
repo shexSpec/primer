@@ -1459,11 +1459,20 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</pre>
 
           <p>
-            A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property.
-            E.g. testing <span id="inst:User1-1" class="function-name">inst:User1</span> as ...
+            A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and we expect to have a datatype of <span class="string">xsd:string</span>.
+            Regular expression conventions are used to specify cardinality:
+          </p>
+          <ul>
+            <li>"<span class="new">+</span>" - one or more</li>
+            <li>"<span class="new">*</span>" - zero or more</li>
+            <li>"<span class="new">?</span>" - zero or one</li>
+            <li>"<span class="new">{m}</span>" - exactly m</li>
+            <li>"<span class="new">{m,n}</span>" - at least m, no more than n</li>
+            <li>"" (none of the above) - exactly one.</li>
+          </ul>
+          <p>
             We assume you have identified the nodes you wish to validate as some shape.
-            Here, we, capture this information in a structure like <span class="invocationGraph">...</span>.
-            The datatype of the property would be <span class="string">xsd:string</span>:
+            The node <span id="inst:User1-1" class="function-name">inst:User1</span> in the following graph conforms to this simple shape:
           </p>
 
     	  	<pre class="instance turtle"><span class="comment"># passing data</span>
