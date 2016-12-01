@@ -193,10 +193,10 @@
 <path fill="none" stroke="black" d="M243.257,-990C243.257,-967.888 159.314,-975.286 143.757,-991 129.061,-1005.84 130.756,-1021.65 143.757,-1038 166.523,-1066.63 268.166,-1081.41 329.597,-1087.85"/>
 <polygon fill="black" stroke="black" points="329.53,-1091.36 339.831,-1088.89 330.235,-1084.4 329.53,-1091.36"/>
 </g>
-<!-- SomeOf -->
-<g id="node5" class="node"><title>SomeOf</title>
+<!-- OneOf -->
+<g id="node5" class="node"><title>OneOf</title>
 <polygon fill="white" stroke="black" points="126.757,-907 126.757,-953 597.757,-953 597.757,-907 126.757,-907"/>
-<text text-anchor="middle" x="157.757" y="-926.3" font-family="Times,serif" font-size="14.00">SomeOf</text>
+<text text-anchor="middle" x="157.757" y="-926.3" font-family="Times,serif" font-size="14.00">OneOf</text>
 <polyline fill="none" stroke="black" points="188.757,-907 188.757,-953 "/>
 <text text-anchor="middle" x="230.257" y="-937.8" font-family="Times,serif" font-size="14.00">expressions</text>
 <polyline fill="none" stroke="black" points="188.757,-930 271.757,-930 "/>
@@ -218,8 +218,8 @@
 <polyline fill="none" stroke="black" points="511.757,-930 597.757,-930 "/>
 <text text-anchor="middle" x="554.757" y="-914.8" font-family="Times,serif" font-size="14.00">[Annotation]</text>
 </g>
-<!-- EachOf&#45;&gt;SomeOf -->
-<g id="edge2" class="edge"><title>EachOf&#45;&gt;SomeOf</title>
+<!-- EachOf&#45;&gt;OneOf -->
+<g id="edge2" class="edge"><title>EachOf&#45;&gt;OneOf</title>
 <path fill="none" stroke="none" d="M373.158,-990.593C371.608,-982.118 369.811,-972.297 368.13,-963.104"/>
 <polygon fill="none" stroke="none" points="371.541,-962.303 366.299,-953.096 364.655,-963.562 371.541,-962.303"/>
 </g>
@@ -241,8 +241,8 @@
 <path fill="none" stroke="mediumvioletred" d="M612.257,-1002C686.958,-1002 677.257,-921.701 677.257,-847 677.257,-847 677.257,-847 677.257,-682 677.257,-624.26 677.257,-607.288 677.257,-554.326"/>
 <polygon fill="mediumvioletred" stroke="mediumvioletred" points="680.757,-554 677.257,-544 673.757,-554 680.757,-554"/>
 </g>
-<!-- SomeOf&#45;&gt;shapeExpr -->
-<g id="edge16" class="edge"><title>SomeOf:shapeExpr&#45;&gt;shapeExpr</title>
+<!-- OneOf&#45;&gt;shapeExpr -->
+<g id="edge16" class="edge"><title>OneOf:shapeExpr&#45;&gt;shapeExpr</title>
 <path fill="none" stroke="black" d="M230.257,-906C230.257,-882.999 142.942,-890.657 126.757,-907 85.7007,-948.455 96.5206,-994.37 135.257,-1038 160.57,-1066.51 266.72,-1081.42 329.717,-1087.9"/>
 <polygon fill="black" stroke="black" points="329.519,-1091.4 339.816,-1088.91 330.212,-1084.43 329.519,-1091.4"/>
 </g>
@@ -255,13 +255,13 @@
 <polyline fill="none" stroke="black" points="329.757,-846 407.757,-846 "/>
 <text text-anchor="middle" x="368.757" y="-830.8" font-family="Times,serif" font-size="14.00">shapeLabel</text>
 </g>
-<!-- SomeOf&#45;&gt;Inclusion -->
-<g id="edge3" class="edge"><title>SomeOf&#45;&gt;Inclusion</title>
+<!-- OneOf&#45;&gt;Inclusion -->
+<g id="edge3" class="edge"><title>OneOf&#45;&gt;Inclusion</title>
 <path fill="none" stroke="none" d="M354.879,-906.593C352.058,-898.027 348.785,-888.086 345.73,-878.808"/>
 <polygon fill="none" stroke="none" points="348.984,-877.5 342.532,-869.096 342.335,-879.689 348.984,-877.5"/>
 </g>
-<!-- SomeOf&#45;&gt;Annotation -->
-<g id="edge33" class="edge"><title>SomeOf:Annotation&#45;&gt;Annotation:Annotation</title>
+<!-- OneOf&#45;&gt;Annotation -->
+<g id="edge33" class="edge"><title>OneOf:Annotation&#45;&gt;Annotation:Annotation</title>
 <path fill="none" stroke="mediumvioletred" d="M599.257,-918C670.403,-918 639.257,-834.146 639.257,-763 639.257,-763 639.257,-763 639.257,-682 639.257,-635.429 649.45,-624.478 663.257,-580 667.154,-567.447 673.29,-563.076 675.952,-554.013"/>
 <polygon fill="mediumvioletred" stroke="mediumvioletred" points="679.436,-554.368 677.257,-544 672.494,-553.464 679.436,-554.368"/>
 </g>

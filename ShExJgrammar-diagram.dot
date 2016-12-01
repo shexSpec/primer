@@ -8,10 +8,10 @@ digraph structs {
 		graph [label="", style=filled, fillcolor=gray80];
 		shapeExpr [shape=none];
 		EachOf [label="{{<EachOf> EachOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
-		SomeOf [label="{{<SomeOf> SomeOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
+		OneOf [label="{{<OneOf> OneOf|{<expressions> expressions|<shapeExpr> [shapeExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
 		Inclusion [label="{{<Inclusion> Inclusion|{<include> include|<shapeLabel> shapeLabel}}}", style=filled, fillcolor=white];
 		TripleConstraint [label="{{<TripleConstraint> TripleConstraint|{<negated> negated?|<BOOL> BOOL}|{<valueExprs> valueExpr|<valueExpr> [valueExpr]}|{<min> min?|<INTEGER> INTEGER}|{<max> max?|<INTEGER> INTEGER\|\"*\"}|{<semActs> semActs?|<SemAct> [SemAct]}|{<annotations> annotations?|<Annotation> [Annotation]}}}", style=filled, fillcolor=white];
-		shapeExpr -> EachOf -> SomeOf -> Inclusion -> TripleConstraint [color=invis];
+		shapeExpr -> EachOf -> OneOf -> Inclusion -> TripleConstraint [color=invis];
 		
 	}
 
@@ -37,7 +37,7 @@ digraph structs {
 
 	Shape:shapeExpr  -> shapeExpr;
 	EachOf:shapeExpr -> shapeExpr;
-	SomeOf:shapeExpr -> shapeExpr;
+	OneOf:shapeExpr -> shapeExpr;
 	Schema:Shape -> Shape:Shape;
 
 	Schema:ValueExprDefn -> ValueExprDefn;
@@ -57,12 +57,12 @@ digraph structs {
 	Schema:SemAct -> SemAct:SemAct [color=mediumvioletred];
 	Shape:SemAct  -> SemAct:SemAct [color=mediumvioletred];
 	// EachOf:SemAct  -> SemAct:SemAct [color=mediumvioletred]; // screws up layout
-	// SomeOf:SemAct  -> SemAct:SemAct [color=mediumvioletred];
+	// OneOf:SemAct  -> SemAct:SemAct [color=mediumvioletred];
 	TripleConstraint:SemAct -> SemAct:SemAct [color=mediumvioletred];
 
 	ValueExprDefn:Annotation -> Annotation:Annotation [color=mediumvioletred];
 	EachOf:Annotation  -> Annotation:Annotation [color=mediumvioletred];
-	SomeOf:Annotation  -> Annotation:Annotation [color=mediumvioletred];
+	OneOf:Annotation  -> Annotation:Annotation [color=mediumvioletred];
 	TripleConstraint:Annotation -> Annotation:Annotation [color=mediumvioletred];
 
 	//{rank=same; ValueClass:stringFacet pushSemActDown}

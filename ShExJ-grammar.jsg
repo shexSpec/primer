@@ -1,9 +1,9 @@
 Schema           : prefixes:[PREFIX->IRI]? valueExprDefns:[valueExprLabel->ValueExprDefn]? startActs:[SemAct]? start:shapeLabel? shapes:[shapeLabel->Shape]? ;
 Shape            : virtual:BOOL? closed:BOOL? extra:[IRI]? expression:expr? inherit:[shapeLabel]? semActs:[SemAct]? ;
 SemAct           : name:IRI code:STRING ;
-expr             = EachOf | SomeOf | TripleConstraint | Inclusion ;
+expr             = EachOf | OneOf | TripleConstraint | Inclusion ;
 EachOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[SemAct]? annotations:[Annotation]? ;
-SomeOf           : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[SemAct]? annotations:[Annotation]? ;
+OneOf            : expressions:[expr] min:INTEGER? max:(INTEGER|"*")? semActs:[SemAct]? annotations:[Annotation]? ;
 Inclusion        : include:shapeLabel ;
 # TripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI (valueExpr:ValueClass|valueClassRef:valueExprLabel) min:INTEGER? max:(INTEGER|"*")? semActs:[SemAct]? annotations:[Annotation]? ;
 TripleConstraint : inverse:BOOL? negated:BOOL? predicate:IRI valueExpr:valueExpr min:INTEGER? max:(INTEGER|"*")? semActs:[SemAct]? annotations:[Annotation]? ;
