@@ -1430,14 +1430,18 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <script type="text/javascript">
             var text_standAlone = "view Quick Start as separate document";
             var text_integrated = "view Quick Start integrated into the primer";
+            var standingAlone = false;
             $("#standalone").removeAttr("disabled").on("click", standAlone).text(text_standAlone);
             function standAlone (evt) {
-              $(evt.target).closest("section").nextAll().hide();
-              $("#standalone").on("click", integrate).text(text_integrated);
-            }
-            function integrate (evt) {
-              $(evt.target).closest("section").nextAll().show();
-              $("#standalone").on("click", standAlone).text(text_standAlone);
+              if (standingAlone) {
+                $(evt.target).closest("section").nextAll().show();
+                $("#standalone").text(text_standAlone);
+                standingAlone = false;
+              } else {
+                $(evt.target).closest("section").nextAll().hide();
+                $("#standalone").text(text_integrated);
+                standingAlone = true;
+              }
             }
           </script>
         </p>
