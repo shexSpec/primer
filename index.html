@@ -211,7 +211,10 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           and <code>TripleConstraints</code> which constrain the triples that have a given node as a subject or object:
         </p>
         <div class="example wrapper">
-          <pre class="schema shexc"><span class="shape-name">my:Human</span> {
+          <pre class="schema shexc" id="BioParent2Dot">
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+
+<span class="shape-name">ex:Human</span> {
   <span class="predicate">ex:hasBiologicalParent</span> . {2}
 }</pre>
         </div>
@@ -224,9 +227,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
           <!-- JSON example -->
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># <a href="http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?interface=simple&amp;schema=PREFIX%20ex%3A%20%3Chttp%3A%2F%2Fex.example%2F%23%3E%0A%0Aex%3AHuman%20%7B%0A%20%20ex%3AhasBiologicalParent%20.%20%7B2%7D%0A%7D&amp;data=PREFIX%20ex%3A%20%3Chttp%3A%2F%2Fex.example%2F%23%3E%0APREFIX%20inst%3A%20%3Chttp%3A%2F%2Fexample.com%2Fusers%2F%3E%0A%0Ainst%3AUser1%20ex%3AhasBiologicalParent%20%5B%20ex%3Aname%20%22Alice%22%20%5D%2C%20%20inst%3APerson3%20.%0Ainst%3APerson4%20ex%3Aname%20%22Bob%22%20.%0Ainst%3AUser2%20ex%3AhasBiologicalParent%207%2C%20%5B%5D%20.&amp;shapeMap=%3Chttp%3A%2F%2Fexample.com%2Fusers%2FUser1%3E%5E%3Chttp%3A%2F%2Fex.example%2F%23Human%3E%5E%5E%3Chttp%3A%2F%2Fexample.com%2Fusers%2FUser2%3E%5E%3Chttp%3A%2F%2Fex.example%2F%23Human%3E">try it!</a></span>
+          <pre class="instance turtle"><span class="comment"># <a class="tryit" href="#BioParent2Dot" data-shapemap="inst:User1^ex:Human^^inst:User2^ex:Human">try it</a></span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
 <span class="function-name">inst:User1</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [ <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Alice"</span> ],  <span class="function-name">inst:Person3</span> .
@@ -245,6 +247,22 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </div>
       </div>
     </section>
+    <script type="text/javascript">
+      <!--
+        setTimeout(tryitURLs, 2000);
+        function tryitURLs () {
+          $(".tryit").map((idx, elt) => {
+            var e = $(elt);
+            e.attr("href", "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?" + [
+              "interface=simple",
+              "schema=" + encodeURIComponent($(e.attr("href")).text().replace(/^#.*?\n/, "")),
+              "data=" + encodeURIComponent($(elt).parent().parent().text().replace(/^#.*?\n/, "")),
+              "shapeMap=" + encodeURIComponent(e.attr("data-shapemap"))
+            ].join("&"));console.log("X");
+          })
+        }
+      -->
+    </script>
 
       <section id="introduction">
           <h2>Introduction</h2>
