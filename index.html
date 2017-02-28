@@ -134,6 +134,28 @@ a.ref { color: #c83500; font-family: monospace; }
 a.ref:visited { color: #a00550; font-family: monospace; }
 .example.wrapper pre+pre { margin-top: 0; }
 #closed-shapes-example-2 pre { margin-top: 0; }
+
+/* http://stackoverflow.com/questions/2187008/styling-an-anchor-tag-to-look-like-a-submit-button#2187796 */
+/* fails on firefox
+.tryit:link {
+    appearance: button;
+    -moz-appearance: button;
+    -webkit-appearance: button;
+    text-decoration: none; font: menu; color: ButtonText;
+    display: inline-block; padding: 2px 8px;
+    padding: 0 .2em;
+} */
+.tryit:link {
+    text-decoration: none; font: menu;
+    display: inline-block; padding: 2px 8px;
+    background: ButtonFace; color: ButtonText;
+    border-style: solid; border-width: 2px;
+    border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+    padding: 0 .2em;
+}
+.tryit:active {
+    border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
     </style>
     <script src="jquery.min.js" type= "text/javascript"></script>
     <script type="text/javascript"><!--
@@ -205,7 +227,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           ShEx schemas are composed of <code>NodeConstraints</code> which constrains individual RDF nodes:
         </p>
         <div class="example wrapper">
-          <pre class="schema shexc"><span class="shape-name">my:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
+          <pre class="schema shexc"><span class="shape-name">ex:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
         </div>
         <p>
           and <code>TripleConstraints</code> which constrain the triples that have a given node as a subject or object:
@@ -219,31 +241,71 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</pre>
         </div>
         <p>
-          The above TripleConstraint specifies that, in order for a node to match <code>my:Human</code>, it must have exactly two <span class="predicate">ex:hasBiologicalParent</span> properties.
+          The above TripleConstraint specifies that, in order for a node to match <code>ex:Human</code>, it must have exactly two <span class="predicate">ex:hasBiologicalParent</span> properties.
           The "<code>.</code>" indicates that the value of these properties is not constrained.
           For example, both <span class="function-name">inst:User1</span> and <span class="function-name">inst:User2</span> in the following data would be accepted:
         </p>
-        <div id="simple-expressions-example-1" class="example wrapper">
+        <div id="quickstart-example-1" class="example wrapper">
 
           <!-- JSON example -->
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># <a class="tryit" href="#BioParent2Dot" data-shapemap="inst:User1^ex:Human^^inst:User2^ex:Human">try it</a></span>
+          <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User1@ex:Human,inst:User2@ex:Human,inst:User3@ex:Human">try it</a></span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
 <span class="function-name">inst:User1</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [ <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Alice"</span> ],  <span class="function-name">inst:Person3</span> .
-<span class="function-name">inst:Person4</span> <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Bob"</span> .
-<span class="function-name">inst:User2</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="string">7</span>, [] .</pre>
+<span class="function-name">inst:Person3</span> <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Bob"</span> .
+<span class="function-name">inst:User2</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="string">7</span>, <span class="string">"Bob"</span> .
+<span class="function-name">inst:User3</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [], [] .</pre>
           </div>
           <div style="clear:both;"></div>
+          <p>
+            While this shape is quite lax about the object of the <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> arc, it does require that there be exactly two:
+          </p>
+          <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User4@ex:Human,inst:User5@ex:Human,inst:User6@ex:Human">try it</a></span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
+
+<span class="function-name">inst:User4</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person3</span>,  <span class="function-name">inst:Person3</span> .
+<span class="function-name">inst:Person3</span> <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Bob"</span> .
+<span class="function-name">inst:User5</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [].
+<span class="function-name">inst:User6</span> <span class="type">ex:</span><span class="constant">hasAdministrativeParent</span> [], [] .</pre>
         </div>
-        <p>
-          Frequently, TripleConstraints do constrain the value of a property, as in this shape which says that a human must also have a hasShoeSize property with a sensible value for shoeSize:
-        </p>
-        <div class="example wrapper">
-          <pre class="schema shexc"><span class="shape-name">my:Human</span> {
-  <span class="predicate">ex:hasShoeSize</span> @<span class="shape-name">my:ShoeSize</span>{2}
-}</pre>
+
+        <div id="quickstart-example-1" class="example wrapper">
+          <p>
+            Frequently, TripleConstraints do constrain the value of a property, as in this shape which says that a human must also have a hasShoeSize property with a sensible value for shoeSize:
+          </p>
+        <div id="simple-expressions-example-1" class="example wrapper">
+          <!-- ShExC example -->
+          <pre class="schema shexc" id="ShoeSize1" style="float:left;"><span class="comment"># schema (ShExC)</span>
+PREFIX ex: &lt;http://ex.example/#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+ex:Human {
+  ex:hasShoeSize @ex:ShoeSize
+}
+
+ex:ShoeSize xsd:integer MinInclusive 3 MaxInclusive 13</pre>
+          <div class="verticalDivider"><!-- acts as a divider --></div>
+          <div style="float:left;">
+            <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@ex:Human,inst:Bob@ex:Human">try it</a></span>
+PREFIX ex: &lt;http://ex.example/#&gt;
+PREFIX inst: &lt;http://example.com/users/&gt;
+
+inst:Alice ex:hasShoeSize 8 .
+inst:Bob ex:hasShoeSize 13 .
+</pre>
+            <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Clair@ex:Human,inst:Don@ex:Human">try it</a></span>
+PREFIX ex: &lt;http://ex.example/#&gt;
+PREFIX inst: &lt;http://example.com/users/&gt;
+
+inst:Claire ex:shoeSize 9 .
+inst:Don ex:hasShoeSize 14 .
+</pre>
+          </div>
+          <div style="clear:both;"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -257,7 +319,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
               "interface=simple",
               "schema=" + encodeURIComponent($(e.attr("href")).text().replace(/^#.*?\n/, "")),
               "data=" + encodeURIComponent($(elt).parent().parent().text().replace(/^#.*?\n/, "")),
-              "shapeMap=" + encodeURIComponent(e.attr("data-shapemap"))
+              "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
             ].join("&"));console.log("X");
           })
         }
