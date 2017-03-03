@@ -2367,7 +2367,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot new"><span class="value-constraint">IRI @<span class="shape-name">my:EmployeeShape</span>
-    PATTERN <span class="string">"^http://hr.example/id#[0-9]+"</span></span></span>
+    ~/<span class="string">^http:\/\/hr.example/id#[0-9]+</span>/</span></span>
 }
 
 <span class="hilight-reproducedBy lowlight2 top"><span class="shape-name">my:EmployeeShape</span> {                        </span>
@@ -2448,7 +2448,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
             <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="hilight-employeeConstraint lowlight2 top"><span class="value-constraint"><span class="constraint-name">$my:EmployeeConstraint</span> =</span>                </span>
 <span class="hilight-employeeConstraint lowlight2    ">  IRI </span><span class="shape-name hilight-EmployeeShape lowlight2 top bot">@my:EmployeeShape</span><span class="hilight-employeeConstraint lowlight2    ">                 </span>
-<span class="hilight-employeeConstraint lowlight2 bot">  PATTERN <span class="string">"^http://hr.example/id#[0-9]+"</span></span>
+<span class="hilight-employeeConstraint lowlight2 bot">  ~/<span class="string">^http://hr.example/id#[0-9]+</span>/</span>
 
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
@@ -2654,10 +2654,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       </script>
     </section>
 
-    <section id="properties">
-      <h2>Other Triple Constraints</h2>
-      <p>
-        <code>Triple constraints</code> can be inverse and negated.
+		<section id="properties">
+			<h2>Other Triple Constraints</h2>
+    	<p>
+				<code>Triple constraints</code> can be inverse.
+        They can also have a cardinality of zero which effectively makes them <a href="#negated-properties">negated</a>.
         Multiple triple constraints on the same property are interpreted as <a href="#additive-properties">additive</a>; each triple constraint is independently fulfilled by different triples in the instance data.
       </p>
       <section id="inverse-properties">
@@ -2873,6 +2874,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
           <div class="namespace">
             <p>
               Sometimes we want to say what's <em>not</em> in a schema as well as what's in it.
+              Setting the cardinality to zero asserts that they must not appear in 
               For instance, we may want to say that a SolitaryIssueShape is <span class="hilight-invComponent top bot lowlight2">not a component of anything else</span>, nor does it <span class="hilight-component top bot lowlight2">have components</span>:
             </p>
   
@@ -2881,8 +2883,8 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
               <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:SolitaryIssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>];
-<span class="hilight-invComponent top bot keyword lowlight2">!^<span class="predicate">ex:component</span> .</span>;
- <span class="hilight-component top bot keyword lowlight2">!<span class="predicate">ex:component</span> .</span>
+ <span class="hilight-invComponent top bot keyword lowlight2">^<span class="predicate">ex:component</span> . <span class="new" style="color: black; ">{0}</span></span>;
+  <span class="hilight-component top bot keyword lowlight2"><span class="predicate">ex:component</span> . <span class="new" style="color: black; ">{0}</span></span>
 }</pre>
 
               <!-- JSON example -->
@@ -2914,11 +2916,11 @@ TODO</pre>
               <p style="margin: 0;">
                 which violates this constraint:
               </p>
-              <pre class="schema shexc"><span class="hilight-component top bot keyword lowlight2">!<span class="predicate">ex:component</span> .</span></pre>
+              <pre class="schema shexc"><span class="hilight-component top bot keyword lowlight2"><span class="predicate">ex:component</span> . <span style="color: black; ">{0}</span></span></pre>
               <p style="margin: 0;">
                 and <span class="fail hilight-Issue3-block lowlight1 top bot">inst:Issue3</span> fails because the same triple is an "incoming" component triple, violating this constraint:
               </p>
-              <pre class="schema shexc"><span class="hilight-invComponent top bot keyword lowlight2">!^<span class="predicate">ex:component</span> .</span></pre>
+              <pre class="schema shexc"><span class="hilight-invComponent top bot keyword lowlight2">^<span class="predicate">ex:component</span> . <span style="color: black; ">{0}</span></span></pre>
             </div>
             <script type="text/javascript">
             <!--
