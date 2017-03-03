@@ -58,13 +58,13 @@ practical terms, as a description of something "in the world"; its value
 derives from its use for testing against the abstract-syntactic components "in
 the data" of an RDF graph to yield a conformance test result.)
 
-ShEx may be considered a constraint language -- a language for limiting the
+ShEx is a language for limiting the
 infinite collection of potential RDF graphs to a better-defined collection of
 potential RDF graphs.  It's a bit like the old joke which says that to sculpt
 an elephant, one takes a block of marble and chips away everything that does
 not look like an elephant.  The simplest possible ShEx schema, "<S> {}",
-matches all possible RDF triples.  Just as each tap on the chisel "constrains"
+matches all possible RDF graphs.  Just as each tap on the chisel "constrains"
 the marble to look more like an elephant, each ShEx shape expression, shape,
 node constraint, or triple constraint restricts the collection of potential
-triples to look more like a desired ideal.
+graphs to look more like a desired ideal.
 
