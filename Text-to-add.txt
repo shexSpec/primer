@@ -1,0 +1,69 @@
+Shape Expressions (ShEx) is a language for characterizing an ideal RDF graph
+against which a real RDF graph can be compared.  As the description of an ideal
+RDF graph, a ShEx Schema can be tested against a given RDF graph to yield a
+validation result that reports successful matches along with any detected
+mismatches.  ShEx schemas specify how data can match the requirements of a
+particular application, process, or interface.  A ShEx schema may be used for
+purposes ranging from the validation of data to the configuration of user
+interfaces.
+
+ShEx is designed to fill a long-recognized gap in Semantic Web technology.  The
+Resource Description Framework language (RDF), and the more expressive Web
+Ontology Language (OWL), were designed for making statements about things "in
+the world" or, more precisely, about things in a conceptual cartoon of the
+world.  Things in that cartoon universe may include anything from people,
+books, abstract ideas, and Web pages to planets or refrigerators.  By design,
+RDF and OWL were optimized for aggregating information from multiple sources.
+If a model in OWL says that a person has two biological parents, and only one
+parent is described in a given graph, an OWL processor will not report a
+mismatch between the model and the graph because the second parent is assumed
+to exist even if it is not described in the data.  In other words, the graph 
+_could_ describe the second parent if more triples were supplied.
+
+In contrast, real-world data applications must often test the integrity of
+their data by flagging such omissions as errors, and the ShEx language was
+designed for use in such tests.  Where an RDF graph describes things "in the
+cartoon world", a ShEx schema describes things that are actually "in the data"
+of that RDF graph.  A shape expression refers to an RDF graph as a collection
+of abstract-syntactic entities: IRIs, blank nodes, literals, and triples, which are
+seen either as incoming arcs or outgoing arcs.
+
+The abstract syntax of RDF defines the structural components of RDF data: An
+RDF graph is a collection of triples.  A triple is a data structure composed of
+three RDF terms. An RDF term may be an IRI, blank node (BNode), or literal.  In
+a triple, RDF terms are arranged in a fixed order, or "directed arc", from
+subject to predicate to object.  A triple may be seen as an "outgoing arc" from
+a subject or an "incoming arc" to an object.  RDF data may be serialized in any
+of several interchangeable concrete syntaxes designed for a variety of
+application requirements.
+
+Like RDF, ShEx is based on an abstract syntax, but its syntax was designed for
+describing the characteristics of an RDF graph.  A ShEx Schema, the counterpart
+of an RDF Graph, is a collection of shape expressions.  A shape expression is a
+boolean combination of node constraints and shapes.  A ShEx shape describes a
+collection of RDF triples touching a given RDF node, where the characteristics
+of matching RDF nodes are defined by ShEx node constraints and the
+characteristics of matching RDF triples are defined by ShEx triple constraints.
+A ShEx triple constraint specifies a matching RDF triple in terms of its
+predicate, its direction (whether it is an incoming or outgoing arc with
+respect to a node), a cardinality (how many triples should match), or its value
+(the object node).
+
+Like RDF, ShEx may be serialized using any one of several interchangeable
+concrete syntaxes: a compact syntax optimized for readability (ShExC), a
+Javascript-based syntax that serves as the reference syntax for the formal
+specification of ShEx (ShExJ), and a RDF-based syntax (ShExR).  (It should be
+noted that the RDF expression of a ShEx Schema is of little inherent value, in
+practical terms, as a description of something "in the world"; its value
+derives from its use for testing against the abstract-syntactic components "in
+the data" of an RDF graph to yield a validation result.)
+
+ShEx may be considered a constraint language -- a language for limiting the
+infinite collection of potential RDF graphs to a better-defined collection of
+potential RDF graphs.  It's a bit like the old joke which says that to sculpt
+an elephant, one takes a block of marble and chips away everything that does
+not look like an elephant.  Just as each tap on the chisel "constrains" the
+marble to look more like an elephant, each ShEx shape expression, shape, node
+constraint, or triple constraint restricts the collection of potential triples
+to look more like a desired ideal.
+
