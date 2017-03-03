@@ -56,7 +56,14 @@ specification of ShEx (ShExJ), and a RDF-based syntax (ShExR).  (It should be
 noted that the RDF expression of a ShEx Schema is of little inherent value, in
 practical terms, as a description of something "in the world"; its value
 derives from its use for testing against the abstract-syntactic components "in
-the data" of an RDF graph to yield a conformance test result.)
+the data" of an RDF graph to yield a conformance test result.  It should also
+be noted that a ShEx Schema is not an RDF schema, even if it is expressed in 
+RDF.  "RDF schema" is actually a language for defining RDF vocabularies and 
+specifying the semantic relationships between its terms. Calling 
+this language "RDF schema" back in 1999 (check year) was unfortunate because 
+it became confused with "XML schema", a language for characterizing structured 
+documents for the purpose of testing conformance.  A ShEx schema is a schema 
+in the sense of XML Schema but not RDF Schema.)
 
 ShEx is a language for limiting the
 infinite collection of potential RDF graphs to a better-defined collection of
