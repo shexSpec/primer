@@ -21,7 +21,7 @@ to exist even if it is not described in the data.  In other words, the graph
 _could_ describe the second parent if more triples were supplied.
 
 In contrast, real-world data applications must often test the integrity of
-their data by flagging such omissions as errors, and the ShEx language was
+their data by flagging such omissions as non-conformant, and the ShEx language was
 designed for use in such tests.  Where an RDF graph describes things "in the
 cartoon world", a ShEx schema describes things that are actually "in the data"
 of that RDF graph.  A shape expression refers to an RDF graph as a collection
