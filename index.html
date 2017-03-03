@@ -1522,8 +1522,19 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         <p>
           In the examples in <a href="#tripleConstraints">section 3</a>, we examined tested the nodes <a href="#inst:User1-1" class="function-name">inst:User1</a>, <a href="#inst:User2-1" class="function-name">inst:User2</a> and <a href="#inst:User3-1" class="function-name">inst:User3</a> against <a href="#my:UserShape-1" class="shape-name">my:UserShape</a>.
           We treated each one in turn as the <code>focus node</code> and tested the triples involving that node against the <code>triple constraint</code> in the shape.
-          This triple constraint had a single <code>value constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
-          <code>Triple constraints</code> can include combinations of the following constraints:
+          This triple constraint had a single <code>node constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
+        </p>
+        <p>
+          When a node constraint is used to in a triple constraint, it as called a <code>value constraint</code> as it constrains the allowable values for triples matching the triple constraint.
+          Node constraints can also be tested diretly against the focus node:
+        </p>
+        <pre class="schema shexc">&lt;TelephoneNumer&gt; ~/\+[0-9]{1,3}\.[0-9]+[.0-9]*/</pre>
+        <p>
+          or used in conjunction with a shape:
+        </p>
+        <pre class="schema shexc">&lt;UserShape&gt; ~/http:/ { foaf:name LITERAL }</pre>
+        <p>
+          Node constraints can include combinations of the following constraints:
         </p>
         <ul class="compact">
           <li id="vocab-literal-datatype"><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
@@ -1726,10 +1737,21 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         <li>The first property restriction in <span class="function-name">my:userShape</span> requires the object of the <span class="type">foaf:</span><span class="constant">name</span> to be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-language-tagged-string">RDF language-tagged string</a> with a datatype of <span class="type">xsd:</span><span class="constant">string</span>.</li>
         <li>The final property restriction asserts that the object of <span class="type">foaf:</span><span class="constant">mbox</span> be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>.</li>
       </ul>
-		</section>
+
+      <p id="empty-shape">
+        Because triple expressions can have a minimum cardinality of zero, it's possible to create a shape which matches any node, even if it does not appear in the data:
+      </p>
+      <pre class="schema shexc">my:IssueShape {
+  ex:state [ex:unassigned ex:assigned] <span class="keyword">?</span>;
+  ex:reportedBy @my:UserShape <span class="keyword">*</span>
+}</pre>
+      <p>
+        Because the minimum number of triples is zero, any RDF node will match this shape.
+      </p>
+    </section>
 
     <section id="choices">
-			<h2>Choices</h2>
+      <h2>Choices</h2>
 			<p>
         Most schema language offer a way to express choices.
         We can extend our first example to include a more flexible user which includes given and family names.
