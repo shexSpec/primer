@@ -1,10 +1,10 @@
 Shape Expressions (ShEx) is a language for characterizing an ideal RDF graph
 against which a real RDF graph can be compared.  As the description of an ideal
 RDF graph, a ShEx Schema can be tested against a given RDF graph to yield a
-validation result that reports successful matches along with any detected
+conformance test result that reports any detected
 mismatches.  ShEx schemas specify how data can match the requirements of a
 particular application, process, or interface.  A ShEx schema may be used for
-purposes ranging from the validation of data to the configuration of user
+purposes ranging from the conformance testing of data to the configuration of user
 interfaces.
 
 ShEx is designed to fill a long-recognized gap in Semantic Web technology.  The
@@ -21,7 +21,7 @@ to exist even if it is not described in the data.  In other words, the graph
 _could_ describe the second parent if more triples were supplied.
 
 In contrast, real-world data applications must often test the integrity of
-their data by flagging such omissions as errors, and the ShEx language was
+their data by flagging such omissions as non-conformant, and the ShEx language was
 designed for use in such tests.  Where an RDF graph describes things "in the
 cartoon world", a ShEx schema describes things that are actually "in the data"
 of that RDF graph.  A shape expression refers to an RDF graph as a collection
@@ -56,14 +56,22 @@ specification of ShEx (ShExJ), and a RDF-based syntax (ShExR).  (It should be
 noted that the RDF expression of a ShEx Schema is of little inherent value, in
 practical terms, as a description of something "in the world"; its value
 derives from its use for testing against the abstract-syntactic components "in
-the data" of an RDF graph to yield a validation result.)
+the data" of an RDF graph to yield a conformance test result.  It should also
+be noted that a ShEx Schema is not an RDF schema, even if it is expressed in 
+RDF.  "RDF schema" is actually a language for defining RDF vocabularies and 
+specifying the semantic relationships between its terms. Calling 
+this language "RDF schema" back in 1999 (check year) was unfortunate because 
+it became confused with "XML schema", a language for characterizing structured 
+documents for the purpose of testing conformance.  A ShEx schema is a schema 
+in the sense of XML Schema but not RDF Schema.)
 
-ShEx may be considered a constraint language -- a language for limiting the
+ShEx is a language for limiting the
 infinite collection of potential RDF graphs to a better-defined collection of
 potential RDF graphs.  It's a bit like the old joke which says that to sculpt
 an elephant, one takes a block of marble and chips away everything that does
-not look like an elephant.  Just as each tap on the chisel "constrains" the
-marble to look more like an elephant, each ShEx shape expression, shape, node
-constraint, or triple constraint restricts the collection of potential triples
-to look more like a desired ideal.
+not look like an elephant.  The simplest possible ShEx schema, "<S> {}",
+matches all possible RDF graphs.  Just as each tap on the chisel "constrains"
+the marble to look more like an elephant, each ShEx shape expression, shape,
+node constraint, or triple constraint restricts the collection of potential
+graphs to look more like a desired ideal.
 
