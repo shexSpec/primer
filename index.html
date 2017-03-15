@@ -3038,6 +3038,28 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
             -->
             </script>
           </div>
+
+  		    <section id="partition-complexity">
+  			    <h4>Partition Complexity</h4>
+            <p>
+              ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
+              It is possible to construct schemas for which it is quite expensive to find a mapping from triple to triple constraint which satisfies the schema.
+              In practical schemas, this is rarely a concearn as the search space is quite small, however, certain mistakes in a schema can create a large search space.
+            </p>
+            <ul>
+              <li>
+                Accidentally duplicating many triple constraints in a shape causes the search space to explode.
+                If you notice a validation process taking a long time or a lot of memory, look for duplicated chunks of the schema.
+              </li>
+              <li>
+                For shapes with multiple triple constraints for the same predicate, try to minimize the overlap between the value expressions.
+                For instance, if three types of inspection are necessary on a manufacturing checklist, use three different constraints for each of the inspection proprerties rather than requiring three different inspection properties with a value expression which is a union of all three types.
+                This will make the validation process more efficient as well as capturing more of the business logic in the schema.
+              </li>
+            </ul>
+          </section>
+          <p>
+          </p>
           <div class="namespace">
 
               <div class="issue" style="clear:both;">
@@ -3159,7 +3181,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 
               <p style="clear:both;" class="TODO">
                 The behavior in these cases currently uses the <code>partition</code> strategy. 
-                Please send feedback to <a href="mailto:public-shex-dev@w3.org">public-shex-dev@w3.org</a> with advice and use cases, if the <code>conjunction</code> strategy is better suited for your use cases.
+                Please send feedback to <a href="mailto:public-shex@w3.org">public-shex@w3.org</a> with advice and use cases, if the <code>conjunction</code> strategy is better suited for your use cases.
               </p>
             </div>
 
