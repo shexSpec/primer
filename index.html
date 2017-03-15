@@ -237,12 +237,12 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
 <span class="shape-name">ex:Human</span> {
-  <span class="predicate">ex:hasBiologicalParent</span> . {2}
+  <span class="predicate">ex:hasBiologicalParent</span> <span class="keyword">.</span> {2}
 }</pre>
         </div>
         <p>
           The above TripleConstraint specifies that, in order for a node to match <code>ex:Human</code>, it must have exactly two <span class="predicate">ex:hasBiologicalParent</span> properties.
-          The "<code>.</code>" indicates that the value of these properties is not constrained.
+          The "<span class="keyword">.</span>" indicates that the value of these properties is not constrained.
           For example, both <span class="function-name">inst:User1</span> and <span class="function-name">inst:User2</span> in the following data would be accepted:
         </p>
         <div id="quickstart-example-1" class="example wrapper">
@@ -1672,23 +1672,23 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         <h2>Vocabulary</h2>
 
         <p>
-          This section introduces some vocabulary which will help us discuss ShEx and the validation process.
+          This section introduces some vocabulary which will help us describe ShEx and the validation process.
         </p>
 
         <p>
-          In the examples in <a href="#tripleConstraints">section 3</a>, we examined tested the nodes <a href="#inst:User1-1" class="function-name">inst:User1</a>, <a href="#inst:User2-1" class="function-name">inst:User2</a> and <a href="#inst:User3-1" class="function-name">inst:User3</a> against <a href="#my:UserShape-1" class="shape-name">my:UserShape</a>.
+          In the examples in <a href="#tripleConstraints">section 4</a>, we tested the nodes <a href="#inst:User1-1" class="function-name">inst:User1</a>, <a href="#inst:User2-1" class="function-name">inst:User2</a> and <a href="#inst:User3-1" class="function-name">inst:User3</a> against <a href="#my:UserShape-1" class="shape-name">my:UserShape</a>.
           We treated each one in turn as the <code>focus node</code> and tested the triples involving that node against the <code>triple constraint</code> in the shape.
           This triple constraint had a single <code>node constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
         </p>
         <p>
           When a node constraint is used to in a triple constraint, it as called a <code>value constraint</code> as it constrains the allowable values for triples matching the triple constraint.
-          Node constraints can also be tested diretly against the focus node:
+          Node constraints can also be tested directly against the focus node:
         </p>
-        <pre class="schema shexc">&lt;TelephoneNumer&gt; ~/\+[0-9]{1,3}\.[0-9]+[.0-9]*/</pre>
+        <pre class="schema shexc">&lt;TelephoneNumer&gt; /\+[0-9]{1,3}\.[0-9]+[.0-9]*/</pre>
         <p>
           or used in conjunction with a shape:
         </p>
-        <pre class="schema shexc">&lt;UserShape&gt; ~/http:/ { foaf:name LITERAL }</pre>
+        <pre class="schema shexc">&lt;UserShape&gt; /^http:/ { foaf:name LITERAL }</pre>
         <p>
           Node constraints can include combinations of the following constraints:
         </p>
@@ -2367,7 +2367,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot new"><span class="value-constraint">IRI @<span class="shape-name">my:EmployeeShape</span>
-    ~/<span class="string">^http:\/\/hr.example/id#[0-9]+</span>/</span></span>
+    /<span class="string">^http:\/\/hr.example/id#[0-9]+</span>/</span></span>
 }
 
 <span class="hilight-reproducedBy lowlight2 top"><span class="shape-name">my:EmployeeShape</span> {                        </span>
@@ -2448,7 +2448,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
             <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="hilight-employeeConstraint lowlight2 top"><span class="value-constraint"><span class="constraint-name">$my:EmployeeConstraint</span> =</span>                </span>
 <span class="hilight-employeeConstraint lowlight2    ">  IRI </span><span class="shape-name hilight-EmployeeShape lowlight2 top bot">@my:EmployeeShape</span><span class="hilight-employeeConstraint lowlight2    ">                 </span>
-<span class="hilight-employeeConstraint lowlight2 bot">  ~/<span class="string">^http://hr.example/id#[0-9]+</span>/</span>
+<span class="hilight-employeeConstraint lowlight2 bot">  /<span class="string">^http://hr.example/id#[0-9]+</span>/</span>
 
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
