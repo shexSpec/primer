@@ -104,6 +104,7 @@
 
 .issue div p { margin-left: 1em; }
 pre.shh { display: table; }
+pre.table { display: table; }
 .compact p { margin: 0; }
 .compact li { margin-bottom: 1ex; }
 #respecDocument img { width: 72px; }
@@ -140,3 +141,5 @@ a.ref:visited { color: #a00550; font-family: monospace; }
       td, th { border-style: solid; }
       .pass { background-color: #cfc; }
       .fail { background-color: #fcc; }
+
+      .qualifier { font-weight: normal; display:none; }
