@@ -2219,188 +2219,162 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     </section>
 
     
-    <section id="structure">
-      <h2>ShExC Structure</h2>
-      <p>
-        We've seen several examples of ShExC.
-        Here we'll describe more completely the structure of a ShExC schema.
-      </p>
-      <section id="Comments">
-        <h3>Comments</h3>
+      <section id="value-sets">
+        <h2>Value Sets</h2>
         <p>
-          As in Turtle, Trig and SPARQL, comments in ShExC are prefixed by a <code class="comment">#</code> character.
-          There are <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file">no comments in JSON</a>, though there are some <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file#answer-18018493">diabolical workarounds leveraging overwritten object keys</a>.
+          As described <a href="#vocab-value-set">above in Vocabulary</a>, <code>value sets</code> in a <code>value constraint</code> enumerate permissible values for some property.
         </p>
-        <div class="example wrapper">
-        <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
-<span class="shape-name">my:UserShape</span> {                   <span class="comment"># a user has</span>
-  (                              <span class="comment">#   either</span>
-     <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>        <span class="comment">#     a full name</span>
-    |                            <span class="comment">#   or</span>
-      <span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span><span class="keyword">+</span>;<span class="comment">#     one or more given names</span>
-      <span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span> <span class="comment">#     and a family name</span>
-  );                             
-  <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>                  <span class="comment"># and always an mbox.</span>
+        <pre class="schema shexc shh">my:IssueShape {
+  ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
 }</pre>
-        <pre class="schema json"><span class="comment"># schema (JSON)</span>
-{ <span class="shape-name">"my:UserShape"</span>: {                     <span class="comment">"type": "a user has"</span>,
-  "type": "Shape",
-    "expression": { "type": "group",
-      "expressions": [
-        {                               <span class="comment">"type": "  either"</span>
-          "type": "OneOf",
-          "expressions": [
-            {                           <span class="comment">"type": "    a full name"</span>
-              "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        
-              <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
-             },
-            {                           <span class="comment">"type": "  or"</span>
-              "type": "group",
-              "expressions": [
-                {                       <span class="comment">"type": "    one or more given names"</span>
-                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  
-                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,
-                  "min": 1, "max": "*"
-                },                                     
-                {                       <span class="comment">"type": "    and a family name"</span>
-                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  
-                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
-                }
-              ]
-            }
-          ]
-        },
-        {                               <span class="comment">"type": "and always an mbox."</span>
-          "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, 
-          <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "IRI" }</span>
-        }
-      ]
-    }
-  }
+        <pre class="schema json shh">
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+        <p style="margin: 0;">
+          The above examples could also be literals, e.g.
+        </p>
+        <pre class="schema shexc shh">my:IssueShape {
+  ex:state <span class="value-constraint new">["unassigned" "assigned"]</span>
 }</pre>
-        </div>
-      </section>
-
-      <section id="RDF-terms">
-        <h3>RDF Terms</h3>
+        <pre class="schema json shh">
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
         <p>
-          The terms ("terminals", to a language geek) in ShEx are the same as <a href="http://www.w3.org/TR/turtle/#h3_sec-parsing-terms">those in Turtle</a>.
-          The following list summarizes which terminals are allows where in the <a href="http://www.w3.org/2005/01/yacker/uploads/ShEx3?lang=perl&amp;markup=html#productions">ShEx grammar</a>:
+          Fixed values are represented as value sets with one member.
+          For example, a required type triple can be expressed like:
         </p>
-        <ul>
-          <li><code>Shape labels</code> (seen in <a class="ref" href="#shape-declaration">shape declaration</a> and <a class="ref" href="#value-shape">value shapes</a>) are IRIs or blank nodes.</li>
-          <li><code>Constraint labels</code> (see <a class="ref" href="#value-class-definition">value class definitions</a> and <a class="ref" href="#value-class-reference">value class references</a> described below in <a href="#labeled-constraints">Labeled Constraints</a>) are also IRIs or blank nodes.</li>
-          <li>Predicates are IRIs (reflecting a restriction in RDF that predicates are IRIs).
-          As in other RDF languages, the keyword <code class="keyword">a</code> is shorthand for <code>rdf:type</code>.
-          </li>
-          <li><code>Literal datatypes</code> are IRIs.</li>
-        </ul>
-        <p>
-          IRIs are parsed as they are in Turtle, respecting the current <a href="http://www.w3.org/TR/turtle/#prefixed-name">namespace prefix mapping</a> and <a href="http://www.w3.org/TR/turtle/#relative-iri">base</a> directives.
+        <pre class="schema shexc shh">my:UserShape {
+  rdf:type <span class="value-constraint new">[foaf:Person]</span>
+}</pre>
+        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
+    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+        <p style="margin: 0;">
+          or using the keyword <code class="keyword">a</code>:
         </p>
-        <p class="note">An additional non-RDF term called a <code>stem</code> appears in <a class="ref" href="#value-sets">value sets</a>.</p>
-      </section>
+        <pre class="schema shexc shh">my:UserShape {
+  <span class="keyword">a</span> <span class="value-constraint new">[foaf:Person]</span>
+}</pre>
+        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "a",
+    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
 
-      <section id="labeled-constraints">
-        <h3>Labeled Constraints</h3>
-        <div class="namespace">
-          <p>
-            It may be convenient to factor out the value constraints for instance if they are referenced more than once.
-            ShExC's <code id="value-class-definition">value class definitions</code> permit one to write a definition and reference it in <code id="value-class-reference">value class references</code>.
-            Here, both <span class="hilight-reproducedBy lowlight2 top bot"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> and <span class="hilight-assignedTo lowlight2 top bot"><span class="type">ex:</span><span class="constant">assignedTo</span></span> are value class references to <span class="constraint-name hilight-employeeConstraint lowlight2 top bot">$my:EmployeeConstraint</span>, which asserts that the object is an IRI matching a specific pattern, and which matches <span class="shape-name hilight-EmployeeShape lowlight2 top bot">my:EmployeeShape</span>.
-          </p>
-
+        <section id="sec-iri-range">
+          <h3>IRI Range</h3>
           <div class="example wrapper">
+            <p>
+              A value set can also contain <code id="iri-range">IRI ranges</code>.
+              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
+            </p>
+
             <!-- ShExC example -->
             <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="hilight-employeeConstraint lowlight2 top"><span class="value-constraint"><span class="constraint-name">$my:EmployeeConstraint</span> =</span>                </span>
-<span class="hilight-employeeConstraint lowlight2    ">  IRI </span><span class="shape-name hilight-EmployeeShape lowlight2 top bot">@my:EmployeeShape</span><span class="hilight-employeeConstraint lowlight2    ">                 </span>
-<span class="hilight-employeeConstraint lowlight2 bot">  /<span class="string">^http://hr.example/id#[0-9]+</span>/</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">exmisc:</span> <span class="function-name">&lt;http://aux.example/misc#&gt;</span>
 
-<span class="shape-name">my:IssueShape</span> {
-  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
-  <span class="hilight-reproducedBy lowlight2 top bot new"><span class="predicate">ex:reproducedBy</span></span> <span class="constraint-name hilight-employeeConstraint hilight-reproducedBy lowlight2 top bot">$my:EmployeeConstraint</span>;
-  <span class="hilight-assignedTo lowlight2 top bot new"><span class="predicate">ex:assignedTo</span></span> <span class="constraint-name hilight-employeeConstraint hilight-assignedTo lowlight2 top bot">$my:EmployeeConstraint</span>
-}
-
-<span class="hilight-EmployeeShape lowlight2 top"><span class="shape-name">my:EmployeeShape</span> {                        </span>
-<span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;                   </span>
-<span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
-<span class="hilight-EmployeeShape lowlight2 bot">}                                         </span>
-</pre>
+<span class="shape-name">my:UserShape</span> {
+  <span class="predicate">ex:status</span> <span class="value-constraint">[
+      excodes:~ auxterms:~
+  ]</span>
+}</pre>
 
             <!-- JSON example -->
             <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{
-  "my:IssueShape": { "type": "Shape",
-    "expression": { "type": "group",
-      "expressions": [
-        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
-        },
-        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
-        },
-        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:assignedTo"</span>,
-          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-assignedTo lowlight2 top bot">"reference": "my:EmployeeShape"</span></span> }
-        }
-      ]
-    }
-  },
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2 top">"my:EmployeeShape": { "type": "Shape",                                   </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  "expression": { "type": "group",                                       </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    "expressions": [                                                     </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>      </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      },                                                                 </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:Programming" ] }</span></span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      }                                                                  </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    ]                                                                    </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  }                                                                      </span>
-  <span class="hilight-reproducedBy hilight-assignedTo lowlight2 bot">}                                                                        </span>
-}</pre>
+{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
+  "expression": {
+    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
+    <span class="value-constraint">"value": {
+      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
               <pre class="instance turtle"><span class="comment"># passing data</span>
-<span class="type">inst:</span><span class="constant">Issue1</span>
-  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
-  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> ;
-  <span class="type">ex:</span><span class="constant">assignedTo</span> <span class="hilight-assignedTo lowlight2 top bot"><span class="function-name">http://hr.example/id#456</span></span> .
-
-<span class="hilight-reproducedBy lowlight2 top"><span class="function-name">http://hr.example/id#123</span>                  </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
-<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span>
-
-<span class="hilight-assignedTo lowlight2 top"><span class="function-name">http://hr.example/id#456</span>                  </span>
-<span class="hilight-assignedTo lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
-<span class="hilight-assignedTo lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
-              <div></div>
-              <pre class="instance turtle fail"><span class="comment"># failing data</span>
-<span class="type">inst:</span><span class="constant">Issue1</span>
-  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
-  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> ;
-  <span class="type">ex:</span><span class="constant">assignedTo</span> <span class="hilight-assignedTo lowlight2 top bot"><span class="function-name">http://hr.example/id#<span class="errorSite">abc</span></span></span> .
-
-<span class="hilight-reproducedBy lowlight2 top"><span class="function-name">http://hr.example/id#123</span>                  </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
-<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span>
-
-<span class="hilight-assignedTo lowlight2 top"><span class="function-name">http://hr.example/id#abc</span>         </span>
-<span class="hilight-assignedTo lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;         </span>
-<span class="hilight-assignedTo lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="errorSite">ex:HRDepartment</span> .</span></pre>
-            </div>
-
-            <script type="text/javascript">
-            <!--
-prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employeeConstraint", "hilight-EmployeeShape"], "highlight2", "lowlight2");
-            -->
-            </script>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
+              <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
+  </div>
+            <div style="clear:both;"></div>
           </div>
-        </div>
-      </section>
-    </section>
+        </section>
 
+        <section id="sec-iri-range-exclusion">
+          <h3>IRI Range Exclusions</h3>
+          <div class="example wrapper">
+            <p>
+              Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
+              For example we may wish to include <code id="iri-exclusion">IRI exclusion</code> 
+              A value set can also contain <code>IRI ranges</code>.
+              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
+            </p>
+
+            <!-- ShExC example -->
+            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+
+<span class="shape-name">my:UserShape</span> {
+  <span class="predicate">ex:status</span> <span class="value-constraint">[
+      excodes:~ - excodes:unassigned - excodes:assigned
+      auxterms:~ - &lt;http://aux.example/terms#med_&gt;~
+  ]</span>
+}</pre>
+
+            <!-- JSON example -->
+            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
+  "expression": {
+    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
+    <span class="value-constraint">"value": {
+      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+            <div class="verticalDivider"><!-- acts as a divider --></div>
+            <div style="float:left;">
+              <pre class="instance turtle"><span class="comment"># passing data</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
+              <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
+              <pre class="instance turtle fail"><span class="comment"># failing data - auxterms:med_… prohibited</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">auxterms:med_sniffles</span></span></span>.</pre>
+              <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
+  </div>
+            <div style="clear:both;"></div>
+          </div>
+          <div class="example wrapper">
+            <p>
+              You can also use a "<code>.</code>" with some <code> IRI exclusions</code> in order to say that anything is permitted except those exclusions.
+            </p>
+
+            <!-- ShExC example -->
+            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+
+<span class="shape-name">my:UserShape</span> {
+  <span class="predicate">ex:status</span> <span class="value-constraint">[
+      . - excodes:unassigned - excodes:assigned
+  ]</span>
+}</pre>
+
+            <!-- JSON example -->
+            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
+  "expression": {
+    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
+    <span class="value-constraint">"value": {
+      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
+            <div class="verticalDivider"><!-- acts as a divider --></div>
+            <div style="float:left;">
+              <pre class="instance turtle"><span class="comment"># passing data</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
+              <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
+  </div>
+            <div style="clear:both;"></div>
+          </div>
+        </section>
+      </section>
+      
 		<section id="properties">
 			<h2>Other Triple Constraints</h2>
     	<p>
@@ -3224,162 +3198,188 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         
       </section>
       
-      <section id="value-sets">
-        <h2>Value Sets</h2>
+    <section id="structure">
+      <h2>ShExC Structure</h2>
+      <p>
+        We've seen several examples of ShExC.
+        Here we'll describe more completely the structure of a ShExC schema.
+      </p>
+      <section id="Comments">
+        <h3>Comments</h3>
         <p>
-          As described <a href="#vocab-value-set">above in Vocabulary</a>, <code>value sets</code> in a <code>value constraint</code> enumerate permissible values for some property.
+          As in Turtle, Trig and SPARQL, comments in ShExC are prefixed by a <code class="comment">#</code> character.
+          There are <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file">no comments in JSON</a>, though there are some <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file#answer-18018493">diabolical workarounds leveraging overwritten object keys</a>.
         </p>
-        <pre class="schema shexc shh">my:IssueShape {
-  ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
+        <div class="example wrapper">
+        <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name">my:UserShape</span> {                   <span class="comment"># a user has</span>
+  (                              <span class="comment">#   either</span>
+     <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>        <span class="comment">#     a full name</span>
+    |                            <span class="comment">#   or</span>
+      <span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span><span class="keyword">+</span>;<span class="comment">#     one or more given names</span>
+      <span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span> <span class="comment">#     and a family name</span>
+  );                             
+  <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>                  <span class="comment"># and always an mbox.</span>
 }</pre>
-        <pre class="schema json shh">
-{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
-        <p style="margin: 0;">
-          The above examples could also be literals, e.g.
-        </p>
-        <pre class="schema shexc shh">my:IssueShape {
-  ex:state <span class="value-constraint new">["unassigned" "assigned"]</span>
+        <pre class="schema json"><span class="comment"># schema (JSON)</span>
+{ <span class="shape-name">"my:UserShape"</span>: {                     <span class="comment">"type": "a user has"</span>,
+  "type": "Shape",
+    "expression": { "type": "group",
+      "expressions": [
+        {                               <span class="comment">"type": "  either"</span>
+          "type": "OneOf",
+          "expressions": [
+            {                           <span class="comment">"type": "    a full name"</span>
+              "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        
+              <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
+             },
+            {                           <span class="comment">"type": "  or"</span>
+              "type": "group",
+              "expressions": [
+                {                       <span class="comment">"type": "    one or more given names"</span>
+                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  
+                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,
+                  "min": 1, "max": "*"
+                },                                     
+                {                       <span class="comment">"type": "    and a family name"</span>
+                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  
+                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
+                }
+              ]
+            }
+          ]
+        },
+        {                               <span class="comment">"type": "and always an mbox."</span>
+          "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, 
+          <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "IRI" }</span>
+        }
+      ]
+    }
+  }
 }</pre>
-        <pre class="schema json shh">
-{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
-        <p>
-          Fixed values are represented as value sets with one member.
-          For example, a required type triple can be expressed like:
-        </p>
-        <pre class="schema shexc shh">my:UserShape {
-  rdf:type <span class="value-constraint new">[foaf:Person]</span>
-}</pre>
-        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
-    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
-        <p style="margin: 0;">
-          or using the keyword <code class="keyword">a</code>:
-        </p>
-        <pre class="schema shexc shh">my:UserShape {
-  <span class="keyword">a</span> <span class="value-constraint new">[foaf:Person]</span>
-}</pre>
-        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "a",
-    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
-
-        <section id="sec-iri-range">
-          <h3>IRI Range</h3>
-          <div class="example wrapper">
-            <p>
-              A value set can also contain <code id="iri-range">IRI ranges</code>.
-              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
-            </p>
-
-            <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">exmisc:</span> <span class="function-name">&lt;http://aux.example/misc#&gt;</span>
-
-<span class="shape-name">my:UserShape</span> {
-  <span class="predicate">ex:status</span> <span class="value-constraint">[
-      excodes:~ auxterms:~
-  ]</span>
-}</pre>
-
-            <!-- JSON example -->
-            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
-    <span class="value-constraint">"value": {
-      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
-  </div>
-            <div style="clear:both;"></div>
-          </div>
-        </section>
-
-        <section id="sec-iri-range-exclusion">
-          <h3>IRI Range Exclusions</h3>
-          <div class="example wrapper">
-            <p>
-              Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
-              For example we may wish to include <code id="iri-exclusion">IRI exclusion</code> 
-              A value set can also contain <code>IRI ranges</code>.
-              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
-            </p>
-
-            <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
-
-<span class="shape-name">my:UserShape</span> {
-  <span class="predicate">ex:status</span> <span class="value-constraint">[
-      excodes:~ - excodes:unassigned - excodes:assigned
-      auxterms:~ - &lt;http://aux.example/terms#med_&gt;~
-  ]</span>
-}</pre>
-
-            <!-- JSON example -->
-            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
-    <span class="value-constraint">"value": {
-      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - auxterms:med_… prohibited</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">auxterms:med_sniffles</span></span></span>.</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
-  </div>
-            <div style="clear:both;"></div>
-          </div>
-          <div class="example wrapper">
-            <p>
-              You can also use a "<code>.</code>" with some <code> IRI exclusions</code> in order to say that anything is permitted except those exclusions.
-            </p>
-
-            <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-
-<span class="shape-name">my:UserShape</span> {
-  <span class="predicate">ex:status</span> <span class="value-constraint">[
-      . - excodes:unassigned - excodes:assigned
-  ]</span>
-}</pre>
-
-            <!-- JSON example -->
-            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
-    <span class="value-constraint">"value": {
-      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
-  </div>
-            <div style="clear:both;"></div>
-          </div>
-        </section>
+        </div>
       </section>
-      
+
+      <section id="RDF-terms">
+        <h3>RDF Terms</h3>
+        <p>
+          The terms ("terminals", to a language geek) in ShEx are the same as <a href="http://www.w3.org/TR/turtle/#h3_sec-parsing-terms">those in Turtle</a>.
+          The following list summarizes which terminals are allows where in the <a href="http://www.w3.org/2005/01/yacker/uploads/ShEx3?lang=perl&amp;markup=html#productions">ShEx grammar</a>:
+        </p>
+        <ul>
+          <li><code>Shape labels</code> (seen in <a class="ref" href="#shape-declaration">shape declaration</a> and <a class="ref" href="#value-shape">value shapes</a>) are IRIs or blank nodes.</li>
+          <li><code>Constraint labels</code> (see <a class="ref" href="#value-class-definition">value class definitions</a> and <a class="ref" href="#value-class-reference">value class references</a> described below in <a href="#labeled-constraints">Labeled Constraints</a>) are also IRIs or blank nodes.</li>
+          <li>Predicates are IRIs (reflecting a restriction in RDF that predicates are IRIs).
+          As in other RDF languages, the keyword <code class="keyword">a</code> is shorthand for <code>rdf:type</code>.
+          </li>
+          <li><code>Literal datatypes</code> are IRIs.</li>
+        </ul>
+        <p>
+          IRIs are parsed as they are in Turtle, respecting the current <a href="http://www.w3.org/TR/turtle/#prefixed-name">namespace prefix mapping</a> and <a href="http://www.w3.org/TR/turtle/#relative-iri">base</a> directives.
+        </p>
+        <p class="note">An additional non-RDF term called a <code>stem</code> appears in <a class="ref" href="#value-sets">value sets</a>.</p>
+      </section>
+
+      <section id="labeled-constraints">
+        <h3>Labeled Constraints</h3>
+        <div class="namespace">
+          <p>
+            It may be convenient to factor out the value constraints for instance if they are referenced more than once.
+            ShExC's <code id="value-class-definition">value class definitions</code> permit one to write a definition and reference it in <code id="value-class-reference">value class references</code>.
+            Here, both <span class="hilight-reproducedBy lowlight2 top bot"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> and <span class="hilight-assignedTo lowlight2 top bot"><span class="type">ex:</span><span class="constant">assignedTo</span></span> are value class references to <span class="constraint-name hilight-employeeConstraint lowlight2 top bot">$my:EmployeeConstraint</span>, which asserts that the object is an IRI matching a specific pattern, and which matches <span class="shape-name hilight-EmployeeShape lowlight2 top bot">my:EmployeeShape</span>.
+          </p>
+
+          <div class="example wrapper">
+            <!-- ShExC example -->
+            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="hilight-employeeConstraint lowlight2 top"><span class="value-constraint"><span class="constraint-name">$my:EmployeeConstraint</span> =</span>                </span>
+<span class="hilight-employeeConstraint lowlight2    ">  IRI </span><span class="shape-name hilight-EmployeeShape lowlight2 top bot">@my:EmployeeShape</span><span class="hilight-employeeConstraint lowlight2    ">                 </span>
+<span class="hilight-employeeConstraint lowlight2 bot">  /<span class="string">^http://hr.example/id#[0-9]+</span>/</span>
+
+<span class="shape-name">my:IssueShape</span> {
+  <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
+  <span class="hilight-reproducedBy lowlight2 top bot new"><span class="predicate">ex:reproducedBy</span></span> <span class="constraint-name hilight-employeeConstraint hilight-reproducedBy lowlight2 top bot">$my:EmployeeConstraint</span>;
+  <span class="hilight-assignedTo lowlight2 top bot new"><span class="predicate">ex:assignedTo</span></span> <span class="constraint-name hilight-employeeConstraint hilight-assignedTo lowlight2 top bot">$my:EmployeeConstraint</span>
+}
+
+<span class="hilight-EmployeeShape lowlight2 top"><span class="shape-name">my:EmployeeShape</span> {                        </span>
+<span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;                   </span>
+<span class="hilight-EmployeeShape lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
+<span class="hilight-EmployeeShape lowlight2 bot">}                                         </span>
+</pre>
+
+            <!-- JSON example -->
+            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{
+  "my:IssueShape": { "type": "Shape",
+    "expression": { "type": "group",
+      "expressions": [
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
+          <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
+        },
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+        },
+        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:assignedTo"</span>,
+          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-assignedTo lowlight2 top bot">"reference": "my:EmployeeShape"</span></span> }
+        }
+      ]
+    }
+  },
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2 top">"my:EmployeeShape": { "type": "Shape",                                   </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  "expression": { "type": "group",                                       </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    "expressions": [                                                     </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>      </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      },                                                                 </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:Programming" ] }</span></span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">      }                                                                  </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">    ]                                                                    </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2    ">  }                                                                      </span>
+  <span class="hilight-reproducedBy hilight-assignedTo lowlight2 bot">}                                                                        </span>
+}</pre>
+            <div class="verticalDivider"><!-- acts as a divider --></div>
+            <div style="float:left;">
+              <pre class="instance turtle"><span class="comment"># passing data</span>
+<span class="type">inst:</span><span class="constant">Issue1</span>
+  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> ;
+  <span class="type">ex:</span><span class="constant">assignedTo</span> <span class="hilight-assignedTo lowlight2 top bot"><span class="function-name">http://hr.example/id#456</span></span> .
+
+<span class="hilight-reproducedBy lowlight2 top"><span class="function-name">http://hr.example/id#123</span>                  </span>
+<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span>
+
+<span class="hilight-assignedTo lowlight2 top"><span class="function-name">http://hr.example/id#456</span>                  </span>
+<span class="hilight-assignedTo lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-assignedTo lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
+              <div></div>
+              <pre class="instance turtle fail"><span class="comment"># failing data</span>
+<span class="type">inst:</span><span class="constant">Issue1</span>
+  <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> ;
+  <span class="type">ex:</span><span class="constant">assignedTo</span> <span class="hilight-assignedTo lowlight2 top bot"><span class="function-name">http://hr.example/id#<span class="errorSite">abc</span></span></span> .
+
+<span class="hilight-reproducedBy lowlight2 top"><span class="function-name">http://hr.example/id#123</span>                  </span>
+<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
+<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span>
+
+<span class="hilight-assignedTo lowlight2 top"><span class="function-name">http://hr.example/id#abc</span>         </span>
+<span class="hilight-assignedTo lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;         </span>
+<span class="hilight-assignedTo lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="errorSite">ex:HRDepartment</span> .</span></pre>
+            </div>
+
+            <script type="text/javascript">
+            <!--
+prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employeeConstraint", "hilight-EmployeeShape"], "highlight2", "lowlight2");
+            -->
+            </script>
+          </div>
+        </div>
+      </section>
+    </section>
+
     <section id="semact">
       <h2>Semantic Actions</h2>
       <p>
