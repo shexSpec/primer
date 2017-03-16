@@ -1,0 +1,159 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <section id="structure">
+      <h2>ShExC Structure</h2>
+      <p>
+        We've seen several examples of ShExC.
+        Here we'll describe more completely the structure of a ShExC schema.
+      </p>
+      <section id="Comments">
+        <h3>Comments</h3>
+        <p>
+          As in Turtle, Trig and SPARQL, comments in ShExC are prefixed by a <code class="comment">#</code> character.
+          There are <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file">no comments in JSON</a>, though there are some <a href="http://stackoverflow.com/questions/244777/can-i-use-comments-inside-a-json-file#answer-18018493">diabolical workarounds leveraging overwritten object keys</a>.
+        </p>
+        <div class="example wrapper">
+        <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name">my:UserShape</span> {                   <span class="comment"># a user has</span>
+  (                              <span class="comment">#   either</span>
+     <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>        <span class="comment">#     a full name</span>
+    |                            <span class="comment">#   or</span>
+      <span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span><span class="keyword">+</span>;<span class="comment">#     one or more given names</span>
+      <span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span> <span class="comment">#     and a family name</span>
+  );                             
+  <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>                  <span class="comment"># and always an mbox.</span>
+}</pre>
+        <pre class="schema json"><span class="comment"># schema (JSON)</span>
+{ <span class="shape-name">"my:UserShape"</span>: {                     <span class="comment">"type": "a user has"</span>,
+  "type": "Shape",
+    "expression": { "type": "group",
+      "expressions": [
+        {                               <span class="comment">"type": "  either"</span>
+          "type": "OneOf",
+          "expressions": [
+            {                           <span class="comment">"type": "    a full name"</span>
+              "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        
+              <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
+             },
+            {                           <span class="comment">"type": "  or"</span>
+              "type": "group",
+              "expressions": [
+                {                       <span class="comment">"type": "    one or more given names"</span>
+                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  
+                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,
+                  "min": 1, "max": "*"
+                },                                     
+                {                       <span class="comment">"type": "    and a family name"</span>
+                  "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  
+                  <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>
+                }
+              ]
+            }
+          ]
+        },
+        {                               <span class="comment">"type": "and always an mbox."</span>
+          "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, 
+          <span class="predicate">"value": { "type": "NodeConstraint", "datatype": "IRI" }</span>
+        }
+      ]
+    }
+  }
+}</pre>
+        </div>
+      </section>
+
+      <section id="RDF-terms">
+        <h3>RDF Terms</h3>
+        <p>
+          The terms ("terminals", to a language geek) in ShEx are the same as <a href="http://www.w3.org/TR/turtle/#h3_sec-parsing-terms">those in Turtle</a>.
+          The following list summarizes which terminals are allows where in the <a href="http://www.w3.org/2005/01/yacker/uploads/ShEx3?lang=perl&amp;markup=html#productions">ShEx grammar</a>:
+        </p>
+        <ul>
+          <li><code>Shape labels</code> (seen in <a class="ref" href="#shape-declaration">shape declaration</a> and <a class="ref" href="#value-shape">value shapes</a>) are IRIs or blank nodes.</li>
+          <li><code>Constraint labels</code> (see <a class="ref" href="#value-class-definition">value class definitions</a> and <a class="ref" href="#value-class-reference">value class references</a> described below in <a href="#labeled-constraints">Reusing Triple Constraints</a>) are also IRIs or blank nodes.</li>
+          <li>Predicates are IRIs (reflecting a restriction in RDF that predicates are IRIs).
+          As in other RDF languages, the keyword <code class="keyword">a</code> is shorthand for <code>rdf:type</code>.
+          </li>
+          <li><code>Literal datatypes</code> are IRIs.</li>
+        </ul>
+        <p>
+          IRIs are parsed as they are in Turtle, respecting the current <a href="http://www.w3.org/TR/turtle/#prefixed-name">namespace prefix mapping</a> and <a href="http://www.w3.org/TR/turtle/#relative-iri">base</a> directives.
+        </p>
+        <p class="note">An additional non-RDF term called a <code>stem</code> appears in <a class="ref" href="#value-sets">value sets</a>.</p>
+      </section>
+    </section>
+
+      <section id="examples">
+        <h2>Additional Examples</h2>
+        <section id="xsd:length">
+          <h3>xsd:length</h3>
+        <div class="namespace">
+        <p>
+          Constrain the length of a foaf:name to be <span class="min lowlight2 top bot">&gt;= 3</span> and <span class="max lowlight2 top bot">&lt;= 255</span>:
+        </p>
+
+        <div class="example wrapper">
+          <!-- ShExC example -->
+          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name">my:UserShape</span> {
+  <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string
+        <span class="min lowlight2 top bot new">MinLength 3</span>
+        <span class="max lowlight2 top bot new">MaxLength 255</span></span>
+}</pre>
+
+          <!-- JSON example -->
+          <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+{ <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
+  "expression": {
+    "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,
+    <span class="value-constraint">"value": {
+      "type": "NodeConstraint", "datatype": "xsd:string",
+      <span class="min lowlight2 top bot new">"minlength": 3</span>, <span class="max lowlight2 top bot new">"maxlength": 255</span> }</span> } } }</pre>
+          <div class="verticalDivider"><!-- acts as a divider --></div>
+          <div style="float:left;">
+          <pre class="instance turtle"><span class="comment"># passing data</span>
+<span class="name lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> .</pre>
+          <pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
+<span class="name lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User9</span></span> <span class="type">foaf:</span><span class="constant">name</span>       <span class="min lowlight2 top bot"><span class="string top bot errorSite">"BS"</span></span></span>.</pre>
+  </div>
+          <div style="clear:both;"></div>
+      </div>
+      <script type="text/javascript">
+      <!--
+prepareHighlight(['min', 'max'], "highlight2", "lowlight2");
+prepareHighlight(['name999'], "highlight1", "lowlight1");
+      -->
+      </script>
+
+      </div>
+      </section>
+    </section>
+
+		<section id="security" class="appendix informative">
+			<h2>Security and Privacy Considerations</h2>
+      <p>
+        RDF, like any general-purpose data language, can convey confidential information.
+        Trust in the information in RDF should be commensurate to the trust in the origin data.
+        Applying schema validation can somewhat reduce the need for defensive coding in applications consuming untrusted data but it is still important to consider what forms of data a malicious attacker my produce and how an application will respond to that data.
+      </p>
+		</section>
+
+      <section id="rel-to-shacl" class="appendix">
+        <h2>Relationship to SHACL</h2>
+        <p>
+          It is current unclear to what extend ShEx can be represented in SHACL.
+          Some of the obvious differences are captured as issues:
+        </p>
+        <ul>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/92">Should repeated properties be interpreted as additive or conjunctive?</a></li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/22">Treatment of recursive shape definitions</a> - closed without a definition of recursion or stratification.</li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/52">Define an Abstract Syntax for SHACL</a> - in progress.</li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/57">Cardinalities on expressions or groups of triple constraints</a> - closed without a way to express e.g. optional groups.</li>
+          <li><a href="https://www.w3.org/2014/data-shapes/track/issues/80">Constraint to limit IRIs against scheme/namespace, possibly with dereferencing</a> - this issue was closed but lexical restrictions like PATTERN and stems capture some of this.</li>
+        </ul>
+      </section>
+
+  </body>
+</html>
