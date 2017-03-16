@@ -14,6 +14,9 @@
       shortName:  "shex-primer",
       edDraftURI: "https://w3c.github.io/data-shapes/primer/",
       editors: [
+      {   name:       "Thomas Baker",
+      company:    "Dublin Core Metadata Initiative",
+      companyURL: "http://dublincore.org/" },
       {   name:       "Eric Prud′hommeaux",
       url:        "http://www.w3.org/People/Eric/",
       company:    "W3C/MIT",
@@ -182,7 +185,7 @@ inst:Don ex:hasShoeSize 14 .
 
         <p>
           While ShEx implementations may provide further information, the minimum validation result includes the results of validating any node/shape pair.
-          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape:
+          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape:
 
         </p>
         <table class="example results">
@@ -221,64 +224,43 @@ inst:Don ex:hasShoeSize 14 .
             ShEx "schemas" provide:
           </p>
           <ul>
-            <li>An intuitive, domain-specific language for describing graph structure</li>
-            <li>A portable JSON structure which expresses the same description.</li>
+            <li>An intuitive, domain-specific language for describing graph structures.</li>
+            <li>A portable JSON-LD structure which expresses the same description.</li>
             <li>Constraints on the number and object type of arcs with a specified predicate.</li>
-            <li>Value sets and simple set operations on lists of IRIs and IRI stems.</li>
-            <li>XML Schema facet constraints on the objects of constrained predicates.</li>
-            <li>Logical algebraic combinations of constraints on triples.</li>
+            <li>Value sets and simple set operations on lists of RDF terms.</li>
+            <li>XML Schema facet constraints on RDF nodes.</li>
+            <li>Logical algebraic combinations of constraints on nodes and triples.</li>
             <li>Semantic actions for additional validation expressivity or other purposes.</li>
           </ul>
-          <p>
-            The example snippets in this document use ShExC and JSON [[json-ld]] notation.
-            The reader should be familiar with basic RDF concepts [[rdf11-concepts]] such as triples and JSON [[json]].
-          </p>
-          <p>
-            The rest of this document shows shapes which describe the issue data consumable by some application, including the submitter and the person to which the issue is assigned.
-            Examples include data, both conforming and not.
-            <!-- Some mechanisms by which the instance data may be associated with, or validated against the a shape are descibed later in <a href="#associations">Associating Data with Shapes</a>. -->
-          </p>
 
           <div id="associating-nodes-with-shapes">
-            <h3>Associating Nodes with Shapes</h3>
+            <!-- <h3>Associating Nodes with Shapes</h3> -->
             <p>
-              The semantics of ShEx are defined in terms of validating a node in some graph as a shape some schema.
+              ShEx is defined in terms of validating a nodes as shapes in some schema.
+              While ShEx schemas have many uses, they can all be described in terms of a validation process.
+              For instance, when ShEx is used to document data structures for a SPARQL database or service interface, the schema is defining a set of RDF graphs that are involved in that service.
+            </p>
+
+            <p>
+              The input to a validation process is called a <code>shape map</code>.
               Here are a few ways one might associate nodes with shapes:
             </p>
 
             <ul>
               <li>
-                <span class="new">API invocation</span> - select pass node/shape pairs to a function for validation. This can be used via:
-                <ul>
-                  <li>
-                    <span class="new">user interface</span> - a user selects nodes and shapes via a graphical, textual or command-line interface
-                  </li>
-                  <li>
-                    <span class="new">programatic interface</span> - databases or agents emitting or recieving data discover nodes from a protocol, SPARQL query, or hard-coded node identifers.
-                  </li>
-                </ul>
+                <span>API invocation</span> - node/shape pairs can be selected by a user selecting nodes, a program querying for them, or protocol passing them in e.g. a <a href="https://www.w3.org/wiki/LinkHeader">link header</a>.
               </li>
               <li>
-                <span class="new">Maximal typing</span> - test every node in a graph against every shape in a schema.
+                <span>SHACL target properties</span> - nodes can be associated with shapes using any of the four <a href="http://w3c.github.io/data-shapes/shacl/#targets">SHACL "target" properties</a>.
               </li>
               <li>
-                <span class="new">SHACL target* properties</span> - validation process selects node/shape pairs from data graph based on SHACL target* properties in a separate control graph.
-                <ul>
-                  <li>
-                    <span class="new">sh:targetNode</span> - (S1, sh:targetNode, N1) asserts that node N1 should pass shape S1.
-                  </li>
-                  <li>
-                    <span class="new">sh:</span> - (S1, sh:targetClass, T1) asserts that any node with type T1 should pass shape S1.
-                  </li>
-                  <li>
-                    <span class="new">sh:targetSubjectsOf</span> - (S1, sh:targetSubjectsOf, P1) asserts that any node with a P1 property should pass shape S1.
-                  </li>
-                  <li>
-                    <span class="new">sh:targetObjectsOf</span> - (S1, sh:targetObjectsOf, P1) asserts that any node object of a P1 property should pass shape S1.
-                  </li>
-                </ul>
+                <span>Maximal typing</span> - test every node in a graph against every shape in a schema.
               </li>
             </ul>
+
+            <p>
+              For a community-maintained list of mechanisms for constructing shape maps, see the <a href="https://www.w3.org/2001/sw/wiki/ShEx/ShapeMap">ShEx Wiki</a>.
+            </p>
           </div>
 
       </section>
@@ -312,6 +294,7 @@ inst:Don ex:hasShoeSize 14 .
           <dt id="vocab-node-constraint">node constraint</dt><dd>Constraints on RDF terms which are applied to the focus node.</dd>
           <dt id="vocab-focus-node">focus node</dt><dd>Node being examined during validation.</dd>
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the permissible nodes or triples.</dd>
+          <dt id="vocab-shapeMap">shape map</dt><dd>A set of pairs of RDF node and ShEx shape, used for invoking validation and reporting results.</dd>
         </dl>
 
         <p>
@@ -379,6 +362,7 @@ inst:Don ex:hasShoeSize 14 .
       "value": { "type": "ShapeRef", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
           </dd>
         </dl>
+
       </section>
 
       </section>
@@ -1548,6 +1532,16 @@ inst:Don ex:hasShoeSize 14 .
        ry="0" />
   </g>
 </svg>
+
+          <p>
+            The rest of this document shows shapes which describe the issue data consumable by some application, including the submitter and the person to which the issue is assigned.
+            Examples include data, both conforming and not.
+            <!-- Some mechanisms by which the instance data may be associated with, or validated against the a shape are descibed later in <a href="#associations">Associating Data with Shapes</a>. -->
+          </p>
+          <p>
+            The example snippets in this document use ShExC and JSON [[json-ld]] notation.
+            The reader should be familiar with basic RDF concepts [[rdf11-concepts]] such as triples and JSON [[json]].
+          </p>
 
       <section id="tripleConstraints">
         <h2>Constraining Triples</h2>
