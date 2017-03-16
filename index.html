@@ -176,6 +176,19 @@ inst:Don ex:hasShoeSize 14 .
           </div>
         </div>
       </div>
+
+        <p>
+          While ShEx implementations may provide further information, the minimum validation result includes the results of validating any node/shape pair.
+          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape:
+
+        </p>
+        <table class="example results">
+          <tbody><tr><th class="schema">shape</th><th class="data">node</th><th>result</th><th>reason</th></tr>
+          <tr class="pass"><td>&lt;ex:Human&gt;</td><td>&lt;Alice&gt;</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="pass"><td>&lt;ex:Human&gt;</td><td>&lt;Bob&gt;</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="fail"><td>&lt;ex:Human&gt;</td><td>&lt;Claire&gt;</td><td>fail</td><td class="fail">No <code>ex:hasShoeSize</code> supplied.</td></tr>
+          <tr class="fail"><td>&lt;ex:Human&gt;</td><td>&lt;Don&gt;</td><td>fail</td><td class="fail"><code>ex:hasShoeSize</code> 14 greater than 13.</td></tr>
+        </tbody></table>
     </section>
     <script type="text/javascript">
       <!--
@@ -196,109 +209,6 @@ inst:Don ex:hasShoeSize 14 .
 
       <section id="essentials">
         <h2>ShEx Essentials</h2>
-      <section id="validation-results">
-        <h2>Validation Results</h2>
-        <p>
-          While ShEx implementations may provide further information, the minimum validation result includes the results of validating any node/shape pair.
-          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape:
-
-        </p>
-        <table class="example results">
-          <tbody><tr><th class="schema">shape</th><th class="data">node</th><th>result</th><th>reason</th></tr>
-          <tr class="pass"><td>&lt;ex:Human&gt;</td><td>&lt;Alice&gt;</td><td>pass</td><td class="noreason"></td></tr>
-          <tr class="pass"><td>&lt;ex:Human&gt;</td><td>&lt;Bob&gt;</td><td>pass</td><td class="noreason"></td></tr>
-          <tr class="fail"><td>&lt;ex:Human&gt;</td><td>&lt;Claire&gt;</td><td>fail</td><td class="fail">No <code>ex:hasShoeSize</code> supplied.</td></tr>
-          <tr class="fail"><td>&lt;ex:Human&gt;</td><td>&lt;Don&gt;</td><td>fail</td><td class="fail"><code>ex:hasShoeSize</code> 14 greater than 13.</td></tr>
-        </tbody></table>
-      </section>
-
-      <section id="vocabulary">
-        <h2>Glossary of Validation Terms</h2>
-
-        <p>
-          The <a href="#quickstart">Quick Start</a> gave us an idea of what Shape Expressions look like.
-          Now we introduce some terms to identify the pieces of ShEx and the process of validating a document.
-        </p>
-
-        <p>
-          In the examples in the <a href="#simple-expressions-example-1">last example</a>, we tested the nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape.
-          We treated each one in turn as the <code>focus node</code> and tested the triples involving that node against the <code>triple constraint</code> in the shape.
-          This triple constraint had a single <code>node constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
-        </p>
-        <p>
-          When a node constraint is used to in a triple constraint, it as called a <code>value constraint</code> as it constrains the allowable values for triples matching the triple constraint.
-          Node constraints can also be tested directly against the focus node:
-        </p>
-        <pre class="schema shexc">&lt;TelephoneNumer&gt; /\+[0-9]{1,3}\.[0-9]+[.0-9]*/</pre>
-        <p>
-          or used in conjunction with a shape:
-        </p>
-        <pre class="schema shexc">&lt;UserShape&gt; /^http:/ { foaf:name LITERAL }</pre>
-        <p>
-          Node constraints can include combinations of the following constraints:
-        </p>
-        <ul class="compact">
-          <li id="vocab-literal-datatype"><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
-          <pre class="schema shexc shh">my:UserShape {
-  foaf:name <span class="value-constraint new">xsd:string</span>
-}</pre>
-          <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", "predicate": "foaf:name",
-    "value": { "type": "NodeConstraint", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
-
-          </li>
-          <li id="vocab-literal-facetsw"><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
-          <pre class="schema shexc shh">my:UserShape {
-  ex:shoeSize xsd:float <span class="value-constraint new">MinInclusive 5.5 maxInclusive 12.5</span>
-}</pre>
-          <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
-    "value": { "type": "NodeConstraint", "datatype": "http://www.w3.org/2001/XMLSchema#float",
-               <span class="value-constraint new">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
-
-          <p>
-            These <code>numeric facets</code> apply only to numeric RDF literals: <code class="value-constraint">MinInclusive</code>, <code class="value-constraint">MinExclusive</code>, <code class="value-constraint">MaxInclusive</code>, <code class="value-constraint">MaxExclusive</code>, <code class="value-constraint">TotalDigits</code>, <code class="value-constraint">FractionDigits</code>.
-            These <code>string facets</code> apply only to all RDF literals: <code class="value-constraint">Length</code>, <code class="value-constraint">MinLength</code>, <code class="value-constraint">MaxLength</code>, <code class="value-constraint">Pattern</code>.
-            Facets names are not case-sensitive in ShExC.
-          </p>
-          </li>
-          <li id="vocab-node-kind"><code>node kind</code>: identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
-          <pre class="schema shexc shh">my:UserShape {
-  foaf:mbox <span class="value-constraint new">IRI</span>
-}</pre>
-          <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", "predicate": "foaf:mbox",
-    "value": { "type": "NodeConstraint", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
-          <p>
-            The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
-            The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
-            Node kinds are not case-sensitive in ShExC.
-          </p>
-          </li>
-          <li id="vocab-value-set"><code>value set</code>: enumerates specific expected values, e.g.
-          <pre class="schema shexc shh">my:IssueShape {
-  ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
-}</pre>
-          <pre class="schema json shh">
-{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
-          <p>
-            See the <a href="#value-sets">Value Sets description below</a> for details.
-          </p>
-          </li>
-          <li id="vocab-value-Shape"><code id="value-shape">value shape</code>: asserts that the object is described by another shape, e.g.
-          <pre class="schema shexc shh">my:IssueShape {
-  ex:reportedBy <span class="value-constraint new">@my:UserShape</span>
-}</pre>
-          <pre class="schema json">{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
-      "value": { "type": "ShapeRef", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
-          </li>
-        </ul>
-      </section>
 
       <section id="validation">
           <h2>RDF Validation</h2>
@@ -1490,6 +1400,96 @@ inst:Don ex:hasShoeSize 14 .
             <!-- Some mechanisms by which the instance data may be associated with, or validated against the a shape are descibed later in <a href="#associations">Associating Data with Shapes</a>. -->
           </p>
 
+      </section>
+
+      <section id="vocabulary">
+        <h2>Glossary of Validation Terms</h2>
+
+        <p>
+          The <a href="#quickstart">Quick Start</a> gave us an idea of what Shape Expressions look like.
+          Now we introduce some terms to identify the pieces of ShEx and the process of validating a document.
+        </p>
+
+        <p>
+          In the examples in the <a href="#simple-expressions-example-1">last example</a>, we tested the nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape.
+          We treated each one in turn as the <code>focus node</code> and tested the triples involving that node against the <code>triple constraint</code> in the shape.
+          This triple constraint had a single <code>node constraint</code>; a <code>literal datatype</code> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
+        </p>
+        <p>
+          When a node constraint is used to in a triple constraint, it as called a <code>value constraint</code> as it constrains the allowable values for triples matching the triple constraint.
+          Node constraints can also be tested directly against the focus node:
+        </p>
+        <pre class="schema shexc">&lt;TelephoneNumer&gt; /\+[0-9]{1,3}\.[0-9]+[.0-9]*/</pre>
+        <p>
+          or used in conjunction with a shape:
+        </p>
+        <pre class="schema shexc">&lt;UserShape&gt; /^http:/ { foaf:name LITERAL }</pre>
+        <p>
+          Node constraints can include combinations of the following constraints:
+        </p>
+        <ul class="compact">
+          <li id="vocab-literal-datatype"><code>literal datatype</code>: identifies the datatype of an RDF literal, e.g.
+          <pre class="schema shexc shh">my:UserShape {
+  foaf:name <span class="value-constraint new">xsd:string</span>
+}</pre>
+          <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
+  "expression": {
+    "type": "TripleConstraint", "predicate": "foaf:name",
+    "value": { "type": "NodeConstraint", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
+
+          </li>
+          <li id="vocab-literal-facetsw"><code>literal facets</code>: applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, e.g.
+          <pre class="schema shexc shh">my:UserShape {
+  ex:shoeSize xsd:float <span class="value-constraint new">MinInclusive 5.5 maxInclusive 12.5</span>
+}</pre>
+          <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
+    "value": { "type": "NodeConstraint", "datatype": "http://www.w3.org/2001/XMLSchema#float",
+               <span class="value-constraint new">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
+
+          <p>
+            These <code>numeric facets</code> apply only to numeric RDF literals: <code class="value-constraint">MinInclusive</code>, <code class="value-constraint">MinExclusive</code>, <code class="value-constraint">MaxInclusive</code>, <code class="value-constraint">MaxExclusive</code>, <code class="value-constraint">TotalDigits</code>, <code class="value-constraint">FractionDigits</code>.
+            These <code>string facets</code> apply only to all RDF literals: <code class="value-constraint">Length</code>, <code class="value-constraint">MinLength</code>, <code class="value-constraint">MaxLength</code>, <code class="value-constraint">Pattern</code>.
+            Facets names are not case-sensitive in ShExC.
+          </p>
+          </li>
+          <li id="vocab-node-kind"><code>node kind</code>: identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
+          <pre class="schema shexc shh">my:UserShape {
+  foaf:mbox <span class="value-constraint new">IRI</span>
+}</pre>
+          <pre class="schema json shh">{ "my:UserShape": { "type": "Shape",
+  "expression": {
+    "type": "TripleConstraint", "predicate": "foaf:mbox",
+    "value": { "type": "NodeConstraint", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
+          <p>
+            The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
+            The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
+            Node kinds are not case-sensitive in ShExC.
+          </p>
+          </li>
+          <li id="vocab-value-set"><code>value set</code>: enumerates specific expected values, e.g.
+          <pre class="schema shexc shh">my:IssueShape {
+  ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
+}</pre>
+          <pre class="schema json shh">
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+          <p>
+            See the <a href="#value-sets">Value Sets description below</a> for details.
+          </p>
+          </li>
+          <li id="vocab-value-Shape"><code id="value-shape">value shape</code>: asserts that the object is described by another shape, e.g.
+          <pre class="schema shexc shh">my:IssueShape {
+  ex:reportedBy <span class="value-constraint new">@my:UserShape</span>
+}</pre>
+          <pre class="schema json">{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
+      "value": { "type": "ShapeRef", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
+          </li>
+        </ul>
+      </section>
+
           <section id="associating-nodes-with-shapes">
             <h3>Associating Nodes with Shapes</h3>
             <p>
@@ -1531,8 +1531,6 @@ inst:Don ex:hasShoeSize 14 .
               </li>
             </ul>
           </section>
-
-      </section>
 
       <section id="tripleConstraints">
         <h2>Constraining Triples</h2>
