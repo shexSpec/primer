@@ -94,7 +94,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           We use the word "constraint" to refer to the rules in the schema which allow one to test if some instance data is acceptable.
         </p>
         <p>
-          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual RDF nodes:
+          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data:
         </p>
         <div id="example-shoeSize" class="example wrapper">
           <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
@@ -103,7 +103,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">ex:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
         </div>
         <p>
-          and <span class="new">triple constraints</span> which constrain the triples that have a given node as a subject or object:
+          and <span class="new">triple constraints</span> which constrain the triples that have a given RDF data node as a subject or object:
         </p>
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot">
