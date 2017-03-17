@@ -66,7 +66,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     <section id="quickStart">
       <h2>Quick Start</h2>
       <p>
-        This quick introduction to Shape Expressions can be viewed as a separate document or included in a primer which introduces ShEx features in more depth. <button id="standalone" disabled="disabled">view Quick Start as separate document</button>.
+        This quick introduction can be viewed as a separate document or as part of the full primer. <button id="standalone" disabled="disabled">view Quick Start as separate document</button>
       </p>
       <script type="text/javascript">
         var text_standAlone = "view Quick Start as separate document";
@@ -94,7 +94,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           We use the word "constraint" to refer to the rules in the schema which allow one to test if some instance data is acceptable.
         </p>
         <p>
-          ShEx schemas are composed of <code>node constraints</code>, which constrain individual RDF nodes:
+          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual RDF nodes:
         </p>
         <div id="example-shoeSize" class="example wrapper">
           <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
@@ -103,7 +103,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">ex:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
         </div>
         <p>
-          and <code>triple constraints</code> which constrain the triples that have a given node as a subject or object:
+          and <span class="new">triple constraints</span> which constrain the triples that have a given node as a subject or object:
         </p>
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot">
@@ -286,14 +286,14 @@ inst:Don ex:hasShoeSize 14 .
 
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
-          <dt id="vocab-shape-expression">shape expression</dt><dd>Shapes and node constraints, possibly combined with AND, OR and NOT expressions.</dd>
-          <dt id="vocab-shape">shape</dt><dd>Constraints on the triples which have the focus node as the subject or object.</dd>
-          <dt id="vocab-triple-expression">triple expression</dt><dd>Combinations of triple constraints, including groups and choices.</dd>
-          <dt id="vocab-triple-constraint">triple constraint</dt><dd>Property constraints applied to triple with the focus node as the subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
-          <dt id="vocab-node-constraint">node constraint</dt><dd>Constraints on RDF terms which are applied to the focus node.</dd>
-          <dt id="vocab-focus-node">focus node</dt><dd>Node being examined during validation.</dd>
-          <dt id="vocab-constraint">constraint</dt><dd>A restriction on the permissible nodes or triples.</dd>
-          <dt id="vocab-shapeMap">shape map</dt><dd>A set of pairs of RDF node and ShEx shape, used for invoking validation and reporting results.</dd>
+          <dt id="vocab-shape-expression">shape expression</dt><dd>A collection of shapes and of node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
+          <dt id="vocab-shape">shape</dt><dd>A collection of constraints on the triples which have the focus node as the subject or object.</dd>
+          <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints, to be taken as a group or as choices.</dd>
+          <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint on the predicate of a triple with the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
+          <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
+          <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
+          <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
+          <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
         </dl>
 
         <p>
