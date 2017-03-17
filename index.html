@@ -57,7 +57,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         ShEx shapes can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
       </p>
       <p>
-        This document introduces ShEx to people familiar with basic concepts of RDF and SPARQL.
+        This document introduces ShEx to people familiar with basic concepts of RDF[[rdf11-concepts]].
         This primer develops examples from an issue tracking application to introduce all major features of ShEx, including the construction of shapes and their correspondence with RDF graphs.
         This primer is a companion to the <a href="../spec/">language specification</a> that serves as a language reference and full specification.
       </p>    
@@ -360,6 +360,16 @@ inst:Don ex:hasShoeSize 14 .
   "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
       "value": { "type": "ShapeRef", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
           </dd>
+        </dl>
+
+        <p>
+          ShEx can be expressed in three interchangeable syntaxes:
+        </p>
+
+        <dl>
+          <dt id="vocab-ShExC">ShExC</dt><dd>A <span class="lookit">c</span>ompact syntax meant for human eyes and fingers.</dd>
+          <dt id="vocab-ShExJ">ShExJ</dt><dd>A JSON-LD[[json-ld]] representation meant for machine construction and manipulation.</dd>
+          <dt id="vocab-ShExR">ShExR</dt><dd>The RDF interpretationof ShExJ expressed in Turtle[[turtle]].</dd>
         </dl>
 
       </section>
@@ -1536,10 +1546,6 @@ inst:Don ex:hasShoeSize 14 .
             The rest of this document shows shapes which describe the issue data consumable by some application, including the submitter and the person to which the issue is assigned.
             Examples include data, both conforming and not.
             <!-- Some mechanisms by which the instance data may be associated with, or validated against the a shape are descibed later in <a href="#associations">Associating Data with Shapes</a>. -->
-          </p>
-          <p>
-            The example snippets in this document use ShExC and JSON [[json-ld]] notation.
-            The reader should be familiar with basic RDF concepts [[rdf11-concepts]] such as triples and JSON [[json]].
           </p>
 
       <section id="tripleConstraints">
