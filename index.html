@@ -94,7 +94,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           We use the word "constraint" to refer to the rules in the schema which allow one to test if some instance data is acceptable.
         </p>
         <p>
-          ShEx schemas are composed of <code>NodeConstraints</code>, which constrain individual RDF nodes:
+          ShEx schemas are composed of <code>node constraints</code>, which constrain individual RDF nodes:
         </p>
         <div id="example-shoeSize" class="example wrapper">
           <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
@@ -103,7 +103,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">ex:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
         </div>
         <p>
-          and <code>TripleConstraints</code> which constrain the triples that have a given node as a subject or object:
+          and <code>triple constraints</code> which constrain the triples that have a given node as a subject or object:
         </p>
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot">
@@ -114,7 +114,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</pre>
         </div>
         <p>
-          The above TripleConstraint specifies that, in order for a node to match <code>ex:Human</code>, it must have exactly two <span class="predicate">ex:hasBiologicalParent</span> properties.
+          The above triple constraint specifies that, in order for a node to match <code>ex:Human</code>, it must have exactly two <span class="predicate">ex:hasBiologicalParent</span> properties.
           The "<span class="keyword">.</span>" indicates that the value of these properties is not constrained.
           For example, both <span class="function-name">inst:User1</span> and <span class="function-name">inst:User2</span> in the following data would be accepted:
         </p>
@@ -147,7 +147,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
         <div id="quickstart-example-1" class="example wrapper">
           <p>
-            Frequently, TripleConstraints do constrain the value of a property, as in this shape which says that a human must also have a hasShoeSize property with a sensible value for shoeSize:
+            Frequently, triple constraints do constrain the value of a property, as in this shape which says that a human must also have a hasShoeSize property with a sensible value for shoeSize:
           </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->

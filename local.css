@@ -143,3 +143,26 @@ a.ref:visited { color: #a00550; font-family: monospace; }
       .fail { background-color: #fcc; }
 
       .qualifier { font-weight: normal; display:none; }
+
+pre.schema.shexc:before {
+    content: "Schema (ShExC)";
+    width: 8em;
+}
+pre.schema.shexj:before {
+    content: "Schema (ShExJ)";
+    width: 8em;
+}
+pre.instance.turtle:before {
+    content: "Data (Turtle)";
+    width: 6em;
+}
+pre.schema:before, pre.instance:before {
+    color: #888;
+    font-size: .6em;
+    border: 1px solid #bbb;
+    background: white;
+    display: block;
+    font-family: sans-serif;
+    margin: -1em 0 0.4em -1em;
+    padding: 0.2em 1em;
+}
