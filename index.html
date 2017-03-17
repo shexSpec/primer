@@ -158,7 +158,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" id="ShoeSize1" style="float:left;"><span class="comment"># schema (ShExC)</span>
+          <pre class="schema shexc" id="school-Enrollee1" style="float:left;"><span class="comment"># schema (ShExC)</span>
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 PREFIX school: &lt;http://school.example/#&gt;
@@ -182,7 +182,7 @@ inst:Alice foaf:age 13 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person2, inst:Person3 .
 inst:Bob foaf:age 15 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person4 .
-<a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></pre>
+<a class="tryit" href="#school-Enrollee1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></pre>
 
             <pre class="instance turtle fail tryable">
 PREFIX ex: &lt;http://ex.example/#&gt;
@@ -190,10 +190,10 @@ PREFIX inst: &lt;http://example.com/users/&gt;
 PREFIX school: &lt;http://school.example/#&gt;
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
-inst:Claire ex:shoeSize 12 ;
+inst:Claire foaf:age 12 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person5 .
 inst:Don foaf:age 14 .
-<a class="tryit" href="#ShoeSize1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></pre>
+<a class="tryit" href="#school-Enrollee1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></pre>
           </div>
           <div style="clear:both;"></div>
           </div>
@@ -297,7 +297,7 @@ inst:Don foaf:age 14 .
 
         <p>
           When a node constraint is used in a triple constraint, it as called a <span class="new">value constraint</span> as it constrains the allowable values for triples matching the triple constraint.
-          Node constraints can also be tested directly against the focus node à la the <a href="#example-shoeSize">first example in QuickStart</a>:
+          Node constraints can also be tested directly against the focus node à la the <a href="#example-school-enrolleeAge">first example in QuickStart</a>:
         </p>
         <pre class="schema shexc table"><span class="shape-name">foaf:age</span> xsd:integer MinValue 3 MaxValue 20</pre>
         <p>
