@@ -110,40 +110,40 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 
 <span class="shape-name">school:Enrollee</span> {
-  <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="keyword">.</span> {2}
+  <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="keyword">IRI</span> {2}
 }</pre>
         </div>
         <p>
           The above triple constraint specifies that, in order for a node to match <span class="shape-name">school:Enrollee</span>, it must have exactly two <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> properties.
-          The "<span class="keyword">.</span>" indicates that the value of these properties is not constrained.
+          The "<span class="keyword">IRI</span>" indicates that the value of these properties must be an RDF IRI.
           For example, each of <span class="function-name">inst:User1</span>, <span class="function-name">inst:User2</span> and <span class="function-name">inst:User3</span> in the following data would be accepted:
         </p>
         <div id="quickstart-example-1" class="example wrapper">
 
           <!-- JSON example -->
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User1@school:Enrollee,inst:User2@school:Enrollee,inst:User3@school:Enrollee">try it</a></span>
+          <pre class="instance turtle pass">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:User1</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [ <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Alice"</span> ],  <span class="function-name">inst:Person3</span> .
-<span class="function-name">inst:Person3</span> <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Bob"</span> .
-<span class="function-name">inst:User2</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="string">7</span>, <span class="string">"Bob"</span> .
-<span class="function-name">inst:User3</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [], [] .</pre>
+<span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .</pre>
+
+            <p style="float:right; margin-left:-2em; z-index: 100; margin-top:.5ex;"><a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student1@school:Enrollee,inst:Student2@school:Enrollee,inst:Student3@school:Enrollee">try it</a></p>
           </div>
           <div style="clear:both;"></div>
           <p>
             While this shape is quite lax about the object of the <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> arc, it does require that there be exactly two:
           </p>
-          <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User4@school:Enrollee,inst:User5@school:Enrollee,inst:User6@school:Enrollee">try it</a></span>
+          <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student4@school:Enrollee,inst:Student5@school:Enrollee,inst:Student6@school:Enrollee">try it</a></span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:User4</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person3</span>,  <span class="function-name">inst:Person3</span> .
-<span class="function-name">inst:Person3</span> <span class="type">ex:</span><span class="constant">name</span> <span class="string">"Bob"</span> .
-<span class="function-name">inst:User5</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> [].
-<span class="function-name">inst:User6</span> <span class="type">ex:</span><span class="constant">hasAdministrativeParent</span> [], [] .</pre>
+<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person4</span> .
+<span class="function-name">inst:Student4</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person5</span> .</pre>
         </div>
+        <p>
+          (Note that, when parsed, the last statement asserts only one <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> because <span class="function-name">inst:Person5</span> and <span class="function-name">inst:Person5</span> are the same RDF term.)
+        </p>
 
         <div id="quickstart-example-1" class="example wrapper">
           <p>
@@ -163,7 +163,7 @@ PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 <span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-            <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></span>
+            <pre class="instance turtle pass"><span class="comment"># passing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></span>
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX inst: &lt;http://example.com/users/&gt;
 
@@ -1607,7 +1607,7 @@ inst:Don foaf:age 14 .
             The node <span id="inst:User1-1" class="function-name">inst:User1</span> in the following graph conforms to this simple shape:
           </p>
 
-          <pre class="instance turtle"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span id="inst:User1-1" class="function-name">inst:User1</span>
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^xsd:string</span></span> .</pre>
 
@@ -1624,7 +1624,7 @@ inst:Don foaf:age 14 .
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .</pre>
 
           <p>Note that in Turtle (and other RDF representations), literals expressed with no datatype are interpreted as being of type <code cass="string">xsd:string</code> so the following is also valid data:</p>
-          <pre class="instance turtle"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="function-name">inst:User1</span>
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"</span></span> .</pre>
           </div>
@@ -1732,7 +1732,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
 </span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">
@@ -1844,7 +1844,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> .
@@ -2200,7 +2200,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="function-name">inst:User1</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Alice Walker"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:awalker@example.org&gt;</span><span class="keyword"></span></span> .
@@ -2307,7 +2307,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
               <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
@@ -2348,7 +2348,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
               <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
@@ -2382,7 +2382,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
               <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
@@ -2471,7 +2471,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-            <pre class="instance turtle"><span class="comment"># passing data</span>
+            <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .
 
@@ -2503,7 +2503,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <p style="margin-bottom: 0;">
               Note that the passing data contains the triple:
             </p>
-            <pre class="instance turtle" style="margin: 0 1em;"><span class="reportedIssue lowlight1 top bot new" style="background-color: #fcfaee;"><span class="function-name">inst:User2</span> ex:reportedIssue <span class="function-name">inst:Issue1</span></span></pre>
+            <pre class="instance turtle pass" style="margin: 0 1em;"><span class="reportedIssue lowlight1 top bot new" style="background-color: #fcfaee;"><span class="function-name">inst:User2</span> ex:reportedIssue <span class="function-name">inst:Issue1</span></span></pre>
             <p style="margin: 0;">
               while the failing data contains the triple:
             </p>
@@ -2582,7 +2582,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
 }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-            <pre class="instance turtle"><span class="comment"># passing and failing data</span>
+            <pre class="instance turtle pass"><span class="comment"># passing and failing data</span>
 <span class="function-name">inst:Issue4</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .
 
@@ -2632,7 +2632,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 TODO</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing and failing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing and failing data</span>
 <span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;
     <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> .
@@ -2719,7 +2719,7 @@ prepareHighlight(["hilight-component", "hilight-invComponent", "hilight-Issue2-b
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">foaf:</span><span class="constant">knows</span> <span class="function-name">inst:User2</span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
@@ -2833,7 +2833,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle" style="float:left;"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass" style="float:left;"><span class="comment"># passing data</span>
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">foaf:</span><span class="constant">knows</span> <span class="function-name">inst:User2</span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="errorSite">a foaf:Person</span> ;
@@ -2941,7 +2941,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle" style="float:left;"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass" style="float:left;"><span class="comment"># passing data</span>
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span>, <span class="type">ex:</span><span class="constant">Employee</span>, <span class="type">ex:</span><span class="constant">Manager</span>.</pre>
           </div>
       </div>
@@ -3008,7 +3008,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> ;
@@ -3119,7 +3119,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo", "hilight-employe
 }</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
-              <pre class="instance turtle"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-tester lowlight2 top bot"><span class="type">inst:</span><span class="constant">Tester2</span></span> ;
@@ -3202,7 +3202,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               </p>
               <div style="float:left; max-width: 32%">
                 <p>One individual acting as both tester and programmer.</p>
-              <pre class="instance turtle">
+              <pre class="instance turtle pass">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-testgrammer lowlight2 top bot"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> .
@@ -3229,7 +3229,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
                 <p>
                   One individual acts can be both a tester and a programmer, another is only a tester.
                 </p>
-              <pre class="instance turtle"><span class="comment"># one tester and one combination </span>
+              <pre class="instance turtle pass"><span class="comment"># one tester and one combination </span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="type">inst:</span><span class="constant">Tester2</span> ;
@@ -3267,7 +3267,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
                 <p>
                   Two individuals can act as both a tester and a programmer.
                 </p>
-              <pre class="instance turtle"><span class="comment"># two combinations</span>
+              <pre class="instance turtle pass"><span class="comment"># two combinations</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> ;
@@ -3393,7 +3393,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass"><span class="comment"># passing data</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
 </span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">

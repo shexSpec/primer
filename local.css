@@ -152,12 +152,16 @@ pre.schema.shexj:before {
     content: "Schema (ShExJ)";
     width: 8em;
 }
-pre.instance.turtle:before {
-    content: "Data (Turtle)";
-    width: 6em;
+pre.instance.turtle.pass:before {
+    content: "Passing Data (Turtle)";
+    width: 10em;
+}
+pre.instance.turtle.fail:before {
+    content: "Failing Data (Turtle)";
+    width: 10em;
 }
 pre.schema:before, pre.instance:before {
-    color: #888;
+    color: #333;
     font-size: .6em;
     border: 1px solid #bbb;
     background: white;
