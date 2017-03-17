@@ -180,7 +180,7 @@ PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
 inst:Alice foaf:age 13 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person2, inst:Person3 .
-inst:Bob foaf:age 15 ,
+inst:Bob foaf:age 15 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person4 .
 <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></pre>
 
@@ -220,8 +220,8 @@ inst:Don foaf:age 14 .
           $(".tryit").map((idx, elt) => {
             var e = $(elt);
             var schema = $(e.attr("href")).text().replace(/^#.*?\n/, "");
-            var data = $(elt).parent().parent().text();
-            data = data.replace(/^\n +/, "").replace(/ *\n?try it\n */g, "");
+            var data = $(elt).parent().text();
+            data = data.replace(/^\n +/, "").replace(/ *\n?try it\n? */g, "");
             e.attr("href", "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?" + [
               "interface=simple",
               "schema=" + encodeURIComponent(schema),
