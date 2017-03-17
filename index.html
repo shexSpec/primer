@@ -94,6 +94,13 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           We use the word "constraint" to refer to the rules in the schema which allow one to test if some instance data is acceptable.
         </p>
         <p>
+          Picture some RDF data about enrollees in a school.  The data managers
+          might want to ensure that the data includes, for each student, one or
+          two guardians, each of which has an assigned URI, which allows data
+          about the children associated with a given guardian to be merged.  In
+          addition, each student must have an age between 14 and 20.
+        </p>
+        <p>
           ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data:
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
