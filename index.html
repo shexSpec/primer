@@ -228,7 +228,7 @@ inst:Don foaf:age 14 .
             <li>A portable JSON-LD structure which expresses the same description.</li>
             <li>Constraints on the number and object type of arcs with a specified predicate.</li>
             <li>Value sets and simple set operations on lists of RDF terms.</li>
-            <li>XML Schema facet constraints on RDF nodes.</li>
+            <li>XML Schema facet constraints on RDF data nodes.</li>
             <li>Logical algebraic combinations of constraints on nodes and triples.</li>
             <li>Semantic actions for additional validation expressivity or other purposes.</li>
           </ul>
@@ -269,7 +269,7 @@ inst:Don foaf:age 14 .
         <h2>Terminology</h2>
 
         <p>
-          In the <a href="#simple-expressions-example-1">last example</a>, we tested the RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape.
+          In the <a href="#simple-expressions-example-1">last example</a>, we tested the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape.
           We treated each one in turn as a <span class="new">focus node</span> and tested the triples involving that node against a <span class="new">triple constraint</span> in the shape.
           This triple constraint had a single <span class="new">node constraint</span>; a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
           In this process, we were identifying a set of permissible graphs by applying a set of <span class="new">constraints</span> to the (infinite) set of possible RDF graphs.
@@ -327,7 +327,7 @@ inst:Don foaf:age 14 .
             Facets names are not case-sensitive in the ShExC syntax.
           </p>
           </dd>
-          <dt id="vocab-node-kind" class="new"><span class="qualifier">[node constraint]</span> node kind</dt> <dd>Identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
+          <dt id="vocab-node-kind" class="new"><span class="qualifier">[node constraint]</span> node kind</dt> <dd>Identifies the kind of RDF data node (IRI, RDF literal, or Blank Node), e.g.
           <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
   foaf:mbox <span class="value-constraint new">IRI</span>
 }</pre>
@@ -336,7 +336,7 @@ inst:Don foaf:age 14 .
     "type": "TripleConstraint", "predicate": "foaf:mbox",
     "value": { "type": "NodeConstraint", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
           <p>
-            The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
+            The following node kinds correspond to RDF data node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
             The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
             Node kinds are not case-sensitive in the ShExC syntax.
           </p>
@@ -1786,7 +1786,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   ex:reportedBy @my:UserShape <span class="keyword">*</span>
 }</pre>
       <p>
-        Because the minimum number of triples is zero, any RDF node will match this shape.
+        Because the minimum number of triples is zero, any RDF data node will match this shape.
       </p>
     </section>
 
