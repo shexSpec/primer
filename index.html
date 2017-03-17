@@ -96,33 +96,33 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual RDF nodes:
         </p>
-        <div id="example-shoeSize" class="example wrapper">
-          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+        <div id="example-school-enrolleeAge" class="example wrapper">
+          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 
-<span class="shape-name">ex:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
+<span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
         </div>
         <p>
           and <span class="new">triple constraints</span> which constrain the triples that have a given node as a subject or object:
         </p>
         <div class="example wrapper">
-          <pre class="schema shexc" id="BioParent2Dot">
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+          <pre class="schema shexc" id="BioParent2Dot"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 
-<span class="shape-name">ex:Human</span> {
-  <span class="predicate">ex:hasBiologicalParent</span> <span class="keyword">.</span> {2}
+<span class="shape-name">school:Enrollee</span> {
+  <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="keyword">.</span> {2}
 }</pre>
         </div>
         <p>
-          The above triple constraint specifies that, in order for a node to match <code>ex:Human</code>, it must have exactly two <span class="predicate">ex:hasBiologicalParent</span> properties.
+          The above triple constraint specifies that, in order for a node to match <span class="shape-name">school:Enrollee</span>, it must have exactly two <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> properties.
           The "<span class="keyword">.</span>" indicates that the value of these properties is not constrained.
-          For example, both <span class="function-name">inst:User1</span> and <span class="function-name">inst:User2</span> in the following data would be accepted:
+          For example, each of <span class="function-name">inst:User1</span>, <span class="function-name">inst:User2</span> and <span class="function-name">inst:User3</span> in the following data would be accepted:
         </p>
         <div id="quickstart-example-1" class="example wrapper">
 
           <!-- JSON example -->
           <div style="float:left;">
-          <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User1@ex:Human,inst:User2@ex:Human,inst:User3@ex:Human">try it</a></span>
+          <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User1@school:Enrollee,inst:User2@school:Enrollee,inst:User3@school:Enrollee">try it</a></span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
@@ -135,7 +135,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <p>
             While this shape is quite lax about the object of the <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> arc, it does require that there be exactly two:
           </p>
-          <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User4@ex:Human,inst:User5@ex:Human,inst:User6@ex:Human">try it</a></span>
+          <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:User4@school:Enrollee,inst:User5@school:Enrollee,inst:User6@school:Enrollee">try it</a></span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
@@ -147,7 +147,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
         <div id="quickstart-example-1" class="example wrapper">
           <p>
-            Frequently, triple constraints do constrain the value of a property, as in this shape which says that a human must also have a <span class="predicate">ex:hasShoeSize</span> property with a sensible value for shoeSize:
+            Frequently, triple constraints do constrain the value of a property, as in this shape which says that an Enrollee must also have a <span class="type">foaf:</span><span class="constant">age</span> property with a value between 13 and 20 and have two <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> properties with values which are IRIs:
           </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
@@ -155,26 +155,27 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 
-ex:Human {
-  ex:hasShoeSize @ex:ShoeSize
+<span class="shape-name">school:Enrollee</span> {
+  foaf:age @<span class="shape-name">school:enrolleeAge</span> ;
+  <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="keyword">IRI</span> {2}
 }
 
-ex:ShoeSize xsd:integer MinInclusive 3 MaxInclusive 13</pre>
+<span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-            <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@ex:Human,inst:Bob@ex:Human">try it</a></span>
+            <pre class="instance turtle"><span class="comment"># passing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></span>
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX inst: &lt;http://example.com/users/&gt;
 
-inst:Alice ex:hasShoeSize 8 .
-inst:Bob ex:hasShoeSize 13 .
+inst:Alice foaf:age 8 .
+inst:Bob foaf:age 13 .
 </pre>
-            <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Claire@ex:Human,inst:Don@ex:Human">try it</a></span>
+            <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></span>
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX inst: &lt;http://example.com/users/&gt;
 
 inst:Claire ex:shoeSize 9 .
-inst:Don ex:hasShoeSize 14 .
+inst:Don foaf:age 14 .
 </pre>
           </div>
           <div style="clear:both;"></div>
@@ -184,15 +185,15 @@ inst:Don ex:hasShoeSize 14 .
 
         <p>
           While ShEx implementations may provide further information, the minimum validation result includes the results of validating any node/shape pair.
-          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape:
+          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape:
 
         </p>
         <table class="example results">
           <tbody><tr><th class="schema">shape</th><th class="data">node</th><th>result</th><th>reason</th></tr>
-          <tr class="pass"><td>&lt;ex:Human&gt;</td><td>&lt;inst:Alice&gt;</td><td>pass</td><td class="noreason"></td></tr>
-          <tr class="pass"><td>&lt;ex:Human&gt;</td><td>&lt;inst:Bob&gt;</td><td>pass</td><td class="noreason"></td></tr>
-          <tr class="fail"><td>&lt;ex:Human&gt;</td><td>&lt;inst:Claire&gt;</td><td>fail</td><td class="fail">No <code>ex:hasShoeSize</code> supplied.</td></tr>
-          <tr class="fail"><td>&lt;ex:Human&gt;</td><td>&lt;inst:Don&gt;</td><td>fail</td><td class="fail"><code>ex:hasShoeSize</code> 14 greater than 13.</td></tr>
+          <tr class="pass"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Alice&gt;</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="pass"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Bob&gt;</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="fail"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Claire&gt;</td><td>fail</td><td class="fail">No <code>foaf:age</code> supplied.</td></tr>
+          <tr class="fail"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Don&gt;</td><td>fail</td><td class="fail"><code>foaf:age</code> 14 greater than 13.</td></tr>
         </tbody></table>
     </section>
     <script type="text/javascript">
@@ -268,7 +269,7 @@ inst:Don ex:hasShoeSize 14 .
         <h2>Terminology</h2>
 
         <p>
-          In the <a href="#simple-expressions-example-1">last example</a>, we tested the RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">ex:Human</a> shape.
+          In the <a href="#simple-expressions-example-1">last example</a>, we tested the RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape.
           We treated each one in turn as a <span class="new">focus node</span> and tested the triples involving that node against a <span class="new">triple constraint</span> in the shape.
           This triple constraint had a single <span class="new">node constraint</span>; a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
           In this process, we were identifying a set of permissible graphs by applying a set of <span class="new">constraints</span> to the (infinite) set of possible RDF graphs.
@@ -278,7 +279,7 @@ inst:Don ex:hasShoeSize 14 .
           When a node constraint is used in a triple constraint, it as called a <span class="new">value constraint</span> as it constrains the allowable values for triples matching the triple constraint.
           Node constraints can also be tested directly against the focus node à la the <a href="#example-shoeSize">first example in QuickStart</a>:
         </p>
-        <pre class="schema shexc table"><span class="shape-name">ex:ShoeSize</span> xsd:integer MinValue 3 MaxValue 20</pre>
+        <pre class="schema shexc table"><span class="shape-name">foaf:age</span> xsd:integer MinValue 3 MaxValue 20</pre>
         <p>
           or used in conjunction with a shape:
         </p>
