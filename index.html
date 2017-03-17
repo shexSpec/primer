@@ -93,7 +93,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           conformance test result that reports any detected mismatches.  
         </p>
         <p>
-          Consider the old joke that to sculpt an elephant, simply take a block of
+          Consider the old joke about how to sculpt an elephant: simply take a block of
           marble and chip away everything that doesn't look like an elephant.
           The simplest possible ShEx schema, "<S> {}", which matches all
           possible RDF graphs, is like the block of marble.  Just
@@ -253,7 +253,7 @@ inst:Don foaf:age 14 .
         <h2>ShEx Model and Terminology</h2>
 
       <section id="validation">
-          <h2>Validating RDF Data</h2>
+          <h2>Testing RDF Data for Conformance</h2>
           <p>
             Most applications that share data do so using prescribed data structures.
             While RDFS and OWL enable one to make assertions about the objects in some domain, ShEx describes data structures.
@@ -303,12 +303,54 @@ inst:Don foaf:age 14 .
 
       <section id="vocabulary">
         <h2>Terminology</h2>
-
         <p>
-          In the <a href="#simple-expressions-example-1">last example</a>, we tested the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape.
-          We treated each one in turn as a <span class="new">focus node</span> and tested the triples involving that node against a <span class="new">triple constraint</span> in the shape.
-          This triple constraint had a single <span class="new">node constraint</span>; a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
-          In this process, we were identifying a set of permissible graphs by applying a set of <span class="new">constraints</span> to the (infinite) set of possible RDF graphs.
+          In the Shape Expressions model, RDF data is seen from the standpoint of
+          its structural components, or abstract syntax.  An <span
+          class="new">RDF graph</span> is a collection of triples.  A <span
+          class="new">triple</span> is a data structure composed of three RDF terms. An
+          <span class="new">RDF term</span> may be an <span class="new">IRI</span>, <span
+          class="new">blank node (BNode)</span>, or <span class="new">literal</span>.  In
+          a triple, RDF terms are arranged in a fixed order, or <span
+          class="new">directed arc</span>, from <span class="new">subject</span> to <span
+          class="new">predicate</span> to <span class="new">object</span>.  From the
+          standpoint of ShEx, a triple may be seen as having an <span
+          class="new">outgoing arc</span> from a subject or an <span class="new">incoming
+          arc</span> to an object.  RDF data may be serialized in any of several
+          interchangeable concrete syntaxes designed for a variety of application
+          requirements.  Readers unfamiliar with any of these terms may want to consult
+          an introduction to RDF before continuing with the rest of this primer.@@@cite
+          A deeper discussion of the relationship between ShEx and RDF may be found 
+          in section 4.@@@
+        </p>
+        <p>
+          The ShEx language defines terms with reference to the abstract-syntactic
+          components of an RDF graph.  A <span class="new">ShEx Schema</span>, the
+          counterpart of an RDF Graph, is a collection of <span class="new">shape
+          expressions</span>.  A shape expression is a logical combination of <span
+          class="new">node constraints</span> and <span class="new">shapes</span>.  A
+          ShEx shape describes a collection of RDF triples touching a given RDF node,
+          where the characteristics of matching RDF nodes are defined by ShEx node
+          constraints and the characteristics of matching RDF triples are defined by ShEx
+          triple constraints.  A ShEx triple constraint specifies a matching RDF triple
+          in terms of its predicate, its direction (whether it is an incoming or outgoing
+          arc with respect to a node), a cardinality (how many triples should match), or
+          its value (the object node).
+        </p>
+        <p>
+          The <a href="#simple-expressions-example-1">example above</a> tested
+          the RDF data nodes <span class="function-name">inst:Alice</span>,
+          <span class="function-name">inst:Bob</span>, <span
+          class="function-name">inst:Claire</span> and <span
+          class="function-name">inst:Don</span> against a simple ShEx shape named <a
+          href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.  Within the shape, each of these
+          RDF data nodes was treated, in turn, as a ShEx <span class="new">focus node</span>.
+          Triples involving that node were tested against a ShEx <span class="new">triple
+          constraint</span>.  This triple constraint had a single <span
+          class="new">node constraint</span>: a <span class="new">literal
+          datatype</span> constraint asserting that the object of a matching triple was
+          of type <code class="string">xsd:string</code>.  In this process, we were
+          identifying a set of permissible graphs by applying a set of <span
+          class="new">constraints</span> to the (infinite) set of possible RDF graphs.
         </p>
 
         <p>
