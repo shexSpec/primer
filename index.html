@@ -117,11 +117,11 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 
 <span class="shape-name">school:Enrollee</span> {
-  <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="keyword">IRI</span> {2}
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }</pre>
         </div>
         <p>
-          The above triple constraint specifies that, in order for a node to match <span class="shape-name">school:Enrollee</span>, it must have exactly two <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> properties.
+          The above triple constraint specifies that, in order for a node to match <span class="shape-name">school:Enrollee</span>, it must have exactly two <span class="type">ex:</span><span class="constant">hasGuardian</span> properties.
           The "<span class="keyword">IRI</span>" indicates that the value of these properties must be an RDF IRI.
           For example, each of <span class="function-name">inst:User1</span>, <span class="function-name">inst:User2</span> and <span class="function-name">inst:User3</span> in the following data would be accepted:
         </p>
@@ -129,61 +129,71 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
           <!-- JSON example -->
           <div style="float:left;">
-          <pre class="instance turtle pass">
+          <pre class="instance turtle pass tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .</pre>
-
-            <p style="float:right; margin-left:-2em; z-index: 100; margin-top:.5ex;"><a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student1@school:Enrollee,inst:Student2@school:Enrollee,inst:Student3@school:Enrollee">try it</a></p>
+<span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .<a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student1@school:Enrollee">try it</a></pre>
           </div>
           <div style="clear:both;"></div>
           <p>
-            While this shape is quite lax about the object of the <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> arc, it does require that there be exactly two:
+            While this shape is quite lax about the object of the <span class="type">ex:</span><span class="constant">hasGuardian</span> arc, it does require that there be exactly two:
           </p>
-          <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student4@school:Enrollee,inst:Student5@school:Enrollee,inst:Student6@school:Enrollee">try it</a></span>
+          <div style="float:left;">
+          <pre class="instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person4</span> .
-<span class="function-name">inst:Student4</span> <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person5</span> .</pre>
+<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person4</span> .
+<span class="function-name">inst:Student4</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person5</span> .<a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a></pre>
+          </div>
         </div>
         <p>
-          (Note that, when parsed, the last statement asserts only one <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> because <span class="function-name">inst:Person5</span> and <span class="function-name">inst:Person5</span> are the same RDF term.)
+          (Note that, when parsed, the last statement asserts only one <span class="type">ex:</span><span class="constant">hasGuardian</span> because <span class="function-name">inst:Person5</span> and <span class="function-name">inst:Person5</span> are the same RDF term so both <span class="function-name">inst:Student2</span> and <span class="function-name">inst:Student4</span> are missing a parent.)
         </p>
 
         <div id="quickstart-example-1" class="example wrapper">
           <p>
-            Frequently, triple constraints do constrain the value of a property, as in this shape which says that an Enrollee must also have a <span class="type">foaf:</span><span class="constant">age</span> property with a value between 13 and 20 and have two <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> properties with values which are IRIs:
+            Frequently, triple constraints do constrain the value of a property, as in this shape which says that an Enrollee must also have a <span class="type">foaf:</span><span class="constant">age</span> property with a value between 13 and 20 and have two <span class="type">ex:</span><span class="constant">hasGuardian</span> properties with values which are IRIs:
           </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
           <pre class="schema shexc" id="ShoeSize1" style="float:left;"><span class="comment"># schema (ShExC)</span>
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX school: &lt;http://school.example/#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
 <span class="shape-name">school:Enrollee</span> {
   foaf:age @<span class="shape-name">school:enrolleeAge</span> ;
-  <span class="type">ex:</span><span class="constant">hasBiologicalParent</span> <span class="keyword">IRI</span> {2}
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
 
 <span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-            <pre class="instance turtle pass"><span class="comment"># passing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></span>
+            <pre class="instance turtle pass tryable">
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX inst: &lt;http://example.com/users/&gt;
+PREFIX school: &lt;http://school.example/#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
-inst:Alice foaf:age 8 .
-inst:Bob foaf:age 13 .
-</pre>
-            <pre class="instance turtle fail"><span class="comment"># failing data — <a class="tryit" href="#ShoeSize1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></span>
+inst:Alice foaf:age 13 ;
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person2, inst:Person3 .
+inst:Bob foaf:age 15 ,
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person4 .
+<a class="tryit" href="#ShoeSize1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></pre>
+
+            <pre class="instance turtle fail tryable">
 PREFIX ex: &lt;http://ex.example/#&gt;
 PREFIX inst: &lt;http://example.com/users/&gt;
+PREFIX school: &lt;http://school.example/#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
-inst:Claire ex:shoeSize 9 .
+inst:Claire ex:shoeSize 12 ;
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person5 .
 inst:Don foaf:age 14 .
-</pre>
+<a class="tryit" href="#ShoeSize1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></pre>
           </div>
           <div style="clear:both;"></div>
           </div>
@@ -209,12 +219,15 @@ inst:Don foaf:age 14 .
         function tryitURLs () {
           $(".tryit").map((idx, elt) => {
             var e = $(elt);
+            var schema = $(e.attr("href")).text().replace(/^#.*?\n/, "");
+            var data = $(elt).parent().parent().text();
+            data = data.replace(/^\n +/, "").replace(/ *\n?try it\n */g, "");
             e.attr("href", "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?" + [
               "interface=simple",
-              "schema=" + encodeURIComponent($(e.attr("href")).text().replace(/^#.*?\n/, "")),
-              "data=" + encodeURIComponent($(elt).parent().parent().text().replace(/^#.*?\n/, "")),
+              "schema=" + encodeURIComponent(schema),
+              "data=" + encodeURIComponent(data),
               "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
-            ].join("&"));console.log("X");
+            ].join("&"));
           })
         }
       -->
@@ -2154,12 +2167,12 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
           </li>
           <li><span class="eitherOr   lowlight2 top bot">or a composite name:</span>
             <ul>
-              <li class="gname lowlight1 top bot">one or more <span class="type">foaf:</span><span class="constant">givenName</span>s</li>
+              <li class="gname lowlight1 top bot table">one or more <span class="type">foaf:</span><span class="constant">givenName</span>s</li>
               <li class="fname lowlight1 top bot">a <span class="type">foaf:</span><span class="constant">familyName</span></li>
             </ul>
           </li>
         </ul>
-        <p class="mbox lowlight1 top bot">The user must have exactly one <span class="type">foaf:</span><span class="constant">mbox</span>.</p>
+        <p class="mbox lowlight1 top bot" style="margin-bottom: 1em;">The user must have exactly one <span class="type">foaf:</span><span class="constant">mbox</span>.</p>
 
         <div class="example wrapper">
           <!-- ShExC example -->

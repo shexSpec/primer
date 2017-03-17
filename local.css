@@ -134,6 +134,16 @@ a.ref:visited { color: #a00550; font-family: monospace; }
 .tryit:active {
     border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
 }
+.tryable { 
+  position: relative;
+  z-index: 1;
+}
+.tryit { 
+  position: absolute;
+  z-index: 3; /* put .gold-box above .green-box and .dashed-box */
+  right: -5px;
+  top: -1.5ex;
+}
 
       table td { vertical-align: top; }
       table th { text-align: center; }
