@@ -323,7 +323,7 @@ inst:Don ex:hasShoeSize 14 .
           <p>
             These <span class="new">numeric facets</span> apply only to numeric RDF literals: <code class="value-constraint">MinInclusive</code>, <code class="value-constraint">MinExclusive</code>, <code class="value-constraint">MaxInclusive</code>, <code class="value-constraint">MaxExclusive</code>, <code class="value-constraint">TotalDigits</code>, <code class="value-constraint">FractionDigits</code>.
             These <span class="new">string facets</span> apply only to all RDF literals: <code class="value-constraint">Length</code>, <code class="value-constraint">MinLength</code>, <code class="value-constraint">MaxLength</code>, <code class="value-constraint">Pattern</code>.
-            Facets names are not case-sensitive in ShExC.
+            Facets names are not case-sensitive in the ShExC syntax.
           </p>
           </dd>
           <dt id="vocab-node-kind" class="new"><span class="qualifier">[node constraint]</span> node kind</dt> <dd>Identifies the kind of RDF node (IRI, RDF literal, or Blank Node), e.g.
@@ -337,7 +337,7 @@ inst:Don ex:hasShoeSize 14 .
           <p>
             The following node kinds correspond to RDF node types: <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>.
             The node kind <code class="value-constraint">NonLiteral</code> identifies the union of <code class="value-constraint">IRI</code>s and <code class="value-constraint">BNode</code>s.
-            Node kinds are not case-sensitive in ShExC.
+            Node kinds are not case-sensitive in the ShExC syntax.
           </p>
           </dd>
           <dt id="vocab-value-set" class="new"><span class="qualifier">[node constraint]</span> value set</dt> <dd>Enumerates specific expected values, e.g.
@@ -1559,7 +1559,7 @@ inst:Don ex:hasShoeSize 14 .
         </p>
 
         <p>
-          The rules can be written in ShExC or JSON (recall that you can press 'c' or 'j') as a set of properties on a <code>triple constraint</code>.
+          The rules can be written in the ShExC or JSON-LD syntaxes (recall that you can press 'c' or 'j') as a set of properties on a <code>triple constraint</code>.
           This example consists of a single <code id="shape-declaration">shape declaration</code> for a shape called <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>.
           A validation process tests selected nodes in the instance data, <code>focus nodes</code>, against this shape.
           The shape in this example consists of a single <code class="hilight-tripleConstraint lowlight1 top bot">triple constraint</code> on the property <span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span>.
@@ -1644,7 +1644,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         <p>
           The above examples include only a single <code>Triple Constraint</code> in each shape.
           Most realistic shape declarations will include multiple constraints.
-          In ShExC, triple constraints are separated by a ';'.
+          In the ShExC syntax, triple constraints are separated by a semi-colon.
         </p>
         <div class="example wrapper">
         <pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
@@ -1880,7 +1880,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
         </p>
         <div class="namespace">
           <p>
-            InShExC, the <a href="#simple-expressions-example-1">example in Simple Expressions</a> could be rewritten with the <span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> embedded inline in <span class="curlies lowlight2 top bot">"{}"s</span>.
+            In ShExC, the <a href="#simple-expressions-example-1">example in Simple Expressions</a> could be rewritten with the <span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> embedded inline in <span class="curlies lowlight2 top bot">"{}"s</span>.
             The JSON representation of ShEx has no corresponding shortcut; it has instead a reference to a shape whose label is a <span class="bnode lowlight2 top bot">blank node allocated by the parser</span>.
           </p>
           <div id="nested-shapes-example-1" class="example wrapper">
