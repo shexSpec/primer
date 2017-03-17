@@ -94,7 +94,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           We use the word "constraint" to refer to the rules in the schema which allow one to test if some instance data is acceptable.
         </p>
         <p>
-          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual RDF nodes:
+          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data:
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
@@ -103,7 +103,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
         </div>
         <p>
-          and <span class="new">triple constraints</span> which constrain the triples that have a given node as a subject or object:
+          and <span class="new">triple constraints</span> which constrain the triples that have a given RDF data node as a subject or object:
         </p>
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
@@ -185,7 +185,7 @@ inst:Don foaf:age 14 .
 
         <p>
           While ShEx implementations may provide further information, the minimum validation result includes the results of validating any node/shape pair.
-          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four RDF nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape:
+          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape:
 
         </p>
         <table class="example results">
