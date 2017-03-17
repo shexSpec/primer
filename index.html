@@ -87,11 +87,27 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       </script>
       <div class="namespace">
         <p>
-          ShEx is a language for declaring schemas where a schema describes a set of acceptable data.
-          (Note that this is different from RDFS Schemas[[!rdf-schema]] as RDFS Schemas are used to infer relationships between RDF resources.)
-          While the data may exist in many forms, an RDF file, a database accessible by some graph API, a SPARQL endpoint, or the possible input and output of some service.
-          In the interest of simplicity, will we focus on the process of validating some actual "instance data".
-          We use the word "constraint" to refer to the rules in the schema which allow one to test if some instance data is acceptable.
+          Shape Expressions, or ShEx, is a language for describing an ideal RDF graph
+          against which real RDF graphs can be compared.  The description of an ideal RDF
+          graph, or ShEx Schema, is tested against a given RDF data graph to yield a
+          conformance test result that reports any detected mismatches.  
+        </p>
+        <p>
+          Consider the old joke that to sculpt an elephant, simply take a block of
+          marble and chip away everything that doesn't look like an elephant.
+          The simplest possible ShEx schema, "<S> {}", which matches all
+          possible RDF graphs, is like the block of marble.  Just
+          as each tap on the chisel "constrains" the marble block to
+          look more like an elephant, each shape expression, shape,
+          node constraint, or triple constraint defined in a ShEx schema
+          restricts the collection of potential graphs to look more
+          like the RDF data required for a particular application,
+          process, or interface.  The data may exist in forms ranging from an
+          RDF file to data accessible by APIs or SPARQL endpoints.
+          A ShEx schema may be used for
+          purposes ranging from the conformance testing of data to the
+          configuration of user interfaces.  This primer focuses on the common 
+          use case of validating instance data.
         </p>
         <p>
           Picture some RDF data about enrollees in a school.  The data managers
