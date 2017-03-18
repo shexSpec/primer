@@ -87,35 +87,21 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       </script>
       <div class="namespace">
         <p>
-          Shape Expressions, or ShEx, is a language for describing an ideal RDF graph
-          against which real RDF graphs can be compared.  The description of an ideal RDF
-          graph, or ShEx Schema, is tested against a given RDF data graph to yield a
-          conformance test result that reports any mismatches between the ideal "shape"
-          of the data and its actual contents.
+          Shape Expressions, or ShEx, is a language for describing an ideal RDF graph against which real RDF graphs can be compared.
+          The description of an ideal RDF graph, or ShEx Schema, is tested against a given RDF data graph to yield a conformance test result that reports any mismatches between the ideal "shape" of the data and its actual contents.
         </p>
         <p>
-          Consider the old joke about how to sculpt an elephant: simply take a block of
-          marble and chip away everything that doesn't look like an elephant.
-          The simplest possible ShEx schema, <code><S> {}</code>, which matches all
-          possible RDF graphs, is like the block of marble.  Just
-          as each tap on the chisel "constrains" the marble block to
-          look more like an elephant, each shape expression, shape,
-          node constraint, or triple constraint defined in a ShEx schema
-          restricts the collection of potential graphs to look more
-          like the RDF data required for a particular application,
-          process, or interface.  The data may exist in forms ranging from an
-          RDF file to data accessible by APIs or SPARQL endpoints.
-          A ShEx schema may be used for
-          purposes ranging from the conformance testing of data to the
-          configuration of user interfaces.  This primer focuses on the common 
-          use case of validating instance data.
+          Consider the old joke about how to sculpt an elephant: simply take a block of marble and chip away everything that doesn't look like an elephant.
+          The simplest possible ShEx schema, <code>&lt;S&gt; {}</code>, which matches all possible RDF graphs, is like the block of marble.
+          Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint defined in a ShEx schema restricts the collection of potential graphs to look more like the RDF data required for a particular application, process, or interface.
+          The data may exist in forms ranging from an RDF file to data accessible by APIs or SPARQL endpoints.
+          A ShEx schema may be used for purposes ranging from the conformance testing of data to the configuration of user interfaces.
+          This primer focuses on the common use case of validating instance data.
         </p>
         <p>
-          Picture some RDF data about enrollees in a school.  The data managers
-          might want to ensure that the data includes, for each student, one or
-          two guardians, each of which has an assigned URI, which allows data
-          about the children associated with a given guardian to be merged.  In
-          addition, each student must have an age between 14 and 20.
+          Picture some RDF data about enrollees in a school.
+          The data managers might want to ensure that the data includes, for each student, one or two guardians, each of which has an assigned URI, which allows data about the children associated with a given guardian to be merged.
+          In addition, each student must have an age between 14 and 20.
         </p>
         <p>
           ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data:
@@ -305,53 +291,29 @@ inst:Don foaf:age 14 .
       <section id="vocabulary">
         <h2>Terminology</h2>
         <p>
-          In the Shape Expressions model, RDF data is seen from the standpoint of
-          its structural components, or abstract syntax.  An <span
-          class="new">RDF graph</span> is a collection of triples.  A <span
-          class="new">triple</span> is a data structure composed of three RDF terms. An
-          <span class="new">RDF term</span> may be an <span class="new">IRI</span>, <span
-          class="new">blank node (BNode)</span>, or <span class="new">literal</span>.  In
-          a triple, RDF terms are arranged in a fixed order, or <span
-          class="new">directed arc</span>, from <span class="new">subject</span> to <span
-          class="new">predicate</span> to <span class="new">object</span>.  From the
-          standpoint of ShEx, a triple may be seen as having an <span
-          class="new">outgoing arc</span> from a subject or an <span class="new">incoming
-          arc</span> to an object.  RDF data may be serialized in any of several
-          interchangeable concrete syntaxes designed for a variety of application
-          requirements.  Readers unfamiliar with any of these terms may want to consult
-          an introduction to RDF before continuing with the rest of this primer.@@@cite
-          The relationship between ShEx and RDF is discussed in more detail 
-          in section 4.@@@
+          In the Shape Expressions model, RDF data is seen from the standpoint of its structural components, or abstract syntax.
+          An <span class="new">RDF graph</span> is a collection of triples.
+          A <span class="new">triple</span> is a data structure composed of three RDF terms.
+          An <span class="new">RDF term</span> may be an <span class="new">IRI</span>, <span class="new">blank node (BNode)</span>, or <span class="new">literal</span>.
+          In a triple, RDF terms are arranged in a fixed order, or <span class="new">directed arc</span>, from <span class="new">subject</span> to <span class="new">predicate</span> to <span class="new">object</span>.
+          From the standpoint of ShEx, a triple may be seen as having an <span class="new">outgoing arc</span> from a subject or an <span class="new">incoming arc</span> to an object.
+          RDF data may be serialized in any of several interchangeable concrete syntaxes designed for a variety of application requirements.
+          Readers unfamiliar with any of these terms may want to consult an introduction to RDF before continuing with the rest of this primer.@@@cite
+          The relationship between ShEx and RDF is discussed in more detail in section 4.@@@
         </p>
         <p>
-          The ShEx language defines terms with reference to the abstract-syntactic
-          components of an RDF graph.  A <span class="new">ShEx Schema</span>, the
-          counterpart of an RDF Graph, is a collection of <span class="new">shape
-          expressions</span>.  A shape expression is a logical combination of <span
-          class="new">node constraints</span> and <span class="new">shapes</span>.  A
-          ShEx shape describes a collection of RDF triples touching a given RDF node,
-          where the characteristics of matching RDF nodes are defined by ShEx node
-          constraints and the characteristics of matching RDF triples are defined by ShEx
-          triple constraints.  A ShEx triple constraint specifies a matching RDF triple
-          in terms of its predicate, its direction (whether it is an incoming or outgoing
-          arc with respect to a node), a cardinality (how many triples should match), or
-          its value (the object node).
+          The ShEx language defines terms with reference to the abstract-syntactic components of an RDF graph.
+          A <span class="new">ShEx Schema</span>, the counterpart of an RDF Graph, is a collection of <span class="new">shape expressions</span>.
+          A shape expression is a logical combination of <span class="new">node constraints</span> and <span class="new">shapes</span>.
+          A ShEx shape describes a collection of RDF triples touching a given RDF node, where the characteristics of matching RDF nodes are defined by ShEx node constraints and the characteristics of matching RDF triples are defined by ShEx triple constraints.
+          A ShEx triple constraint specifies a matching RDF triple in terms of its predicate, its direction (whether it is an incoming or outgoing arc with respect to a node), a cardinality (how many triples should match), or its value (the object node).
         </p>
         <p>
-          The <a href="#simple-expressions-example-1">example above</a> tested
-          the RDF data nodes <span class="function-name">inst:Alice</span>,
-          <span class="function-name">inst:Bob</span>, <span
-          class="function-name">inst:Claire</span> and <span
-          class="function-name">inst:Don</span> against a simple ShEx shape named <a
-          href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.  Within the shape, each of these
-          RDF data nodes was treated, in turn, as a ShEx <span class="new">focus node</span>.
-          Triples involving that node were tested against a ShEx <span class="new">triple
-          constraint</span>.  This triple constraint had a single <span
-          class="new">node constraint</span>: a <span class="new">literal
-          datatype</span> constraint asserting that the object of a matching triple was
-          of type <code class="string">xsd:string</code>.  In this process, we were
-          identifying a set of permissible graphs by applying a set of <span
-          class="new">constraints</span> to the (infinite) set of possible RDF graphs.
+          The <a href="#simple-expressions-example-1">example above</a> tested the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple ShEx shape named <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
+          Within the shape, each of these RDF data nodes was treated, in turn, as a ShEx <span class="new">focus node</span>.
+          Triples involving that node were tested against a ShEx <span class="new">triple constraint</span>.
+          This triple constraint had a single <span class="new">node constraint</span>: a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
+          In this process, we were identifying a set of permissible graphs by applying a set of <span class="new">constraints</span> to the (infinite) set of possible RDF graphs.
         </p>
 
         <p>
@@ -3514,53 +3476,31 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       <section id="relationship">
         <h2>Relationship of ShEx to RDF and OWL</h2>
     	<p>
-          ShEx is designed to fill a long-recognized gap in Semantic Web technology.  The
-          Resource Description Framework language (RDF), and the more expressive Web
-          Ontology Language (OWL), were designed for making statements about things "in
-          the world" or, more precisely, about things in a conceptual caricature of the
-          world.  Things in that caricature may include anything from people, books,
-          abstract ideas, and Web pages to planets or refrigerators.  By design, RDF and
-          OWL were optimized for aggregating information from multiple sources and for
-          processing incomplete information.  If a model in OWL says that a person has
-          two biological parents, and only one parent is described in a given graph, an
-          OWL processor will not report a mismatch between the model and the graph
-          because the second parent is assumed to exist even if it is not described in
-          the data.  In other words, the graph _could_ describe the second parent if more
-          triples were supplied.  In logic, this is called the "open world
-          assumption".
+        ShEx is designed to fill a long-recognized gap in Semantic Web technology.
+        The Resource Description Framework language (RDF), and the more expressive Web Ontology Language (OWL), were designed for making statements about things "in the world" or, more precisely, about things in a conceptual caricature of the world.
+        Things in that caricature may include anything from people, books, abstract ideas, and Web pages to planets or refrigerators.
+        By design, RDF and OWL were optimized for aggregating information from multiple sources and for processing incomplete information.
+        If a model in OWL says that a person has two biological parents, and only one parent is described in a given graph, an OWL processor will not report a mismatch between the model and the graph because the second parent is assumed to exist even if it is not described in the data.
+        In other words, the graph <em>could</em> describe the second parent if more triples were supplied.
+        In logic, this is called the "open world assumption".
     	</p>
     	<p>
-          In contrast, real-world data applications must often test the integrity of
-          their data by flagging such omissions as non-conformant, and the ShEx language
-          was designed for use in making such conformance tests.  Where an RDF graph
-          describes things in the caricature of the world, a ShEx schema describes things
-          that are actually "in the data" of RDF data graphs.  A shape expression refers
-          to an RDF graph as a collection of abstract-syntactic entities: IRIs, blank
-          nodes, literals, and triples, seen either as incoming arcs or outgoing arcs,
-          with subjects, predicates, and objects.  Inasmuch as a ShEx schema is tested
-          against a given RDF data graph, and does not consider potential but unknown
-          data outside of that graph, the ShEx model of conformance testing follows the
-          "closed world assumption".  That said, a ShEx schema can specify a "closed"
-          interpretation, meaning that data can conform only if it includes only triples
-          specified in the schema, or an "open" interpretation, meaning that data triples
-          not specified in the schema are simply ignored.
+        In contrast, real-world data applications must often test the integrity of their data by flagging such omissions as non-conformant, and the ShEx language was designed for use in making such conformance tests.
+        Where an RDF graph describes things in the caricature of the world, a ShEx schema describes things that are actually "in the data" of RDF data graphs.
+        A shape expression refers to an RDF graph as a collection of abstract-syntactic entities: IRIs, blank nodes, literals, and triples, seen either as incoming arcs or outgoing arcs, with subjects, predicates, and objects.
+        Inasmuch as a ShEx schema is tested against a given RDF data graph, and does not consider potential but unknown data outside of that graph, the ShEx model of conformance testing follows the "closed world assumption".
+        That said, a ShEx schema can specify a "closed" interpretation, meaning that data can conform only if it includes only triples specified in the schema, or an "open" interpretation, meaning that data triples not specified in the schema are simply ignored.
     	</p>
     	<p>
-          It should be noted that a ShEx schema is valid as an RDF expression in an
-          open-world sense.  In this interpretation, a ShEx schema describes something in
-          the world, where that "something" happens to be the set of abstract-syntactic
-          components that comprise an RDF graph.  However, such an interpretation is of
-          no use in practical terms.  The utility of a ShEx schema derives from its use
-          for testing against the abstract-syntactic components "in the data" of an RDF
-          graph to yield a conformance test result.  
+        It should be noted that a ShEx schema is valid as an RDF expression in an open-world sense.
+        In this interpretation, a ShEx schema describes something in the world, where that "something" happens to be the set of abstract-syntactic components that comprise an RDF graph.
+        However, such an interpretation is of no use in practical terms.
+        The utility of a ShEx schema derives from its use for testing against the abstract-syntactic components "in the data" of an RDF graph to yield a conformance test result.
     	</p>
     	<p>
-          It should also be noted that a ShEx schema is not an RDF schema, even
-          though both describe RDF data.  "RDF Schema" is actually a language
-          for defining RDF vocabularies and for specifying semantic
-          relationships between terms that can be used to infer relationships
-          between RDF resources.[[!rdf-schema]] A ShEx schema provides
-          structural constraints, analogously to relational or XML schemas.
+        It should also be noted that a ShEx schema is not an RDF schema, even though both describe RDF data.
+        "RDF Schema" is actually a language for defining RDF vocabularies and for specifying semantic relationships between terms that can be used to infer relationships between RDF resources.[[!rdf-schema]]
+        A ShEx schema provides structural constraints, analogously to relational or XML schemas.
     	</p>
       </section>
 
