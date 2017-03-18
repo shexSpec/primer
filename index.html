@@ -135,15 +135,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           </div>
         </div>
         <p>
-        The following <span class="new">node constraint</span>, labeled with the URI <span class="constant">school:enrolleeAge</span>, says that a node in the RDF data must be an integer between 13 and 20.  This node constraint is cited in a triple constraint in the <span class="constant">school:Enrollee</span> shape to specify that triples using the property <code>foaf:age</code> must have values that conform with the node constraint <span class="constant">school:enrolleeAge</span> or, in plain English, that the age of an enrollee, must lie between 13 and 20.  
+        The following example, a <span class="new">node constraint</span> labeled with the URI <span class="constant">school:enrolleeAge</span> says that a node in the RDF data must be an integer between 13 and 20.  This node constraint is cited in a triple constraint in the <span class="constant">school:Enrollee</span> shape to specify that triples using the property <code>foaf:age</code> must have values that conform with the node constraint <span class="constant">school:enrolleeAge</span> or, in plain English, that the age of an enrollee must lie between 13 and 20.  
         </p>
-        <div id="example-school-enrolleeAge" class="example wrapper">
-          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
-
-<span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
-        </div>
-
         <div id="quickstart-example-1" class="example wrapper">
           <p>
             Frequently, triple constraints do constrain the value of a property, as in this shape which says that an Enrollee must also have a <span class="type">foaf:</span><span class="constant">age</span> property with a value between 13 and 20 and have two <span class="type">ex:</span><span class="constant">hasGuardian</span> properties with values which are IRIs:
