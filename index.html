@@ -158,23 +158,23 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" id="school-Enrollee1" style="float:left;"><span class="comment"># schema (ShExC)</span>
-PREFIX ex: &lt;http://ex.example/#&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
-PREFIX school: &lt;http://school.example/#&gt;
-PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+          <pre class="schema shexc" id="school-Enrollee1" style="float:left;">
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 
 <span class="shape-name">school:Enrollee</span> {
-  foaf:age @<span class="shape-name">school:enrolleeAge</span> ;
+  <span class="type">foaf:</span><span class="constant">age</span> @<span class="shape-name">school:enrolleeAge</span> ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
 
-<span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
+<span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> MinInclusive 13 MaxInclusive 20</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
             <pre class="instance turtle pass tryable">
-PREFIX ex: &lt;http://ex.example/#&gt;
-PREFIX inst: &lt;http://example.com/users/&gt;
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 PREFIX school: &lt;http://school.example/#&gt;
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
@@ -185,8 +185,8 @@ inst:Bob foaf:age 15 ;
 <a class="tryit" href="#school-Enrollee1" data-shape-map="inst:Alice@school:Enrollee,inst:Bob@school:Enrollee">try it</a></pre>
 
             <pre class="instance turtle fail tryable">
-PREFIX ex: &lt;http://ex.example/#&gt;
-PREFIX inst: &lt;http://example.com/users/&gt;
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 PREFIX school: &lt;http://school.example/#&gt;
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
 
@@ -1801,9 +1801,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       <p id="empty-shape">
         Because triple expressions can have a minimum cardinality of zero, it's possible to create a shape which matches any node, even if it does not appear in the data:
       </p>
-      <pre class="schema shexc">my:IssueShape {
-  ex:state [ex:unassigned ex:assigned] <span class="keyword">?</span>;
-  ex:reportedBy @my:UserShape <span class="keyword">*</span>
+      <pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
+  <span class="type">ex:</span><span class="constant">state</span> [ex:unassigned ex:assigned] <span class="keyword">?</span>;
+  <span class="type">ex:</span><span class="constant">reportedBy</span> @<span class="shape-name">my:UserShape</span> <span class="keyword">*</span>
 }</pre>
       <p>
         Because the minimum number of triples is zero, any RDF data node will match this shape.
