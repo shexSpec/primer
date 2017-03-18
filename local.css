@@ -146,22 +146,22 @@ a.ref:visited { color: #a00550; font-family: monospace; }
 }
 
       table td { vertical-align: top; }
-      table th { text-align: center; }
+      table th { text-align: left; font-weight: normal; }
       table { border-collapse: collapse; }
-      td, th { border-style: solid; border-width: thin; border-color: #bbb; font-size: small; line-height: 3ex; padding: 1ex 1em; }
+      td, th { border-style: solid; border-width: thin; border-color: #bbb; font-size: small; padding: .5ex 1em; }
       .pass { background-color: #cfc; }
       .fail { background-color: #fcc; }
 
 table:before {
-    content: "Results";
-    width: 10em;
+    content: "Validation Results";
+    width: 9.5em;
     color: #333;
     font-size: .6em;
     border: 1px solid #bbb;
     background: white;
     display: block;
     font-family: sans-serif;
-    margin: 0 0 0em -.5em;
+    margin: 0 0 -.1em -.5em;
     padding: 0.2em 1em;
 }
       
