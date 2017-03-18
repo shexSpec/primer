@@ -1799,14 +1799,15 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       </ul>
 
       <p id="empty-shape">
-        Because triple expressions can have a minimum cardinality of zero, it's possible to create a shape which matches any node, even if it does not appear in the data:
+        Note that a shape composed of triple expressions with a minimum cardinality of zero will match any literal or RDF node which does not appear in the data:
       </p>
       <pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
   <span class="type">ex:</span><span class="constant">state</span> [ex:unassigned ex:assigned] <span class="keyword">?</span>;
   <span class="type">ex:</span><span class="constant">reportedBy</span> @<span class="shape-name">my:UserShape</span> <span class="keyword">*</span>
 }</pre>
       <p>
-        Because the minimum number of triples is zero, any RDF data node will match this shape.
+        For both properties, the minimum number of triples is zero so any RDF data node will match this shape as long as it does not have conflicting <span class="type">ex:</span><span class="constant">state</span> or <span class="type">ex:</span><span class="constant">reportedBy</span> properties.
+        Since no RDF literal may be the subject of RDF triples, any literal would satisfy this shape.
       </p>
     </section>
 
