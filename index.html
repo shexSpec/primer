@@ -186,7 +186,7 @@ inst:Don foaf:age 14 .
       </div>
 
         <p>
-          When the ShEx schema is tested against the RDF data in the <a href="#simple-expressions-example-1">examples above</a>, four RDF data nodes -- <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> -- are evaluated against a single shape, <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>, to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide more verbose validation results; for more detail about the result format, see the ShEx specification.@@@
+          When the ShEx schema is tested against the RDF data in the <a href="#simple-expressions-example-1">examples above</a>, four RDF data nodes -- <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> -- are evaluated against a single shape, <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>, to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide more verbose validation results.
         </p>
         <table class="example results">
           <tbody><tr><th class="schema">shape</th><th class="data">node</th><th>result</th><th>reason</th></tr>
@@ -298,14 +298,7 @@ inst:Don foaf:age 14 .
 
         <p>
           When a node constraint is used in a triple constraint, it as called a <span class="new">value constraint</span> as it constrains the allowable values for triples matching the triple constraint.
-          Node constraints can also be tested directly against the focus node à la the <a href="#example-school-enrolleeAge">first example in QuickStart</a>:
         </p>
-        <pre class="schema shexc table"><span class="shape-name">foaf:age</span> xsd:integer MinValue 3 MaxValue 20</pre>
-        <p>
-          or used in conjunction with a shape:
-        </p>
-        <pre class="schema shexc table"><span class="shape-name">ex:UserShape</span> <span class="keyword">IRI</span> { foaf:name LITERAL }</pre>
-
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
           <dt id="vocab-shape-expression">shape expression</dt><dd>A collection of shapes and of node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
