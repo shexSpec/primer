@@ -233,7 +233,7 @@ inst:Don foaf:age 14 .
           When the ShEx schema is tested against the RDF data in the <a href="#simple-expressions-example-1">examples above</a>, four RDF data nodes -- <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> -- are evaluated against a single shape, <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>, to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide more verbose validation results.
         </p>
         <table class="example results">
-          <tbody><tr><th class="schema">shape</th><th class="data">node</th><th>result</th><th>reason</th></tr>
+          <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
           <tr class="pass"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Alice&gt;</td><td>pass</td><td class="noreason"></td></tr>
           <tr class="pass"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Bob&gt;</td><td>pass</td><td class="noreason"></td></tr>
           <tr class="fail"><td>&lt;school:Enrollee&gt;</td><td>&lt;inst:Claire&gt;</td><td>fail</td><td class="fail">No <code>foaf:age</code> supplied.</td></tr>
