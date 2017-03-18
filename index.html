@@ -88,32 +88,24 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       <div class="namespace">
         <p>
           Shape Expressions, or ShEx, is a language for describing an ideal RDF graph against which real RDF graphs can be compared.
-          The description of an ideal RDF graph, or ShEx Schema, is tested against a given RDF data graph to yield a conformance test result (here: validation result) that reports any mismatches between the ideal "shape" of the data and its actual contents.
+          The description of an ideal RDF graph, or ShEx Schema, is tested against a given RDF data graph to yield a conformance test result, of validation result, that reports any mismatches between the ideal "shape" of the data and its actual contents.
         </p>
         <p>
-          Consider the old joke about how to sculpt an elephant: simply take a block of marble and chip away everything that doesn't look like an elephant.
+          It's like the old joke about how to sculpt an elephant: "Take a block of marble and chip away everything that doesn't look like an elephant!"
           The simplest possible ShEx schema, <code>&lt;S&gt; {}</code>, which matches all possible RDF graphs, is like the block of marble.
-          Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint defined in a ShEx schema restricts the collection of potential graphs to look more like the RDF data required for a particular application, process, or interface.
-          The data may exist in forms ranging from an RDF file to data accessible by APIs or SPARQL endpoints.
-          A ShEx schema may be used for purposes ranging from data validation to the configuration of user interfaces.
+          Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint defined in a ShEx schema restricts the collection of potential graphs to look more like the RDF data required for a particular process, interface, or application.
+          The RDF data may be accessed in files or through APIs or SPARQL endpoints.
+          The ShEx schema may be used for purposes ranging from data validation to the configuration of user interfaces.
           This primer focuses on the common use case of validating instance data.
         </p>
         <p>
           Picture some RDF data about enrollees in a school.
-          The data managers might want to ensure that the data includes, for each student, one or two guardians, each of which has an assigned URI, which allows data about the children associated with a given guardian to be merged.
-          In addition, each student must have an age between 14 and 20.
+          Data managers might want to ensure that each description of a student names one or two guardians, each of which has an assigned URI to facilitate merging of all data about the children associated with a given guardian.
+          The age of each student must fall between 13 and 20.
         </p>
         <p>
-          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data:
-        </p>
-        <div id="example-school-enrolleeAge" class="example wrapper">
-          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
-
-<span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
-        </div>
-        <p>
-          and <span class="new">triple constraints</span> which constrain the triples that have a given RDF data node as a subject or object:
+        The ShEx schema describing this ideal data defines a ShEx <span class="new">shape</span>, labeled with the URI <span class="constant">school:Enrollee</span>, which contains a <span class="new">triple constraint</span>
+        that constrains the value associated with the property <span class="constant">ex:hasGuardian</span> to be a URI and says that an enrollee must have one or two guardians.  Data that conforms to this schema passes validation, and data that does not conform fails.  (The syntax for reporting the details of a failing result is covered in the ShEx specification.@@@)
         </p>
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
@@ -123,13 +115,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }</pre>
         </div>
-        <p>
-          The above triple constraint specifies that, in order for a node to match <span class="shape-name">school:Enrollee</span>, it must have exactly two <span class="type">ex:</span><span class="constant">hasGuardian</span> properties.
-          The "<span class="keyword">IRI</span>" indicates that the value of these properties must be an RDF IRI.
-          For example, each of <span class="function-name">inst:User1</span>, <span class="function-name">inst:User2</span> and <span class="function-name">inst:User3</span> in the following data would be accepted:
-        </p>
         <div id="quickstart-example-1" class="example wrapper">
-
           <!-- JSON example -->
           <div style="float:left;">
           <pre class="instance turtle pass tryable">
@@ -139,21 +125,24 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .<a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student1@school:Enrollee">try it</a></pre>
           </div>
           <div style="clear:both;"></div>
-          <p>
-            While this shape is quite lax about the object of the <span class="type">ex:</span><span class="constant">hasGuardian</span> arc, it does require that there be exactly two:
-          </p>
           <div style="float:left;">
           <pre class="instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person4</span> .
-<span class="function-name">inst:Student4</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person5</span> .<a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a></pre>
+<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person4</span>, <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person6</span> 
+.<a class="tryit" href="#BioParent2Dot" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a></pre>
           </div>
         </div>
         <p>
-          (Note that, when parsed, the last statement asserts only one <span class="type">ex:</span><span class="constant">hasGuardian</span> because <span class="function-name">inst:Person5</span> and <span class="function-name">inst:Person5</span> are the same RDF term so both <span class="function-name">inst:Student2</span> and <span class="function-name">inst:Student4</span> are missing a parent.)
+        The following <span class="new">node constraint</span>, labeled with the URI <span class="constant">school:enrolleeAge</span>, says that a node in the RDF data must be an integer between 13 and 20.  This node constraint is cited in a triple constraint in the <span class="constant">school:Enrollee</span> shape to specify that triples using the property <code>foaf:age</code> must have values that conform with the node constraint <span class="constant">school:enrolleeAge</span> or, in plain English, that the age of an enrollee, must lie between 13 and 20.  
         </p>
+        <div id="example-school-enrolleeAge" class="example wrapper">
+          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
+
+<span class="shape-name">school:enrolleeAge</span> xsd:integer MinInclusive 13 MaxInclusive 20</pre>
+        </div>
 
         <div id="quickstart-example-1" class="example wrapper">
           <p>
