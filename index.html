@@ -345,6 +345,7 @@ inst:Don foaf:age 14 .
         </p>
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
+          <dt id="vocab-shape-declaration">shape declaration</dt><dd>@@@.</dd>
           <dt id="vocab-shape-expression">shape expression</dt><dd>A collection of shapes and of node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
           <dt id="vocab-shape">shape</dt><dd>A collection of constraints on the triples which have the focus node as the subject or object.</dd>
           <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints, to be taken as a group or as choices.</dd>
@@ -1691,7 +1692,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         <h2>Grouping Triple Constraints in Shapes</h2>
         <div class="namespace">
         <p>
-          The above examples include only a single <code>Triple Constraint</code> in each shape.
+          The above examples show just one triple constraint per shape.
           Most realistic shape declarations will include multiple constraints.
           In the ShExC syntax, triple constraints are separated by a semi-colon.
         </p>
@@ -2328,10 +2329,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
 
         <div id="sec-iri-range">
-          <h3>IRI Range</h3>
           <div class="example wrapper">
             <p>
-              A value set can also contain <code id="iri-range">IRI ranges</code>.
+              <span class="new">IRI Range.</span> A value set can also contain <code id="iri-range">IRI ranges</code>.
               A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
             </p>
 
@@ -2366,10 +2366,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         </div>
 
         <div id="sec-iri-range-exclusion">
-          <h3>IRI Range Exclusions</h3>
           <div class="example wrapper">
             <p>
-              Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
+            <span class="new">IRI Range Exclusions.</span> Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
               For example we may wish to include <code id="iri-exclusion">IRI exclusion</code> 
               A value set can also contain <code>IRI ranges</code>.
               A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
