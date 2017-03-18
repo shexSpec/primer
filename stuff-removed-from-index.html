@@ -154,6 +154,15 @@ prepareHighlight(['name999'], "highlight1", "lowlight1");
           <li><a href="https://www.w3.org/2014/data-shapes/track/issues/80">Constraint to limit IRIs against scheme/namespace, possibly with dereferencing</a> - this issue was closed but lexical restrictions like PATTERN and stems capture some of this.</li>
         </ul>
       </section>
+        <p>
+          Node constraints can also be tested directly against the focus node à la the <a href="#example-school-enrolleeAge">first example in QuickStart</a>:
+        </p>
+        <pre class="schema shexc table"><span class="shape-name">foaf:age</span> xsd:integer MinValue 3 MaxValue 20</pre>
+        <p>
+          or used in conjunction with a shape:
+        </p>
+        <pre class="schema shexc table"><span class="shape-name">ex:UserShape</span> <span class="keyword">IRI</span> { foaf:name LITERAL }</pre>
+
 
   </body>
 </html>
