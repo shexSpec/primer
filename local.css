@@ -74,6 +74,7 @@
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
       pre.instance { border: thick solid #f8f6ea; }
+      pre.instance.fail { border: thick solid #f8eaea; }
       .verticalDivider {
         float: left;
         width: .5em;
