@@ -326,11 +326,14 @@ inst:Don foaf:age 14 .
           The relationship between ShEx and RDF is discussed in more detail in section 4.@@@
         </p>
         <p>
-          The ShEx language defines terms with reference to the abstract-syntactic components of an RDF graph.
+          ShEx provides a language for describing an RDF graph in terms of its abstract-syntactic components.
           A <span class="new">ShEx Schema</span>, the counterpart of an RDF Graph, is a collection of <span class="new">shape expressions</span>.
           A shape expression is a logical combination of <span class="new">node constraints</span> and <span class="new">shapes</span>.
           A ShEx shape describes a collection of RDF triples touching a given RDF node, where the characteristics of matching RDF nodes are defined by ShEx node constraints and the characteristics of matching RDF triples are defined by ShEx triple constraints.
           A ShEx triple constraint specifies a matching RDF triple in terms of its predicate, its direction (whether it is an incoming or outgoing arc with respect to a node), a cardinality (how many triples should match), or its value (the object node).
+          Like RDF, ShEx may be serialized using any one of several interchangeable concrete syntaxes: 
+          <span class="new">ShExC</span>, a c</span>ompact syntax meant for human eyes and fingers, 
+          <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing, and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
         </p>
         <p>
           The <a href="#simple-expressions-example-1">example above</a> tested the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple ShEx shape named <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
@@ -339,30 +342,18 @@ inst:Don foaf:age 14 .
           This triple constraint had a single <span class="new">node constraint</span>: a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
           In this process, we were identifying a set of permissible graphs by applying a set of <span class="new">constraints</span> to the (infinite) set of possible RDF graphs.
         </p>
-
-        <p>
-          When a node constraint is used in a triple constraint, it as called a <span class="new">value constraint</span> as it constrains the allowable values for triples matching the triple constraint.
-        </p>
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
           <dt id="vocab-shape-declaration">shape declaration</dt><dd>@@@.</dd>
           <dt id="vocab-shape-expression">shape expression</dt><dd>A collection of shapes and of node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
           <dt id="vocab-shape">shape</dt><dd>A collection of constraints on the triples which have the focus node as the subject or object.</dd>
-          <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints, to be taken as a group or as choices.</dd>
+          <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints, to be taken as a group or as a set of choices.</dd>
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint on the predicate of a triple with the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
           <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
+          <dt id="vocab-value-constraint">value constraint</dt><dd>A node constraint used in a triple constraint. "Value constraint" is an informal way of saying: node constraint on the RDF node of the object associated in a triple with a given predicate or, informally, "property".</dd>
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
           <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
-        </dl>
-        <p>
-          ShEx can be expressed in three interchangeable syntaxes:
-        </p>
-
-        <dl>
-          <dt id="vocab-ShExC">ShExC</dt><dd>A <span class="lookit">c</span>ompact syntax meant for human eyes and fingers.</dd>
-          <dt id="vocab-ShExJ">ShExJ</dt><dd>A JSON-LD[[json-ld]] representation meant for machine construction and manipulation.</dd>
-          <dt id="vocab-ShExR">ShExR</dt><dd>The RDF interpretationof ShExJ expressed in Turtle[[turtle]].</dd>
         </dl>
 
       </section>
