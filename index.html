@@ -103,10 +103,54 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           Data managers might want to ensure that each description of a student names one or two guardians, each of which has an assigned URI to facilitate merging of all data about the children associated with a given guardian.
           The age of each student must fall between 13 and 20.
         </p>
-        <p>
+
+        <p style="border-left: medium solid red; padding-left: .5em;">
         The ShEx schema describing this conformant data defines a ShEx <span class="new">shape</span>, labeled with the URI <span class="constant">school:Enrollee</span>, which contains a <span class="new">triple constraint</span>
         that constrains the property <span class="constant">ex:hasGuardian</span> to be a URI and says that an enrollee must have one or two guardians.  Data that conforms to this schema passes validation, and data that does not conform fails.  
         </p>
+
+        <div style="border-left: medium solid green; padding-left: .5em;">
+        <p style="margin-bottom: 0;">
+          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data:
+        </p>
+        <div id="example-school-enrolleeAge" class="example wrapper">
+          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
+
+<span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</pre>
+        </div>
+        <p style="margin: 0;">
+          and <span class="new">triple constraints</span> which constrain the triples that have a given RDF data node as a subject or object:
+        </p>
+        <div class="example wrapper">
+          <pre class="schema shexc" id="BioParent2Dot"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
+
+<span class="shape-name">school:Enrollee</span> {
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
+}</pre>
+        </div>
+        </div>
+
+        <div style="border-left: medium solid blue; padding-left: .5em;">
+        <p style="margin-bottom: 0;">
+          ShEx schemas are composed of <span class="new">node constraints</span>, which constrain individual nodes in the RDF data,
+          and <span class="new">triple constraints</span> which constrain the triples that have a given RDF data node as a subject or object.
+        </p>
+        <div id="example-school-enrolleeAge" class="example wrapper">
+          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
+
+<span class="shape-name">school:Enrollee</span> {
+  <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
+}
+<span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</pre>
+        </div>
+        <p style="margin: 0;">
+          Here, <span style="font-family: monospace; white-space:pre"><span class="keyword">IRI</span></span> and <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</span> are node constraints and <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}</span> is a triple constraint.
+        </p>
+        </div>
+
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
