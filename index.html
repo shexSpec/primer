@@ -95,7 +95,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           The simplest possible ShEx schema, <code>&lt;S&gt; {}</code>, which matches all possible RDF graphs, is like the block of marble.
           Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint defined in a ShEx schema restricts the collection of potential graphs to look more like the RDF data required for a particular application, process, or interface.
           The data may exist in forms ranging from an RDF file to data accessible by APIs or SPARQL endpoints.
-          A ShEx schema may be used for purposes ranging from the conformance testing of data to the configuration of user interfaces.
+          A ShEx schema may be used for purposes ranging from data validation to the configuration of user interfaces.
           This primer focuses on the common use case of validating instance data.
         </p>
         <p>
@@ -240,7 +240,7 @@ inst:Don foaf:age 14 .
         <h2>ShEx Model and Terminology</h2>
 
       <section id="validation">
-          <h2>Testing RDF Data for Conformance</h2>
+          <h2>Validating RDF Data</h2>
           <p>
             Most applications that share data do so using prescribed data structures.
             While RDFS and OWL enable one to make assertions about the objects in some domain, ShEx describes data structures.
