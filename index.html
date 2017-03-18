@@ -3526,7 +3526,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           OWL processor will not report a mismatch between the model and the graph
           because the second parent is assumed to exist even if it is not described in
           the data.  In other words, the graph _could_ describe the second parent if more
-          triples were supplied.  In philosophical terms, this is the "open world
+          triples were supplied.  In logic, this is called the "open world
           assumption".
     	</p>
     	<p>
@@ -3565,6 +3565,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           meanings of "schema" is an unfortunate result of the parallel development of
           RDF and XML in the late 1990s, and the best we can do here is explain what 
           schema means in this particular context.
+    	</p>
+    	<p class="note">
+          It should also be noted that a ShEx schema is not an RDF schema, even though both describe RDF data.
+          "RDF Schema" is actually a language for defining RDF vocabularies and for specifying semantic relationships between terms that can be used to infer relationships between RDF resources.[[!rdf-schema]]
+          A ShEx schema provides structural constraints analogous to relational or XML schemas.
     	</p>
       </section>
 
