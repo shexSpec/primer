@@ -313,7 +313,7 @@ inst:Don foaf:age 14 .
       </section>
 
       <section id="vocabulary">
-        <h2>Terminology</h2>
+        <h2>The ShEx Model</h2>
         <p>
           In the Shape Expressions model, RDF data is seen from the standpoint of its structural components, or abstract syntax.
           An <span class="new">RDF graph</span> is a collection of triples.
@@ -326,22 +326,27 @@ inst:Don foaf:age 14 .
           The relationship between ShEx and RDF is discussed in more detail in section 4.@@@
         </p>
         <p>
-          ShEx provides a language for describing an RDF graph in terms of its abstract-syntactic components.
-          A <span class="new">ShEx Schema</span>, the counterpart of an RDF Graph, is a collection of <span class="new">shape expressions</span>.
-          A shape expression is a logical combination of <span class="new">node constraints</span> and <span class="new">shapes</span>.
-          A ShEx shape describes a collection of RDF triples touching a given RDF node, where the characteristics of matching RDF nodes are defined by ShEx node constraints and the characteristics of matching RDF triples are defined by ShEx triple constraints.
-          A ShEx triple constraint specifies a matching RDF triple in terms of its predicate, its direction (whether it is an incoming or outgoing arc with respect to a node), a cardinality (how many triples should match), or its value (the object node).
-          Like RDF, ShEx may be serialized using any one of several interchangeable concrete syntaxes: 
+          ShEx provides a language for describing an RDF graph in terms of the abstract-syntactic components enumerated above.
+          A <span class="new">ShEx Schema</span>, the counterpart of an RDF Graph, is a collection of shape expressions.
+          A <span class="new">shape expression</span> is a logical combination of node constraints and shapes.
+          <span class="new">Node constraints</span> define the characteristics of matching RDF nodes.
+          A <span class="new">shape</span> describes a collection of RDF triples touching a given RDF node in terms of <span class="new">triple constraints</span> that specify a matching RDF triple in terms of its predicate, direction (whether it is an incoming or outgoing arc with respect to a node), cardinality (how many triples should match), or value (characteristics of the RDF object node).
+        </p>
+        <p>
+        In the <span class="new">SheX Model</span>, a given RDF Data Graph is tested against a ShEx Schema to yield a <span class="new">Validation Result</span>.
+          In the <a href="#simple-expressions-example-1">example above</a>, the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> are tested against a simple ShEx shape named <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
+          In the validation process, each of four nodes in the RDF data is treated, in turn, as a <span class="new">focus node</span>, and triples involving that node are tested against a <span class="new">triple constraint</span>.
+          This triple constraint has a single <span class="new">node constraint</span>: a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple is of type <code class="string">xsd:string</code>.
+        </p>
+        <p>
+          Like RDF, ShEx may be serialized using any of several interchangeable concrete syntaxes: 
           <span class="new">ShExC</span>, a c</span>ompact syntax meant for human eyes and fingers, 
           <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing, and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
         </p>
-        <p>
-          The <a href="#simple-expressions-example-1">example above</a> tested the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a simple ShEx shape named <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
-          Within the shape, each of these RDF data nodes was treated, in turn, as a ShEx <span class="new">focus node</span>.
-          Triples involving that node were tested against a ShEx <span class="new">triple constraint</span>.
-          This triple constraint had a single <span class="new">node constraint</span>: a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple was of type <code class="string">xsd:string</code>.
-          In this process, we were identifying a set of permissible graphs by applying a set of <span class="new">constraints</span> to the (infinite) set of possible RDF graphs.
-        </p>
+      </section>
+
+      <section id="vocabulary">
+        <h2>Basic Terminology</h2>
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
           <dt id="vocab-shape-declaration">shape declaration</dt><dd>@@@.</dd>
@@ -354,6 +359,9 @@ inst:Don foaf:age 14 .
           <dt id="vocab-value-constraint">value constraint</dt><dd>A node constraint used in a triple constraint. "Value constraint" is an informal way of saying: node constraint on the RDF node of the object associated in a triple with a given predicate or, informally, "property".</dd>
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
           <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
+          <dt id="vocab-shexc">ShExC</dt><dd>A compact syntax meant for human eyes and fingers.</dd> 
+          <dt id="vocab-shexj">ShExJ</dt><dd>A JSON-LD[[json-ld]] representation meant for machine processing.</dd> 
+          <dt id="vocab-shexr">ShExR</dt><dd>The RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].</dd> 
         </dl>
 
       </section>
