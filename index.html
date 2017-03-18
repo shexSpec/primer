@@ -105,7 +105,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
         <p>
         The ShEx schema describing this ideal data defines a ShEx <span class="new">shape</span>, labeled with the URI <span class="constant">school:Enrollee</span>, which contains a <span class="new">triple constraint</span>
-        that constrains the value associated with the property <span class="constant">ex:hasGuardian</span> to be a URI and says that an enrollee must have one or two guardians.  Data that conforms to this schema passes validation, and data that does not conform fails.  (The syntax for reporting the details of a failing result is covered in the ShEx specification.@@@)
+        that constrains the value associated with the property <span class="constant">ex:hasGuardian</span> to be a URI and says that an enrollee must have one or two guardians.  Data that conforms to this schema passes validation, and data that does not conform fails.  
         </p>
         <div class="example wrapper">
           <pre class="schema shexc" id="BioParent2Dot"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
@@ -186,9 +186,7 @@ inst:Don foaf:age 14 .
       </div>
 
         <p>
-          While ShEx implementations may provide further information, the minimum validation result includes the results of validating any node/shape pair.
-          In the <a href="#simple-expressions-example-1">previous example</a>, we validate four RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> against a single <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a> shape:
-
+          When the ShEx schema is tested against the RDF data in the <a href="#simple-expressions-example-1">examples above</a>, four RDF data nodes -- <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> -- are evaluated against a single shape, <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>, to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide more verbose validation results; for more detail about the result format, see the ShEx specification.@@@
         </p>
         <table class="example results">
           <tbody><tr><th class="schema">shape</th><th class="data">node</th><th>result</th><th>reason</th></tr>
