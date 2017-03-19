@@ -2008,13 +2008,16 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 
     <section id="choices">
       <h2>Expressions with Choices</h2>
-      <p>
-        Most schema languages offer a way to express choices.  In the following example, a user has either a simple name (<span class="type">foaf:</span><span class="constant">name</span>), or a composite name (<span class="type">foaf:</span><span class="constant">familyName</span> with one or more <span class="type">foaf:</span><span class="constant">givenName</span>s).  The user must have exactly one <span class="type">foaf:</span><span class="constant">mbox</span>.
-      </p>
+      <div class="namespace">
+        <p>
+          Most schema languages offer a way to express choices.
+          In the following example, a user has <span class="eitherOr   lowlight2 top bot">either a simple name</span> (<span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span></span>), <span class="eitherOr   lowlight2 top bot">or a composite name</span> (<span class="fname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">familyName</span></span> with one or more <span class="gname lowlight1 top bot table"><span class="type">foaf:</span><span class="constant">givenName</span></span>s).
+          The user must have exactly one <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span></span>.
+        </p>
 
         <div class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+          <pre class="schema shexc" style="float:left;">
 <span class="shape-name">my:UserShape</span> {
   <span class="eitherOr   lowlight2 top">(                              </span>
      <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>
@@ -2027,7 +2030,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 }</pre>
 
           <!-- JSON example -->
-          <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+          <pre class="schema json" style="float:left;">
 { <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
     "expression": { "type": "group",
       "expressions": [
@@ -2058,7 +2061,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle pass"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass">
 <span class="function-name">inst:User1</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Alice Walker"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:awalker@example.org&gt;</span><span class="keyword"></span></span> .
@@ -2068,21 +2071,33 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <span class="gname lowlight1 bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Paris"</span> </span>;
     <span class="fname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">familyName</span> <span class="string top bot">"Moses"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rpmoses@example.org&gt;</span><span class="keyword"></span></span> .</pre>
-          <pre class="instance turtle fail"><span class="comment"># failing data</span>
+          <pre class="instance turtle fail">
 <span class="function-name">inst:User3</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Smith"</span></span> ;
-    <span class="errorSite"> # error: no familyName</span>
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bobs@example.org&gt;</span><span class="keyword"></span></span> .
 
 <span class="function-name">inst:User4</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"A"</span></span> ;
-    <span class="errorSite"> # error: both name and given/family name</span>
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"B"</span></span> ;
     <span class="fname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">familyName</span> <span class="string top bot">"C"</span></span> ;
-    <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bobs@example.org&gt;</span><span class="keyword"></span></span> .</pre>
+    <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bobs@example.org&gt;</span><span class="keyword"></span></span> .
+
+<span class="function-name">inst:User5</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"A"</span></span> ;
+    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"B"</span></span> ;
+    <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bobs@example.org&gt;</span><span class="keyword"></span></span> .
+</pre>
           </div>
 
           <div style="clear:both;"></div>
+          <table class="example results">
+            <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+            <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="pass"><td>my:UserShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected a <span class="type">foaf:</span><span class="constant">familyName</span> arc.</td></tr>
+            <tr class="fail hilight-invComponent lowlight1 bot"><td>my:UserShape</td><td>inst:User4</td><td>fail</td><td class="fail">Expected only one disjunction to pass.</td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User5</td><td>fail</td><td class="fail">Extra <span class="type">foaf:</span><span class="constant">givenName</span> arc.</td></tr>
+          </tbody></table>
       </div>
       <script type="text/javascript">
       <!--
@@ -2091,9 +2106,6 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       -->
       </script>
       </div>
-
-      @@@Validation Result here - then remove in-line error messages in Failing Data
-
     </section>
 
     
@@ -2504,10 +2516,10 @@ TODO</pre>
 <span class="fail hilight-component lowlight1    ">    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> ;      </span>
 <span class="fail hilight-component lowlight1 bot">    <span class="errorSite">ex:component</span>    <span class="function-name">inst:Issue3</span> .        </span>
 <span class="fail ">                                         </span>
-<span class="fail hilight-invComponent lowlight1 top"><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
+<span class="fail hilight-invComponent lowlight1    "><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
 <span class="fail hilight-invComponent lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;  </span>
 <span class="fail hilight-invComponent lowlight1 bot">    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .      </span></pre>
-</div>
+              </div>
               <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
