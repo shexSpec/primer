@@ -2150,8 +2150,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <div id="sec-iri-range">
           <div class="example wrapper">
             <p>
-              <span class="new">IRI Range.</span> A value set can also contain <code id="iri-range">IRI ranges</code>.
-              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
+              A value set can also contain <span class="new">IRI ranges</span>.
+              An IRI range can be an IRI (in any valid IRI form, including mapped prefixes in the ShExC syntax) followed by a tilde ("<code>~</code>"), which indicates that the range includes all IRIs starting with that base IRI.
             </p>
 
             <!-- ShExC example -->
@@ -2183,6 +2183,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <div style="clear:both;"></div>
           </div>
         </div>
+
+        @@@Validation Result here
 
         <div id="sec-iri-range-exclusion">
           <div class="example wrapper">
