@@ -2145,20 +2145,20 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
   "expression": { "type": "TripleConstraint", "predicate": "a",
     "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
 
-        @@@no space between "a" and "[foaf:Person]"
+        <p class="issue">@@@no space between "a" and "[foaf:Person]"<br/>this is the weirdest thing -- there one moment, gone the next</p>
 
         <div id="sec-iri-range">
           <div class="example wrapper">
             <p>
-              <span class="new">IRI Range.</span> A value set can also contain <code id="iri-range">IRI ranges</code>.
-              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
+              A value set can also contain <span class="new">IRI ranges</span>.
+              An IRI range can be an IRI (in any valid IRI form, including mapped prefixes in the ShExC syntax) followed by a tilde ("<code>~</code>"), which indicates that the range includes all IRIs starting with that base IRI.
             </p>
 
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+            <pre class="schema shexc" style="float:left;">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">exmisc:</span> <span class="function-name">&lt;http://aux.example/misc#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
 
 <span class="shape-name">my:UserShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
@@ -2167,7 +2167,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
+            <pre class="schema json" style="float:left;">
 { <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
@@ -2175,22 +2175,25 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle pass"><span class="comment"># passing data</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
+              <pre class="instance turtle pass">
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
+              <pre class="instance turtle fail">
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
   </div>
             <div style="clear:both;"></div>
+              <table class="example results">
+                <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in any range.</td></tr>
+              </tbody></table>
           </div>
         </div>
 
         <div id="sec-iri-range-exclusion" class="namespace">
           <div class="example wrapper">
             <p>
-            <span class="new">IRI Range Exclusions.</span> Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
-              For example we may wish to include <code id="iri-exclusion">IRI exclusion</code> 
-              A value set can also contain <code>IRI ranges</code>.
-              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
+            An IRI range matches multiple IRIs, but one may wish to exclude specific IRIs or IRI ranges.
+            <span class="new">IRI range exclusions</span> are expressed by following an IRI range with: minus sign (<code>-</code>), whitespace, and a specific IRI to be excluded from the IRI range.  An arbitrary number of IRIs, each prefixed with a minus sign and whitespace, can follow the first.  Note that IRI ranges can also be excluded, as illustrated in the example below.
             </p>
 
             <!-- ShExC example -->
@@ -2216,21 +2219,21 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
               <pre class="instance turtle">
-<span class="user2 lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
+<span class="user2 lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
 <span>                                         </span>
-<span class="fail user3 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="assigned top bot errorSite">excodes:assigned</span></span></span>.
+<span class="fail user3 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="assigned top bot errorSite">excodes:assigned</span></span></span>.
 <span>                                         </span>
-<span class="fail user4 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="med_ top bot errorSite">auxterms:med_sniffles</span></span></span>.
+<span class="fail user4 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="med_ top bot errorSite">auxterms:med_sniffles</span></span></span>.
 <span>                                         </span>
-<span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite">ex:done</span></span></span>.</pre>
+<span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite">ex:done</span></span></span>.</pre>
   </div>
             <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail user3     lowlight1"><td>my:IssueShape</td><td>inst:User3</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="type">excodes:</span><span class="constant">assigned</span></span> prohibited.</td></tr>
-                <tr class="fail user4     lowlight1"><td>my:IssueShape</td><td>inst:User4</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="type">auxterms:</span><span class="constant">:med_…</span></span> arcs.</td></tr>
-                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:User5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in any range.</td></tr>
+                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user3     lowlight1"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="type">excodes:</span><span class="constant">assigned</span></span> prohibited.</td></tr>
+                <tr class="fail user4     lowlight1"><td>my:IssueShape</td><td>inst:Issue4</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="type">auxterms:</span><span class="constant">:med_…</span></span> arcs.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in any range.</td></tr>
               </tbody></table>
             <script type="text/javascript">
             <!--
@@ -2241,7 +2244,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
           </div>
           <div class="example wrapper">
             <p>
-              You can also use a "<code>.</code>" with some <code> IRI exclusions</code> in order to say that anything is permitted except those exclusions.
+              A period (<code>.</code>) can be used with IRI exclusions to say that any IRI is permitted except the excluded IRIs.
             </p>
 
             <!-- ShExC example -->
@@ -2271,6 +2274,8 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
           </div>
         </div>
       </section>
+
+      @@@Validation result here
 
   </section>
 
@@ -2955,10 +2960,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
             </script>
           </div>
 
-          <section id="partition-complexity">
-            <h2>Implementation tips</h2>
             <p>
-            <span class="new">Partition complexity</span>. ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
+            Note that ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
               It is possible to construct schemas for which it is quite expensive to find a mapping from RDF data triple to ShEx triple constraint that satisfies the schema.
               In practical schemas, this is rarely a concern as the search space is quite small, however, certain mistakes in a schema can create a large search space.
             </p>
