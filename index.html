@@ -333,13 +333,13 @@ inst:Don foaf:age 14 .
           A <span class="new">shape</span> describes a collection of RDF triples touching a given RDF node in terms of <span class="new">triple constraints</span> that specify a matching RDF triple in terms of its predicate, direction (whether it is an incoming or outgoing arc with respect to a node), cardinality (how many triples should match), or value (characteristics of the RDF object node).
         </p>
         <p>
-        In the <span class="new">SheX Model</span>, a given RDF Data Graph is tested against a ShEx Schema to yield a <span class="new">Validation Result</span>.
+        In the <span class="new">ShEx Model</span>, a given RDF Data Graph is tested against a ShEx Schema to yield a <span class="new">Validation Result</span>.
           In the <a href="#simple-expressions-example-1">example above</a>, the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> are tested against a simple ShEx shape labeled <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
           In the validation process, each of four nodes in the RDF data is treated, in turn, as a <span class="new">focus node</span>, and triples involving that node are tested against a <span class="new">triple constraint</span>.
           This triple constraint has a single <span class="new">node constraint</span>: a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple is of type <code class="string">xsd:string</code>.
         </p>
         <p>
-          Like RDF, ShEx may be serialized using any of several interchangeable concrete syntaxes: 
+          ShEx may be serialized using any of three interchangeable concrete syntaxes: 
           <a href=" https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax</a> 
           or <span class="new">ShExC</span>, a c</span>ompact syntax meant for human eyes and fingers; 
           <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing; and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
