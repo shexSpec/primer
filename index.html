@@ -2193,7 +2193,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           <div class="example wrapper">
             <p>
             An IRI range matches multiple IRIs, but one may wish to exclude specific IRIs or IRI ranges.
-            <span class="new">IRI range exclusions</span> are expressed by following an IRI range with: minus sign (<code>-</code>), whitespace, and a specific IRI to be excluded from the IRI range.  An arbitrary number of IRIs, each prefixed with a minus sign and whitespace, can follow the first.  Note that IRI ranges can also be excluded, as illustrated in the example below.
+            <span class="new">IRI range exclusions</span> are expressed by following an IRI range with: minus sign (<code>-</code>), whitespace, and a specific IRI, or IRI range, to be excluded from the IRI range.  An arbitrary number of IRIs, each prefixed with a minus sign and whitespace, can follow the first.
             </p>
 
             <!-- ShExC example -->
@@ -2761,6 +2761,8 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
             In the example below, the value constraint <code>$my:EmployeeConstraint</code> is defined to match the shape
             <code>@my:EmployeeConstraint</code> and ...@@@
           </p>
+
+          @@@fix schema and data examples (note: "foaf:name xsd:string" in the data!)
 
           <div class="example wrapper">
             <!-- ShExC example -->
