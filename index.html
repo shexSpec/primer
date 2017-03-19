@@ -2740,9 +2740,10 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
         <h3>Reusing Triple Constraints</h3>
         <div class="namespace">
           <p>
-            It may be convenient to factor out the value constraints for instance if they are referenced more than once.
-            ShExC's <code id="value-class-definition">value class definitions</code> permit one to write a definition and reference it in <code id="value-class-reference">value class references</code>.
-            Here, both <span class="hilight-reproducedBy lowlight2 top bot"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> and <span class="hilight-assignedTo lowlight2 top bot"><span class="type">ex:</span><span class="constant">assignedTo</span></span> are value class references to <span class="constraint-name hilight-employeeConstraint lowlight2 top bot">$my:EmployeeConstraint</span>, which asserts that the object is an IRI matching a specific pattern, and which matches <span class="shape-name hilight-EmployeeShape lowlight2 top bot">my:EmployeeShape</span>.
+            Value constraints referenced more than once may be factored out for reuse.
+            The ShExC syntax allows a value constraint to be declared once, prefixed with a dollar-sign sigil (<code>$</code>), then referenced in multiple triple constraints.
+            In the example below, the value constraint <code>$my:EmployeeConstraint</code> is defined to match the shape
+            <code>@my:EmployeeConstraint</code> and ...@@@
           </p>
 
           <div class="example wrapper">
