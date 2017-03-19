@@ -2944,10 +2944,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
             </script>
           </div>
 
-          <section id="partition-complexity">
-            <h2>Implementation tips</h2>
             <p>
-            <span class="new">Partition complexity</span>. ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
+            Note that ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
               It is possible to construct schemas for which it is quite expensive to find a mapping from RDF data triple to ShEx triple constraint that satisfies the schema.
               In practical schemas, this is rarely a concern as the search space is quite small, however, certain mistakes in a schema can create a large search space.
             </p>
