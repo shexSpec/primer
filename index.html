@@ -2727,16 +2727,15 @@ prepareHighlight(["hilight-component", "hilight-invComponent"], "highlight2", "l
           <section id="closed-shapes">
             <h4>Closing Shapes</h4>
           <p>
-            Services backed by an RDF triple store may accept and ignore triples which are not mentioned in the schema (presuming the schema identifies the triples that the service understands and manipulates).
-            Likewise, some SPARQL endpoints may be best described as providing data in a particular schema, but also likely to have additional data not mentioned in the schema.
-            On the other end of the spectrum may be services or databases which accept or emit only the structures described in the schema.
-            ShEx can describe these constraints.
+            Services backed by an RDF triple store may simply accept and ignore any triples that are not described in the schema;
+            in such a case, the schema may only identify triples that the service understands and manipulates.
+            Likewise, some SPARQL endpoints may be described as providing data of a particular profile, yet have additional data not mentioned in the profile.
+            At the other extreme are services or databases that accept or emit <em>only</em> the data structures described in a profile.
+            In a ShEx schema, a shape may be defined to match <em>only</em> RDF data nodes that have outgoing triples matching the given set of triple constraints and <em>no other</em> outgoing triples.
+            A shape declaration can be qualified to mean "this set of triple constraints and no others" by using the keyword 'CLOSED'.
           </p>
 
         <div class="namespace">
-            <p>
-              Shapes can close not only the predicates listed in their expressions, but all other predicates as well with the keyword "CLOSED":
-            </p>
         <div id="closed-shapes-example-1" class="example wrapper">
           <!-- ShExC example -->
           <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
