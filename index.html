@@ -2529,180 +2529,103 @@ prepareHighlight(["hilight-component", "hilight-invComponent"], "highlight2", "l
 
           <section id="closed-shapes">
             <h4>Closing Shapes</h4>
+        <div class="namespace">
           <p>
             Services backed by an RDF triple store may simply accept and store any triples not described in the schema;
             in such a case, the schema may only identify triples that the service understands and manipulates.
             At the other extreme are services or databases that accept or emit <em>only</em> the data structures described in a schema.
             In a ShEx schema, a shape may be defined to match <em>only</em> RDF data nodes that have outgoing triples matching the given set of triple constraints and <em>no other</em> outgoing triples.
-            A shape declaration can be qualified to mean "this set of triples and no others" by using the keyword <span class="keyword">'CLOSED'.</span>
+            A shape declaration can be qualified to mean "this set of outgoing triples and no others" by using the keyword <span class="keyword closed lowlight2 top bot">CLOSED</span>.
           </p>
 
-        <div class="namespace">
-        <div id="closed-shapes-example-1" class="example wrapper">
-          <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="user lowlight2 top bot shape-name">my:UserShape</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
-  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span></span>
-}</pre>
-
-          <!-- JSON example -->
-          <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "Schema",
-  "shapes": {
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
-      "expression": { "type": "group",
-        "expressions": [
-          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
-          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
-          <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
-          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
-          <span class="mbox       lowlight1 bot">}                                               </span>
-        ]
-      }
-    }
-  }
-}</pre>
-          <div class="verticalDivider"><!-- acts as a divider --></div>
-          <div style="float:left;">
-          <pre class="instance turtle pass"><span class="comment"># passing data</span>
-<span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">foaf:</span><span class="constant">knows</span> <span class="function-name">inst:User2</span> .
-
-<span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
-    <span class="label lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string top bot">"Robert Smith's person record"</span></span> ;
-    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
-    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
-    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</pre>
-  </div>
-          <div style="clear:both;"></div>
-      </div>
-      <script type="text/javascript">
-      <!--
-prepareHighlight(["oneOrMore", "IRI", "stateValue", "user"], "highlight2", "lowlight2");
-prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowlight1");
-      -->
-      </script>
-      </div>
-
-        <div class="namespace">
         <div id="closed-shapes-example-2" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="user lowlight2 top bot shape-name">my:UserShape</span> <span class="keyword closed">CLOSED</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
-  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span></span>
+          <pre class="schema shexc" style="float:left;">
+<span class="shape-name">my:OpenUserShape</span> {
+  <span class=""><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
+  <span class=""><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
+}
+
+<span class="shape-name">my:ClosedUserShape</span> <span class="keyword closed lowlight2 top bot">CLOSED</span> {
+  <span class=""><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
+  <span class=""><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
 }</pre>
 
           <!-- JSON example -->
           <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
 { "type": "Schema",
-  "shapes": {
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
+  "shapes": [
+    { "type": "Shape", "id": <span class="user lowlight2 top bot">"my:OpenUserShape"</span>
       "expression": { "type": "group",
         "expressions": [
-          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
-          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
-          <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
-          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
-          <span class="mbox       lowlight1 bot">}                                               </span>
+          <span class="">{ "type": "TripleConstraint",                   </span>
+          <span class="">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
+          <span class="">  <span class="value-constraint">"value": {             </span>                       </span>
+          <span class="">  <span class="value-constraint">  "type": "NodeConstraint",</span>                   </span>
+          <span class="">  <span class="value-constraint">  "datatype": "xsd:string"</span>                    </span>
+          <span class="">  <span class="value-constraint">}                      </span>                       </span>
+          <span class="">},                                              </span>
+          <span class="">{ "type": "TripleConstraint",                   </span>
+          <span class="">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
+          <span class="">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>          </span>
+          <span class="">  <span class="value-constraint">  "nodeKind": "iri"             </span>              </span>
+          <span class="">  <span class="value-constraint">}                                             </span></span>
+          <span class="">}                                               </span>
+        ]
+      }
+    },
+    { "type": "Shape", "id": <span class="user lowlight2 top bot">"my:ClosedUserShape"</span>,
+      <span class="closed lowlight2 top bot">"closed": "true"</span>,
+      "expression": { "type": "group",
+        "expressions": [
+          <span class="">{ "type": "TripleConstraint",                   </span>
+          <span class="">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
+          <span class="">  <span class="value-constraint">"value": {             </span>                       </span>
+          <span class="">  <span class="value-constraint">  "type": "NodeConstraint",</span>                   </span>
+          <span class="">  <span class="value-constraint">  "datatype": "xsd:string"</span>                    </span>
+          <span class="">  <span class="value-constraint">}                      </span>                       </span>
+          <span class="">},                                              </span>
+          <span class="">{ "type": "TripleConstraint",                   </span>
+          <span class="">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
+          <span class="">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>          </span>
+          <span class="">  <span class="value-constraint">  "nodeKind": "iri"             </span>              </span>
+          <span class="">  <span class="value-constraint">}                                             </span></span>
+          <span class="">}                                               </span>
         ]
       }
     }
-  }
+  ]
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
-<span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">foaf:</span><span class="constant">knows</span> <span class="function-name">inst:User2</span> .
+          <pre class="instance turtle" style="float:left;">
+<span class="user lowlight2 top bot"><span class="function-name">inst:User1</span></span>
+    <span class=""><span class="type">foaf:</span><span class="constant">name</span>       <span class="string">"Bob Smith"</span></span> ;
+    <span class=""><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> </span>.
 
-<span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="errorSite">a foaf:Person</span> ;
-    <span class="label lowlight1 top bot errorSite">rdfs:label      "Robert Smith's person record"</span> ;
-    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string">"Bob Smith"</span></span> ;
-    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
-    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</pre>
+<span class="rdftype lowlight1 top bot"><span class="function-name">inst:User2</span> <span class="errorSite">a foaf:Person</span></span> ;
+    <span class="type">foaf:</span><span class="constant">name</span>       <span class="string">"Bob Smith"</span> ;
+    <span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span> .
+
+<span class="foafknows lowlight2 top bot errorSite">inst:User2 foaf:knows</span> inst:User1 ;
+</pre>
   </div>
           <div style="clear:both;"></div>
       </div>
-      <script type="text/javascript">
-      <!--
-prepareHighlight(["oneOrMore", "IRI", "stateValue", "user"], "highlight2", "lowlight2");
-prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowlight1");
-      -->
-      </script>
-      </div>
+      <div style="clear:both;"> </div>
+      <table class="example results">
+        <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+        <tr class="pass"><td>my:OpenUserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="pass"><td>my:OpenUserShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="pass"><td>my:ClosedUserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="fail hilight-component top lowlight2"><td>my:SolitaryIssueShape</td><td>inst:User2</td><td>fail</td><td class="fail">Unexpected <span class="rdftype lowlight1 top bot"><span class="type">rdf:</span><span class="constant">type</span></span> and <span class="foafknows lowlight1 top bot"><span class="type">foaf:</span><span class="constant">knows</span></span> arcs.</td></tr>
+      </tbody></table>
       <p>
-        Only triples with the <code>focus node</code> as a subject are subject to the constraints of <code>closed shapes</code>.
+        The <span class="type">foaf:</span><span class="constant">knows</span> arc invalidates <span class="function-name">inst:User2</span> but not <span class="function-name">inst:User2</span> because <span class="keyword closed lowlight2 top bot">CLOSED</span> applies only to outgoing arcs.
       </p>
-        <div class="namespace">
-        <div id="closed-shapes-example-3" class="example wrapper">
-          <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="user lowlight2 top bot shape-name">my:UserShape</span> <span class="keyword closed">CLOSED</span> {
-  <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>;
-  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span></span>
-}</pre>
-
-          <!-- JSON example -->
-          <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ "type": "Schema",
-  "shapes": {
-    <span class="user lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
-      "expression": { "type": "group",
-        "expressions": [
-          <span class="name       lowlight1 top">{ "type": "TripleConstraint",                   </span>
-          <span class="name       lowlight1    ">  <span class="predicate">"predicate": "foaf:name"</span>,                     </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">"value": {             </span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "type": "NodeConstraint",</span>                       </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">  "datatype": <span class="string lowlight2 top bot">"xsd:string"</span></span>                    </span>
-          <span class="name       lowlight1    ">  <span class="value-constraint">}                      </span>                       </span>
-          <span class="name       lowlight1 bot">},                                              </span>
-          <span class="mbox       lowlight1 top">{ "type": "TripleConstraint",                   </span>
-          <span class="mbox       lowlight1    ">  <span class="predicate">"predicate": "foaf:mbox"</span>,                     </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">  "nodeKind": <span class="IRI lowlight2 top bot">"iri"</span>             </span>              </span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint">},                                            </span></span>
-          <span class="mbox       lowlight1    ">  <span class="value-constraint oneOrMore lowlight2 top bot">"min": 1, "max": "*"</span>                          </span>
-          <span class="mbox       lowlight1 bot">}                                               </span>
-        ]
-      }
-    }
-  }
-}</pre>
-          <div class="verticalDivider"><!-- acts as a divider --></div>
-          <div style="float:left;">
-          <pre class="instance turtle pass" style="float:left;"><span class="comment"># passing data</span>
-<span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">foaf:</span><span class="constant">knows</span> <span class="function-name">inst:User2</span> .
-
-<span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="errorSite">a foaf:Person</span> ;
-    <span class="label lowlight1 top bot errorSite">rdfs:label      "Robert Smith's person record"</span> ;
-    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string">"Bob Smith"</span></span> ;
-    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
-    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</pre>
-  </div>
-          <div style="clear:both;"></div>
-      </div>
       <script type="text/javascript">
       <!--
-prepareHighlight(["oneOrMore", "IRI", "stateValue", "user"], "highlight2", "lowlight2");
-prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowlight1");
+prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
       -->
       </script>
       </div>
