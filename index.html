@@ -2739,9 +2739,9 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
           <h3>Negative Triple Constraints</h3>
           <div class="namespace">
             <p>
-              Sometimes a schema should specify triples that <em>must not</em> be in the data.
-              For example, suppose there were a need for free-standing issues -- issues that are not related to any other issues by means of the ex:component property.  
-              This can be expressed using triple constraints with cardinality set to zero, which means that a matching triple must not appear.
+              A schema may specify triples that <em>must not</em> appear in the data.
+              For example, suppose there were a need for free-standing issues -- issues unrelated to any other issues by means of the ex:component property.  
+              This can be expressed by setting the cardinality of triple constraints to zero, meaning that they should match zero triples in the data.
               That the shape must also not be the target of incoming triples with ex:component is expressed by prefixing the triple constraint with a caret (<code>^</code>).
             </p>
   
