@@ -333,16 +333,90 @@ inst:Don foaf:age 14 .
           A <span class="new">shape</span> describes a collection of RDF triples touching a given RDF node in terms of <span class="new">triple constraints</span> that specify a matching RDF triple in terms of its predicate, direction (whether it is an incoming or outgoing arc with respect to a node), cardinality (how many triples should match), or value (characteristics of the RDF object node).
         </p>
         <p>
-        In the <span class="new">SheX Model</span>, a given RDF Data Graph is tested against a ShEx Schema to yield a <span class="new">Validation Result</span>.
-          In the <a href="#simple-expressions-example-1">example above</a>, the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> are tested against a simple ShEx shape named <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
+        In the <span class="new">ShEx Model</span>, a given RDF Data Graph is tested against a ShEx Schema to yield a <span class="new">Validation Result</span>.
+          In the <a href="#simple-expressions-example-1">example above</a>, the RDF data nodes <span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span> and <span class="function-name">inst:Don</span> are tested against a simple ShEx shape labeled <a href="#BioParent2Dot" class="shape-name">school:Enrollee</a>.
           In the validation process, each of four nodes in the RDF data is treated, in turn, as a <span class="new">focus node</span>, and triples involving that node are tested against a <span class="new">triple constraint</span>.
           This triple constraint has a single <span class="new">node constraint</span>: a <span class="new">literal datatype</span> constraint asserting that the object of a matching triple is of type <code class="string">xsd:string</code>.
         </p>
         <p>
-          Like RDF, ShEx may be serialized using any of several interchangeable concrete syntaxes: 
-          <span class="new">ShExC</span>, a compact syntax meant for human eyes and fingers, 
-          <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing, and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
+          ShEx may be serialized using any of three interchangeable concrete syntaxes: 
+          <a href=" https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax</a> 
+          or <span class="new">ShExC</span>, a compact syntax meant for human eyes and fingers; 
+          <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing; and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
+          The schemas in this Primer may be viewed in ShExC syntax (by default) or JSON-LD syntax by pressing 'c' or 'j' in the browser or by clicking on the following radio buttons:
         </p>
+        <form id="langOptions" action=""><input type="radio" name="presLang" value="shexc" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
+      </section>
+
+      <!-- p class="note">[for editors] current switches:<br/>
+      (<code>j</code>)son vs. shex(<code>c</code>).
+      </p -->
+
+        <script type="application/javascript">
+  var bodyKeypressCallbacks = {};
+
+  /* a form like
+        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
+  controls display of sections like 
+  <pre class="schema shexc">...</pre>
+  <pre class="schema json">...</pre>
+   */
+  [
+    { lookIn: ".schema", form: "#langOptions", radioName: "presLang", keys:
+      { 74: "json", 106: "json", 67: "shexc", 99: "shexc" }
+    }
+  ].forEach(function (x) {
+
+    /* In lookIn, reveal classes selected by radioName; hide others.
+     */
+    function revealClass (lookIn, form, radioName) {
+            $(lookIn+"."+$(form+" input[name="+radioName+"]").not(":checked").val()).hide();
+            $(lookIn+"."+$(form+" input[name="+radioName+"]" +    ":checked").val()).show();
+          }
+    /* Look in all lookIn containers for the height different of from and to targets.
+     */
+          function adjustHeight (lookIn, from, to) {
+            var visibleTop = $(window).scrollTop();
+            var all = $(lookIn+"."+from); // all containers of from (and presumably, to)
+            var adj = 0;
+            for (var i = 0; i < all.length; ++i) {
+              var elt = all.slice(i, i+1);
+              if (elt.offset().top >= visibleTop) // stop when we pass the current scroll top.
+    break;
+              adj += elt.siblings("."+to).height() - elt.height();
+            }
+            $(window).scrollTop($(window).scrollTop() + adj); // move the scroll top.
+          }
+
+          var inputs = $(x.form + " input[name="+x.radioName+"]");
+    // Listen for checkbox changes.
+          inputs.change(function() {revealClass(x.lookIn, x.form, x.radioName);})
+    // Show only the currently selected class.
+          revealClass(x.lookIn, x.form, x.radioName);
+    // Assign callbacks the the associated keycodes.
+    Object.keys(x.keys).forEach(function (k) {
+      bodyKeypressCallbacks[k] = function () {
+        // If the corresponding radio button isn't already selected,
+              if(!inputs.filter("[value="+x.keys[k]+"]").is(":checked")) {
+    // adjust the height from the current class to the new class;
+    adjustHeight(x.lookIn, $("input[name="+x.radioName+"]:checked", x.form).val(), ""+x.keys[k]+"");
+    // set it as "checked";
+    inputs.filter("[value="+x.keys[k]+"]").prop("checked", true); // .change() did nothing
+    // swap which is displayed.
+    revealClass(x.lookIn, x.form, x.radioName);
+              }
+        return false;
+      };
+    });
+  });
+        $("html > body").keypress(function (evt) {
+          if (evt.ctrlKey)
+            return true; // don't interfere with browser control keys.
+    if (evt.which in bodyKeypressCallbacks)
+      return bodyKeypressCallbacks[evt.which]();
+    return true;
+        });
+        </script>
       </section>
 
       <section id="vocabulary">
@@ -3561,80 +3635,6 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
             </tr>
           </table>
 
-        <p>
-          This schemas in this Primer are available in <a href="https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax (ShExC)</a> and <a href="http://www.w3.org/TR/json-ld/">JSON</a>.
-        </p>
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="shexc" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
-      </section>
 
-      <p class="note">[for editors] current switches:<br/>
-      (<code>j</code>)son vs. shex(<code>c</code>).
-      </p>
-
-        <script type="application/javascript">
-  var bodyKeypressCallbacks = {};
-
-  /* a form like
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
-  controls display of sections like 
-  <pre class="schema shexc">...</pre>
-  <pre class="schema json">...</pre>
-   */
-  [
-    { lookIn: ".schema", form: "#langOptions", radioName: "presLang", keys:
-      { 74: "json", 106: "json", 67: "shexc", 99: "shexc" }
-    }
-  ].forEach(function (x) {
-
-    /* In lookIn, reveal classes selected by radioName; hide others.
-     */
-    function revealClass (lookIn, form, radioName) {
-            $(lookIn+"."+$(form+" input[name="+radioName+"]").not(":checked").val()).hide();
-            $(lookIn+"."+$(form+" input[name="+radioName+"]" +    ":checked").val()).show();
-          }
-    /* Look in all lookIn containers for the height different of from and to targets.
-     */
-          function adjustHeight (lookIn, from, to) {
-            var visibleTop = $(window).scrollTop();
-            var all = $(lookIn+"."+from); // all containers of from (and presumably, to)
-            var adj = 0;
-            for (var i = 0; i < all.length; ++i) {
-              var elt = all.slice(i, i+1);
-              if (elt.offset().top >= visibleTop) // stop when we pass the current scroll top.
-    break;
-              adj += elt.siblings("."+to).height() - elt.height();
-            }
-            $(window).scrollTop($(window).scrollTop() + adj); // move the scroll top.
-          }
-
-          var inputs = $(x.form + " input[name="+x.radioName+"]");
-    // Listen for checkbox changes.
-          inputs.change(function() {revealClass(x.lookIn, x.form, x.radioName);})
-    // Show only the currently selected class.
-          revealClass(x.lookIn, x.form, x.radioName);
-    // Assign callbacks the the associated keycodes.
-    Object.keys(x.keys).forEach(function (k) {
-      bodyKeypressCallbacks[k] = function () {
-        // If the corresponding radio button isn't already selected,
-              if(!inputs.filter("[value="+x.keys[k]+"]").is(":checked")) {
-    // adjust the height from the current class to the new class;
-    adjustHeight(x.lookIn, $("input[name="+x.radioName+"]:checked", x.form).val(), ""+x.keys[k]+"");
-    // set it as "checked";
-    inputs.filter("[value="+x.keys[k]+"]").prop("checked", true); // .change() did nothing
-    // swap which is displayed.
-    revealClass(x.lookIn, x.form, x.radioName);
-              }
-        return false;
-      };
-    });
-  });
-        $("html > body").keypress(function (evt) {
-          if (evt.ctrlKey)
-            return true; // don't interfere with browser control keys.
-    if (evt.which in bodyKeypressCallbacks)
-      return bodyKeypressCallbacks[evt.which]();
-    return true;
-        });
-        </script>
     </body>
 </html>
