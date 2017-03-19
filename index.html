@@ -2008,26 +2008,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <section id="choices">
       <h2>Expressions with Choices</h2>
       <p>
-        Most schema languages offer a way to express choices.
-
-        <div class="namespace">
-        <p>
-          In this example, a user has:
-        </p>
-        <ul>
-          <li><span class="eitherOr   lowlight2 top bot">either a simple name:</span>
-            <ul>
-              <li class="name lowlight1 top bot">a <span class="type">foaf:</span><span class="constant">name</span> property,</li>
-            </ul>
-          </li>
-          <li><span class="eitherOr   lowlight2 top bot">or a composite name:</span>
-            <ul>
-              <li class="gname lowlight1 top bot table">one or more <span class="type">foaf:</span><span class="constant">givenName</span>s</li>
-              <li class="fname lowlight1 top bot">a <span class="type">foaf:</span><span class="constant">familyName</span></li>
-            </ul>
-          </li>
-        </ul>
-        <p class="mbox lowlight1 top bot" style="margin-bottom: 1em;">The user must have exactly one <span class="type">foaf:</span><span class="constant">mbox</span>.</p>
+        Most schema languages offer a way to express choices.  In the following example, a user has either a simple name (<span class="type">foaf:</span><span class="constant">name</span>), or a composite name (<span class="type">foaf:</span><span class="constant">familyName</span> with one or more <span class="type">foaf:</span><span class="constant">givenName</span>s).  The user must have exactly one <span class="type">foaf:</span><span class="constant">mbox</span>.
+      </p>
 
         <div class="example wrapper">
           <!-- ShExC example -->
@@ -2108,6 +2090,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       -->
       </script>
       </div>
+
+      @@@Validation Result here - then remove in-line error messages in Failing Data
+
     </section>
 
     
