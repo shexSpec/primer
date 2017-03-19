@@ -2184,7 +2184,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           </div>
         </div>
 
-        <div id="sec-iri-range-exclusion">
+        <div id="sec-iri-range-exclusion" class="namespace">
           <div class="example wrapper">
             <p>
             <span class="new">IRI Range Exclusions.</span> Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
@@ -2194,37 +2194,50 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             </p>
 
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+            <pre class="schema shexc" style="float:left;">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
 
-<span class="shape-name">my:UserShape</span> {
+<span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
-      excodes:~ - excodes:unassigned - excodes:assigned
-      auxterms:~ - &lt;http://aux.example/terms#med_&gt;~
+      excodes:~ - excodes:unassigned - <span class="assigned top bot lowlight2">excodes:assigned</span>
+      auxterms:~ - <span class="med_ top bot lowlight2">&lt;http://aux.example/terms#med_&gt;~</span>
   ]</span>
 }</pre>
 
             <!-- JSON example -->
             <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
-{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
+{ <span class="Shape-status">"my:IssueShape"</span>: { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle pass"><span class="comment"># passing data</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - auxterms:med_… prohibited</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">auxterms:med_sniffles</span></span></span>.</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - ex:done not in any range</span>
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
+              <pre class="instance turtle">
+<span class="user2 lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
+<span>                                         </span>
+<span class="fail user3 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="assigned top bot errorSite">excodes:assigned</span></span></span>.
+<span>                                         </span>
+<span class="fail user4 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="med_ top bot errorSite">auxterms:med_sniffles</span></span></span>.
+<span>                                         </span>
+<span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite">ex:done</span></span></span>.</pre>
   </div>
             <div style="clear:both;"></div>
+              <table class="example results">
+                <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user3     lowlight1"><td>my:IssueShape</td><td>inst:User3</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="type">excodes:</span><span class="constant">assigned</span></span> prohibited.</td></tr>
+                <tr class="fail user4     lowlight1"><td>my:IssueShape</td><td>inst:User4</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="type">auxterms:</span><span class="constant">:med_…</span></span> arcs.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:User5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in any range.</td></tr>
+              </tbody></table>
+            <script type="text/javascript">
+            <!--
+prepareHighlight(["user2", "user3", "user4", "user5"], "highlight1", "lowlight1");
+prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
+            -->
+            </script>
           </div>
           <div class="example wrapper">
             <p>
@@ -2515,8 +2528,8 @@ TODO</pre>
 <span class="fail hilight-component lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">dc:</span><span class="constant">creator</span>      <span class="string">"Alice"</span></span> ;            </span>
 <span class="fail hilight-component lowlight1    ">    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> ;      </span>
 <span class="fail hilight-component lowlight1 bot">    <span class="errorSite">ex:component</span>    <span class="function-name">inst:Issue3</span> .        </span>
-<span class="fail ">                                         </span>
-<span class="fail hilight-invComponent lowlight1    "><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
+<span>                                         </span>
+<span class="fail hilight-invComponent lowlight1 top"><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
 <span class="fail hilight-invComponent lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;  </span>
 <span class="fail hilight-invComponent lowlight1 bot">    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .      </span></pre>
               </div>
