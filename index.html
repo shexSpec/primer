@@ -2158,7 +2158,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">exmisc:</span> <span class="function-name">&lt;http://aux.example/misc#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
 
 <span class="shape-name">my:UserShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
@@ -2189,7 +2189,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <div id="sec-iri-range-exclusion">
           <div class="example wrapper">
             <p>
-            <span class="new">IRI Range Exclusions.</span> Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
+            Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
               For example we may wish to include <code id="iri-exclusion">IRI exclusion</code> 
               A value set can also contain <code>IRI ranges</code>.
               A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
