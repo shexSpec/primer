@@ -2736,12 +2736,13 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
         </section>
 
         <section id="negated-properties">
-          <h3>Negating Property Declarations</h3>
+          <h3>Negative Triple Constraints</h3>
           <div class="namespace">
             <p>
-              Sometimes we want to say what's <em>not</em> in a schema as well as what's in it.
-              Setting the cardinality to zero asserts that they must not appear in 
-              For instance, we may want to say that a SolitaryIssueShape <span class="hilight-component top bot lowlight2">does not have components</span> nor is it <span class="hilight-invComponent top bot lowlight2">a component of anything else</span>:
+              Sometimes a schema should specify triples that <em>must not</em> be in the data.
+              For example, suppose there were a need for free-standing issues -- issues that are not related to any other issues by means of the ex:component property.  
+              This can be expressed using triple constraints with cardinality set to zero, which means that a matching triple must not appear.
+              That the shape must also not be the target of incoming triples with ex:component is expressed by prefixing the triple constraint with a caret (<code>^</code>).
             </p>
   
             <div class="example wrapper">
