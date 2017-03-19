@@ -116,8 +116,17 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           In this schema:
           <ul>
-             <li><span style="font-family: monospace; white-space:pre"><span class="keyword">IRI</span></span> and <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</span> are node constraints and <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}</span> is a triple constraint.
-        The ShEx schema describing this conformant data defines a ShEx <span class="new">shape</span>, labeled with the URI <span class="constant">school:Enrollee</span>, which contains a <span class="new">triple constraint</span> that constrains the property <span class="constant">ex:hasGuardian</span> to be a URI and says that an enrollee must have one or two guardians.  Data that conforms to this schema passes validation, and data that does not conform fails.
+             <li>
+             <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</span> is a node constraint, labeled <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span></span>, which says that the value of a focus node must be an integer between 13 and 20.
+            </li>
+            <li>
+            <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}</span> is a triple constraint which says that RDF data triples with predicate <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span> must have, as their object, an IRI, and that the data may have one or two such triples.
+            </li>
+            <li>
+            <span style="font-family: monospace; white-space:pre"><span class="keyword">IRI</span></span>, in this context, is a node constraint on the value associated, in triples, with the predicate <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span>.
+            </li>
+            <li>
+            <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span></span> is the label for a shape that contains the triple constraint described above.
             </li>
           </ul>
         </div>
