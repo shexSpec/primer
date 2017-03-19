@@ -2189,10 +2189,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <div id="sec-iri-range-exclusion">
           <div class="example wrapper">
             <p>
-            Since an <a class="ref" href="#iri-range">IRI range</a> matched multiple IRIs, one may wish to exclude contained IRIs or IRI ranges.
-              For example we may wish to include <code id="iri-exclusion">IRI exclusion</code> 
-              A value set can also contain <code>IRI ranges</code>.
-              A range can be an IRI (in any valid IRI form) followed by "<code>~</code>", which indicates that the range includes all IRIs starting with that IRI:
+            An IRI range matches multiple IRIs, but one may wish to exclude specific IRIs or IRI ranges.
+            <span class="new">IRI range exclusions</span> are expressed by following an IRI range with: minus sign (<code>-</code>), whitespace, and a specific IRI to be excluded from the IRI range.  An arbitrary number of IRIs, each prefixed with a minus sign and whitespace, can follow the first.  Note that IRI ranges can also be excluded, as illustrated in the example below.
             </p>
 
             <!-- ShExC example -->
