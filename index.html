@@ -355,6 +355,9 @@ inst:Don foaf:age 14 .
 
       <section id="vocabulary">
         <h2>Basic Terminology</h2>
+        <p>
+          @@@Sentence pointing to https://shexspec.github.io/ns/
+        </p>
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
           <dt id="vocab-shape-declaration">shape declaration</dt><dd>@@@.</dd>
@@ -364,7 +367,8 @@ inst:Don foaf:age 14 .
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint on the predicate of a triple with the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
           <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
-          <dt id="vocab-value-constraint">value constraint</dt><dd>A node constraint used in a triple constraint. "Value constraint" (or "value constraint on a property") is a terse and informal way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".</dd>
+          <dt id="vocab-value-constraint">value constraint</dt><dd>@@@A node constraint used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".</dd>
+          <dt id="vocab-value-set">value set</dt><dd>@@@</dd>
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
           <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
           <dt id="vocab-shexc">ShExC</dt><dd>A compact syntax meant for human eyes and fingers.</dd> 
@@ -1580,7 +1584,7 @@ inst:Don foaf:age 14 .
     "value": { "type": "NodeConstraint", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
 
           </dd>
-          <dt id="vocab-value-set" class="new">value set</dt> <dd>Enumerates specific expected values, e.g.
+          <dt id="vocab-value-set" class="new">value set</dt> <dd>Enumerates a set of specific expected values.
           <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
   ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
 }</pre>
@@ -1588,9 +1592,6 @@ inst:Don foaf:age 14 .
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
-          <p>
-            See the <a href="#value-sets">Value Sets description below</a> for details.
-          </p>
           </dd>
           <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the object is described by another shape, e.g.
           <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
@@ -2099,7 +2100,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       <section id="value-sets">
         <h2>Value Sets</h2>
         <p>
-          As described <a href="#vocab-value-set">above in Vocabulary</a>, <code>value sets</code> in a <code>value constraint</code> enumerate permissible values for some property.
+        <span class="new">Value set</span> is a value constraint for enumerating the set of permissible values for a property.  The values can be IRIs or literals.
         </p>
         <pre class="schema shexc shh">my:IssueShape {
   ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
@@ -2108,9 +2109,6 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
-        <p style="margin: 0;">
-          The above examples could also be literals, e.g.
-        </p>
         <pre class="schema shexc shh">my:IssueShape {
   ex:state <span class="value-constraint new">["unassigned" "assigned"]</span>
 }</pre>
@@ -2120,7 +2118,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
         <p>
           Fixed values are represented as value sets with one member.
-          For example, a required type triple can be expressed like:
+          For example, a required type triple can be expressed in the following two ways using the ShExC syntax:
         </p>
         <pre class="schema shexc shh">my:UserShape {
   rdf:type <span class="value-constraint new">[foaf:Person]</span>
@@ -2128,15 +2126,14 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
     "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
-        <p style="margin: 0;">
-          or using the keyword <code class="keyword">a</code>:
-        </p>
         <pre class="schema shexc shh">my:UserShape {
   <span class="keyword">a</span> <span class="value-constraint new">[foaf:Person]</span>
 }</pre>
         <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "a",
     "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
+
+        @@@no space between "a" and "[foaf:Person]"
 
         <div id="sec-iri-range">
           <div class="example wrapper">
