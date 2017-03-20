@@ -1556,21 +1556,13 @@ inst:Don foaf:age 14 .
       </section>
 
       <section id="tripleConstraints">
-        <h2>@@@Triple Constraints</h2>
+        <h2>Triple Constraints</h2>
         <div class="namespace">
         <p>
-          ShEx's facilities for describing the structure of graphs are based on rules that describe triples in a graph.
-          These rules are evaluated against particular nodes in the instance data; these are called <code>focus nodes</code>.
-          Each rule identifies a predicate and describes the expected triples with the <code>focus node</code> as a subject and the corresponding predicate.
-          These descriptions include how many such triples are required/permitted, and what kinds of objects are expected.
-        </p>
-
-        <p>
-          The rules can be written in the ShExC or JSON-LD syntaxes (recall that you can press 'c' or 'j') as a set of properties on a <code>triple constraint</code>.
-          This example consists of a single <code id="shape-declaration">shape declaration</code> for a shape called <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>.
-          A validation process tests selected nodes in the instance data, <code>focus nodes</code>, against this shape.
-          The shape in this example consists of a single <code class="hilight-tripleConstraint lowlight1 top bot">triple constraint</code> on the property <span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span>.
-          The only <code>value-constraint</code> in this example is that the object of any <span class="predicate">foaf:name</span> triple must be an RDF literal with a datatype of <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>.
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>
+<span class="predicate">foaf:name</span> 
+<span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>.
+          Triple constraints are evaluated against @@@@@@START EDITING HERE
         </p>
 
         <div id="my:UserShape-1" class="example wrapper">
