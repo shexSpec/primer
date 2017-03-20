@@ -104,25 +104,22 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           Picture some RDF data about enrollees in a school.
           Data managers might want to ensure that each description of a student names one or two guardians, each of which has an assigned IRI to facilitate the merging of data about all children associated with a given guardian.
-          The age of each student must fall between 13 and 20.  
-          The following ShEx schema has: one node constraint, labeled with IRI <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; and one triple constraint, defined within a shape labeled with the IRI <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, where the triple has an IRI as its object (or "value"). 
+          The age of each student must fall between 13 and 20.
+        </p>
+        <p>
+          The following ShEx schema has: one <span class="lookit">node constraint</span>, labeled with IRI <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; and one <span class="lookit">triple constraint</span>, defined within a shape labeled with the IRI <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, where the triple has an IRI as its object (or "value"). 
           Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
         </p>
-        @@@better in the paragraph (above) or in-line as comments (below)?
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre id="schema-school-enrolleeAge" class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
-<span class="comment"># <span class="value-constraint new lookit">Node constraint</span>, labeled with IRI <span class="shape-name">school:enrolleeAge</span>,</span>
-<span class="comment"># matches data nodes with an integer between 13 and 20.</span>
+<span class="comment"># <span class="value-constraint new lookit">Node constraint</span></span>
 <span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20
 
 <span class="shape-name">school:Enrollee</span> {
-  <span class="comment"># <span class="value-constraint new lookit">Triple constraint</span>,</span>
-  <span class="comment"># defined within shape labeled with IRI <span class="shape-name">school:Enrollee</span>,</span>
-  <span class="comment"># matches 1 or 2 triples having predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>,</span>
-  <span class="comment"># where the triple has an IRI as its object (or "value").
+  <span class="comment"># <span class="value-constraint new lookit">Triple constraint</span></span>
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
 </pre>
