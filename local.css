@@ -73,7 +73,8 @@
       }
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
-      pre.instance { border: thick solid #f8f6ea; vertical-align: top; }
+      pre.instance { border: thick solid #f8f6ea; }
+      div.wrapper { vertical-align: top; }
       pre.instance.fail { border: thick solid #f8eaea; }
       .verticalDivider {
         float: left;
@@ -100,6 +101,7 @@
 .lowlightBG2    { /* border: 5px solid transparent; */ font-weight: normal; }
 
 .new            { font-weight: bold; }
+.lookit         { background-color: yellow; }
 .errorSite      { color: red; }
 
 

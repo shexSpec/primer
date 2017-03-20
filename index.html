@@ -127,10 +127,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
+<span class="comment"># node constraint: integer ≥13, ≤20</span>
+<span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20
+
 <span class="shape-name">school:Enrollee</span> {
+  <span class="comment"># triple constraint: has 1 or 2 ex:hasGuardian properties.</span>
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
-<span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</pre>
+</pre>
         </div>
 
         <div id="quickstart-example-1" class="example wrapper">
@@ -140,7 +144,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .<a class="tryit" href="#schema-school-enrolleeAge" data-shape-map="inst:Student1@school:Enrollee">try it</a></pre>
+<span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasGuardian</span>
+  <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .<a class="tryit" href="#schema-school-enrolleeAge" data-shape-map="inst:Student1@school:Enrollee">try it</a></pre>
           </div>
           <div style="clear:both;"></div>
           <div style="float:left;">
@@ -148,8 +153,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
-<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="function-name">inst:Person4</span>, <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person6</span> 
-.<a class="tryit" href="#schema-school-enrolleeAge" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a></pre>
+<span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasGuardian</span>
+  <span class="function-name">inst:Person4</span>, <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person6</span> .<a class="tryit" href="#schema-school-enrolleeAge" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a></pre>
           </div>
         </div>
         <p>
@@ -1529,51 +1534,51 @@ inst:Don foaf:age 14 .
         <dl>
           <dt id="vocab-literal-datatype" class="new">literal datatype</dt> <dd>A node constraint that identifies the datatype of an RDF literal.
           <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
-  foaf:name <span class="value-constraint new" style="background-color: yellow;">xsd:string</span>
+  foaf:name <span class="value-constraint lookit">xsd:string</span>
 }</pre>
           <pre class="schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", "predicate": "foaf:name",
-    "value": { "type": "NodeConstraint", <span class="value-constraint new">"datatype": "xsd:string"</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", <span class="value-constraint new lookit">"datatype": "xsd:string"</span> } } } }</pre>
 
           </dd>
           <dt id="vocab-literal-facets" class="new">literal facet</dt> <dd>A node constraint that applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, including <span class="new">numeric facets</span>, which apply only to numeric RDF literals (<code class="value-constraint">MinInclusive</code>, <code class="value-constraint">MinExclusive</code>, <code class="value-constraint">MaxInclusive</code>, <code class="value-constraint">MaxExclusive</code>, <code class="value-constraint">TotalDigits</code>, <code class="value-constraint">FractionDigits</code>) and <span class="new">string facets</span>, which apply to all RDF literals (<code class="value-constraint">Length</code>, <code class="value-constraint">MinLength</code>, <code class="value-constraint">MaxLength</code>, <code class="value-constraint">Pattern</code>).  In the ShExC syntax, facet names are not case-sensitive.
 
           <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
-  ex:shoeSize xsd:float <span class="value-constraint new">MinInclusive 5.5 maxInclusive 12.5</span>
+  ex:shoeSize xsd:float <span class="value-constraint new lookit">MinInclusive 5.5 maxInclusive 12.5</span>
 }</pre>
           <pre class="schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
     "value": { "type": "NodeConstraint", "datatype": "http://www.w3.org/2001/XMLSchema#float",
-               <span class="value-constraint new">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
+               <span class="value-constraint new lookit">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
 
           </dd>
           <dt id="vocab-node-kind" class="new">node kind</dt> <dd>A node constraint that specifies whether an RDF data node is of kind <code class="value-constraint">Literal</code>, <code class="value-constraint">IRI</code>, <code class="value-constraint">BNode</code>, or <code class="value-constraint">NonLiteral</code>, a union of the kinds <code class="value-constraint">IRI</code> and <code class="value-constraint">BNode</code>.  In the ShExC syntax, node kinds are not case-sensitive.
           <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
-  foaf:mbox <span class="value-constraint new">IRI</span>
+  foaf:mbox <span class="value-constraint new lookit">IRI</span>
 }</pre>
           <pre class="schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", "predicate": "foaf:mbox",
-    "value": { "type": "NodeConstraint", <span class="value-constraint new">"nodeKind": "IRI"</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", <span class="value-constraint new lookit">"nodeKind": "IRI"</span> } } } }</pre>
 
           </dd>
           <dt id="vocab-value-set" class="new">value set</dt> <dd>Enumerates a set of specific expected values.
           <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
-  ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
+  ex:state <span class="value-constraint new lookit">[ex:unassigned ex:assigned]</span>
 }</pre>
           <pre class="schema json table">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
           </dd>
           <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the object is described by another shape, e.g.
           <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
-  ex:reportedBy <span class="value-constraint new">@my:UserShape</span>
+  ex:reportedBy <span class="value-constraint new lookit">@my:UserShape</span>
 }</pre>
           <pre class="schema json">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
-      "value": { "type": "ShapeRef", <span class="value-constraint new">"reference": "my:PersonShape"</span> } } } }</pre>
+      "value": { "type": "ShapeRef", <span class="value-constraint new lookit">"reference": "my:PersonShape"</span> } } } }</pre>
           </dd>
         </dl>
 
@@ -2088,38 +2093,35 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <p>
         <span class="new">Value set</span> is a value constraint for enumerating the set of permissible values for a property.  The values can be IRIs or literals.
         </p>
-        <pre class="schema shexc shh">my:IssueShape {
-  ex:state <span class="value-constraint new">[ex:unassigned ex:assigned]</span>
+        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
+  <span class="type">ex:</span><span class="constant">state</span> <span class="value-constraint new lookit">[ex:unassigned ex:assigned]</span>
 }</pre>
-        <pre class="schema json shh">
-{ "my:IssueShape": { "type": "Shape",
+        <pre class="schema json table">
+{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
-        <pre class="schema shexc shh">my:IssueShape {
-  ex:state <span class="value-constraint new">["unassigned" "assigned"]</span>
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
+  <span class="type">ex:</span><span class="constant">state</span> <span class="value-constraint new lookit">["unassigned" "assigned"]</span>
 }</pre>
-        <pre class="schema json shh">
-{ "my:IssueShape": { "type": "Shape",
+        <pre class="schema json table">
+{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="value-constraint new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+        <div style="clear:both;"> </div>
         <p>
           Fixed values are represented as value sets with one member.
           For example, a required type triple can be expressed in the following two ways using the ShExC syntax:
         </p>
-        <pre class="schema shexc shh">my:UserShape {
-  rdf:type <span class="value-constraint new">[foaf:Person]</span>
+        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
+  <span class="type">rdf:</span><span class="constant">type</span> <span class="value-constraint new lookit">[foaf:Person]</span>
 }</pre>
-        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
+        <pre class="schema json table">{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
-    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
-        <pre class="schema shexc shh">my:UserShape {
-  <span class="keyword">a</span> <span class="value-constraint new">[foaf:Person]</span>
+    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new lookit">"foaf:Person"</span> ] } } } }</pre>
+        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
+  <span class="keyword">a</span> <span class="value-constraint new lookit">[foaf:Person]</span>
 }</pre>
-        <pre class="schema json shh">{ "my:IssueShape": { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "a",
-    "value": { "type": "NodeConstraint", "values": [ <span class="value-constraint new">"foaf:Person"</span> ] } } } }</pre>
-
-        <p class="issue">@@@no space between "a" and "[foaf:Person]"<br/>this is the weirdest thing -- there one moment, gone the next</p>
+        <div style="clear:both;"> </div>
 
         <div id="sec-iri-range">
           <div class="example wrapper">
@@ -2738,7 +2740,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           <div class="example wrapper">
             <!-- ShExC example -->
             <pre id="schema-TE-reuse" class="schema shexc" style="float:left;">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="function-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+<span class="prefixes" style="display: none;"><span class="keyword">PREFIX</span> ex: <span class="function-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
 </span><span class="keyword">PREFIX</span> my: <span class="function-name">&lt;<a href="http://my.example/#">http://my.example/#</a>&gt;</span><span class="comment">
 </span><span class="keyword">PREFIX</span> foaf: <span class="function-name">&lt;<a href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a>&gt;</span>
 
@@ -2803,22 +2805,22 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 </span><span class="keyword">PREFIX</span> inst: <span class="function-name">&lt;<a href="http://example.com/users/">http://example.com/users/</a>&gt;</span>
 <span class="keyword">PREFIX</span> foaf: <span class="function-name">&lt;<a href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a>&gt;</span>
 
-</span><span class="type">inst:</span><span class="constant">User1</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Alice"</span> ;
-  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;<a href="mailto:alice&#64;example.com">mailto:alice&#64;example.com</a>&gt;</span> ;
-  <span class="type">ex:</span><span class="constant">userID</span> <span class="string">"u01"</span> <span class="keyword">.</span>
-
-<span class="type">inst:</span><span class="constant">Employee2</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Bob"</span> ;
+</span><span class="type">inst:</span><span class="constant">Employee2</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Bob"</span> ;
   <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;<a href="mailto:bob&#64;example.com">mailto:bob&#64;example.com</a>&gt;</span> ;
   <span class="type">ex:</span><span class="constant">employeeID</span> <span class="string">"e02"</span> <span class="keyword">.</span>
 
 <span class="fail bot"><span class="type">inst:</span><span class="constant">Employee3</span> <span class="type">ex:</span><span class="constant">employeeID</span> <span class="string">"e03"</span> <span class="keyword">.</span>    </span><a class="tryit" href="#schema-TE-reuse" data-shape-map="inst:Employee2@my:EmployeeShape,inst:Employee3@my:EmployeeShape">try it</a>
-</pre>
+
+<span class="type">inst:</span><span class="constant">User1</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Alice"</span> ;
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;<a href="mailto:alice&#64;example.com">mailto:alice&#64;example.com</a>&gt;</span> ;
+  <span class="type">ex:</span><span class="constant">userID</span> <span class="string">"u01"</span> <span class="keyword">.</span></pre>
             </div>
             <div style="clear:both;"> </div>
             <table class="example results">
               <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>my:EmployeeShape</td><td>inst:Employee2</td><td>pass</td><td class="noreason"></td></tr>
               <tr class="fail hilight-component top lowlight2"><td>my:EmployeeShape</td><td>inst:Employee3</td><td>fail</td><td class="fail">Expected <span class="type">foaf:</span><span class="constant">name</span> and <span class="type">foaf:</span><span class="constant">mbox</span> arcs.</td></tr>
+              <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
             </tbody></table>
           </div>
 
