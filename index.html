@@ -2635,17 +2635,14 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           </section>
 
           <section id="extra-properties">
-            <h4>Permitting Extra Properties</h4>
+            <h4>@@@Permitting Extra Properties</h4>
             <p>
-              Triple constraint constrain all triples with the given predicate to match one of the <code>triple constraints</code>.
-              This is called "closing a property".
-              It is often useful to open a property to permit instances of it which are not included in the schema.
-              Here is a predicate that is closed by some mention of it in an expression:
+              If a shape contains a triple constraint with predicate P, the shape is said to "mention" P.  For an RDF data node to match a shape, every outgoing arc from that node that uses a mentioned predicate must match a triple constraint in the shape.  This is called "closing a property".
             </p>
         <div id="extra-properties-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
+          <pre class="schema shexc" style="float:left;">
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
   <span class="state      lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:Employee</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">foaf:Person</span>]</span>
 }</pre>
