@@ -1559,7 +1559,17 @@ inst:Don foaf:age 14 .
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>
 <span class="predicate">foaf:name</span> 
 <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>.
-          Triple constraints are evaluated against @@@@@@START EDITING HERE
+          Triple constraints are evaluated against all of the triples in an RDF graph that touch a given data node.  
+          (Recall that the mapping from ShEx shapes to RDF data nodes is defined in a shape map.)
+          From a ShEx perspective, the RDF data node of interest is a <span class="new">focus node</span>.
+          Each triple constraint identifies a predicate and describes matching triples as having the focus node as the subject in a triple with the given predicate.
+          Triple constraints may specify how many matching triples are required or specified and what kinds of object are expected.
+        </p>
+        <p>
+          The following simple example has one shape, my:UserShape, with a single triple constraint on the property foaf:name.
+          A value constraint within the triple constraint says that the object of a foaf:name triple must be an RDF literal with a datatype of xsd:string.
+          A conforming node in an RDF data graph will have exactly one such triple.
+
         </p>
 
         <div id="my:UserShape-1" class="example wrapper">
