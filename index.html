@@ -108,6 +108,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           The following ShEx schema has: one node constraint, labeled with IRI <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; and one triple constraint, defined within a shape labeled with the IRI <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, where the triple has an IRI as its object (or "value"). 
           Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
         </p>
+        @@@better in the paragraph (above) or in-line as comments (below)?
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre id="schema-school-enrolleeAge" class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
@@ -235,45 +236,26 @@ inst:Don foaf:age 14 .
           <p>
             Most applications that share data do so using prescribed data structures.
             While RDFS and OWL enable one to make assertions about the objects in some domain, ShEx describes data structures.
-            ShEx "schemas" provide:
+            (See Section 5, "Relationship of ShEx to RDF and OWL" for more details.)
+            A ShEx schema:
           </p>
           <ul>
-            <li>An intuitive, domain-specific language for describing graph structures.</li>
-            <li>A portable JSON-LD structure which expresses the same description.</li>
-            <li>Constraints on the number and object type of arcs with a specified predicate.</li>
-            <li>Value sets and simple set operations on lists of RDF terms.</li>
-            <li>XML Schema facet constraints on RDF data nodes.</li>
-            <li>Logical algebraic combinations of constraints on nodes and triples.</li>
-            <li>Semantic actions for additional validation expressivity or other purposes.</li>
+            <li>Uses an intuitive, domain-specific language for describing graph structures.</li>
+            <li>Can be expressed as a portable JSON-LD structure.</li>
+            <li>Provides constraints on the number and object type of triples with a specified predicate.</li>
+            <li>Specifies value sets and simple set operations on lists of RDF terms.</li>
+            <li>Supports XML Schema facet constraints on RDF data nodes.</li>
+            <li>Allows logical algebraic combinations of constraints on nodes and triples.</li>
           </ul>
 
           <div id="associating-nodes-with-shapes">
             <!-- <h3>Associating Nodes with Shapes</h3> -->
             <p>
-              ShEx is defined in terms of validating a nodes as shapes in some schema.
               While ShEx schemas have many uses, they can all be described in terms of a validation process.
-              For instance, when ShEx is used to document data structures for a SPARQL database or service interface, the schema is defining a set of RDF graphs that are involved in that service.
+              For instance, when ShEx is used to document data structures for a SPARQL database or service interface, the schema defines the set of RDF graphs involved in that service.
             </p>
-
             <p>
-              The input to a validation process is called a <code>shape map</code>.
-              Here are a few ways one might associate nodes with shapes:
-            </p>
-
-            <ul>
-              <li>
-                <span>API invocation</span> - node/shape pairs can be selected by a user selecting nodes, a program querying for them, or protocol passing them in e.g. a <a href="https://www.w3.org/wiki/LinkHeader">link header</a>.
-              </li>
-              <li>
-                <span>SHACL target properties</span> - nodes can be associated with shapes using any of the four <a href="http://w3c.github.io/data-shapes/shacl/#targets">SHACL "target" properties</a>.
-              </li>
-              <li>
-                <span>Maximal typing</span> - test every node in a graph against every shape in a schema.
-              </li>
-            </ul>
-
-            <p>
-              For a community-maintained list of mechanisms for constructing shape maps, see the <a href="https://www.w3.org/2001/sw/wiki/ShEx/ShapeMap">ShEx Wiki</a>.
+            The ShEx validation process is controlled by a <span class="new">shape map</span> that specifies how the constructs of a ShEx schema relate to the components of RDF data graphs.  The methods for constructing and expressing shape maps, which include the selection of node-shape pairs by means of queries, APIs, protocols, manual selection, or by the use of <a href="http://w3c.github.io/data-shapes/shacl/#targets">SHACL "target" properties</a>, is beyond the scope of this primer.
             </p>
           </div>
 
@@ -1574,7 +1556,7 @@ inst:Don foaf:age 14 .
       </section>
 
       <section id="tripleConstraints">
-        <h2>Triple Constraints</h2>
+        <h2>@@@Triple Constraints</h2>
         <div class="namespace">
         <p>
           ShEx's facilities for describing the structure of graphs are based on rules that describe triples in a graph.
@@ -1664,7 +1646,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
       </section>
 
       <section id="simple-expressions">
-        <h2>Grouping Triple Constraints in Shapes</h2>
+        <h2>@@@Grouping Triple Constraints in Shapes</h2>
         <div class="namespace">
         <p>
           The above examples show just one triple constraint per shape.
@@ -1816,7 +1798,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
     </section>
 
       <section id="combined-constraints">
-        <h3>Combining Value Constraints</h3>
+        <h3>@@@Combining Value Constraints</h3>
         <div class="namespace">
           <p>
             So far, the examples have all included exactly one value constraint.
@@ -2079,7 +2061,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       <section id="value-sets">
         <h2>Value Sets</h2>
         <p>
-        <span class="new">Value set</span> is a value constraint for enumerating the set of permissible values for a property.  The values can be IRIs or literals.
+        A <span class="new">value set</span> is a value constraint for enumerating the set of permissible values for a property.  The values can be IRIs or literals.
         </p>
         <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="type">ex:</span><span class="constant">state</span> <span class="value-constraint new lookit">[ex:unassigned ex:assigned]</span>
@@ -2115,7 +2097,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           <div class="example wrapper">
             <p>
               A value set can also contain <span class="new">IRI ranges</span>.
-              An IRI range can be an IRI (in any valid IRI form, including mapped prefixes in the ShExC syntax) followed by a tilde ("<code>~</code>"), which indicates that the range includes all IRIs starting with that base IRI.
+              An IRI range can be defined as including all IRIs that start with a given base IRI by appending a tilde ("<code>~</code>").
             </p>
 
             <!-- ShExC example -->
@@ -2156,7 +2138,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <div id="sec-iri-range-exclusion" class="namespace">
           <div class="example wrapper">
             <p>
-            An IRI range matches multiple IRIs, but one may wish to exclude specific IRIs or IRI ranges.
+            An IRI range matches multiple IRIs, from which one may wish to exclude specific IRIs or IRI ranges.
             <span class="new">IRI range exclusions</span> are expressed by following an IRI range with: minus sign (<code>-</code>), whitespace, and a specific IRI, or IRI range, to be excluded from the IRI range.  An arbitrary number of IRIs, each prefixed with a minus sign and whitespace, can follow the first.
             </p>
 
@@ -2244,14 +2226,9 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
   </section>
 
       <section id="advanced">
-        <h2>Advanced Concepts</h2>
-    	<p>
-				<code>Triple constraints</code> can be inverse.
-        They can also have a cardinality of zero which effectively makes them <a href="#negated-properties">negated</a>.
-        Multiple triple constraints on the same property are interpreted as <a href="#additive-properties">additive</a>; each triple constraint is independently fulfilled by different triples in the instance data.
-      </p>
+      <h2>Advanced Concepts</h2>
       <section id="inverse-properties">
-        <h3>Inverse Triple Constraints</h3>
+        <h3>@@@Inverse Triple Constraints</h3>
         <div class="namespace">
           <p>
             Here we change the first example so that instead of an issue having an <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span> identifying a node corresponding to <span class="function-name">my:UserShape</span></span>, the user node has a <span class="reportedIssue lowlight1 top bot">predicate <span class="type">ex:</span><span class="constant">reportedIssue</span> which identifies the issue</span>.
@@ -2469,9 +2446,9 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
           <div class="namespace">
             <p>
               A schema may specify triples that <em>must not</em> appear in the data.
-              For example, suppose there were a need for free-standing issues -- issues unrelated to any other issues by means of the ex:component property.  
-              This can be expressed by setting the cardinality of triple constraints to zero, meaning that they should match zero triples in the data.
-              That the shape must also not be the target of incoming triples with ex:component is expressed by prefixing the triple constraint with a caret (<code>^</code>).
+              For example, suppose there were a need for free-standing issues -- issues having no ex:component relationships, incoming or outgoing, with any other issues.
+              This can be expressed by setting the cardinality of triple constraints on the predicate ex:component to zero, meaning that they should match zero triples in the data.
+              That the shape must also not be the target of incoming triples with the predicate ex:component is expressed by prefixing the triple constraint with a caret (<code>^</code>).
             </p>
   
             <div class="example wrapper">
