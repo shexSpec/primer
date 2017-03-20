@@ -99,27 +99,23 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           This primer focuses on the common use case of validating instance data.
         </p>
         <p>
-        A ShEx schema is largely based on four fundamental constructs: the <span class="new">node constraint</span>, the <span class="new">triple constraint</span>, the <span class="new">shape</span>, and the <span class="new">focus node</span>.  These are best introduced by example.
+        A ShEx schema is largely based on two fundamental constructs: the <span class="new">node constraint</span> and the <span class="new">triple constraint</span>.  These are best introduced by example.
           Picture some RDF data about enrollees in a school.
           Data managers might want to ensure that each description of a student names one or two guardians, each of which has an assigned IRI to facilitate the merging of data about all children associated with a given guardian.
-          The age of each student must fall between 13 and 20.  Data that conforms to these constraints should pass validation tests, and data that does not conform should fail.  These constraints are captured in the following ShEx schema, where:
+          The age of each student must fall between 13 and 20.  Data that conforms to these constraints should pass validation tests, and data that does not conform should fail.
         </p>
-        <p>
-          Examples of passing data and failing data follow.
-        </p>
-
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre id="schema-school-enrolleeAge" class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
-<span class="comment"># Node constraint, labeled <span class="shape-name">school:enrolleeAge</span>,</span>
+<span class="comment"># <span class="value-constraint new lookit">Node constraint</span>, labeled <span class="shape-name">school:enrolleeAge</span>,</span>
 <span class="comment"># matches data nodes with an integer between 13 and 20.</span>
 <span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20
 
 <span class="shape-name">school:Enrollee</span> {
-  <span class="comment"># Triple constraint,</span>
-  <span class="comment"># defined in the context of shape labeled <span class="shape-name">school:Enrollee</span>,</span>
+  <span class="comment"># <span class="value-constraint new lookit">Triple constraint</span>,</span>
+  <span class="comment"># defined in the context of a shape labeled <span class="shape-name">school:Enrollee</span>,</span>
   <span class="comment"># matches 1 or 2 triples with predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>,</span>
   <span class="comment"># where the triple has an IRI as its object (or "value").
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
