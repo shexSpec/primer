@@ -1558,14 +1558,13 @@ inst:Don foaf:age 14 .
           Triple constraints are evaluated against all of the triples in an RDF graph that touch a given data node.  
           From a ShEx perspective, the RDF data node of interest is a <span class="new">focus node</span>.
           Triple constraints typically identify a predicate and describe matching triples as having the focus node as the subject in a triple with the given predicate.
-          (The exception is the inverse triple constraint, which describe matching triples as having the focus node as the object.)
+          (The exception is the inverse triple constraint, which describes matching triples as having the focus node as the object.)
           Triple constraints may specify how many matching triples are required and what kinds of object are expected.
         </p>
         <p>
           The following simple example has one shape, <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>, with a single triple constraint on the property <span class="predicate">foaf:name</span>.
           A value constraint within the triple constraint says that the object of a foaf:name triple must be an RDF literal with a datatype of <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>.
           A conforming node in an RDF data graph will have exactly one such triple.
-
         </p>
 
         <div id="my:UserShape-1" class="example wrapper">
@@ -1574,7 +1573,7 @@ inst:Don foaf:age 14 .
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
   <span class="hilight-tripleConstraint lowlight1 top bot"><span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span> <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span></span>
 }</pre>
-
+          <p></p>
           <!-- JSON example -->
           <pre class="schema json"><span class="comment">// schema (JSON)</span>
 {
@@ -1618,7 +1617,7 @@ inst:Don foaf:age 14 .
 
           <p>
             A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and we expect to have a datatype of <span class="string">xsd:string</span>.  
-            Regular expression conventions are used to specify cardinality (see the <a href="#simple-expressions-example-1">example in Section 1</a>).
+            Regular expression conventions are used to specify cardinality (see the <a href="#simple-expressions-example-1">example in Section 1</a>, with cardinality "one or two").
           </p>
           <ul>
             <li>"" - exactly one (the default when no cardinality is specified)</li>
