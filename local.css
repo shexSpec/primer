@@ -101,7 +101,7 @@
 .lowlightBG2    { /* border: 5px solid transparent; */ font-weight: normal; }
 
 .new            { font-weight: bold; }
-.lookit         { background-color: yellow; }
+.lookit         { background-color: #fcfc00; }
 .errorSite      { color: red; }
 
 
