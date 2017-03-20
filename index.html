@@ -118,7 +118,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20
 
 <span class="shape-name">school:Enrollee</span> {
-  <span class="comment"># Triple constraint, defined in shape <span class="shape-name">school:Enrollee</span>,</span>
+  <span class="comment"># Triple constraint,</span>
+  <span class="comment"># defined in the context of shape labeled <span class="shape-name">school:Enrollee</span>,</span>
   <span class="comment"># matches 1 or 2 triples with predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>,</span>
   <span class="comment"># where the triple has an IRI as its object (or "value").
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
