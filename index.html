@@ -1554,7 +1554,7 @@ inst:Don foaf:age 14 .
 
       <section id="tripleConstraints">
         <h2>Triple Constraints</h2>
-        <div class="namespace">
+        <div class="namespace" style="border-left: medium solid red; padding-left: .5em;">
         <p>
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>
 <span class="predicate">foaf:name</span> 
@@ -1598,32 +1598,105 @@ inst:Don foaf:age 14 .
             <li>"" (none of the above) - exactly one.</li>
           </ul>
           <p>
-            We assume you have identified the nodes you wish to validate as some shape.
-            The node <span id="inst:User1-1" class="function-name">inst:User1</span> in the following graph conforms to this simple shape:
+            Nodes with the wrong number of <span class="type">foaf:</span><span class="constant">name</span> properties or with <span class="type">foaf:</span><span class="constant">name</span> properties that were not of datatype <span class="string">xsd:string</span> do not match the shape <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>:
           </p>
 
-          <pre class="instance turtle pass"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass">
 <span id="inst:User1-1" class="function-name">inst:User1</span>
-    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^xsd:string</span></span> .</pre>
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^xsd:string</span></span> .
+<span class="function-name">inst:User2</span>
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"</span></span> .</pre>
 
+          <pre class="instance turtle fail">
+<span id="inst:User3-1" class="function-name">inst:User3</span>
+    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Joe Jones"^^xsd:string</span></span> ;
+    <span class="errorSite">foaf:name  "Joseph Jones"^^xsd:string</span> .
+
+<span id="inst:User4-1" class="function-name">inst:User4</span>
+    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .
+</pre>
+
+          </div>
+          <div style="clear:both;"> </div>
+          <table class="example results">
+            <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+            <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="pass"><td>my:UserShape</td><td>inst:User2</td><td>pass</td><td>Literals in Turtle have a default datatype of <span class="value-constraint">xsd:string</span>.</td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected exactly one <span class="type">foaf:</span><span class="constant">name</span> arc.</td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User5</td><td>fail</td><td class="fail">Expected an <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>, not a <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:anyURI</span>.</td></tr>
+          </tbody></table>          
+        </div>
+
+        <div class="namespace" style="border-left: medium solid blue; padding-left: .5em;">
+        <p>
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>
+<span class="predicate">foaf:name</span> 
+<span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>.
+          Triple constraints are evaluated against @@@@@@START EDITING HERE
+        </p>
+
+          <p>
+            A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and we expect to have a datatype of <span class="string">xsd:string</span>.
+            Regular expression conventions are used to specify cardinality:
+          </p>
+          <ul>
+            <li>"<span class="new">+</span>" - one or more</li>
+            <li>"<span class="new">*</span>" - zero or more</li>
+            <li>"<span class="new">?</span>" - zero or one</li>
+            <li>"<span class="new">{m}</span>" - exactly m</li>
+            <li>"<span class="new">{m,n}</span>" - at least m, no more than n</li>
+            <li>"" (none of the above) - exactly one.</li>
+          </ul>
           <p>
             Nodes with the wrong number of <span class="type">foaf:</span><span class="constant">name</span> properties or with <span class="type">foaf:</span><span class="constant">name</span> properties that were not of datatype <span class="string">xsd:string</span> do not match the shape <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>:
           </p>
 
-          <pre class="instance turtle fail"><span class="comment"># failing data</span>
-<span id="inst:User2-1" class="function-name">inst:User2</span>
+        <div id="my:UserShape-1" class="example wrapper">
+          <!-- ShExC example -->
+          <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
+  <span class="hilight-tripleConstraint lowlight1 top bot"><span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span> <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span></span>
+}</pre>
+
+          <!-- JSON example -->
+          <pre class="schema json"><span class="comment">// schema (JSON)</span>
+{
+  <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span>: {
+    "type": "Shape",
+    "expression": {
+     <span class="hilight-tripleConstraint lowlight1 top"> "type": "TripleConstraint",</span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="predicate hilight-predicate lowlight2 top bot">"predicate": "foaf:name"</span>,  </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2 top">"value": {                </span> </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "type": "NodeConstraint",   </span> </span>
+     <span class="hilight-tripleConstraint lowlight1    "> <span class="value-constraint hilight-valueConstraint lowlight2    ">  "datatype": "xsd:string"</span> </span>
+     <span class="hilight-tripleConstraint lowlight1 bot"> <span class="value-constraint hilight-valueConstraint lowlight2 bot">}                         </span> </span>
+    }
+  }
+}</pre>
+          <pre class="instance turtle pass">
+<span id="inst:User1-1" class="function-name">inst:User1</span>
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^xsd:string</span></span> .
+<span class="function-name">inst:User2</span>
+    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"</span></span> .</pre>
+
+          <pre class="instance turtle fail">
+<span id="inst:User3-1" class="function-name">inst:User3</span>
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Joe Jones"^^xsd:string</span></span> ;
     <span class="errorSite">foaf:name  "Joseph Jones"^^xsd:string</span> .
 
-<span id="inst:User3-1" class="function-name">inst:User3</span>
-    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .</pre>
+<span id="inst:User4-1" class="function-name">inst:User4</span>
+    <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .
+</pre>
 
-          <p>Note that in Turtle (and other RDF representations), literals expressed with no datatype are interpreted as being of type <code cass="string">xsd:string</code> so the following is also valid data:</p>
-          <pre class="instance turtle pass"><span class="comment"># passing data</span>
-<span class="function-name">inst:User1</span>
-    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"</span></span> .</pre>
           </div>
-
+          <div style="clear:both;"> </div>
+          <table class="example results">
+            <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+            <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="pass"><td>my:UserShape</td><td>inst:User2</td><td>pass</td><td>Literals in Turtle have a default datatype of <span class="value-constraint">xsd:string</span>.</td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected exactly one <span class="type">foaf:</span><span class="constant">name</span> arc.</td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User5</td><td>fail</td><td class="fail">Expected an <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>, not a <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:anyURI</span>.</td></tr>
+          </tbody></table>          
         </div>
 
         <script type="text/javascript">
