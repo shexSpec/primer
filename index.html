@@ -2757,7 +2757,45 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 </pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;"></pre>
+            <pre class="schema json" style="float:left;">{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema", "shapes": [
+    { "id": "http://my.example/#UserShape",
+      "type": "Shape", "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "EachOf", "expressions": [
+              { "type": "TripleConstraint",
+                "predicate": "http://xmlns.com/foaf/0.1/name",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "nodeKind": "literal" } },
+              { "type": "TripleConstraint", "min": 1, "max": "unbounded",
+                "predicate": "http://xmlns.com/foaf/0.1/mbox",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "nodeKind": "iri" } }
+            ],
+            "id": <span class="shape-name entity lowlight1 top bot">"http://my.example/#entity"</span>
+          },
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#userID",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "literal" } }
+        ] }
+    },
+    { "id": "http://my.example/#EmployeeShape",
+      "type": "Shape", "expression": {
+        "type": "EachOf",
+        "expressions": [
+          <span class="shape-name entity lowlight1 top bot">"http://my.example/#entity"</span>,
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#employeeID",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "literal" } }
+        ] } }
+  ] }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
               <pre class="instance turtle tryable">
