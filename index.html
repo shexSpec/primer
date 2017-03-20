@@ -1554,7 +1554,6 @@ inst:Don foaf:age 14 .
 
       <section id="tripleConstraints">
         <h2>Triple Constraints</h2>
-        <div class="namespace" style="border-left: medium solid red; padding-left: .5em;">
         <p>
           Triple constraints are evaluated against all of the triples in an RDF graph that touch a given data node.  
           From a ShEx perspective, the RDF data node of interest is a <span class="new">focus node</span>.
@@ -1616,7 +1615,6 @@ inst:Don foaf:age 14 .
             <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected exactly one <span class="type">foaf:</span><span class="constant">name</span> arc.</td></tr>
             <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User5</td><td>fail</td><td class="fail">Expected an <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span>, not a <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:anyURI</span>.</td></tr>
           </tbody></table>          
-        </div>
 
           <p>
             A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and we expect to have a datatype of <span class="string">xsd:string</span>.
