@@ -1617,11 +1617,11 @@ inst:Don foaf:age 14 .
           </tbody></table>          
 
           <p>
-            A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and we expect to have a datatype of <span class="string">xsd:string</span>.
-            Regular expression conventions are used to specify cardinality:
+            A conforming node in an RDF graph would have exactly one <span class="type">foaf:</span><span class="constant">name</span> property and we expect to have a datatype of <span class="string">xsd:string</span>.  
+            Regular expression conventions are used to specify cardinality (see the <a href="#simple-expressions-example-1">example in Section 1</a>).
           </p>
           <ul>
-            <li>"" - exactly one</li>
+            <li>"" - exactly one (the default when no cardinality is specified)</li>
             <li>"<span class="new">+</span>" - one or more</li>
             <li>"<span class="new">*</span>" - zero or more</li>
             <li>"<span class="new">?</span>" - zero or one</li>
@@ -1629,6 +1629,7 @@ inst:Don foaf:age 14 .
             <li>"<span class="new">{m,n}</span>" - at least m, no more than n</li>
           </ul>
 
+<!-- DELETE THIS? 2017-03-20
         <div class="namespace" style="border-left: medium solid blue; padding-left: .5em;">
         <div id="my:UserShape-1" class="example wrapper">
           <!-- ShExC example -->
@@ -1666,6 +1667,7 @@ inst:Don foaf:age 14 .
 <span id="inst:User4-1" class="function-name">inst:User4</span>
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>  <span class="string top bot">"Bob Smith"^^<span class="errorSite">xsd:anyURI</span></span></span> .
 </pre>
+-->
 
           </div>
           <div style="clear:both;"> </div>
