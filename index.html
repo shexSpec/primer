@@ -104,20 +104,6 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           Data managers might want to ensure that each description of a student names one or two guardians, each of which has an assigned IRI to facilitate the merging of data about all children associated with a given guardian.
           The age of each student must fall between 13 and 20.  Data that conforms to these constraints should pass validation tests, and data that does not conform should fail.  These constraints are captured in the following ShEx schema, where:
         </p>
-          <ul>
-             <li>
-             <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span> <span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</span> is a node constraint, labeled <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span></span>, which says that the value of a focus node must be an integer between 13 and 20.
-            </li>
-            <li>
-            <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}</span> is a triple constraint which says that RDF data triples with predicate <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span></span> must have, as their object, an IRI, and that the data may have one or two such triples.
-            </li>
-            <li>
-            <span style="font-family: monospace; white-space:pre"><span class="keyword">IRI</span></span> is a node constraint on the value associated, in the context of an RDF data triple, with the predicate <span style="font-family: monospace; white-space:pre"><span class="type">ex:</span><span class="constant">hasGuardian</span></span>.
-            </li>
-            <li>
-            <span style="font-family: monospace; white-space:pre"><span class="shape-name">school:enrolleeAge</span></span> is the label for a shape that contains the triple constraint described above.
-            </li>
-          </ul>
         <p>
           Examples of passing data and failing data follow.
         </p>
@@ -133,7 +119,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">school:Enrollee</span> {
   <span class="comment"># triple constraint:</span>
   <span class="comment"># -- matches 1 or 2 triples with predicate <span class="type">ex:</span><span class="constant">hasGuardian</span></span>
-  <span class="comment"># -- where the triple has an IRI as its object (or "value")
+  <span class="comment"># -- where the triple has an IRI as its object ("value")
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
 </pre>
