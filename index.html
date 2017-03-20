@@ -99,13 +99,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           This primer focuses on the common use case of validating instance data.
         </p>
         <p>
-        A ShEx schema is based on two fundamental constructs: the <span class="new">node constraint</span> and the <span class="new">triple constraint</span>.  The qualifiers, grouping mechanisms, keywords, syntactic conventions, and matching procedures provided by the ShEx model may all be seen in relation to these two constructs.
+        A ShEx schema is based on two fundamental constructs: the <span class="new">node constraint</span> and the <span class="new">triple constraint</span>.  The detailed keywords, grouping mechanisms, syntactic conventions, and matching procedures provided by the ShEx model may all be seen as modifying, qualifying, or contextualizing node constraints and triple constraints.
         </p>
         <p>
-          These are best introduced by example.
           Picture some RDF data about enrollees in a school.
           Data managers might want to ensure that each description of a student names one or two guardians, each of which has an assigned IRI to facilitate the merging of data about all children associated with a given guardian.
-          The age of each student must fall between 13 and 20.  Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
+          The age of each student must fall between 13 and 20.  
+          The following ShEx schema has: one node constraint, labeled with IRI <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; and one triple constraint, defined within a shape labeled with the IRI <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, where the triple has an IRI as its object (or "value"). 
+          Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre id="schema-school-enrolleeAge" class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="function-name">&lt;http://school.example/#&gt;</span>
