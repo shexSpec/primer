@@ -213,7 +213,7 @@ inst:Don foaf:age 14 .
       </div>
 
         <p>
-          When the ShEx schema is tested against the RDF data in the <a href="#simple-expressions-example-1">examples above</a>, four RDF data nodes (<span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span>, <span class="function-name">inst:Don</span>) are evaluated against a single shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide more verbose validation results.
+          When this ShEx schema is tested against the RDF data, four RDF data nodes (<span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span>, <span class="function-name">inst:Don</span>) are evaluated against a single shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide validation results in other formats and at different levels of verbosity.
         </p>
         <table class="example results">
           <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
@@ -1880,17 +1880,17 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
       </section>
 
       <section id="nested-shapes">
-        <h3>@@@Nesting Shapes</h3>
+        <h3>Nesting Shapes</h3>
         <p>
-          In the examples so far, every shape has had an IRI or a blank node for a label.
-          Every shape in ShEx has some label.
-          It is possible to write ShExC without a label, in which case the label is a fresh blank node, different from every other blank node in your schema.
+          In the examples above, every shape is labeled with an IRI.
+          In the ShEx model, every shape has a label.
+          Using ShExC syntax, however, a shape can be written without a label, in which case the shape is labeled by the ShExC parser with a blank node that is unique with respect to all other blank nodes in the schema.  
+          In the example below, the value of the triple constraint on predicate ex:reportedBy is a shape comprised of triples constraints on the predicates foaf:name and foaf:mbox.  
+          In ShExC syntax, this anonymous shape is enclosed in curly brackets.  
+          In effect, this anonymous variant on my:UserShape (see above) is "nested" within my:IssueShape.
+          The ShExJ syntax has no corresponding shortcut: the triple constraint on ex:reportedBy references a unique blank node allocated by the parser, and that unique blank node is the label for a shape described further down in the schema.
         </p>
         <div class="namespace">
-          <p>
-            In ShExC, the <a href="#simple-expressions-example-1">example in Simple Expressions</a> could be rewritten with the <span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> embedded inline in <span class="curlies lowlight2 top bot">"{}"s</span>.
-            The JSON representation of ShEx has no corresponding shortcut; it has instead a reference to a shape whose label is a <span class="bnode lowlight2 top bot">blank node allocated by the parser</span>.
-          </p>
           <div id="nested-shapes-example-1" class="example wrapper">
             <!-- ShExC example -->
             <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
