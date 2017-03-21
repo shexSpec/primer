@@ -64,10 +64,22 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     </section>
 
     <section id="conventions" class="introductory">
-      <h5>Conventions used in this Primer</h5>
+      <h4>Conventions used in this Primer</h4>
       <div>
       <p>
-        This quick introduction can be viewed as a separate document or as part of the full primer. <button id="standalone" disabled="disabled">view Quick Start as separate document</button>
+        @@@Most sections: ShEx Schema (in ShExC syntax by default), Passing Data, Failing Data, ?Data, Validation Result.
+        Most examples support highlighting: mousing over elements in a schema or data example highlights corresponding explanatory text.
+        @@@Use of "try it" buttons - link to rawgit.
+      </p>
+      <p>
+        The ShEx schemas in this primer may be viewed in ShExC syntax (by default) or JSON-LD syntax by pressing 'c' or 'j' in the browser or by clicking on the following radio buttons:
+      </p>
+      <form id="langOptions" action=""><input type="radio" name="presLang" value="shexc" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
+      <!-- p class="note">[for editors] current switches:<br/>
+      (<code>j</code>)son vs. shex(<code>c</code>).
+      </p -->
+      <p>
+        Section 1 ("Quick Start") may be viewed as a separate document or as part of the full primer. <button id="standalone" disabled="disabled">view Quick Start as separate document</button>
       </p>
       <script type="text/javascript">
         var text_standAlone = "view Quick Start as separate document";
@@ -295,14 +307,7 @@ inst:Don foaf:age 14 .
           <a href=" https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax</a> 
           or <span class="new">ShExC</span>, a compact syntax meant for human eyes and fingers; 
           <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing; and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
-          The schemas in this Primer may be viewed in ShExC syntax (by default) or JSON-LD syntax by pressing 'c' or 'j' in the browser or by clicking on the following radio buttons:
         </p>
-        <form id="langOptions" action=""><input type="radio" name="presLang" value="shexc" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
-
-      <!-- p class="note">[for editors] current switches:<br/>
-      (<code>j</code>)son vs. shex(<code>c</code>).
-      </p -->
-
       </section>
 
       <section id="vocabulary">
@@ -1656,7 +1661,6 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
         </div>
         <p>
           To illustrate this, we can declare a schema for the data described in the <a href="#introduction">introduction</a>.
-          (Mousing over the the following list items items will highlight the corresponding elements in the example text.)
           Our first example issue must doesn't include <span class="type">ex:</span><span class="constant">reproducedBy</span> as illustrated in the image above, but it must have:
         </p>
 
