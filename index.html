@@ -1760,15 +1760,6 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       -->
       </script>
       </div>
-      <p>
-        In the top example, <span class="function-name">inst:Issue1</span> conforms to <span class="function-name">my:IssueShape</span> because every predicate identified in <span class="function-name">my:IssueShape</span> corresponds to a triple with a subject of <span class="function-name">inst:Issue1</span>.
-      </p>
-      <ul>
-        <li>The first property restriction in <span class="function-name">my:IssueShape</span> asserts that the object of the <span class="type">ex:</span><span class="constant">state</span> must have one of two values: <span class="type">ex:</span><span class="constant">unassigned</span> or <span class="type">ex:</span><span class="constant">assigned</span>.</li>
-        <li>The second property restriction asserts that the object of the <span class="type">ex:</span><span class="constant">reportedBy</span> arc (<span class="function-name">inst:User2</span>) must match the <span class="function-name">my:UserShape</span> shape.</li>
-        <li>The first property restriction in <span class="function-name">my:userShape</span> requires the object of the <span class="type">foaf:</span><span class="constant">name</span> to be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-language-tagged-string">RDF language-tagged string</a> with a datatype of <span class="type">xsd:</span><span class="constant">string</span>.</li>
-        <li>The final property restriction asserts that the object of <span class="type">foaf:</span><span class="constant">mbox</span> be an <a href="http://www.w3.org/TR/rdf11-concepts/#dfn-iri">RDF IRI</a>.</li>
-      </ul>
 
       <p id="empty-shape">
         Note that a shape composed of triple expressions with a minimum cardinality of zero will match any literal or RDF node which does not appear in the data:
