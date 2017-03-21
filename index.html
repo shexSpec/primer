@@ -172,7 +172,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   <span class="type">foaf:</span><span class="constant">age</span> @<span class="shape-name">school:enrolleeAge</span> ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
-          </pre>
+</pre>
             <pre class="instance turtle pass tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
@@ -195,8 +195,8 @@ inst:Claire foaf:age 12 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person5 .
 inst:Don foaf:age 14 .
 <a class="tryit" href="#school-Enrollee1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></pre>
-          <div style="clear:both;"></div>
         </div>
+        <div style="clear:both;"></div>
 
         <p>
           When this ShEx schema is tested against the RDF data, four RDF data nodes (<span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span>, <span class="function-name">inst:Don</span>) are evaluated against a single shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide validation results in other formats and at different levels of verbosity.
@@ -1727,7 +1727,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">
 </span>
 <span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
-    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant errorSite">unassigned</span></span></span> ;
+    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot errorSite">ex:unsinged</span></span> ;
     <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span></span> .
 
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
@@ -1737,6 +1737,13 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
   </div>
           <div style="clear:both;"></div>
       </div>
+      <table class="example results">
+        <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+        <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="pass"><td>my:UserShape</td><td>inst:User2 </td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="fail"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail">No <span class="type">ex:</span><span class="constant">unsinged</span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
+        <tr class="fail"><td>my:UserShape</td><td>inst:User4 </td><td>fail</td><td class="fail">Max cardinality of <span class="type">foaf:</span><span class="constant">name</span> exceeded.</td></tr>
+      </tbody></table>
       <script type="text/javascript">
       <!--
 prepareHighlight(["oneOrMore", "IRI", "stateValue", "user", "string"], "highlight2", "lowlight2");
@@ -1745,19 +1752,45 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       </script>
       </div>
 
-      <p>
-        @@@The following text is very confusingly presented: "a shape... will match any literal or RDF node that does <em>not</em> appear in the data"?  How is it that "any literal would satisfy this shape"?
-      </p>
-
       <p id="empty-shape">
-        Note that a shape composed of triple expressions with a minimum cardinality of zero will match any literal or RDF node that does not appear in the data:
+        Note that a shape composed of triple expressions with a minimum cardinality of zero will trivially match any RDF node that does not have outgoing arcs:
       </p>
-      <pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
-  <span class="type">ex:</span><span class="constant">state</span> [ex:unassigned ex:assigned] <span class="keyword">?</span>;
-  <span class="type">ex:</span><span class="constant">reportedBy</span> @<span class="shape-name">my:UserShape</span> <span class="keyword">*</span>
-}</pre>
+      <div class="namespace">
+        <div id="" class="example wrapper">
+          <!-- ShExC example -->
+          <pre class="schema shexc" id="issue-user-allOpt" style="float:left;"><span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span><span class="comment">
+</span>
+</span><span class="shape-name">my:IssueShape</span> {
+  <span class="type">ex:</span><span class="constant">state</span> [<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span>];
+  <span class="type">ex:</span><span class="constant">reportedBy</span> @<span class="shape-name">my:UserShape</span>
+}
+
+<span class="shape-name">my:UserShape</span> {
+  <span class="type">foaf:</span><span class="constant">name</span> <span class="keyword">LITERAL<span class="lookit">?</span></span>;
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI<span class="lookit">*</span></span>
+}
+</pre>
+          <pre class="instance turtle pass tryable"><span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span><span class="comment">
+</span>
+</span><span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
+    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> ;
+    <span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="string">"Bob Smith"</span> <span class="keyword">.</span>
+<a class="tryit" href="#issue-user-allOpt" data-shape-map="inst:Issue1@my:IssueShape,'Bob Smith'@my:UserShape">try it</a></pre>
+        </div>
+        <div style="clear:both;"></div>
+
+        <table class="example results">
+          <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th></tr>
+          <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td></tr>
+          <tr class="pass"><td>my:UserShape</td><td>"Bob Smith" </td><td>pass</td></tr>
+        </tbody></table>
+      </div>
       <p>
-        For both properties, the minimum number of triples is zero so any RDF data node will match this shape as long as it does not have conflicting <span class="type">ex:</span><span class="constant">state</span> or <span class="type">ex:</span><span class="constant">reportedBy</span> properties.
+        For both properties in <span class="shape-name">my:UserShape</span>, the minimum number of triples is zero.
+        Any RDF data node will match this shape as long as it does not have conflicting <span class="type">ex:</span><span class="constant">state</span> or <span class="type">ex:</span><span class="constant">reportedBy</span> properties.
         Since no RDF literal may be the subject of RDF triples, any literal would satisfy this shape.
       </p>
     </section>
@@ -2674,9 +2707,9 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           <div class="example wrapper">
             <!-- ShExC example -->
             <pre id="schema-TE-reuse" class="schema shexc" style="float:left;">
-<span class="prefixes" style="display: none;"><span class="keyword">PREFIX</span> ex: <span class="function-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> my: <span class="function-name">&lt;<a href="http://my.example/#">http://my.example/#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> foaf: <span class="function-name">&lt;<a href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a>&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> ex: <span class="function-name">&lt;http://ex.example/#&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> my: <span class="function-name">&lt;http://my.example/#&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 
 </span><span class="shape-name">my:UserShape</span> {
   $<span class="shape-name entity lowlight1 top bot">my:entity</span> (
@@ -2735,18 +2768,18 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
               <pre class="instance turtle tryable">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="function-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> inst: <span class="function-name">&lt;<a href="http://example.com/users/">http://example.com/users/</a>&gt;</span>
-<span class="keyword">PREFIX</span> foaf: <span class="function-name">&lt;<a href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a>&gt;</span>
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="function-name">&lt;http://ex.example/#&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> inst: <span class="function-name">&lt;http://example.com/users/&gt;</span>
+<span class="keyword">PREFIX</span> foaf: <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 
 </span><span class="type">inst:</span><span class="constant">Employee2</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Bob"</span> ;
-  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;<a href="mailto:bob&#64;example.com">mailto:bob&#64;example.com</a>&gt;</span> ;
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;mailto:bob&#64;example.com&gt;</span> ;
   <span class="type">ex:</span><span class="constant">employeeID</span> <span class="string">"e02"</span> <span class="keyword">.</span>
 
 <span class="fail bot"><span class="type">inst:</span><span class="constant">Employee3</span> <span class="type">ex:</span><span class="constant">employeeID</span> <span class="string">"e03"</span> <span class="keyword">.</span>    </span><a class="tryit" href="#schema-TE-reuse" data-shape-map="inst:Employee2@my:EmployeeShape,inst:Employee3@my:EmployeeShape">try it</a>
 
 <span class="type">inst:</span><span class="constant">User1</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Alice"</span> ;
-  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;<a href="mailto:alice&#64;example.com">mailto:alice&#64;example.com</a>&gt;</span> ;
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;mailto:alice&#64;example.com&gt;</span> ;
   <span class="type">ex:</span><span class="constant">userID</span> <span class="string">"u01"</span> <span class="keyword">.</span></pre>
             </div>
             <div style="clear:both;"> </div>
