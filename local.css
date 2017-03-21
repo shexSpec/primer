@@ -74,7 +74,7 @@
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
       pre.instance { border: thick solid #f8f6ea; }
-      div.wrapper { vertical-align: top; }
+      pre.schema, pre.instance { vertical-align: top; }
       pre.instance.fail { border: thick solid #f8eaea; }
       .verticalDivider {
         float: left;
@@ -113,7 +113,7 @@ pre.table { display: table; }
 #respecDocument img { width: 72px; }
 a.ref { color: #c83500; font-family: monospace; }
 a.ref:visited { color: #a00550; font-family: monospace; }
-.example.wrapper pre+pre { margin-top: 0; }
+.example.wrapper pre { margin-top: 0; margin-right: 1em; }
 #closed-shapes-example-2 pre { margin-top: 0; }
 
 /* http://stackoverflow.com/questions/2187008/styling-an-anchor-tag-to-look-like-a-submit-button#2187796 */

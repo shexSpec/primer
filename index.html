@@ -141,32 +141,23 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
 </pre>
-        </div>
-
-        <div id="quickstart-example-1" class="example wrapper">
           <!-- JSON example -->
-          <div style="float:left;">
           <pre class="instance turtle pass tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
 <span class="function-name">inst:Student1</span> <span class="type">ex:</span><span class="constant">hasGuardian</span>
   <span class="function-name">inst:Person2</span>, <span class="function-name">inst:Person3</span> .<a class="tryit" href="#schema-school-enrolleeAge" data-shape-map="inst:Student1@school:Enrollee">try it</a></pre>
-          </div>
-          <div style="clear:both;"></div>
-          <div style="float:left;">
           <pre class="instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
 
 <span class="function-name">inst:Student2</span> <span class="type">ex:</span><span class="constant">hasGuardian</span>
   <span class="function-name">inst:Person4</span>, <span class="function-name">inst:Person5</span>, <span class="function-name">inst:Person6</span> .<a class="tryit" href="#schema-school-enrolleeAge" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a></pre>
-          </div>
         </div>
         <p>
         The next example adds a triple constraint on the data predicate foaf:age, which must have a value matching the node constraint <span class="constant">school:enrolleeAge</span>, which is cited in the triple constraint by reference.
         </p>
-        <div id="quickstart-example-1" class="example wrapper">
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
           <pre class="schema shexc" id="school-Enrollee1" style="float:left;">
@@ -182,8 +173,6 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   <span class="type">ex:</span><span class="constant">hasGuardian</span> <span class="keyword">IRI</span> {1,2}
 }
           </pre>
-          <div class="verticalDivider"><!-- acts as a divider --></div>
-          <div style="float:left;">
             <pre class="instance turtle pass tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
@@ -206,11 +195,8 @@ inst:Claire foaf:age 12 ;
   <span class="type">ex:</span><span class="constant">hasGuardian</span> inst:Person5 .
 inst:Don foaf:age 14 .
 <a class="tryit" href="#school-Enrollee1" data-shape-map="inst:Claire@school:Enrollee,inst:Don@school:Enrollee">try it</a></pre>
-          </div>
           <div style="clear:both;"></div>
-          </div>
         </div>
-      </div>
 
         <p>
           When this ShEx schema is tested against the RDF data, four RDF data nodes (<span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span>, <span class="function-name">inst:Don</span>) are evaluated against a single shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may be configured to provide validation results in other formats and at different levels of verbosity.
@@ -222,6 +208,7 @@ inst:Don foaf:age 14 .
           <tr class="fail"><td>school:Enrollee</td><td>inst:Claire</td><td>fail</td><td class="fail">No <code>foaf:age</code> supplied.</td></tr>
           <tr class="fail"><td>school:Enrollee</td><td>inst:Don   </td><td>fail</td><td class="fail"><code>foaf:age</code> 14 greater than 13.</td></tr>
         </tbody></table>
+      </div>
     </section>
     <script type="text/javascript">
       <!--
@@ -312,19 +299,15 @@ inst:Don foaf:age 14 .
 
       <section id="vocabulary">
         <h2>Basic Terminology</h2>
-        <p>
-          @@@Sentence pointing to https://shexspec.github.io/ns/
-        </p>
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
-          <dt id="vocab-shape-declaration">shape declaration</dt><dd>@@@.</dd>
           <dt id="vocab-shape-expression">shape expression</dt><dd>A collection of shapes and of node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
           <dt id="vocab-shape">shape</dt><dd>A collection of constraints on the triples which have the focus node as the subject or object.</dd>
           <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints, to be taken as a group or as a set of choices.</dd>
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint on the predicate of a triple with the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
           <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
-          <dt id="vocab-value-constraint">value constraint</dt><dd>@@@A node constraint used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".</dd>
+          <dt id="vocab-value-constraint">value constraint</dt><dd>A shape expression used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".</dd>
           <dt id="vocab-value-set">value set</dt><dd>@@@</dd>
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
           <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
@@ -1567,7 +1550,7 @@ inst:Don foaf:age 14 .
         <h2>Triple Constraints</h2>
         <p>
           Triple constraints are evaluated against all of the triples in an RDF graph that touch a given data node.  
-          From a ShEx perspective, the RDF data node of interest is a <span class="new">focus node</span>.
+          During validation, we call the RDF data node that we are examining the <span class="new">focus node</span>.
           Triple constraints typically identify a predicate and describe matching triples as having the focus node as the subject in a triple with the given predicate.
           (The exception is the inverse triple constraint, which describes matching triples as having the focus node as the object.)
           Triple constraints may specify how many matching triples are required and what kinds of object are expected.
@@ -1584,7 +1567,6 @@ inst:Don foaf:age 14 .
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
   <span class="hilight-tripleConstraint lowlight1 top bot"><span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span> <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span></span>
 }</pre>
-          <p></p>
           <!-- JSON example -->
           <pre class="schema json"><span class="comment">// schema (JSON)</span>
 {
@@ -3187,6 +3169,9 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
         "RDF Schema" is actually a language for defining RDF vocabularies and for specifying semantic relationships between terms that can be used to infer relationships between RDF resources.[[!rdf-schema]]
         A ShEx schema provides structural constraints, analogously to relational or XML schemas.
     	</p>
+        <p>
+          @@@Sentence pointing to https://shexspec.github.io/ns/
+        </p>
       </section>
 
       <section id="namespaces" class="appendix">
