@@ -1565,7 +1565,7 @@ inst:Don foaf:age 14 .
 
         <div id="my:UserShape-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+          <pre class="schema shexc">
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
   <span class="hilight-tripleConstraint lowlight1 top bot"><span class="predicate hilight-predicate lowlight2 top bot">foaf:name</span> <span class="value-constraint hilight-valueConstraint lowlight2 top bot">xsd:string</span></span>
 }</pre>
@@ -1651,7 +1651,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+          <pre class="schema shexc" style="float:left;">
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> {
   <span class="state      lowlight1 top bot"><span class="predicate">ex:state</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:unassigned ex:assigned</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">ex:reportedBy</span> <span class="value-constraint">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span>
@@ -1708,7 +1708,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle pass"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
 </span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">
@@ -1721,7 +1721,7 @@ prepareHighlight(["hilight-tripleConstraint"], "highlight1", "lowlight1");
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 top"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span></span> ;
     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 bot"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span></span>.</pre>
-          <pre class="instance turtle fail"><span class="comment"># failing data</span>
+          <pre class="instance turtle fail">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">http://ex.example/#</span><span class="comment">
 </span><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">http://xmlns.com/foaf/</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">http://www.w3.org/2001/XMLSchema#</span><span class="comment">
@@ -1804,7 +1804,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
           <div class="example wrapper">
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+            <pre class="schema shexc" style="float:left;">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot new"><span class="value-constraint">IRI @<span class="shape-name">my:EmployeeShape</span>
@@ -1847,7 +1847,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle pass"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#123</span></span> .
@@ -1856,7 +1856,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 <span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
 <span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
               <div></div>
-              <pre class="instance turtle fail"><span class="comment"># failing data</span>
+              <pre class="instance turtle fail">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">http://hr.example/id#<span class="errorSite">abc</span></span></span> .
@@ -1892,7 +1892,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
         <div class="namespace">
           <div id="nested-shapes-example-1" class="example wrapper">
             <!-- ShExC example -->
-            <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+            <pre class="schema shexc">
 <span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>];
   <span class="predicate">ex:reportedBy</span> <span class="curlies lowlight2 top bot">{</span>
@@ -2200,7 +2200,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             </p>
 
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+            <pre class="schema shexc" style="float:left;">
 
 <span class="shape-name">my:UserShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
@@ -2217,9 +2217,9 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-              <pre class="instance turtle pass"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass">
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
-              <pre class="instance turtle fail"><span class="comment"># failing data - excodes:assigned prohibited</span>
+              <pre class="instance turtle fail">
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
   </div>
             <div style="clear:both;"></div>
@@ -2809,7 +2809,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 
             <div class="example wrapper">
               <!-- ShExC example -->
-              <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
+              <pre class="schema shexc" style="float:left;">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-tester lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>;
@@ -2872,7 +2872,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 }</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
-              <pre class="instance turtle pass"><span class="comment"># passing data</span>
+              <pre class="instance turtle pass">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-tester lowlight2 top bot"><span class="type">inst:</span><span class="constant">Tester2</span></span> ;
@@ -2886,7 +2886,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 <span class="hilight-programmer lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;                  </span>
 <span class="hilight-programmer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
               <div></div>
-              <pre class="instance turtle fail"><span class="comment"># failing data</span>
+              <pre class="instance turtle fail">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester2</span></span> ;
@@ -2963,7 +2963,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 <span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
 <span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
               <p>fails <code>partition</code>, <span class="hilight-workaround1 lowlight2 top bot">workaround</span> is:</p>
-              <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+              <pre class="schema shexc">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>;
@@ -2995,7 +2995,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 <span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
 <span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
               <p>fails <code>conjunction</code>, <span class="hilight-workaround2 lowlight2 top bot">workaround</span> is:</p>
-              <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+              <pre class="schema shexc">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>;
@@ -3034,7 +3034,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 <span class="hilight-testgrammer lowlight2    ">  <span class="type">ex:</span><span class="constant">role</span> <span class="type">ex:</span><span class="constant">testingRole</span> ;                </span>
 <span class="hilight-testgrammer lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span></pre>
               <p>fails <code>conjunction</code>, <span class="hilight-workaround3 lowlight2 top bot">workaround</span> is:</p>
-              <pre class="schema shexc"><span class="comment"># schema (ShExC)</span>
+              <pre class="schema shexc">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   ( <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span>;
