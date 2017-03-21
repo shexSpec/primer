@@ -2210,11 +2210,10 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
       <section id="advanced">
       <h2>Advanced Concepts</h2>
       <section id="inverse-properties">
-        <h3>@@@Inverse Triple Constraints</h3>
+        <h3>Inverse Triple Constraints</h3>
         <div class="namespace">
           <p>
-            Note that placing a regular <code>triple constraint</code> on <span class="shape-name">my:UserShape</span> would require that all users have reported an issue, and is thus different from using the inverse property on <span class="shape-name">my:IssueShape</span>.
-            In this example, <span class="function-name inst-User6 lowlight2 top bot">inst:User6</span> would fail to match <span class="shape-name">my:UserShape</span>:
+            Placing a regular triple constraint on predicate ex:reportedIssue into <span class="shape-name">my:UserShape</span> effectively requires all users to have reported an issue.
           </p>
 
           <div class="example wrapper">
@@ -2300,13 +2299,17 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
               -->
             </script>
           </div>
+
+          <p>
+            @@@Validation result here
+          </p>
+
         <div class="namespace">
           <p>
-            Here we change the first example so that instead of an issue having an <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span> identifying a node corresponding to <span class="function-name">my:UserShape</span></span>, the user node has a <span class="reportedIssue lowlight1 top bot">predicate <span class="type">ex:</span><span class="constant">reportedIssue</span> which identifies the issue</span>.
-            We don't want to assert that every node matching <span class="shape-name">my:UserShape</span> has reported an issue; we simply want to make sure that for every issue, there is some user who reported it.
-          </p>
-          <p>
-            The direction of the arc is changed by prefixing the <code>triple constraint</code> with a "<span class="inversePredicate top bot keyword lowlight2">^</span>" in ShExC or <span class="inversePredicate top bot keyword lowlight2">"inverse": true</span> in JSON:
+            However, it may be more precise to require that for every issue, there is some user who reported it.
+            This could be expressed in the data by describing every issue as being reported by (<span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>) a user.
+            Alternatively, an issue could be described as the object of a triple with predicate ex:reportedIssue.
+            A triple constraint for such an incoming arc may expressed in the ShExC syntax by prefixing the constraint with a caret (<span class="inversePredicate top bot keyword lowlight2">^</span>) and in the ShExJ syntax with <span class="inversePredicate top bot keyword lowlight2">"inverse": true</span>.
           </p>
 
           <div class="example wrapper">
