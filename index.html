@@ -1761,8 +1761,12 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       </script>
       </div>
 
+      <p>
+        @@@The following text is very confusingly presented: "a shape... will match any literal or RDF node that does <em>not</em> appear in the data"?  How is it that "any literal would satisfy this shape"?
+      </p>
+
       <p id="empty-shape">
-        Note that a shape composed of triple expressions with a minimum cardinality of zero will match any literal or RDF node which does not appear in the data:
+        Note that a shape composed of triple expressions with a minimum cardinality of zero will match any literal or RDF node that does not appear in the data:
       </p>
       <pre class="schema shexc"><span class="shape-name">my:IssueShape</span> {
   <span class="type">ex:</span><span class="constant">state</span> [ex:unassigned ex:assigned] <span class="keyword">?</span>;
