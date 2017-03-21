@@ -307,8 +307,9 @@ inst:Don foaf:age 14 .
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint on the predicate of a triple with the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
           <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
-          <dt id="vocab-value-constraint">value constraint</dt><dd>A shape expression used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".</dd>
-          <dt id="vocab-value-set">value set</dt><dd>A set of values composed of RDF terms and substrings.</dd>
+          <dt id="vocab-value-constraint">value constraint</dt><dd>A shape expression used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".
+          For inverse triple constraints, "node constraint on the RDF node of the subject associated in a triple with a given predicate".</dd>
+          <dt id="vocab-value-set">value set</dt><dd>A set of RDF terms constructed by enumeration or patterns used for testing a focus node.</dd>
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
           <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
           <dt id="vocab-shexc">ShExC</dt><dd>A compact syntax meant for human eyes and fingers.</dd> 
@@ -2071,9 +2072,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
 
 <span class="shape-name">my:UserShape</span> {
-  <span class="predicate">ex:status</span> <span class="value-constraint">[
-      excodes:~ auxterms:~
-  ]</span>
+  <span class="predicate">ex:status</span> <span class="value-constraint">[ excodes:~ auxterms:~ ]</span>
+ ^<span class="predicate">ex:hasIssue</span> <span class="value-constraint">[ ex:Product1 ex:Product2 ]</span>
 }</pre>
 
             <!-- JSON example -->
@@ -2086,15 +2086,23 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
               <pre class="instance turtle pass">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .</pre>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue1</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
+<span class="status lowlight1 top bot"><span class="function-name">my:Product2 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue1</span></span></span> .
+</pre>
               <pre class="instance turtle fail">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.</pre>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.
+<span class="status lowlight1 top bot"><span class="function-name">my:Product1 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue2</span></span></span> .
+
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot">auxterms:done</span></span></span>.
+<span class="status lowlight1 top bot"><span class="function-name errorSite">my:Product3 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue3</span></span></span> .
+</pre>
   </div>
             <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in any range.</td></tr>
+                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">my:</span><span class="constant">Product3</span></span> not in range of <span class="type">ex:</span><span class="constant">hasIssue</span>.</td></tr>
               </tbody></table>
           </div>
         </div>
@@ -2143,7 +2151,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
                 <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>pass</td><td class="noreason"></td></tr>
                 <tr class="fail user3     lowlight1"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="type">excodes:</span><span class="constant">assigned</span></span> prohibited.</td></tr>
                 <tr class="fail user4     lowlight1"><td>my:IssueShape</td><td>inst:Issue4</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="type">auxterms:</span><span class="constant">med_…</span></span> arcs.</td></tr>
-                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in any range.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
               </tbody></table>
             <script type="text/javascript">
             <!--
