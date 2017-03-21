@@ -1753,7 +1753,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       </div>
 
       <p id="empty-shape">
-        Note that a shape composed of triple expressions with a minimum cardinality of zero will trivially match any RDF node that does not have outgoing arcs:
+        Note that a shape composed of triple expressions with a minimum cardinality of zero will trivially match any RDF node that does not have outgoing arcs.
       </p>
       <div class="namespace">
         <div id="" class="example wrapper">
@@ -1791,7 +1791,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       <p>
         For both properties in <span class="shape-name">my:UserShape</span>, the minimum number of triples is zero.
         Any RDF data node will match this shape as long as it does not have conflicting <span class="type">ex:</span><span class="constant">state</span> or <span class="type">ex:</span><span class="constant">reportedBy</span> properties.
-        Since no RDF literal may be the subject of RDF triples, any literal would satisfy this shape.
+        Since no RDF literal may be the subject of RDF triples, any literal would satisfy this shape.  This can lead to unintended results and confusing errors.
       </p>
     </section>
 
