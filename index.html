@@ -2600,9 +2600,9 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           </section>
 
           <section id="extra-properties">
-            <h4>@@@Permitting Extra Properties</h4>
+            <h4>Permitting Extra Properties</h4>
             <p>
-              If a shape contains a triple constraint with predicate P, the shape is said to "mention" P.  For an RDF data node to match a shape, every outgoing arc from that node that uses a mentioned predicate must match a triple constraint in the shape.  This is called "closing a property".
+              If a shape contains a triple constraint with predicate P, the shape is said to "mention" P.  By default, for an RDF data node to match that shape, every outgoing arc from that node that uses a mentioned predicate must match a triple constraint in the shape.  This is called "closing a property".  The following example says that all data triples that are mapped to my:UserShape and that use the property rdf:type (in ShExC syntax: <span class="keyword">a</span>) must have either foaf:Person or ex:Employee as object.  The example data fails validation because ex:Manager is not a permitted object.
             </p>
         <div id="extra-properties-example-1" class="example wrapper">
           <!-- ShExC example -->
@@ -2638,22 +2638,18 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle fail" style="float:left;"><span class="comment"># failing data</span>
+          <pre class="instance turtle fail" style="float:left;">
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span>, <span class="type">ex:</span><span class="constant">Employee</span>, <span class="errorSite">ex:Manager</span>.</pre>
           </div>
           <div style="clear:both;"></div>
       </div>
             <p style="margin-bottom: 0;">
-              The data with the extra
-            </p>
-            <pre class="instance turtle fail table" style="margin: 0 1em;"><span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="errorSite">ex:Manager</span> .</pre>
-            <p style="margin-top: 0;">
-              arc can accepted by adding rdf:type (or <code class="keyword">a</code>) as an "EXTRA" predicate, permitting any number of additional arcs with that predicate:
+            The shape my:UserShape can be modified to accept any number of additional arcs with the predicate rdf:type by using the keyword <span class="keyword closed lowlight2 top bot">EXTRA</span> followed by the permitted predicate (here: <span class="keyword">a</span>).
             </p>
         <div id="extra-properties-example-2" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
-<span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> EXTRA <span class="keyword">a</span> {
+          <pre class="schema shexc" style="float:left;">
+<span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> EXTRA <span class="keyword">a</span> {
   <span class="state      lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">ex:Employee</span>]</span>;
   <span class="reportedBy lowlight1 top bot"><span class="predicate">a</span> [<span class="stateValue lowlight2 top bot value-constraint">foaf:Person</span>]</span>
 }</pre>
@@ -2662,7 +2658,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           <pre class="schema json" style="float:left;"><span class="comment">// schema (JSON)</span>
 { "type": "Schema",
   "shapes": {
-    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
+    <span class="shape-name hilight-shapeName lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
       "expression": { "type": "group",
         "expressions": [
           <span class="state      lowlight1 top">{ "type": "TripleConstraint",                   </span>
@@ -2684,7 +2680,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle pass" style="float:left;"><span class="comment"># passing data</span>
+          <pre class="instance turtle pass" style="float:left;">
 <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span>, <span class="type">ex:</span><span class="constant">Employee</span>, <span class="type">ex:</span><span class="constant">Manager</span>.</pre>
           </div>
       </div>
@@ -2799,7 +2795,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
           <div class="namespace">
             <p>
               The use of generic predicates sometimes leads to their being used multiple times in the same shape.
-              In the following example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced both by <span class="hilight-tester lowlight2 top bot">testing</span> and by a <span class="hilight-programmer lowlight2 top bot">programmer</span>.
+              In the following example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced both by a <span class="hilight-tester lowlight2 top bot">tester</span> and by a <span class="hilight-programmer lowlight2 top bot">programmer</span>.
             </p>
 
             <div class="example wrapper">
