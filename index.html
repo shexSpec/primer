@@ -1805,18 +1805,18 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           <div class="example wrapper">
             <!-- ShExC example -->
             <pre id="example-combined1" class="schema shexc" style="float:left;">
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="function-name">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
 
-<span class="shape-name">my:IssueShape</span> {
+</span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
   <span class="predicate">ex:reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:EmployeeShape</span></span></span>
 }
 
-<span class="hilight-reproducedBy lowlight2 top"><span class="shape-name">my:EmployeeShape</span> <span class="keyword">IRI</span>
- /<span class="string">^http:\/\/hr.example\/id#[0-9]+</span>/ {       </span>
+<span class="hilight-reproducedBy lowlight2 top"><span class="shape-name">my:EmployeeShape</span> <span class="keyword">IRI</span>                      </span>
+<span class="hilight-reproducedBy lowlight2    "> /<span class="string">^http:\/\/hr.example\/id#[0-9]+</span>/ {      </span>
 <span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">foaf:name</span> <span class="keyword">LITERAL</span>;                      </span>
 <span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
 <span class="hilight-reproducedBy lowlight2 bot">}                                         </span>
@@ -1851,7 +1851,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="hilight-reproducedBy lowlight2 bot">}                                                                        </span>
 }</pre>
               <pre class="instance turtle pass tryable">
-<span class="prefixes999"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
@@ -1860,11 +1860,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">&lt;http://hr.example/id#123&gt;</span></span> .
 
 <span class="hilight-reproducedBy lowlight2 top"><span class="function-name">&lt;http://hr.example/id#123&gt;</span>                  </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                  </span>
-<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span><a class="tryit" href="#example-combined1" data-shape-map="inst:issue1@my:IssueShape,inst:Student4@school:Enrollee">try it</a>
+<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   </span>
+<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  </span><a class="tryit" href="#example-combined1" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#123&gt;@my:EmployeeShape">try it</a>
 </pre>
               <pre class="instance turtle fail tryable">
-<span class="prefixes999"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
@@ -1873,17 +1873,16 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="hilight-reproducedBy lowlight2 top bot"><span class="function-name">&lt;http://hr.example/id#<span class="errorSite">abc</span>&gt;</span></span> .
 
 <span class="hilight-reproducedBy lowlight2 top"><span class="function-name">&lt;http://hr.example/id#abc&gt;</span>                  </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                  </span>
-<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .</span><a class="tryit" href="#example-combined1" data-shape-map="inst:Student2@school:Enrollee,inst:Student4@school:Enrollee">try it</a>
+<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   </span>
+<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  </span><a class="tryit" href="#example-combined1" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#123&gt;@my:EmployeeShape">try it</a>
 </pre>
             <div style="clear:both;"></div>
             <table class="example results">
               <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="pass"><td>my:UserShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected a <span class="type">foaf:</span><span class="constant">familyName</span> arc.</td></tr>
-              <tr class="fail hilight-invComponent lowlight1 bot"><td>my:UserShape</td><td>inst:User4</td><td>fail</td><td class="fail">Expected only one disjunction to pass.</td></tr>
-              <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User5</td><td>fail</td><td class="fail">Extra <span class="type">foaf:</span><span class="constant">givenName</span> arc.</td></tr>
+              <tr class="pass"><td>my:EmployeeShape</td><td>&lt;http://hr.example/id#123&gt;</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Object of <span class="type">ex:</span><span class="constant">reproducedBy</span> does not match <span class="shape-name">my:EmployeeShape</span>.</td></tr>
+              <tr class="fail hilight-invComponent lowlight1 bot"><td>my:EmployeeShape</td><td>&lt;http://hr.example/id#abc&gt;</td><td>fail</td><td class="fail">&lt;http://hr.example/id#abc&gt; does not match regular expression.</td></tr>
             </tbody></table>
             <script type="text/javascript">
             <!--
@@ -1892,9 +1891,6 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
             </script>
           </div>
         </div>
-        <p>
-          @@@Validation Result here
-        </p>
       </section>
 
       <section id="nested-shapes">
@@ -2220,10 +2216,9 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
             <!-- ShExC example -->
             <pre class="schema shexc" style="float:left;">
-
 <span class="shape-name">my:UserShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
-      . - excodes:unassigned - excodes:assigned
+    . - excodes:bad- - excodes:assigned
   ]</span>
 }</pre>
 
@@ -2234,20 +2229,19 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
     "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
     <span class="value-constraint">"value": {
       "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
               <pre class="instance turtle pass">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User1</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
               <pre class="instance turtle fail">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Shape3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
-  </div>
+<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
             <div style="clear:both;"></div>
+            <table class="example results">
+              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>my:UserShape</td><td>inst:User2</td><td>fail</td><td class="fail"><span class="type">excodes:</span><span class="constant">assigned</span> is prohibited.</td></tr>
+            </tbody></table>
           </div>
         </div>
       </section>
-
-      @@@Validation result here
-
   </section>
 
       <section id="advanced">
@@ -2269,7 +2263,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="shape-name">my:UserShape</span> {
   <span class="predicate">foaf:name</span> <span class="constraint">xsd:string</span>;
   <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span>+;
-  <span class="reportedIssue lowlight1 top bot"><span class="predicate">ex:reportedIssue</span> <span class="value-constraint">@</span><span class="shape-name">my:UserShape</span></span>
+  <span class="reportedIssue lowlight1 top bot"><span class="predicate">ex:reportedIssue</span> <span class="value-constraint">@</span><span class="shape-name">my:IssueShape</span></span>
 }</pre>
 
             <!-- JSON example -->
@@ -2319,21 +2313,27 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
             <pre class="instance turtle">
-<span class="function-name">inst:Issue4</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
+<span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .
 
-<span class="fail inst-User6 lowlight2 top"><span class="function-name">inst:User6</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ; <span class="comment"># fails my:UserShape</span></span>
+<span class="fail inst-User6 lowlight2 top"><span class="function-name">inst:User2</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ; <span class="comment"># fails my:UserShape</span></span>
 <span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;              </span>
 <span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ; </span>
 <span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.  </span>
 
-<span class="function-name">inst:User7</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+<span class="function-name">inst:User3</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Bob Smith"</span></span> ;
     <span class="reportedIssue lowlight1 top bot new">ex:reportedIssue <span class="function-name">inst:Issue4</span></span> ;
     <span class="mbox lowlight1 top"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bob@example.org&gt;</span><span class="keyword"></span></span> ;
     <span class="mbox lowlight1 bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span>.</pre>
   </div>
             <div style="clear:both;"></div>
+            <table class="example results">
+              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>my:UserShape</td><td>inst:User2</td><td>fail</td><td class="fail">Expected <span class="type">ex:</span><span class="constant">reportedIssue</span> property.</td></tr>
+              <tr class="pass"><td>my:UserShape</td><td>inst:User3</td><td>pass</td><td class="noreason"></td></tr>
+            </tbody></table>
           </div>
           <script type="text/javascript">
           <!--
@@ -2343,14 +2343,10 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
             </script>
           </div>
 
-          <p>
-            @@@Validation result here
-          </p>
-
         <div class="namespace">
           <p>
             However, it may be more precise to require that for every issue, there is some user who reported it.
-            This could be expressed in the data by describing every issue as being reported by (<span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>) a user.
+            This could be expressed in the data by describing every issue as being reported by (<span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span></span>) a user.
             Alternatively, an issue could be described as the object of a triple with predicate ex:reportedIssue.
             A triple constraint for such an incoming arc may expressed in the ShExC syntax by prefixing the constraint with a caret (<span class="inversePredicate top bot keyword lowlight2">^</span>) and in the ShExJ syntax with <span class="inversePredicate top bot keyword lowlight2">"inverse": true</span>.
           </p>
