@@ -2799,7 +2799,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
           <div class="namespace">
             <p>
               The use of generic predicates sometimes leads to their being used multiple times in the same shape.
-              In the following example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced by a <span class="hilight-tester lowlight2 top bot">tester</span> and a <span class="hilight-programmer lowlight2 top bot">programmer</span>.
+              In the following example, we want to make sure that an issue that is <span class="type">ex:</span><span class="constant">accepted</span> or <span class="type">ex:</span><span class="constant">resolved</span> has been reproduced both by <span class="hilight-tester lowlight2 top bot">testing</span> and by a <span class="hilight-programmer lowlight2 top bot">programmer</span>.
             </p>
 
             <div class="example wrapper">
@@ -2807,8 +2807,8 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
               <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span>
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:accepted ex:resolved</span>];
-  <span class="predicate">ex:reproducedBy</span> <span class="hilight-tester lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>;    <span class="comment"># Make sure it's checked by testing</span>
-  <span class="predicate">ex:reproducedBy</span> <span class="hilight-programmer lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span></span> <span class="comment"># and by a programmer.</span>
+  <span class="predicate">ex:reproducedBy</span> <span class="hilight-tester lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:TesterShape</span></span></span>;
+  <span class="predicate">ex:reproducedBy</span> <span class="hilight-programmer lowlight2 top bot new"><span class="value-constraint">@<span class="shape-name">my:ProgrammerShape</span></span></span>
 }
 
 <span class="hilight-tester lowlight2 top"><span class="shape-name">my:TesterShape</span> {          </span>
