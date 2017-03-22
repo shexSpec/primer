@@ -2797,7 +2797,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           <p>
             When multiple shapes share triple constraints in common, the triple constraints can be defined and labeled just once and referenced multiple times.
             In the example below, both users and employees are expected to have a <span class="type">foaf:</span><span class="constant">name</span> and <span class="type">foaf:</span><span class="constant">mbox</span>.
-            <span class="shape-name">my:UserShape</span> declares <span class="shape-name entity lowlight1 top bot">my:entity</span> and <span class="shape-name">my:EmployeeShape</span> includes it.
+            <span class="shape-name">my:UserShape</span> declares <span class="shape-name entity lowlight1 top bot">my:entity</span> (with a dollar-sign prefix) and <span class="shape-name">my:EmployeeShape</span> includes it (with an ampersand prefix).
           </p>
 
           <div class="example wrapper">
@@ -3313,9 +3313,6 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
       <section id="namespaces" class="appendix">
         <h2>Namespaces in this Document</h2>
 
-          <p>
-            The following namespace prefixes are frequently used in this document:
-          </p>
           <table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
             <tr>
               <th>Prefix</th>
@@ -3356,11 +3353,6 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
               <td>inst:</td>
               <td>http://inst.example/ns#</td>
               <td>instance data</td>
-            </tr>
-            <tr>
-              <td>test:</td>
-              <td>http://shex.io/extensions/Test/</td>
-              <td>Test language for semantic actions</td>
             </tr>
           </table>
 
