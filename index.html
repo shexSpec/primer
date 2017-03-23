@@ -226,26 +226,6 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           -->
         </script>
       </div>
-      <p>
-        Section 1 ("Quick Start") may be viewed as a separate document or as part of the full primer. <button id="standalone" disabled="disabled">view Quick Start as separate document</button>
-      </p>
-      <script type="text/javascript">
-        var text_standAlone = "view Quick Start as separate document";
-        var text_integrated = "view Quick Start integrated into the primer";
-        var standingAlone = false;
-        $("#standalone").removeAttr("disabled").on("click", standAlone).text(text_standAlone);
-        function standAlone (evt) {
-          if (standingAlone) {
-            $(evt.target).closest("section").nextAll().show();
-            $("#standalone").text(text_standAlone);
-            standingAlone = false;
-          } else {
-            $(evt.target).closest("section").nextAll().hide();
-            $("#standalone").text(text_integrated);
-            standingAlone = true;
-          }
-        }
-      </script>
     </section>
     <script type="text/javascript">
       <!--
