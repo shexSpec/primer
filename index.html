@@ -309,12 +309,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
           <div id="associating-nodes-with-shapes">
             <!-- <h3>Associating Nodes with Shapes</h3> -->
-            <p style="text-decoration: line-through; color: red;">
-              While ShEx schemas have many uses, they can all be described in terms of a validation process.
-              For instance, when ShEx is used to document data structures for a SPARQL database or service interface, the schema defines the set of RDF graphs involved in that service.
-            </p>
             <p>
-            The ShEx validation process is controlled by a <span class="new">shape map</span> that specifies how the constructs of a ShEx schema relate to the components of RDF data graphs.  The methods for constructing and expressing shape maps, which include the selection of node-shape pairs by means of queries, APIs, protocols, manual selection, or by the use of <a href="http://w3c.github.io/data-shapes/shacl/#targets">SHACL "target" properties</a>, is beyond the scope of this primer.
+              The ShEx validation process is controlled by a <span class="new">shape map</span> that specifies how the constructs of a ShEx schema relate to the components of RDF data graphs.
+              There are many ways one may select nodes for validation, including queries, APIs, protocols, manual selection, or by the use of <a href="http://w3c.github.io/data-shapes/shacl/#targets">SHACL "target" properties</a>.
             </p>
           </div>
 
@@ -331,7 +328,6 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           From the standpoint of ShEx, a triple may be seen as having an <span class="new">outgoing arc</span> from a subject or an <span class="new">incoming arc</span> to an object.
           RDF data may be serialized in any of several interchangeable concrete syntaxes designed for a variety of application requirements.
           Readers unfamiliar with any of these terms may want to consult <a href="https://www.w3.org/TR/rdf11-primer/">an RDF primer</a> before continuing with the rest of this primer.[[rdf11-primer]]
-          <span style="text-decoration: line-through; color: red">The relationship between ShEx and RDF is discussed in more detail in <a href="#relationship">section 5</a>.</span>
         </p>
         <p>
           ShEx provides a language for describing an RDF graph in terms of the abstract-syntactic components enumerated above.
@@ -1896,11 +1892,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="predicate">ex:reproducedBy</span> <span class="value-constraint">@<span class="shape-name">my:EmployeeShape</span></span>
 }
 
-<span class="hilight-reproducedBy lowlight2 top"><span class="shape-name">my:EmployeeShape</span> <span class="keyword">IRI</span>                      </span>
-<span class="hilight-reproducedBy lowlight2    "> /<span class="string">^http:\/\/hr.example\/id#[0-9]+</span>/ {      </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">foaf:name</span> <span class="keyword">LITERAL</span>;                      </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]</span>
-<span class="hilight-reproducedBy lowlight2 bot">}                                         </span>
+<span class="shape-name">my:EmployeeShape</span> <span class="keyword">IRI</span>                      
+ <span class="hilight-reproducedBy lowlight2 top bot">/<span class="string">^http:\/\/hr.example\/id#[0-9]+</span>/</span> {      
+  <span class="predicate">foaf:name</span> <span class="keyword">LITERAL</span>;                      
+  <span class="predicate">ex:department</span> [<span class="value-constraint">ex:ProgrammingDepartment</span>]
+}                                         
 </pre>
 
             <!-- JSON example -->
@@ -1913,7 +1909,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
         { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ShapeRef", <span class="hilight-reproducedBy lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+          <span class="value-constraint">"value": { "type": "ShapeRef", "reference": "my:TesterShape"</span> }
         }
       ]
     }
@@ -1940,9 +1936,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="function-name">&lt;http://hr.example/id#123&gt;</span> .
 
-<span class="hilight-reproducedBy lowlight2 top"><span class="function-name">&lt;http://hr.example/id#123&gt;</span>                  </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   </span>
-<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  </span>
+<span class="function-name hilight-reproducedBy lowlight2 top bot">&lt;http://hr.example/id#123&gt;</span>                  
+  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   
+  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  
 <a class="tryit" href="" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#123&gt;@my:EmployeeShape">try it</a></pre>
               <pre class="instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -1953,9 +1949,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="type">ex:</span><span class="constant">state</span> <span class="type">ex:</span><span class="constant">accepted</span> ;
   <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="function-name">&lt;http://hr.example/id#abc&gt;</span> .
 
-<span class="hilight-reproducedBy lowlight2 top"><span class="function-name">&lt;http://hr.example/id<span class="errorSite">#abc</span>&gt;</span>                  </span>
-<span class="hilight-reproducedBy lowlight2    ">  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   </span>
-<span class="hilight-reproducedBy lowlight2 bot">  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  </span>
+<span class="function-name hilight-reproducedBy lowlight2 top bot">&lt;http://hr.example/id<span class="errorSite">#abc</span>&gt;</span>                  
+  <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   
+  <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  
 <a class="tryit" href="" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#abc&gt;@my:EmployeeShape">try it</a></pre>
             <div style="clear:both;"></div>
             <table class="example results">
