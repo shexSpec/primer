@@ -72,14 +72,17 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
         <p>
           It's like the old joke about how to sculpt an elephant: "Take a block of marble and chip away everything that doesn't look like an elephant!"
-          The simplest possible ShEx schema, <code>&lt;S&gt; {}</code>, which matches all possible RDF graphs, is like the block of marble.
-          Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint defined in a ShEx schema restricts the collection of potential graphs to look more like the RDF data required for a particular process, interface, or application.
-          The RDF data may be accessed in files or through APIs or SPARQL endpoints.
+          The simplest possible ShEx schema, <code>&lt;S&gt; {}</code>, which matches the (infinite) set of all possible RDF graphs, is like the block of marble.
+          Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint declared in a ShEx schema progressively defines the set of potential graphs to look more like the RDF data required for a particular process, interface, or application.
+          ShEx does not define how the RDF data is to be accessed, whether by APIs, SPARQL endpoints, data files, or other means.
           The ShEx schema may be used for purposes ranging from data validation to the configuration of user interfaces.
           This primer focuses on the common use case of validating instance data.
         </p>
         <p>
-        A ShEx schema is based on two fundamental constructs: the <span class="new">node constraint</span> and the <span class="new">triple constraint</span>.  The detailed keywords, grouping mechanisms, syntactic conventions, and matching procedures provided by the ShEx model may all be seen as modifying, qualifying, or contextualizing node constraints and triple constraints.
+        A ShEx schema is based on two fundamental constructs called <span class="new">node constraint</span> and <span class="new">triple constraint</span>.  
+        These two ShEx constructs are defined with reference to corresponding constructs found in RDF data: the triple, a three-part data structure with a subject, predicate, and object, with which all RDF data is expressed, and the node, that part of RDF data found in the subject or object position of a triple.
+        The constructs are called constraints because they define, or "constrain", the set of RDF triples that will pass a conformance test.
+        All of the other keywords, grouping mechanisms, syntactic conventions, and matching procedures provided by the ShEx language and model may all be seen as modifying, qualifying, or contextualizing these two key constructs.
         </p>
         <p>
           Imagine some RDF data about enrollees in a school that must follow a two rules:
