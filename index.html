@@ -214,11 +214,11 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           When this ShEx schema is tested against the RDF data, four RDF data nodes (<span class="function-name">inst:Alice</span>, <span class="function-name">inst:Bob</span>, <span class="function-name">inst:Claire</span>, <span class="function-name">inst:Don</span>) are evaluated against a single shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may provide validation results in other formats and at different levels of verbosity.
         </p>
         <table class="example results">
-          <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-          <tr class="pass alice  top lowlight1"><td>school:Enrollee</td><td>inst:Alice </td><td>pass</td><td class="noreason"></td></tr>
-          <tr class="pass bob        lowlight1"><td>school:Enrollee</td><td>inst:Bob   </td><td>pass</td><td class="noreason"></td></tr>
-          <tr class="fail claire     lowlight1"><td>school:Enrollee</td><td>inst:Claire</td><td>fail</td><td class="fail">No <span class="type">foaf:</span><span class="constant">age</span> supplied.</td></tr>
-          <tr class="fail don    bot lowlight1"><td>school:Enrollee</td><td>inst:Don   </td><td>fail</td><td class="fail"><span class="type">foaf:</span><span class="constant">age</span> 14 greater than 13.</td></tr>
+          <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+          <tr class="pass alice  top lowlight1"><td>inst:Alice </td><td>school:Enrollee</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="pass bob        lowlight1"><td>inst:Bob   </td><td>school:Enrollee</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="fail claire     lowlight1"><td>inst:Claire</td><td>school:Enrollee</td><td>fail</td><td class="fail">No <span class="type">foaf:</span><span class="constant">age</span> supplied.</td></tr>
+          <tr class="fail don    bot lowlight1"><td>inst:Don   </td><td>school:Enrollee</td><td>fail</td><td class="fail"><span class="type">foaf:</span><span class="constant">age</span> 14 greater than 13.</td></tr>
         </tbody></table>
         <script type="text/javascript">
           <!--
@@ -1681,11 +1681,11 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           </div>
           <div style="clear:both;"> </div>
           <table class="example results">
-            <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-            <tr class="pass user1 top lowlight1"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-            <tr class="pass user2     lowlight1"><td>my:UserShape</td><td>inst:User2</td><td>pass</td><td>Literals in Turtle have a default datatype of <span class="xsd-string lowlight2 top bot"><span class="type">xsd:</span><span class="constant">string</span></span>.</td></tr>
-            <tr class="fail user3     lowlight1"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected exactly one <span class="foaf-name lowlight2 top bot"><span class="type">foaf:</span><span class="constant">name</span></span> arc.</td></tr>
-            <tr class="fail user4 bot lowlight1"><td>my:UserShape</td><td>inst:User4</td><td>fail</td><td class="fail">Expected an <span class="xsd-string lowlight2 top bot"><span class="type">xsd:</span><span class="constant">string</span></span>, not a <span class="xsd-anyURI lowlight2 top bot"><span class="type">xsd:</span><span class="constant">anyURI</span></span>.</td></tr>
+            <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+            <tr class="pass user1 top lowlight1"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="pass user2     lowlight1"><td>inst:User2</td><td>my:UserShape</td><td>pass</td><td>Literals in Turtle have a default datatype of <span class="xsd-string lowlight2 top bot"><span class="type">xsd:</span><span class="constant">string</span></span>.</td></tr>
+            <tr class="fail user3     lowlight1"><td>inst:User3</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected exactly one <span class="foaf-name lowlight2 top bot"><span class="type">foaf:</span><span class="constant">name</span></span> arc.</td></tr>
+            <tr class="fail user4 bot lowlight1"><td>inst:User4</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected an <span class="xsd-string lowlight2 top bot"><span class="type">xsd:</span><span class="constant">string</span></span>, not a <span class="xsd-anyURI lowlight2 top bot"><span class="type">xsd:</span><span class="constant">anyURI</span></span>.</td></tr>
           </tbody></table>          
 
           <p>
@@ -1819,11 +1819,11 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
       </div>
           <div style="clear:both;"></div>
       <table class="example results">
-        <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-        <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
-        <tr class="pass"><td>my:UserShape</td><td>inst:User2 </td><td>pass</td><td class="noreason"></td></tr>
-        <tr class="fail"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail">No <span class="type">ex:</span><span class="constant">unsinged</span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
-        <tr class="fail"><td>my:UserShape</td><td>inst:User4 </td><td>fail</td><td class="fail">Max cardinality of <span class="type">foaf:</span><span class="constant">name</span> exceeded.</td></tr>
+        <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+        <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="pass"><td>inst:User2 </td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="fail"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail">No <span class="type">ex:</span><span class="constant">unsinged</span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
+        <tr class="fail"><td>inst:User4 </td><td>my:UserShape</td><td>fail</td><td class="fail">Max cardinality of <span class="type">foaf:</span><span class="constant">name</span> exceeded.</td></tr>
       </tbody></table>
       <script type="text/javascript">
       <!--
@@ -1866,8 +1866,8 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
         <table class="example results">
           <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th></tr>
-          <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td></tr>
-          <tr class="pass"><td>my:UserShape</td><td>"Bob Smith" </td><td>pass</td></tr>
+          <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td></tr>
+          <tr class="pass"><td>"Bob Smith" </td><td>my:UserShape</td><td>pass</td></tr>
         </tbody></table>
       </div>
       <p>
@@ -1960,11 +1960,11 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 <a class="tryit" href="" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#abc&gt;@my:EmployeeShape">try it</a></pre>
             <div style="clear:both;"></div>
             <table class="example results">
-              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="pass"><td>my:EmployeeShape</td><td>&lt;http://hr.example/id#123&gt;</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Object of <span class="type">ex:</span><span class="constant">reproducedBy</span> does not match <span class="shape-name">my:EmployeeShape</span>.</td></tr>
-              <tr class="fail hilight-invComponent lowlight1 bot"><td>my:EmployeeShape</td><td>&lt;http://hr.example/id#abc&gt;</td><td>fail</td><td class="fail">&lt;http://hr.example/id#abc&gt; does not match regular expression.</td></tr>
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="pass"><td>&lt;http://hr.example/id#123&gt;</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail hilight-component top lowlight2"><td>inst:User3</td><td>my:UserShape</td><td>fail</td><td class="fail">Object of <span class="type">ex:</span><span class="constant">reproducedBy</span> does not match <span class="shape-name">my:EmployeeShape</span>.</td></tr>
+              <tr class="fail hilight-invComponent lowlight1 bot"><td>&lt;http://hr.example/id#abc&gt;</td><td>my:EmployeeShape</td><td>fail</td><td class="fail">&lt;http://hr.example/id#abc&gt; does not match regular expression.</td></tr>
             </tbody></table>
             <script type="text/javascript">
             <!--
@@ -2136,12 +2136,12 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 
           <div style="clear:both;"></div>
           <table class="example results">
-            <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-            <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-            <tr class="pass"><td>my:UserShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
-            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User3</td><td>fail</td><td class="fail">Expected a <span class="type">foaf:</span><span class="constant">familyName</span> arc.</td></tr>
-            <tr class="fail hilight-invComponent lowlight1 bot"><td>my:UserShape</td><td>inst:User4</td><td>fail</td><td class="fail">Expected only one disjunction to pass.</td></tr>
-            <tr class="fail hilight-component top lowlight2"><td>my:UserShape</td><td>inst:User5</td><td>fail</td><td class="fail">Extra <span class="type">foaf:</span><span class="constant">givenName</span> arc.</td></tr>
+            <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+            <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="pass"><td>inst:User2</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>inst:User3</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected a <span class="type">foaf:</span><span class="constant">familyName</span> arc.</td></tr>
+            <tr class="fail hilight-invComponent lowlight1 bot"><td>inst:User4</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected only one disjunction to pass.</td></tr>
+            <tr class="fail hilight-component top lowlight2"><td>inst:User5</td><td>my:UserShape</td><td>fail</td><td class="fail">Extra <span class="type">foaf:</span><span class="constant">givenName</span> arc.</td></tr>
           </tbody></table>
       </div>
       <script type="text/javascript">
@@ -2230,10 +2230,10 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
   </div>
             <div style="clear:both;"></div>
               <table class="example results">
-                <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
-                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">my:</span><span class="constant">Product3</span></span> not in range of <span class="type">ex:</span><span class="constant">hasIssue</span>.</td></tr>
+                <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+                <tr class="pass user2 top lowlight1"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user5 bot lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">my:</span><span class="constant">Product3</span></span> not in range of <span class="type">ex:</span><span class="constant">hasIssue</span>.</td></tr>
               </tbody></table>
           </div>
         </div>
@@ -2278,11 +2278,11 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
   </div>
             <div style="clear:both;"></div>
               <table class="example results">
-                <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass user2 top lowlight1"><td>my:IssueShape</td><td>inst:Issue2</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail user3     lowlight1"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="type">excodes:</span><span class="constant">assigned</span></span> prohibited.</td></tr>
-                <tr class="fail user4     lowlight1"><td>my:IssueShape</td><td>inst:Issue4</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="type">auxterms:</span><span class="constant">med_…</span></span> arcs.</td></tr>
-                <tr class="fail user5 bot lowlight1"><td>my:IssueShape</td><td>inst:Issue5</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
+                <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+                <tr class="pass user2 top lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user3     lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="type">excodes:</span><span class="constant">assigned</span></span> prohibited.</td></tr>
+                <tr class="fail user4     lowlight1"><td>inst:Issue4</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="type">auxterms:</span><span class="constant">med_…</span></span> arcs.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>inst:Issue5</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="type">ex:</span><span class="constant">done</span></span> not in range of <span class="type">ex:</span><span class="constant">status</span>.</td></tr>
               </tbody></table>
             <script type="text/javascript">
             <!--
@@ -2317,9 +2317,9 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
             <div style="clear:both;"></div>
             <table class="example results">
-              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail"><td>my:UserShape</td><td>inst:User2</td><td>fail</td><td class="fail"><span class="type">excodes:</span><span class="constant">assigned</span> is prohibited.</td></tr>
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>inst:User2</td><td>my:UserShape</td><td>fail</td><td class="fail"><span class="type">excodes:</span><span class="constant">assigned</span> is prohibited.</td></tr>
             </tbody></table>
           </div>
         </div>
@@ -2411,10 +2411,10 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
   </div>
             <div style="clear:both;"></div>
             <table class="example results">
-              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail"><td>my:UserShape</td><td>inst:User2</td><td>fail</td><td class="fail">Expected <span class="type">ex:</span><span class="constant">reportedIssue</span> property.</td></tr>
-              <tr class="pass"><td>my:UserShape</td><td>inst:User3</td><td>pass</td><td class="noreason"></td></tr>
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>inst:User2</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected <span class="type">ex:</span><span class="constant">reportedIssue</span> property.</td></tr>
+              <tr class="pass"><td>inst:User3</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
             </tbody></table>
           </div>
           <script type="text/javascript">
@@ -2528,12 +2528,12 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
   </div>
             <div style="clear:both;"></div>
             <table class="example results">
-              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>my:IssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail"><td>my:IssueShape</td><td>inst:Issue2</td><td>fail</td><td class="fail">Missing incoming <span class="type">ex:</span><span class="constant">reportedIssue</span> property.</td></tr>
-              <tr class="fail"><td>my:IssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail"><span class="type">ex:</span><span class="constant">reportedIssue</span> is in the wrong direction.</td></tr>
-              <tr class="fail"><td>my:IssueShape</td><td>inst:Issue4</td><td>fail</td><td class="fail">Subject of <span class="type">ex:</span><span class="constant">reportedIssue</span> does not match <span class="shape-name">my:UserShape</span>;</td></tr>
-              <tr class="fail"><td>my:UserShape</td><td>inst:User4</td><td>fail</td><td class="fail">Max cardinality of <span class="type">foaf:</span><span class="constant">name</span> exceeded.</td></tr>
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail">Missing incoming <span class="type">ex:</span><span class="constant">reportedIssue</span> property.</td></tr>
+              <tr class="fail"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="type">ex:</span><span class="constant">reportedIssue</span> is in the wrong direction.</td></tr>
+              <tr class="fail"><td>inst:Issue4</td><td>my:IssueShape</td><td>fail</td><td class="fail">Subject of <span class="type">ex:</span><span class="constant">reportedIssue</span> does not match <span class="shape-name">my:UserShape</span>;</td></tr>
+              <tr class="fail"><td>inst:User4</td><td>my:UserShape</td><td>fail</td><td class="fail">Max cardinality of <span class="type">foaf:</span><span class="constant">name</span> exceeded.</td></tr>
             </tbody></table>
           </div>
           <script type="text/javascript">
@@ -2587,10 +2587,10 @@ TODO</pre>
               </div>
               <div style="clear:both;"></div>
               <table class="example results">
-                <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass"><td>my:SolitaryIssueShape</td><td>inst:Issue1</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail hilight-component top lowlight2"><td>my:SolitaryIssueShape</td><td>inst:Issue2</td><td>fail</td><td class="fail">Expected zero outgoing <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
-                <tr class="fail hilight-invComponent lowlight1 bot"><td>my:SolitaryIssueShape</td><td>inst:Issue3</td><td>fail</td><td class="fail">Expected zero incoming <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
+                <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+                <tr class="pass"><td>inst:Issue1</td><td>my:SolitaryIssueShape</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail hilight-component top lowlight2"><td>inst:Issue2</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero outgoing <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
+                <tr class="fail hilight-invComponent lowlight1 bot"><td>inst:Issue3</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero incoming <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
               </tbody></table>
             </div>
             <script type="text/javascript">
@@ -2688,11 +2688,11 @@ prepareHighlight(["hilight-component", "hilight-invComponent"], "highlight2", "l
       </div>
       <div style="clear:both;"> </div>
       <table class="example results">
-        <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-        <tr class="pass"><td>my:OpenUserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-        <tr class="pass"><td>my:OpenUserShape</td><td>inst:User2</td><td>pass</td><td class="noreason"></td></tr>
-        <tr class="pass"><td>my:ClosedUserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
-        <tr class="fail hilight-component top lowlight2"><td>my:ClosedUserShape</td><td>inst:User2</td><td>fail</td><td class="fail">Unexpected <span class="rdftype lowlight1 top bot"><span class="type">rdf:</span><span class="constant">type</span></span> and <span class="foafknows lowlight1 top bot"><span class="type">foaf:</span><span class="constant">knows</span></span> arcs.</td></tr>
+        <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+        <tr class="pass"><td>inst:User1</td><td>my:OpenUserShape</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="pass"><td>inst:User2</td><td>my:OpenUserShape</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="pass"><td>inst:User1</td><td>my:ClosedUserShape</td><td>pass</td><td class="noreason"></td></tr>
+        <tr class="fail hilight-component top lowlight2"><td>inst:User2</td><td>my:ClosedUserShape</td><td>fail</td><td class="fail">Unexpected <span class="rdftype lowlight1 top bot"><span class="type">rdf:</span><span class="constant">type</span></span> and <span class="foafknows lowlight1 top bot"><span class="type">foaf:</span><span class="constant">knows</span></span> arcs.</td></tr>
       </tbody></table>
       <p>
         The <span class="type">foaf:</span><span class="constant">knows</span> arc invalidates <span class="function-name">inst:User2</span> but not <span class="function-name">inst:User2</span> because <span class="keyword closed lowlight2 top bot">CLOSED</span> applies only to outgoing arcs.
@@ -2882,10 +2882,10 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
             </div>
             <div style="clear:both;"> </div>
             <table class="example results">
-              <tbody><tr><th class="schema">Shape</th><th class="data">Node</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>my:EmployeeShape</td><td>inst:Employee2</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail hilight-component top lowlight2"><td>my:EmployeeShape</td><td>inst:Employee3</td><td>fail</td><td class="fail">Expected <span class="type">foaf:</span><span class="constant">name</span> and <span class="type">foaf:</span><span class="constant">mbox</span> arcs.</td></tr>
-              <tr class="pass"><td>my:UserShape</td><td>inst:User1</td><td>pass</td><td class="noreason"></td></tr>
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:Employee2</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail hilight-component top lowlight2"><td>inst:Employee3</td><td>my:EmployeeShape</td><td>fail</td><td class="fail">Expected <span class="type">foaf:</span><span class="constant">name</span> and <span class="type">foaf:</span><span class="constant">mbox</span> arcs.</td></tr>
+              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
             </tbody></table>
           </div>
 
