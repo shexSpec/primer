@@ -57,7 +57,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         In the ShEx model, an RDF graph is tested against a ShEx schema to yield a validation result that flags any parts of the data which do not conform.
         ShEx schemas are intended for use in validating RDF data, communicating interface parameters and data structures, generating user interfaces, and transforming RDF graphs into other data formats and structures.  
         This primer introduces ShEx by means of annotated examples.  
-        Readers should already be familiar with the basic concepts of RDF[[rdf11-concepts]].  
+        Readers should already be familiar with the basic concepts of RDF [[rdf11-concepts]].  
         The primer is a companion to the full <a href="../spec/">ShEx language specification</a>.
 
       </p>    
@@ -293,7 +293,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           ShEx may be serialized using any of three interchangeable concrete syntaxes: 
           <a href=" https://github.com/shexSpec/grammar/blob/master/ShExDoc.g4">Shape Expressions Compact Syntax</a> 
           or <span class="new">ShExC</span>, a compact syntax meant for human eyes and fingers; 
-          <span class="new">ShExJ</span>, a JSON-LD[[json-ld]] (Javascript) syntax meant for machine processing; and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax[[turtle]].
+          <span class="new">ShExJ</span>, a JSON-LD [[json-ld]] (Javascript) syntax meant for machine processing; and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax [[turtle]].
           The ShEx schemas in this primer may be viewed in ShExC syntax (by default) or JSON-LD syntax by pressing 'c' or 'j' in the browser or by clicking on the following radio buttons:
           <form id="langOptions" action=""><input type="radio" name="presLang" value="shexc" checked="checked">ShExC ('c')</input> <input type="radio" name="presLang" value="json">JSON ('j')</input> .</form>
         </p>
@@ -316,7 +316,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <dt id="vocab-constraint">constraint</dt><dd>A restriction on the set of permissible nodes or triples.</dd>
           <dt id="vocab-shapeMap">shape map</dt><dd>A collection of pairs of RDF data nodes and ShEx shapes that is used for invoking validation and reporting results.</dd>
           <dt id="vocab-shexc">ShExC</dt><dd>A compact syntax meant for human eyes and fingers.</dd> 
-          <dt id="vocab-shexj">ShExJ</dt><dd>A JSON-LD[[json-ld]] representation meant for machine processing.</dd> 
+          <dt id="vocab-shexj">ShExJ</dt><dd>A JSON-LD [[json-ld]] representation meant for machine processing.</dd> 
           <dt id="vocab-shexr">ShExR</dt><dd>The RDF interpretation of ShExJ expressable in any RDF syntax.</dd> 
         </dl>
 
@@ -3376,7 +3376,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
         However, such an interpretation is of no use in practical terms.
         The utility of a ShEx schema derives from its use for testing against the abstract-syntactic components "in the data" of an RDF graph to yield a conformance test result.
         It should also be noted that a ShEx schema is not an RDF schema, even though both describe RDF data.
-        For historical reasons, "RDF Schema" is the name of a language for defining RDF vocabularies and for specifying semantic relationships between terms that can be used to infer relationships between RDF resources.[[!rdf-schema]]  In contrast, a ShEx schema defines structural constraints, analogously to relational or XML schemas.
+        For historical reasons, "RDF Schema" is the name of a language for defining RDF vocabularies and for specifying semantic relationships between terms that can be used to infer relationships between RDF resources [[rdf-schema]].  A ShEx schema, in contrast, defines structural constraints, analogously to relational or XML schemas.
     	</p>
       </section>
 
