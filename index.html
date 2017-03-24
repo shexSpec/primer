@@ -82,7 +82,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           Picture an RDF database (graph) that carries information about enrollees in a school.
           Put yourself into the position of a data manager who wants to ensure that every student "record" in this graph reports a valid age and references one or two guardians, identified by IRI.
-          The ShEx schema for accomplishing this has: one <span class="lookit">node constraint</span>, <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; one <span class="lookit">triple constraint</span>, defined within the shape <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, and a second node constraint for specifying that the object (value) of the triple is an IRI. 
+          The ShEx schema for accomplishing this has: one <span class="lookit">node constraint</span>, <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; one <span class="lookit">triple constraint</span>, defined within the shape <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, and a second <span class="lookit">node constraint</span> for specifying that the object (value) of the triple is an IRI. 
           Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
