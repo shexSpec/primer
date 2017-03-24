@@ -51,13 +51,15 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
     <section id="abstract">
       <p>
+
         Shape Expressions (ShEx) is a language for describing RDF graph structures.
-        A ShEx schema prescribes conditions that RDF data graphs must meet in order to be considered "conformant".
-        It specifies the possible subjects subjects, predicates, objects, and combinations thereof, that may or may not appear in a given graph and with what cardinalities and datatypes.  
-        ShEx schemas are intended for use in communicating the structures and parameters of interfaces, testing data and reporting a validation result, generating data entry forms, and transforming RDF graphs into other data formats and structures.  
+        A ShEx schema prescribes conditions that RDF data graphs must meet in order to be considered "conformant": which subjects, predicates, and objects and combinations thereof may not appear in a given graph, in what combinations and with what cardinalities and datatypes.  
+        In the ShEx model, an RDF graph is tested against a ShEx schema to yield a validation result listing any parts of the data that do not conform.
+        ShEx schemas are intended for use in validating RDF data, communicating interface parameters and data structures, generating user interfaces, and transforming RDF graphs into other data formats and structures.  
         This primer introduces ShEx by means of annotated examples.  
         Readers should already be familiar with the basic concepts of RDF[[rdf11-concepts]].  
         The primer is a companion to the full <a href="../spec/">ShEx language specification</a>.
+
       </p>    
     </section>
 
@@ -65,31 +67,22 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       <h2>Quick Start</h2>
       <div class="namespace">
         <p>
-          Shape Expressions (ShEx) is a language for describing an ideal RDF graph against which real RDF graphs can be compared.
-          The description of an ideal RDF graph, or ShEx Schema, is tested against a given RDF data graph to yield a conformance test result, or "validation result", that reports any mismatches between the ideal "shape" of the data and its actual contents.
-        </p>
-        <p>
-          It's like the old joke about how to sculpt an elephant: "Take a block of marble and chip away everything that doesn't look like an elephant!"
-          The simplest possible ShEx schema, <code>&lt;S&gt; {}</code>, which matches the (infinite) set of all possible RDF graphs, is like the block of marble.
-          Just as each tap on the chisel "constrains" the marble block to look more like an elephant, each shape expression, shape, node constraint, or triple constraint declared in a ShEx schema progressively defines the set of potential graphs to look more like the RDF data required for a particular process, interface, or application.
-          ShEx does not define how the RDF data is to be accessed, whether by APIs, SPARQL endpoints, data files, or other means.
-          ShEx may be used for purposes ranging from data validation to the configuration of user interfaces.
+          Shape Expressions (ShEx) is a language for describing RDF graph structures.
+          A ShEx schema prescribes conditions that RDF data graphs must meet in order to be considered "conformant".
+          In the ShEx model, an RDF graph is tested against a ShEx schema to yield a validation result listing any parts of the data that do not conform.
+          ShEx schemas are intended for use in validating instance data, communicating interface parameters and data structures, generating user interfaces, and transforming RDF graphs into other data formats and structures.  
           This primer focuses on the common use case of validating instance data.
         </p>
         <p>
-        A ShEx schema is based on two fundamental constructs called <span class="new">node constraint</span> and <span class="new">triple constraint</span>.  
-        These ShEx constructs are defined with reference to corresponding constructs found in RDF data: the triple, a three-part data structure with a subject, predicate, and object, with which all RDF data is expressed, and the node, that part of RDF data found in the subject or object position of a triple.
-        (Readers unfamiliar these terms may want to consult <a href="https://www.w3.org/TR/rdf11-primer/">an RDF primer</a>.[[rdf11-primer]])
-        The ShEx constructs are called constraints because they define, or "constrain", the set of RDF nodes and data triples that will pass a conformance test.
-        All of the other keywords, grouping mechanisms, syntactic conventions, and matching procedures provided by the ShEx model and language may be seen as modifying, qualifying, or contextualizing these two key constructs.
+          A ShEx schema is built on <span class="new">node constraints</span> and <span class="new">triple constraints</span> that define what it means for a given RDF data graph to conform.
+          An RDF triple is the three-part data structure of subject, predicate, and object with which all RDF data is expressed, and an RDF node is the piece data found in the subject or object position of a triple.
+          (Readers unfamiliar these terms may want to consult <a href="https://www.w3.org/TR/rdf11-primer/">an RDF primer</a>.[[rdf11-primer]])
+          Node constraints and triple constraints are called "constraints" because they define, or "constrain", the set of RDF nodes and data triples that will pass a conformance test.
         </p>
         <p>
-          Imagine some RDF data about enrollees in a school that must follow a two rules:
-          the age of each student falls between 13 andf 20;
-          each description of a student names one or two guardians, each of which has an assigned IRI to facilitate the merging of data about all children associated with a given guardian.
-        </p>
-        <p>
-          The following ShEx schema has: one <span class="lookit">node constraint</span>, labeled with IRI <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; and one <span class="lookit">triple constraint</span>, defined within a shape labeled with the IRI <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, where the triple has an IRI as its object (or "value"). 
+          Picture an RDF database (graph) that carries information about enrollees in a school, aged 13 to 20.
+          Put yourself into the position of a data manager who wants to ensure that every student "record" in this graph references at least one at most two guardians, identified by IRI.
+          The ShEx schema for accomplishing this has: one <span class="lookit">node constraint</span>, <span class="shape-name">school:enrolleeAge</span>, for matching data nodes with an integer value between 13 and 20; one <span class="lookit">triple constraint</span>, defined within the shape <span class="shape-name">school:Enrollee</span>, for matching one or two triples having the predicate <span class="type">ex:</span><span class="constant">hasGuardian</span>, and a second node constraint for specifying that the object (value) of the triple is an IRI. 
           Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
