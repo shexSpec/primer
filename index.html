@@ -51,12 +51,13 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
     <section id="abstract">
       <p>
-        Shape Expressions (ShEx) is a language for describing an ideal RDF graph against which real RDF graphs can be compared.
-        The description of the ideal RDF graph, or ShEx Schema, is tested against a given graph of real RDF data to yield a validation result that reports the conformance of existing nodes and triples against ideal data "shapes".
-        ShEx shapes declare expectations about the use of properties and classes, conformant values, and datatypes, with respective cardinalities, in RDF data.
-        ShEx can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
-        The primer introduces ShEx to people familiar with the basic concepts of RDF[[rdf11-concepts]] by means of annotated examples covering its major features.
-        This primer is a companion to the full <a href="../spec/">ShEx language specification</a>.
+        Shape Expressions (ShEx) is a language for describing RDF graph structures.
+        A ShEx schema prescribes conditions that RDF data graphs must meet in order to be considered "conformant".
+        It specifies the possible subjects subjects, predicates, objects, and combinations thereof, that may or may not appear in a given graph and with what cardinalities and datatypes.  
+        ShEx schemas are intended for use in communicating the structures and parameters of interfaces, testing data and reporting a validation result, generating data entry forms, and transforming RDF graphs into other data formats and structures.  
+        This primer introduces ShEx by means of annotated examples.  
+        Readers should already be familiar with the basic concepts of RDF[[rdf11-concepts]].  
+        The primer is a companion to the full <a href="../spec/">ShEx language specification</a>.
       </p>    
     </section>
 
