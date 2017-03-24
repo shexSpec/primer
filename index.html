@@ -135,7 +135,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <a class="tryit" href="" data-shape-map="inst:Student2@school:Enrollee">try it</a></pre>
         </div>
         <p>
-        The next example adds a triple constraint on the data predicate <span class="type">foaf:</span><span class="constant">age</span>, which must have a value matching the node constraint <span class="shape-name">school:enrolleeAge</span>, which is cited in the triple constraint by reference.
+        The next example adds a triple constraint on the data predicate <span class="type">foaf:</span><span class="constant">age</span>, which must have a value matching the node constraint <span class="shape-name">school:enrolleeAge</span>, which is cited in the triple constraint by reference, indicated by the '@' symbol.
         </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
@@ -1731,11 +1731,11 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
   ] }
 </pre>
           <pre class="instance turtle pass tryable">
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
 
-<span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
+</span><span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
     <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span></span> .
 
@@ -1745,11 +1745,11 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="IRI lowlight2 bot"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> <span class="keyword"></span></span></span>.
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
           <pre class="instance turtle fail tryable">
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
 
-<span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
+</span><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="stateValue lowlight2 top bot errorSite">ex:unsinged</span></span> ;
     <span class="reportedBy lowlight1 top bot"><span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="user lowlight2 top bot"><span class="function-name">inst:User4</span></span></span> .
 
@@ -1781,7 +1781,8 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       <div class="namespace">
         <div id="" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" id="issue-user-allOpt" style="float:left;"><span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+          <pre class="schema shexc" id="issue-user-allOpt" style="float:left;">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 
@@ -1847,32 +1848,55 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 
             <!-- JSON example -->
             <pre class="schema json" style="float:left;">
-{
-  "my:IssueShape": { "type": "Shape",
-    "expression": { "type": "group",
-      "expressions": [
-        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:state"</span>,
-          <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
-        },
-        { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:reproducedBy"</span>,
-          <span class="value-constraint">"value": { "type": "ShapeRef", "reference": "my:TesterShape"</span> }
-        }
-      ]
-    }
-  },
-  <span class="hilight-reproducedBy lowlight2 top">"my:EmployeeShape": { "type": "Shape",                                   </span>
-  <span class="hilight-reproducedBy lowlight2    ">  "expression": { "type": "group",                                       </span>
-  <span class="hilight-reproducedBy lowlight2    ">    "expressions": [                                                     </span>
-  <span class="hilight-reproducedBy lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,            </span>
-  <span class="hilight-reproducedBy lowlight2    ">        <span class="keyword">"value": { "type": "NodeConstraint", "nodekind": "literal" }</span>      </span>
-  <span class="hilight-reproducedBy lowlight2    ">      },                                                                 </span>
-  <span class="hilight-reproducedBy lowlight2    ">      { "type": "TripleConstraint", <span class="predicate">"predicate": "ex:department"</span>,        </span>
-  <span class="hilight-reproducedBy lowlight2    ">        <span class="value-constraint">"value": { "type": "NodeConstraint", "values": [ "ex:Programming" ] }</span></span>
-  <span class="hilight-reproducedBy lowlight2    ">      }                                                                  </span>
-  <span class="hilight-reproducedBy lowlight2    ">    ]                                                                    </span>
-  <span class="hilight-reproducedBy lowlight2    ">  }                                                                      </span>
-  <span class="hilight-reproducedBy lowlight2 bot">}                                                                        </span>
-}</pre>
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#IssueShape",
+      "type": "Shape",
+      "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#state",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "values": [
+                "http://ex.example/#accepted",
+                "http://ex.example/#resolved"
+              ]
+            } },
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#reproducedBy",
+            "valueExpr": "http://my.example/#EmployeeShape" }
+        ] } },
+    { "id": "http://my.example/#EmployeeShape",
+      "type": "ShapeAnd",
+      "shapeExprs": [
+        { "type": "NodeConstraint",
+          "nodeKind": "iri",
+          "pattern": "^http://hr.example/id#[0-9]+" },
+        { "type": "Shape",
+          "expression": {
+            "type": "EachOf",
+            "expressions": [
+              {
+                "type": "TripleConstraint",
+                "predicate": "http://xmlns.com/foaf/0.1/name",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "nodeKind": "literal" } },
+              {
+                "type": "TripleConstraint",
+                "predicate": "http://ex.example/#department",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "values": [
+                    "http://ex.example/#ProgrammingDepartment"
+                  ] } }
+            ] } }
+      ] }
+  ] }
+</pre>
               <pre class="instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
@@ -1885,7 +1909,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 <span class="function-name hilight-reproducedBy lowlight2 top bot">&lt;http://hr.example/id#123&gt;</span>                  
   <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   
   <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  
-<a class="tryit" href="" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#123&gt;@my:EmployeeShape">try it</a></pre>
+<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#123&gt;@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
               <pre class="instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
@@ -1898,7 +1922,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 <span class="function-name hilight-reproducedBy lowlight2 top bot">&lt;http://hr.example/id<span class="errorSite">#abc</span>&gt;</span>                  
   <span class="type">foaf:</span><span class="constant">name</span> <span class="string top bot">"Bob Smith"</span> ;                   
   <span class="type">ex:</span><span class="constant">department</span> <span class="type">ex:</span><span class="constant">ProgrammingDepartment</span> .  
-<a class="tryit" href="" data-shape-map="inst:Issue1@my:IssueShape,&lt;http://hr.example/id#abc&gt;@my:EmployeeShape">try it</a></pre>
+<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#abc&gt;@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
@@ -1919,70 +1943,70 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
       <section id="nested-shapes">
         <h3>Nesting Shapes</h3>
         <p>
-          In the examples above, every shape is labeled with an IRI.
-          In the ShEx model, every shape has a label.
-          Using ShExC syntax, however, a shape can be written without a label, in which case the shape is labeled by the ShExC parser with a blank node that is unique with respect to all other blank nodes in the schema.  
+          In the examples above, value expressions referenced shape expressions with the '@' symbol.
+          It is also possible to write "anonymous" shapes directly in the value expression.
           In the example below, the value of the triple constraint on predicate ex:reportedBy is a shape comprised of triples constraints on the predicates foaf:name and foaf:mbox.  
-          In ShExC syntax, this anonymous shape is enclosed in curly brackets.  
-          In effect, this anonymous variant on my:UserShape (see above) is "nested" within my:IssueShape.
-          The ShExJ syntax has no corresponding shortcut: the triple constraint on ex:reportedBy references a unique blank node allocated by the parser, and that unique blank node is the label for a shape described further down in the schema.
+          In ShExC syntax, this anonymous shape is enclosed in curly brackets.
+          In ShExJ, it is contained in the triple constraint's <m>valueExpr</m> property.
         </p>
         <div class="namespace">
           <div id="nested-shapes-example-1" class="example wrapper">
             <!-- ShExC example -->
             <pre class="schema shexc">
-<span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> {
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
+
+</span><span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> {
   <span class="predicate">ex:state</span> [<span class="value-constraint">ex:unassigned ex:assigned</span>];
   <span class="predicate">ex:reportedBy</span> <span class="curlies lowlight2 top bot">{</span>
-    <span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span>;
-    <span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span><span class="keyword">+</span>
+    <span class="predicate">foaf:name</span> <span class="keyword">LITERAL</span>;
+    <span class="predicate">foaf:mbox</span> <span class="keyword">IRI</span><span class="keyword">+</span>
   <span class="curlies lowlight2 top bot">}</span>
 }</pre>
 
           <!-- JSON example -->
             <pre class="schema json">
-{ "type": "Schema",
-  "shapes": {
-    <span class="shape-name IssueShape lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
-      "expression": { "type": "group",
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#IssueShape",
+      "type": "Shape",
+      "expression": {
+        "type": "EachOf",
         "expressions": [
-          { "type": "TripleConstraint",                   
-            <span class="predicate">"predicate": "ex:state"</span>,                      
-            <span class="value-constraint">"value": { "type": "NodeConstraint",              </span>
-            <span class="value-constraint">  "values": [ <span class="value-constraint">"ex:unassigned", "ex:assigned"</span> ]</span>
-            <span class="value-constraint">}                                             </span>
-          },                                              
-          { "type": "TripleConstraint",                   
-            <span class="predicate">"predicate": "ex:reportedBy"</span>,                 
-            <span class="value-constraint">"value": { "type": "ShapeRef",</span>              
-            <span class="value-constraint">  "reference": <span class="bnode lowlight2 top bot">"_:b1"</span></span>                 
-            <span class="value-constraint">}              </span>                               
-          }                                               
-        ]
-      }
-    },
-    <span class="bnode lowlight2 top bot">"_:b1"</span>: { "type": "Shape",
-      "expression": { "type": "group",
-        "expressions": [
-          { "type": "TripleConstraint",                   
-            <span class="predicate">"predicate": "foaf:name"</span>,                     
-            <span class="value-constraint">"value": {             </span>                       
-            <span class="value-constraint">  "type": "NodeConstraint",</span>                       
-            <span class="value-constraint">  "datatype": "xsd:string"</span>                    
-            <span class="value-constraint">}                      </span>                       
-          },                                              
-          { "type": "TripleConstraint",                   
-            <span class="predicate">"predicate": "foaf:mbox"</span>,                     
-            <span class="value-constraint">"value": { "type": "NodeConstraint",</span>              
-            <span class="value-constraint">  "nodeKind": "iri"             </span>              
-            <span class="value-constraint">},                                            
-            "min": 1, "max": "*"           </span>               
-          }                                               
-        ]
-      }
-    }
-  }
-}</pre>
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#state",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "values": [
+                "http://ex.example/#unassigned",
+                "http://ex.example/#assigned"
+              ] } },
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#reportedBy",
+            "valueExpr": <span class="lookit">{</span>
+              "type": "Shape",
+              "expression": {
+                "type": "EachOf",
+                "expressions": [
+                  { "type": "TripleConstraint",
+                    "predicate": "http://xmlns.com/foaf/0.1/name",
+                    "valueExpr": {
+                      "type": "NodeConstraint",
+                      "nodeKind": "literal" } },
+                  {
+                    "type": "TripleConstraint",
+                    "predicate": "http://xmlns.com/foaf/0.1/mbox",
+                    "min": 1,
+                    "max": "unbounded",
+                    "valueExpr": {
+                      "type": "NodeConstraint",
+                      "nodeKind": "iri" } }
+                ] } <span class="lookit">}</span> }
+        ] } }
+  ] }
+</pre>
           </div>
           <script type="text/javascript">
           <!--
@@ -2004,51 +2028,65 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
         <div class="example wrapper">
           <!-- ShExC example -->
           <pre class="schema shexc" style="float:left;">
-<span class="shape-name">my:UserShape</span> {
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+
+</span><span class="shape-name">my:UserShape</span> {
   <span class="eitherOr   lowlight2 top">(                              </span>
-     <span class="name       lowlight1 top bot"><span class="predicate">foaf:name</span> <span class="value-constraint">xsd:string</span></span>
+     <span class="name       lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span> <span class="keyword">LITERAL</span></span>
   <span class="eitherOr   lowlight2 bot">                               </span>
   <span class="eitherOr   lowlight2 top">  |                            </span>
-      <span class="gname      lowlight1 top bot"><span class="predicate">foaf:givenName</span> <span class="value-constraint">xsd:string</span>+</span>;
-      <span class="fname      lowlight1 top bot"><span class="predicate">foaf:familyName</span> <span class="value-constraint">xsd:string</span></span>
+      <span class="gname      lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span> <span class="keyword">LITERAL</span>+</span>;
+      <span class="fname      lowlight1 top bot"><span class="type">foaf:</span><span class="constant">familyName</span> <span class="keyword">LITERAL</span></span>
   <span class="eitherOr   lowlight2 bot">);                             </span>
-  <span class="mbox       lowlight1 top bot"><span class="predicate">foaf:mbox</span> <span class="value-constraint">IRI</span></span>
+  <span class="mbox       lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span> <span class="value-constraint">IRI</span></span>
 }</pre>
 
           <!-- JSON example -->
           <pre class="schema json" style="float:left;">
-{ <span class="shape-name">"my:UserShape"</span>: { "type": "Shape",
-    "expression": { "type": "group",
-      "expressions": [
-        { "type": "OneOf",
-          "expressions": [
-            <span class="eitherOr   lowlight2 top">                                                                  </span>
-            <span class="name       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:name"</span>,        </span>
-            <span class="name       lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span> }</span>,
-            <span class="eitherOr   lowlight2 bot">                                                                  </span>
-            <span class="eitherOr   lowlight2 top">                                                                  </span>
-            { "type": "group",
-              "expressions": [
-                <span class="gname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:givenName"</span>,  </span>
-                <span class="gname      lowlight1    ">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,</span>
-                <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span>
-                <span class="fname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:familyName"</span>,  </span>
-                <span class="fname      lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span> }</span>
-              ]
-            }
-            <span class="eitherOr   lowlight2 bot">                                                                  </span>
-          ]
-        },
-        <span class="mbox       lowlight1 top">{ "type": "TripleConstraint", <span class="predicate">"predicate": "foaf:mbox"</span>, </span>
-        <span class="mbox       lowlight1 bot">  <span class="value-constraint">"value": { "type": "NodeConstraint", "datatype": "IRI" }</span> }</span>
-      ]
-    }
-  }
-}</pre>
-          <div class="verticalDivider"><!-- acts as a divider --></div>
-          <div style="float:left;">
-          <pre class="instance turtle pass">
-<span class="function-name">inst:User1</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#UserShape",
+      "type": "Shape",
+      "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "OneOf",
+            "expressions": [
+              { "type": "TripleConstraint",
+                "predicate": "http://xmlns.com/foaf/0.1/name",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "nodeKind": "literal" } },
+              { "type": "EachOf",
+                "expressions": [
+                  { "type": "TripleConstraint",
+                    "predicate": "http://xmlns.com/foaf/0.1/givenName",
+                    "min": 1, "max": "unbounded",
+                    "valueExpr": {
+                      "type": "NodeConstraint",
+                      "nodeKind": "literal" } },
+                  { "type": "TripleConstraint",
+                    "predicate": "http://xmlns.com/foaf/0.1/familyName",
+                    "valueExpr": {
+                      "type": "NodeConstraint",
+                      "nodeKind": "literal" } }
+                ] }
+            ] },
+          { "type": "TripleConstraint",
+            "predicate": "http://xmlns.com/foaf/0.1/mbox",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "iri" } }
+        ] } }
+  ] }
+</pre>
+          <pre class="instance turtle pass tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="function-name">inst:User1</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"Alice Walker"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:awalker@example.org&gt;</span><span class="keyword"></span></span> .
 
@@ -2056,9 +2094,13 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <span class="gname lowlight1 top"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Robert"</span></span> ;
     <span class="gname lowlight1 bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Paris"</span> </span>;
     <span class="fname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">familyName</span> <span class="string top bot">"Moses"</span></span> ;
-    <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rpmoses@example.org&gt;</span><span class="keyword"></span></span> .</pre>
-          <pre class="instance turtle fail">
-<span class="function-name">inst:User3</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
+    <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:rpmoses@example.org&gt;</span><span class="keyword"></span></span> .
+<a class="tryit" href="" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+          <pre class="instance turtle fail tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="function-name">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="function-name">inst:User3</span> <span class="keyword">a</span> <span class="type">foaf:</span><span class="constant">Person</span> ;
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"Smith"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bobs@example.org&gt;</span><span class="keyword"></span></span> .
 
@@ -2072,8 +2114,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <span class="name lowlight1 top bot"><span class="type">foaf:</span><span class="constant">name</span>       <span class="string top bot">"A"</span></span> ;
     <span class="gname lowlight1 top bot"><span class="type">foaf:</span><span class="constant">givenName</span>  <span class="string top bot">"B"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="type">foaf:</span><span class="constant">mbox</span>       <span class="fullURL">&lt;mailto:bobs@example.org&gt;</span><span class="keyword"></span></span> .
-</pre>
-          </div>
+<a class="tryit" href="" data-shape-map="inst:User3@&lt;http://my.example/#UserShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;inst:User5@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
 
           <div style="clear:both;"></div>
           <table class="example results">
@@ -2139,36 +2180,71 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 
             <!-- ShExC example -->
             <pre class="schema shexc" style="float:left;">
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
 
-<span class="shape-name">my:UserShape</span> {
-  <span class="predicate">ex:status</span> <span class="value-constraint">[ excodes:~ auxterms:~ ]</span>
- ^<span class="predicate">ex:hasIssue</span> <span class="value-constraint">[ ex:Product1 ex:Product2 ]</span>
+</span><span class="shape-name">my:IssueShape</span> {
+  <span class="predicate">ex:status</span> <span class="value-constraint">[ excodes:~ auxterms:~ ]</span>;
+ ^<span class="predicate">ex:hasIssue</span> <span class="value-constraint">[ my:Product1 my:Product2 ]</span>
 }</pre>
 
             <!-- JSON example -->
             <pre class="schema json" style="float:left;">
-{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
-    <span class="value-constraint">"value": {
-      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
-              <pre class="instance turtle pass">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue1</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
-<span class="status lowlight1 top bot"><span class="function-name">my:Product2 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue1</span></span></span> .
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#IssueShape",
+      "type": "Shape",
+      "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "TripleConstraint",
+            "predicate": "http://a.example/#status",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "values": [
+                { "type": "StemRange",
+                  "stem": "http://a.example/codes#" },
+                { "type": "StemRange",
+                  "stem": "http://aux.example/terms#" }
+              ] } },
+          { "type": "TripleConstraint",
+            "inverse": true,
+            "predicate": "http://a.example/#hasIssue",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "values": [
+                "http://my.example/#Product1",
+                "http://my.example/#Product2"
+              ] } }
+        ] } }
+  ] }
 </pre>
-              <pre class="instance turtle fail">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.
+              <pre class="instance turtle pass tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue1</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
+<span class="status lowlight1 top bot"><span class="function-name">my:Product2 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue1</span></span></span> .
+<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+              <pre class="instance turtle fail tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">ex:done</span></span></span>.
 <span class="status lowlight1 top bot"><span class="function-name">my:Product1 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue2</span></span></span> .
 
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot">auxterms:done</span></span></span>.
 <span class="status lowlight1 top bot"><span class="function-name errorSite">my:Product3 <span class="type">ex:</span><span class="constant">hasIssue</span> <span class="function-name">inst:Issue3</span></span></span> .
-</pre>
-  </div>
+<a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
@@ -2188,11 +2264,12 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 
             <!-- ShExC example -->
             <pre class="schema shexc" style="float:left;">
-<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
 
-<span class="shape-name">my:IssueShape</span> {
+</span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
       excodes:~ - excodes:unassigned - <span class="assigned top bot lowlight2">excodes:assigned</span>
       auxterms:~ - <span class="med_ top bot lowlight2">&lt;http://aux.example/terms#med_&gt;~</span>
@@ -2201,22 +2278,47 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 
             <!-- JSON example -->
             <pre class="schema json" style="float:left;">
-{ <span class="Shape-status">"my:IssueShape"</span>: { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
-    <span class="value-constraint">"value": {
-      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
-              <pre class="instance turtle">
-<span class="user2 lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#IssueShape",
+      "type": "Shape",
+      "expression": {
+        "type": "TripleConstraint",
+        "predicate": "http://a.example/#status",
+        "valueExpr": {
+          "type": "NodeConstraint",
+          "values": [
+            { "type": "StemRange",
+              "stem": "http://a.example/codes#",
+              "exclusions": [
+                "http://a.example/codes#unassigned",
+                "http://a.example/codes#assigned"
+              ] },
+            { "type": "StemRange",
+              "stem": "http://aux.example/terms#",
+              "exclusions": [
+                { "type": "Stem",
+                  "stem": "http://aux.example/terms#med_" }
+              ] }
+          ] } } }
+  ] }
+</pre>
+              <pre class="instance turtle tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="user2 lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">excodes:resolved</span></span> .
 <span>                                         </span>
 <span class="fail user3 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue3</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="assigned top bot errorSite">excodes:assigned</span></span></span>.
 <span>                                         </span>
 <span class="fail user4 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue4</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="med_ top bot errorSite">auxterms:med_sniffles</span></span></span>.
 <span>                                         </span>
-<span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite">ex:done</span></span></span>.</pre>
-  </div>
+<span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue5</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite">ex:done</span></span></span>.
+<a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;,inst:Issue4@&lt;http://my.example/#IssueShape&gt;,inst:Issue5@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
@@ -2239,7 +2341,12 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
             <!-- ShExC example -->
             <pre class="schema shexc" style="float:left;">
-<span class="shape-name">my:UserShape</span> {
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+
+</span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate">ex:status</span> <span class="value-constraint">[
     . - excodes:bad- - excodes:assigned
   ]</span>
@@ -2247,20 +2354,50 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
             <!-- JSON example -->
             <pre class="schema json" style="float:left;">
-{ <span class="Shape-status">"my:UserShape"</span>: { "type": "Shape",
-  "expression": {
-    "type": "TripleConstraint", <span class="predicate">"predicate": "ex:status"</span>,
-    <span class="value-constraint">"value": {
-      "type": "NodeConstraint", "values": [ "excodes:unassigned", "excodes:assigned" ] }</span> } } }</pre>
-              <pre class="instance turtle pass">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User1</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .</pre>
-              <pre class="instance turtle fail">
-<span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:User2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.</pre>
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#IssueShape",
+      "type": "Shape",
+      "expression": {
+        "type": "TripleConstraint",
+        "predicate": "http://a.example/#status",
+        "valueExpr": {
+          "type": "NodeConstraint",
+          "values": [
+            { "type": "StemRange",
+              "stem": {
+                "type": "Wildcard" },
+              "exclusions": [
+                "http://a.example/codes#bad-",
+                "http://a.example/codes#assigned"
+              ] }
+          ] } } }
+  ] }
+</pre>
+              <pre class="instance turtle pass tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue1</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="string top bot">ex:random</span></span> .
+<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+              <pre class="instance turtle fail tryable">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://a.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="function-name">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="function-name">&lt;http://a.example/codes#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="function-name">&lt;http://aux.example/terms#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://inst.example/#&gt;</span>
+
+</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="function-name">inst:Issue2</span></span> <span class="type">ex:</span><span class="constant">status</span>  <span class="min lowlight2 top bot"><span class="string top bot errorSite">excodes:assigned</span></span></span>.
+<a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail"><td>inst:User2</td><td>my:UserShape</td><td>fail</td><td class="fail"><span class="type">excodes:</span><span class="constant">assigned</span> is prohibited.</td></tr>
+              <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="type">excodes:</span><span class="constant">assigned</span> is prohibited.</td></tr>
             </tbody></table>
           </div>
         </div>
@@ -2513,9 +2650,9 @@ TODO</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
               <pre class="instance turtle">
-<span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
-    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;
-    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> .
+<span class="hilight-componentless lowlight1 top"><span class="function-name">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
+<span class="hilight-componentless lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;  </span>
+<span class="hilight-componentless lowlight1 bot">    <span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span> .      </span>
 
 <span class="fail hilight-component lowlight1 top"><span class="function-name">inst:Issue2</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
 <span class="fail hilight-component lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">dc:</span><span class="constant">creator</span>      <span class="string">"Alice"</span></span> ;            </span>
@@ -2523,20 +2660,20 @@ TODO</pre>
 <span class="fail hilight-component lowlight1 bot">    <span class="errorSite">ex:component</span>    <span class="function-name">inst:Issue3</span> .        </span>
 <span>                                         </span>
 <span class="fail hilight-invComponent lowlight1 top"><span class="function-name">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;                 </span>
-<span class="fail hilight-invComponent lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too much"</span></span> ;  </span>
+<span class="fail hilight-invComponent lowlight1    ">    <span class="other lowlight1 top bot"><span class="type">rdfs:</span><span class="constant">label</span>      <span class="string">"smokes too little"</span></span> ;</span>
 <span class="fail hilight-invComponent lowlight1 bot">    <span class="state lowlight1 top bot"><span class="type">ex:</span><span class="constant">state</span>        <span class="type">ex:</span><span class="constant">unassigned</span></span> .      </span></pre>
               </div>
               <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass"><td>inst:Issue1</td><td>my:SolitaryIssueShape</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail hilight-component top lowlight2"><td>inst:Issue2</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero outgoing <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
+                <tr class="pass hilight-componentless lowlight1 top"><td>inst:Issue1</td><td>my:SolitaryIssueShape</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail hilight-component lowlight1"><td>inst:Issue2</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero outgoing <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
                 <tr class="fail hilight-invComponent lowlight1 bot"><td>inst:Issue3</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero incoming <span class="type">ex:</span><span class="constant">component</span> arcs.</td></tr>
               </tbody></table>
             </div>
             <script type="text/javascript">
             <!--
-prepareHighlight(["hilight-component", "hilight-invComponent"], "highlight2", "lowlight2");
+prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComponent"], "highlight2", "lowlight2");
             -->
             </script>
           </div>
@@ -2803,8 +2940,6 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
               "nodeKind": "literal" } }
         ] } }
   ] }</pre>
-            <div class="verticalDivider"><!-- acts as a divider --></div>
-            <div style="float:left;">
               <pre class="instance turtle tryable">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="function-name">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="function-name">&lt;http://example.com/users/&gt;</span>
@@ -2819,8 +2954,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 <span class="type">inst:</span><span class="constant">User1</span> <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Alice"</span> ;
   <span class="type">foaf:</span><span class="constant">mbox</span> <span class="function-name">&lt;mailto:alice&#64;example.com&gt;</span> ;
   <span class="type">ex:</span><span class="constant">userID</span> <span class="string">"u01"</span> <span class="keyword">.</span>
-<a class="tryit" href="" data-shape-map="inst:Employee2@my:EmployeeShape,inst:Employee3@my:EmployeeShape">try it</a></pre>
-            </div>
+<a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
             <div style="clear:both;"> </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
@@ -2946,7 +3080,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
             -->
             </script>
           </div>
-
+        </div>
             <p>
             Note that ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
               It is possible to construct schemas for which it is quite expensive to find a mapping from RDF data triple to ShEx triple constraint that satisfies the schema.
