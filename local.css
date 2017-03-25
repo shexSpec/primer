@@ -17,11 +17,11 @@
         /* font-lock-constant-face */
         color: #008b8b;
       }
-      .function-name {
+      .fullURL {
         /* font-lock-function-name-face */
         color: #0000ff;
       }
-      .function-name:visited {
+      .fullURL:visited {
         /* font-lock-function-name-face */
         color: #0000ff;
       }
