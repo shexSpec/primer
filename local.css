@@ -25,7 +25,7 @@
         /* font-lock-function-name-face */
         color: #0000ff;
       }
-      .keyword, .schema .keyword.value-constraint {
+      .keyword, .schema .keyword.object {
         /* font-lock-keyword-face */
         color: #a020f0;
       }
@@ -51,8 +51,8 @@
         color: #522da0;
       }
       /* .predicate { border: thin solid red; } */
-      /* .value-constraint, .lowlight1.value-constraint, .lowlight2.value-constraint { border: thin solid blue; } */
-      .schema .value-constraint {
+      /* .object, .lowlight1.object, .lowlight2.object { border: thin solid blue; } */
+      .schema .object {
         /* font-lock-variable-name-face */
         color: #2d52a0;
       }
@@ -104,7 +104,7 @@
 
 .new            { font-weight: bold; }
 .lookit         { background-color: #fcfc00; }
-.errorSite, .errorSite .string, .errorSite.value-constraint, .errorSite .value-constraint      { color: red; }
+.errorSite, .errorSite .string, .errorSite.object, .errorSite .object      { color: red; }
 
 
 .issue div p { margin-left: 1em; }
