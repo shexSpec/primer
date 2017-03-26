@@ -248,7 +248,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       -->
     </script>
 
-      <section id="essentials">
+      <section id="model-and-terminology">
         <h2>ShEx Model and Terminology</h2>
 
     <section id="conventions" class="introductory">
@@ -324,7 +324,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
       </section>
 
-      <section id="tripleConstraints">
+      <section id="shex-essentials">
         <h2>ShEx Essentials</h2>
           <p>
             This document uses a running example illustrated by the following graph in which an Issue which is submitted by some person and potentially assigned to the same person or someone else.
@@ -1528,7 +1528,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     "value": { "type": "NodeConstraint", <span class="keyword new lookit">"nodeKind": "IRI"</span> } } } }</pre>
 
           </dd>
-          <dt id="vocab-value-set" class="new">value set</dt> <dd>Enumerates a set of specific expected values.
+          <dt id="vocab-value-set2" class="new">value set</dt> <dd>Enumerates a set of specific expected values.
           <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="lookit object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span>]</span>
 }</pre>
@@ -1670,7 +1670,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
         <li class="mbox lowlight1 top bot"><span class="oneOrMore lowlight2 top bot" id="oneOrMore">one or more</span> triple constraints on predicate <span id="mbox" class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> with a <code>node kind</code> of <span class="IRI lowlight2 top bot object" id="IRI">IRI</span>.</li>
       </ul>
 
-        <div id="simple-expressions-example-1" class="example wrapper">
+        <div id="grouping-example-1" class="example wrapper">
           <!-- ShExC example -->
           <pre class="schema shexc">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1959,7 +1959,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 
 </span><span class="shape-name IssueShape lowlight2 top bot">my:IssueShape</span> {
-  <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span></span>]</span>;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span>]</span>;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span> <span class="curlies lowlight2 top bot">{</span>
     <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="keyword object">LITERAL</span>;
     <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="object"><span class="keyword">IRI</span><span class="keyword">+</span></span>
@@ -3005,7 +3005,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
         </div>
       </section>
 
-        <section id="additive-properties">
+        <section id="repeated-properties">
           <h3>Repeated Properties</h3>
           <div class="namespace">
             <p>
@@ -3130,9 +3130,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
                 This will make the validation process more efficient and will more effectively capture the business logic in the schema.
               </li>
             </ul>
-          </section>
-          <p>
-          </p>
+
           <div class="namespace" style="display:none;">
 
               <div class="issue" style="clear:both;">
@@ -3258,7 +3256,6 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               </p>
             </div>
 
-            </div>
             <script type="text/javascript">
             <!--
 prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer", "hilight-workaround1", "hilight-workaround2", "hilight-workaround3"], "highlight2", "lowlight2");
@@ -3275,7 +3272,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!--         (The name "semantic action" comes from their serving a same role as semantic actions in parsers like Antlr or Yacc.) -->
 <!--         Below is an example from a standard extension called "<a href="http://shex.io/extensions/Test/">Test</a>" which can only <code class="code">print(msg)</code> or <code class="code">fail(msg)</code>: -->
 <!--       </p> -->
-<!--         <div id="simple-expressions-example-1" class="example wrapper"> -->
+<!--         <div id="semantic-actions-example-1" class="example wrapper"> -->
 <!--           <\!-\- ShExC example -\-> -->
 <!--           <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span> -->
 <!-- <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> { -->
@@ -3461,7 +3458,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
               <td>instance data</td>
             </tr>
           </table>
-
+      </section>
         <script type="application/javascript">
   var bodyKeypressCallbacks = {};
 
