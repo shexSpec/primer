@@ -1750,7 +1750,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
 </span><span class="fullURL">inst:Issue3</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
-    <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="stateValue lowlight2 top bot errorSite object">ex:unsinged</span></span> ;
+    <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="stateValue lowlight2 top bot errorSite object">ex:unsinged</span></span> ; <span class="comment"># &lt;-- typo</span>
     <span class="reportedBy lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span>   <span class="user lowlight2 top bot"><span class="fullURL object">inst:User4</span></span></span> .
 
 <span class="user lowlight2 top bot"><span class="fullURL">inst:User4</span></span> <span class="keyword">a</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
@@ -2222,9 +2222,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             "valueExpr": {
               "type": "NodeConstraint",
               "values": [
-                { "type": "StemRange",
+                { "type": "IRIStemRange",
                   "stem": "http://a.example/codes#" },
-                { "type": "StemRange",
+                { "type": "IRIStemRange",
                   "stem": "http://aux.example/terms#" }
               ] } },
           { "type": "TripleConstraint",
