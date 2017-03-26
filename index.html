@@ -2140,7 +2140,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       <section id="value-sets">
         <h2>Value Sets</h2>
         <p>
-        A <span class="new">value set</span> is a value constraint for enumerating the set of permissible values for a property.  The values can be IRIs or literals.
+          A <span class="new">value set</span> is a value constraint for enumerating the set of permissible values for a property.
+          The values can be IRIs, literals or language tags.
         </p>
         <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">[ex:unassigned ex:assigned]</span>
@@ -2149,6 +2150,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 { <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+
         <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">["unassigned" "assigned"]</span>
 }</pre>
@@ -2156,6 +2158,19 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 { <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+
+        <pre class="schema shexc table" style="float:left">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/users/&gt;</span>
+
+</span><span class="shape-name">my:IssueShape</span> {
+  <span class="predicate"><span class="type">ex:</span><span class="constant">label</span></span> <span class="object new lookit">[@en @fr]</span>
+}</pre>
+        <pre class="schema json table">
+{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+
         <div style="clear:both;"> </div>
         <p>
           Fixed values are represented as value sets with one member.
@@ -2175,7 +2190,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <div id="sec-iri-range">
           <div class="example wrapper">
             <p>
-              A value set can also contain <span class="new">IRI ranges</span>.
+              A value set can also contain <span class="new">IRI</span>, <span class="new">string</span> and <span class="new">language tag</span> ranges.
               An IRI range can be defined as including all IRIs that start with a given base IRI by appending a tilde ("<code>~</code>").
             </p>
 
@@ -2187,7 +2202,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="fullURL">&lt;http://aux.example/terms#&gt;</span>
 
 </span><span class="shape-name">my:IssueShape</span> {
-  <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span> <span class="object">[ <span class="type">excodes:</span><span class="keyword">~</span> <span class="type">auxterms:</span><span class="keyword">~</span> ]</span>;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>   <span class="object">[ <span class="type">excodes:</span><span class="keyword">~</span> <span class="type">auxterms:</span><span class="keyword">~</span> ]</span>;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="object">[ <span class="">@en</span><span class="keyword">~</span> - <span class="">@en-fr</span> ]</span>;
  ^<span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="object">[ <span class="type">my:</span><span class="constant">Product1</span> <span class="type">my:</span><span class="constant">Product2</span> ]</span>
 }</pre>
 
@@ -2230,8 +2246,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="fullURL">&lt;http://aux.example/terms#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
-</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue1</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="object"><span class="type">excodes:</span><span class="constant">resolved</span></span></span> .
-<span class="status lowlight1 top bot"><span class="fullURL">my:Product2 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue1</span></span></span> .
+</span><span class="fullURL">inst:Issue1</span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>   <span class="object"><span class="type">excodes:</span><span class="constant">resolved</span></span> ;
+            <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="string object">"hungry"@en</span> .
+<span class="fullURL">my:Product2 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> .
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
               <pre class="instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
@@ -2240,7 +2257,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="fullURL">&lt;http://aux.example/terms#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
-</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue2</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="errorSite object">ex:done</span></span>.
+</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue2</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>   <span class="errorSite object">ex:done</span></span> ;
+            <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="string object errorSite">"angry"@en-fr</span> .
 <span class="status lowlight1 top bot"><span class="fullURL">my:Product1 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue2</span></span></span> .
 
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue3</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="object"><span class="type">auxterms:</span><span class="constant">done</span></span></span>.
@@ -2323,10 +2341,10 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <div style="clear:both;"></div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
-                <tr class="pass user2 top lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail user3     lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="object"><span class="type">excodes:</span><span class="constant">assigned</span></span></span> excluded.</td></tr>
-                <tr class="fail user4     lowlight1"><td>inst:Issue4</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="object"><span class="type">auxterms:</span><span class="constant">med_…</span></span></span> terms excluded.</td></tr>
-                <tr class="fail user5 bot lowlight1"><td>inst:Issue5</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="type">ex:</span><span class="constant">done</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>.</td></tr>
+                <tr class="pass user2 top"><td>inst:Issue2</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="fail user3    "><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="assigned top bot lowlight2"><span class="object"><span class="type">excodes:</span><span class="constant">assigned</span></span></span> excluded.</td></tr>
+                <tr class="fail user4    "><td>inst:Issue4</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="med_ top bot lowlight2"><span class="object"><span class="type">auxterms:</span><span class="constant">med_…</span></span></span> terms excluded.</td></tr>
+                <tr class="fail user5 bot"><td>inst:Issue5</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="type">ex:</span><span class="constant">done</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>.</td></tr>
               </tbody></table>
             <script type="text/javascript">
             <!--
@@ -2429,7 +2447,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="shape-name">my:UserShape</span> {
   <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="keyword object">LITERAL</span>;
   <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="keyword object">IRI+</span>;
-  <span class="reportedIssue lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="object">@<span class="shape-name">my:IssueShape</span></span></span>
+  <span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="object">@<span class="shape-name">my:IssueShape</span></span></span>
 }</pre>
 
             <!-- JSON example -->
@@ -2480,7 +2498,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
 
-<span class="fail inst-User6 lowlight2 top"><span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;</span>
+<span class="fail inst-User6 lowlight2 top"><span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;                     </span>
 <span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span></span> ;              </span>
 <span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ; </span>
 <span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.  </span>
@@ -2519,7 +2537,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
             <pre class="schema shexc" style="float:left;">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constraint">assigned</span>]</span>;
- <span class="inversePredicate top bot keyword lowlight2">^</span><span class="reportedIssue lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="object">@<span class="shape-name">my:UserShape</span></span></span>
+ <span class="inversePredicate top bot keyword lowlight2">^</span><span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="object">@<span class="shape-name">my:UserShape</span></span></span>
 }
 
 <span class="shape-name">my:UserShape</span> {
@@ -2592,7 +2610,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 
 <span class="fullURL">inst:Issue3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
-    <span class="reportedIssueInv lowlight1 top bot errorSite"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User3</span></span> .
+    <span class="reportedIssue lowlight1 top bot errorSite new"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User3</span></span> .
 <span class="fullURL">inst:user3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>        <span class="string object">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
@@ -2600,7 +2618,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 
 <span class="fullURL">inst:Issue4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
-    <span class="reportedIssueInv lowlight1 top bot errorSite"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User4</span></span> .
+    <span class="reportedIssue lowlight1 top bot errorSite new"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User4</span></span> .
 <span class="fullURL">inst:user4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot errorSite"><span class="predicate">foaf:name</span>        <span class="string object">"Robert"</span></span> ;
     <span class="name lowlight1 top bot errorSite"><span class="predicate">foaf:name</span>        <span class="string object">"Bob Smith"</span></span> ;
