@@ -2228,6 +2228,18 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
                   "stem": "http://aux.example/terms#" }
               ] } },
           { "type": "TripleConstraint",
+            "predicate": "http://a.example/#mood",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "values": [
+                {
+                  "type": "LanguageStemRange",
+                  "stem": { "value": "en" },
+                  "exclusions": [
+                    { "value": "en-fr" }
+                  ] }
+              ] } },
+          { "type": "TripleConstraint",
             "inverse": true,
             "predicate": "http://a.example/#hasIssue",
             "valueExpr": {
@@ -2247,7 +2259,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
 </span><span class="fullURL">inst:Issue1</span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>   <span class="object"><span class="type">excodes:</span><span class="constant">resolved</span></span> ;
-            <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="string object">"hungry"@en</span> .
+            <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="string object">"hungry"@en-gb</span> .
 <span class="fullURL">my:Product2 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> .
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
               <pre class="instance turtle fail tryable">
@@ -2268,7 +2280,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
                 <tr class="pass user2 top lowlight1"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail user5 bot lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="type">ex:</span><span class="constant">done</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="type">ex:</span><span class="constant">done</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>.<br/>Excluded language tag for <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>.</td></tr>
                 <tr class="fail user5 bot lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="fullURL">my:Product3</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span>.</td></tr>
               </tbody></table>
           </div>
