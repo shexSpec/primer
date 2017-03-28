@@ -104,7 +104,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           Data that conforms to these constraints will pass validation tests, and data that does not conform will fail.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
-          <pre class="schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="fullURL">&lt;http://school.example/#&gt;</span>
+          <pre class="nohighlight schema shexc"><span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="fullURL">&lt;http://school.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="fullURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 
@@ -118,8 +118,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }
 </pre>
           <!-- JSON example -->
-          <pre class="schema json">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+          <pre class="nohighlight schema json">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://school.example/#enrolleeAge",
@@ -137,14 +137,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           "nodeKind": "iri" } } }
   ] }
 </pre>
-          <pre class="instance turtle pass tryable">
+          <pre class="nohighlight instance turtle pass tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 
 <span class="fullURL">inst:Student1</span> <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span>
   <span class="fullURL object">inst:Person2</span>, <span class="fullURL object">inst:Person3</span> .
 <a class="tryit" href="" data-shape-map="inst:Student1@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
-          <pre class="instance turtle fail tryable">
+          <pre class="nohighlight instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 
@@ -157,7 +157,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
         <div id="simple-expressions-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" id="school-Enrollee1" style="float:left;">
+          <pre class="nohighlight schema shexc" id="school-Enrollee1" style="float:left;">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="fullURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="fullURL">&lt;http://school.example/#&gt;</span>
@@ -171,8 +171,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }
 </pre>
           <!-- JSON example -->
-          <pre class="schema json">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+          <pre class="nohighlight schema json">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://school.example/#enrolleeAge",
@@ -196,7 +196,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         ] } }
   ] }
 </pre>
-            <pre class="instance turtle pass tryable">
+            <pre class="nohighlight instance turtle pass tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="fullURL">&lt;http://school.example/#&gt;</span>
@@ -209,7 +209,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="bob    lowlight1 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span> <span class="fullURL object">inst:Person4</span> .              </span>
 <a class="tryit" href="" data-shape-map="inst:Alice@&lt;http://school.example/#Enrollee&gt;,inst:Bob@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
 
-            <pre class="instance turtle fail tryable">
+            <pre class="nohighlight instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">school:</span> <span class="fullURL">&lt;http://school.example/#&gt;</span>
@@ -246,7 +246,10 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 //          "http://localhost/shexSpec/shex.js/doc/shex-simple.html?"
           "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?"
         ];
-        setTimeout(function () { updateAllTryItLinks($("#langOptions input:checked").val()); }, 2000);
+        document.respecIsReady.then(function(){ 
+           console.log("Fix Try It links");
+           updateAllTryItLinks($("#langOptions input:checked").val()); };
+        });
         function updateAllTryItLinks (schemaClass) {
           $(".tryit").map((idx, elt) => { updateTryItLink($(elt), schemaClass); })
         }
@@ -1516,10 +1519,10 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
         <dl>
           <dt id="vocab-literal-datatype" class="new">literal datatype</dt> <dd>A node constraint that identifies the datatype of an RDF literal.
-          <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:UserShape</span> {
   <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="keyword lookit object"><span class="type">xsd:</span><span class="constant">string</span></span>
 }</pre>
-          <pre class="schema json table">{ "my:UserShape": { "type": "Shape",
+          <pre class="nohighlight schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", "predicate": "foaf:name",
     "value": { "type": "NodeConstraint", <span class="keyword new lookit">"datatype": "xsd:string"</span> } } } }</pre>
@@ -1527,39 +1530,39 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           </dd>
           <dt id="vocab-literal-facets" class="new">literal facet</dt> <dd>A node constraint that applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, including <span class="new">numeric facets</span>, which apply only to numeric RDF literals (<code class="keyword">MinInclusive</code>, <code class="keyword">MinExclusive</code>, <code class="keyword">MaxInclusive</code>, <code class="keyword">MaxExclusive</code>, <code class="keyword">TotalDigits</code>, <code class="keyword">FractionDigits</code>) and <span class="new">string facets</span>, which apply to all RDF literals (<code class="keyword">Length</code>, <code class="keyword">MinLength</code>, <code class="keyword">MaxLength</code>, <code class="keyword">Pattern</code>).  In the ShExC syntax, facet names are not case-sensitive.
 
-          <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:UserShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">shoeSize</span></span> <span class="object">xsd:float <span class="lookit"><span class="keyword">MinInclusive</span> 5.5 <span class="keyword">maxInclusive</span> 12.5</span></span>
 }</pre>
-          <pre class="schema json table">{ "my:UserShape": { "type": "Shape",
+          <pre class="nohighlight schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
     "value": { "type": "NodeConstraint", "datatype": "http://www.w3.org/2001/XMLSchema#float",
                <span class="keyword new lookit">"mininclusive": 5.5, "maxinclusive": 12.5</span> } } } }</pre>
 
           </dd>
           <dt id="vocab-node-kind" class="new">node kind</dt> <dd>A node constraint that specifies whether an RDF data node is of kind <code class="keyword">Literal</code>, <code class="keyword">IRI</code>, <code class="keyword">BNode</code>, or <code class="keyword">NonLiteral</code>, a union of the kinds <code class="keyword">IRI</code> and <code class="keyword">BNode</code>.  In the ShExC syntax, node kinds are not case-sensitive.
-          <pre class="schema shexc table"><span class="shape-name">my:UserShape</span> {
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:UserShape</span> {
   <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="keyword lookit object">IRI</span>
 }</pre>
-          <pre class="schema json table">{ "my:UserShape": { "type": "Shape",
+          <pre class="nohighlight schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": {
     "type": "TripleConstraint", "predicate": "foaf:mbox",
     "value": { "type": "NodeConstraint", <span class="keyword new lookit">"nodeKind": "IRI"</span> } } } }</pre>
 
           </dd>
           <dt id="vocab-value-set2" class="new">value set</dt> <dd>Enumerates a set of specific expected values.
-          <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="lookit object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span>]</span>
 }</pre>
-          <pre class="schema json table">
+          <pre class="nohighlight schema json table">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
           </dd>
           <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the object is described by another shape, e.g.
-          <pre class="schema shexc table"><span class="shape-name">my:IssueShape</span> {
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span> <span class="lookit object"><span class="keyword">@</span><span class="shape-name">my:UserShape</span></span>
 }</pre>
-          <pre class="schema json">{ "my:IssueShape": { "type": "Shape",
+          <pre class="nohighlight schema json">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
       "value": { "type": "ShapeRef", <span class="keyword new lookit">"reference": "my:PersonShape"</span> } } } }</pre>
           </dd>
@@ -1596,8 +1599,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   <span class="foaf-name lowlight2 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span></span> <span class="xsd-string lowlight2 top bot object"><span class="type">xsd:</span><span class="constant">string</span></span>
 }</pre>
           <!-- JSON example -->
-          <pre class="schema json">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+          <pre class="nohighlight schema json">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#UserShape",
@@ -1611,7 +1614,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   ] }
 </pre>
 
-          <pre class="instance turtle pass tryable">
+          <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -1624,7 +1627,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="user2 lowlight1 bot">    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>  <span class="string top bot object">"Bob Smith"</span></span> .            </span>
 <a class="tryit" href="" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
 
-          <pre class="instance turtle fail tryable">
+          <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -1690,7 +1693,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
 
         <div id="grouping-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc">
+          <pre class="nohighlight schema shexc">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -1708,8 +1711,8 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
 </pre>
 
           <!-- JSON example -->
-          <pre class="schema json">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+          <pre class="nohighlight schema json">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#IssueShape",
@@ -1748,7 +1751,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
         ] } }
   ] }
 </pre>
-          <pre class="instance turtle pass tryable">
+          <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
@@ -1762,7 +1765,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
     <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 top object"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span></span></span> ;
     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 bot object"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> </span></span>.
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
-          <pre class="instance turtle fail tryable">
+          <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
@@ -1799,7 +1802,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       <div class="namespace">
         <div class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" id="issue-user-allOpt" style="float:left;">
+          <pre class="nohighlight schema shexc" id="issue-user-allOpt" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1814,7 +1817,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="object"><span class="keyword">IRI<span class="lookit">*</span></span></span>
 }
 </pre>
-          <pre class="instance turtle pass tryable">
+          <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 
@@ -1866,8 +1869,8 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 </pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+            <pre class="nohighlight schema json" style="float:left;">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#IssueShape",
@@ -1916,7 +1919,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
       ] }
   ] }
 </pre>
-              <pre class="instance turtle pass tryable">
+              <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1929,7 +1932,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string top bot object">"Bob Smith"</span> ;                   
   <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .  
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#123&gt;@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
-              <pre class="instance turtle fail tryable">
+              <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1971,7 +1974,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
         <div class="namespace">
           <div id="nested-shapes-example-1" class="example wrapper">
             <!-- ShExC example -->
-            <pre class="schema shexc">
+            <pre class="nohighlight schema shexc">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1985,8 +1988,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 }</pre>
 
           <!-- JSON example -->
-            <pre class="schema json">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+            <pre class="nohighlight schema json">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#IssueShape",
@@ -2046,7 +2049,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 
         <div class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;">
+          <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 
@@ -2062,8 +2065,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 }</pre>
 
           <!-- JSON example -->
-          <pre class="schema json" style="float:left;">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+          <pre class="nohighlight schema json" style="float:left;">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#UserShape",
@@ -2101,7 +2104,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
         ] } }
   ] }
 </pre>
-          <pre class="instance turtle pass tryable">
+          <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
@@ -2115,7 +2118,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <span class="fname lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">familyName</span></span> <span class="string top bot object">"Moses"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rpmoses@example.org&gt;</span></span> .
 <a class="tryit" href="" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
-          <pre class="instance turtle fail tryable">
+          <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
@@ -2161,30 +2164,30 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           A <span class="new">value set</span> is a value constraint for enumerating the set of permissible values for a property.
           The values can be IRIs, literals or language tags.
         </p>
-        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
+        <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">[ex:unassigned ex:assigned]</span>
 }</pre>
-        <pre class="schema json table">
+        <pre class="nohighlight schema json table">
 { <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
 
-        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
+        <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">["unassigned" "assigned"]</span>
 }</pre>
-        <pre class="schema json table">
+        <pre class="nohighlight schema json table">
 { <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
 
-        <pre class="schema shexc table" style="float:left">
+        <pre class="nohighlight schema shexc table" style="float:left">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/users/&gt;</span>
 
 </span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">label</span></span> <span class="object new lookit">[@en @fr]</span>
 }</pre>
-        <pre class="schema json table">
+        <pre class="nohighlight schema json table">
 { <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
@@ -2194,13 +2197,13 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           Fixed values are represented as value sets with one member.
           For example, a required type triple can be expressed in the following two ways using the ShExC syntax:
         </p>
-        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
+        <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
   <span class="predicate"><span class="type">rdf:</span><span class="constant">type</span></span> <span class="object new lookit">[foaf:Person]</span>
 }</pre>
-        <pre class="schema json table">{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
+        <pre class="nohighlight schema json table">{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
     "value": { "type": "NodeConstraint", "values": [ <span class="object new lookit">"foaf:Person"</span> ] } } } }</pre>
-        <pre class="schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
+        <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
   <span class="keyword">a</span> <span class="object new lookit">[foaf:Person]</span>
 }</pre>
         <div style="clear:both;"> </div>
@@ -2213,7 +2216,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             </p>
 
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;">
+            <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2226,8 +2229,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+            <pre class="nohighlight schema json" style="float:left;">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#IssueShape",
@@ -2269,7 +2272,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         ] } }
   ] }
 </pre>
-              <pre class="instance turtle pass tryable">
+              <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2280,7 +2283,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="string object">"hungry"@en-gb</span> .
 <span class="fullURL">my:Product2 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> .
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
-              <pre class="instance turtle fail tryable">
+              <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2312,7 +2315,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             </p>
 
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;">
+            <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2326,8 +2329,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+            <pre class="nohighlight schema json" style="float:left;">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#IssueShape",
@@ -2353,7 +2356,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
           ] } } }
   ] }
 </pre>
-              <pre class="instance turtle tryable">
+              <pre class="nohighlight instance turtle tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2389,7 +2392,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             </p>
 
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;">
+            <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2402,8 +2405,8 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 }</pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">
-{ "@context": "https://shexspec.github.io/context.jsonld",
+            <pre class="nohighlight schema json" style="float:left;">
+{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema",
   "shapes": [
     { "id": "http://my.example/#IssueShape",
@@ -2424,7 +2427,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
           ] } } }
   ] }
 </pre>
-              <pre class="instance turtle pass tryable">
+              <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2433,7 +2436,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
 </span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue1</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="object"><span class="type">ex:</span><span class="constant">random</span></span></span> .
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
-              <pre class="instance turtle fail tryable">
+              <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">excodes:</span> <span class="fullURL">&lt;http://a.example/codes#&gt;</span>
@@ -2464,7 +2467,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
           <div class="example wrapper">
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;">
+            <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -2481,7 +2484,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 }</pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">
+            <pre class="nohighlight schema json" style="float:left;">
 { "type": "Schema",
   "shapes": {
     <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
@@ -2524,7 +2527,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
     }
   }
 }</pre>
-            <pre class="instance turtle">
+            <pre class="nohighlight instance turtle">
 <span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
 
@@ -2564,7 +2567,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 
           <div class="example wrapper">
             <!-- ShExC example -->
-            <pre class="schema shexc" style="float:left;">
+            <pre class="nohighlight schema shexc" style="float:left;">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constraint">assigned</span>]</span>;
  <span class="inversePredicate top bot keyword lowlight2">^</span><span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="object">@<span class="shape-name">my:UserShape</span></span></span>
@@ -2576,7 +2579,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 }</pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">
+            <pre class="nohighlight schema json" style="float:left;">
 { "type": "Schema",
   "shapes": {
     <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
@@ -2621,7 +2624,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 }</pre>
             <div class="verticalDivider"><!-- acts as a divider --></div>
             <div style="float:left;">
-            <pre class="instance turtle pass">
+            <pre class="nohighlight instance turtle pass">
 <span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
 <span class="fullURL">inst:user1</span> <span class="keyword predicate">a</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
@@ -2629,7 +2632,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
     <span class="reportedIssue lowlight1 top bot new"><span class="object"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
     <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.</pre>
-            <pre class="instance turtle fail">
+            <pre class="nohighlight instance turtle fail">
 <span class="fullURL">inst:Issue2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
     <span class="reportedBy lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span>    <span class="fullURL object">inst:User2</span></span> .
@@ -2688,7 +2691,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
   
             <div class="example wrapper">
               <!-- ShExC example -->
-              <pre class="schema shexc" style="float:left;">
+              <pre class="nohighlight schema shexc" style="float:left;">
 <span class="shape-name">my:SolitaryIssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object">[<span class="type">ex:</span><span class="constant">unassigned</span> <span class="type">ex:</span><span class="constant">assigned</span>]</span>;
  <span class="hilight-component top bot lowlight2"> <span class="predicate"><span class="type">ex:</span><span class="constant">component</span></span> <span class="object"><span class="keyword">.</span> <span class="new" style="">{0}</span></span></span> ;
@@ -2696,11 +2699,11 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "reportedIssueInv",
 }</pre>
 
               <!-- JSON example -->
-              <pre class="schema json" style="float:left;">
+              <pre class="nohighlight schema json" style="float:left;">
 TODO</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
-              <pre class="instance turtle">
+              <pre class="nohighlight instance turtle">
 <span class="hilight-componentless lowlight1 top"><span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;                 </span>
 <span class="hilight-componentless lowlight1    ">    <span class="other lowlight1 top bot"><span class="predicate"><span class="type">rdfs:</span><span class="constant">label</span></span>      <span class="string object">"smokes too much"</span></span> ;  </span>
 <span class="hilight-componentless lowlight1 bot">    <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span> .      </span>
@@ -2743,7 +2746,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
 
         <div id="closed-shapes-example-2" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;">
+          <pre class="nohighlight schema shexc" style="float:left;">
 <span class="shape-name">my:OpenUserShape</span> {
   <span class=""><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object"><span class="type">xsd:</span><span class="constant">string</span></span></span>;
   <span class=""><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="object keyword">IRI</span></span>
@@ -2755,7 +2758,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
 }</pre>
 
           <!-- JSON example -->
-          <pre class="schema json" style="float:left;">
+          <pre class="nohighlight schema json" style="float:left;">
 { "type": "Schema",
   "shapes": [
     { "type": "Shape", "id": <span class="user lowlight2 top bot">"my:OpenUserShape"</span>
@@ -2801,7 +2804,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle" style="float:left;">
+          <pre class="nohighlight instance turtle" style="float:left;">
 <span class="user lowlight2 top bot"><span class="fullURL">inst:User1</span></span>
     <span class=""><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span></span> ;
     <span class=""><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.
@@ -2841,14 +2844,14 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
             </p>
         <div id="extra-properties-example-1" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;">
+          <pre class="nohighlight schema shexc" style="float:left;">
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> {
   <span class="keyword">a</span> <span class="object">[<span class="type">ex:</span><span class="constant">Employee</span>]</span>;
   <span class="keyword">a</span> <span class="object">[<span class="type">foaf:</span><span class="constant">Person</span>]</span>
 }</pre>
 
           <!-- JSON example -->
-          <pre class="schema json" style="float:left;">
+          <pre class="nohighlight schema json" style="float:left;">
 { "type": "Schema",
   "shapes": {
     <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape",
@@ -2873,7 +2876,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle fail" style="float:left;">
+          <pre class="nohighlight instance turtle fail" style="float:left;">
 <span class="user lowlight2 top bot"><span class="fullURL">inst:User4</span></span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span>, <span class="object"><span class="type">ex:</span><span class="constant">Employee</span></span>, <span class="errorSite object">ex:Manager</span>.</pre>
           </div>
           <div style="clear:both;"></div>
@@ -2883,14 +2886,14 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
             </p>
         <div id="extra-properties-example-2" class="example wrapper">
           <!-- ShExC example -->
-          <pre class="schema shexc" style="float:left;">
+          <pre class="nohighlight schema shexc" style="float:left;">
 <span class="shape-name hilight-shapeName lowlight2 top bot">my:UserShape</span> <span class="keywork predicate">EXTRA</span> <span class="keyword object">a</span> {
   <span class="keyword">a</span> <span class="object">[<span class="type">ex:</span><span class="constant">Employee</span>]</span>;
   <span class="keyword">a</span> <span class="object">[<span class="type">foaf:</span><span class="constant">Person</span>]</span>
 }</pre>
 
           <!-- JSON example -->
-          <pre class="schema json" style="float:left;">
+          <pre class="nohighlight schema json" style="float:left;">
 { "type": "Schema",
   "shapes": {
     <span class="shape-name hilight-shapeName lowlight2 top bot">"my:UserShape"</span>: { "type": "Shape",
@@ -2915,7 +2918,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 }</pre>
           <div class="verticalDivider"><!-- acts as a divider --></div>
           <div style="float:left;">
-          <pre class="instance turtle pass" style="float:left;">
+          <pre class="nohighlight instance turtle pass" style="float:left;">
 <span class="user lowlight2 top bot"><span class="fullURL">inst:User4</span></span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span>, <span class="object"><span class="type">ex:</span><span class="constant">Employee</span></span>, <span class="object"><span class="type">ex:</span><span class="constant">Manager</span></span>.</pre>
           </div>
       </div>
@@ -2952,7 +2955,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 </pre>
 
             <!-- JSON example -->
-            <pre class="schema json" style="float:left;">{ "@context": "https://shexspec.github.io/context.jsonld",
+            <pre class="nohighlight schema json" style="float:left;">{ "@context": "http://www.w3.org/ns/shex.jsonld",
   "type": "Schema", "shapes": [
     { "id": "http://my.example/#UserShape",
       "type": "Shape", "expression": {
@@ -2991,7 +2994,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
               "nodeKind": "literal" } }
         ] } }
   ] }</pre>
-              <pre class="instance turtle tryable">
+              <pre class="nohighlight instance turtle tryable">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -3033,7 +3036,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 
             <div class="example wrapper">
               <!-- ShExC example -->
-              <pre class="schema shexc" style="float:left;">
+              <pre class="nohighlight schema shexc" style="float:left;">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object">[<span class="type">ex:</span><span class="constant">accepted</span> <span class="type">ex:</span><span class="constant">resolved</span>]</span>;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-tester lowlight2 top bot new"><span class="object">@<span class="shape-name">my:TesterShape</span></span></span>;
@@ -3052,7 +3055,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 </pre>
 
               <!-- JSON example -->
-              <pre class="schema json" style="float:left;">
+              <pre class="nohighlight schema json" style="float:left;">
 {
   "my:IssueShape": { "type": "Shape",
     "expression": { "type": "group",
@@ -3096,7 +3099,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 }</pre>
               <div class="verticalDivider"><!-- acts as a divider --></div>
               <div style="float:left;">
-              <pre class="instance turtle pass">
+              <pre class="nohighlight instance turtle pass">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object"><span class="type">ex:</span><span class="constant">accepted</span></span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-tester lowlight2 top bot object"><span class="type">inst:</span><span class="constant">Tester2</span></span> ;
@@ -3110,7 +3113,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 <span class="hilight-programmer lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object"><span class="type">xsd:</span><span class="constant">string</span></span> ;                  </span>
 <span class="hilight-programmer lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .</span></pre>
               <div></div>
-              <pre class="instance turtle fail">
+              <pre class="nohighlight instance turtle fail">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object"><span class="type">ex:</span><span class="constant">accepted</span></span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-tester lowlight2 top object"><span class="type">inst:</span><span class="constant">Tester2</span></span> ;
@@ -3175,7 +3178,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
               </p>
               <div style="float:left; max-width: 32%">
                 <p>One individual acting as both tester and programmer.</p>
-              <pre class="instance turtle pass">
+              <pre class="nohighlight instance turtle pass">
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object"><span class="type">ex:</span><span class="constant">accepted</span></span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-testgrammer lowlight2 top bot"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> .
@@ -3185,7 +3188,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 <span class="hilight-testgrammer lowlight2    ">  <span class="predicate"><span class="type">ex:</span><span class="constant">role</span></span> <span class="object"><span class="type">ex:</span><span class="constant">testingRole</span></span> ;                </span>
 <span class="hilight-testgrammer lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .</span></pre>
               <p>fails <code>partition</code>, <span class="hilight-workaround1 lowlight2 top bot">workaround</span> is:</p>
-              <pre class="schema shexc">
+              <pre class="nohighlight schema shexc">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> [<span class="object">ex:accepted ex:resolved</span>];
   ( <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="object">@<span class="shape-name">my:TesterShape</span></span>;
@@ -3196,13 +3199,13 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 }
 </pre>
               <!-- JSON example -->
-              <pre class="schema json todo">TODO</pre>
+              <pre class="nohighlight schema json todo">TODO</pre>
               </div>
               <div style="float:left; max-width: 32%">
                 <p>
                   One individual acts can be both a tester and a programmer, another is only a tester.
                 </p>
-              <pre class="instance turtle pass"><span class="comment"># one tester and one combination </span>
+              <pre class="nohighlight instance turtle pass"><span class="comment"># one tester and one combination </span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object"><span class="type">ex:</span><span class="constant">accepted</span></span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="type">inst:</span><span class="constant">Tester2</span> ;
@@ -3217,7 +3220,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 <span class="hilight-testgrammer lowlight2    ">  <span class="predicate"><span class="type">ex:</span><span class="constant">role</span></span> <span class="object"><span class="type">ex:</span><span class="constant">testingRole</span></span> ;                </span>
 <span class="hilight-testgrammer lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .</span></pre>
               <p>fails <code>conjunction</code>, <span class="hilight-workaround2 lowlight2 top bot">workaround</span> is:</p>
-              <pre class="schema shexc">
+              <pre class="nohighlight schema shexc">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> [<span class="object">ex:accepted ex:resolved</span>];
   ( <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="object">@<span class="shape-name">my:TesterShape</span></span>;
@@ -3234,13 +3237,13 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 }
 </pre>
               <!-- JSON example -->
-              <pre class="schema json todo">TODO</pre>
+              <pre class="nohighlight schema json todo">TODO</pre>
               </div>
               <div style="float:left; max-width: 32%">
                 <p>
                   Two individuals can act as both a tester and a programmer.
                 </p>
-              <pre class="instance turtle pass"><span class="comment"># two combinations</span>
+              <pre class="nohighlight instance turtle pass"><span class="comment"># two combinations</span>
 <span class="type">inst:</span><span class="constant">Issue1</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object"><span class="type">ex:</span><span class="constant">accepted</span></span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-testgrammer lowlight2 top"><span class="type">inst:</span><span class="constant">Testgrammer23</span></span> ;
@@ -3256,7 +3259,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
 <span class="hilight-testgrammer lowlight2    ">  <span class="predicate"><span class="type">ex:</span><span class="constant">role</span></span> <span class="object"><span class="type">ex:</span><span class="constant">testingRole</span></span> ;                </span>
 <span class="hilight-testgrammer lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .</span></pre>
               <p>fails <code>conjunction</code>, <span class="hilight-workaround3 lowlight2 top bot">workaround</span> is:</p>
-              <pre class="schema shexc">
+              <pre class="nohighlight schema shexc">
 <span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> [<span class="object">ex:accepted ex:resolved</span>];
   ( <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="object">@<span class="shape-name">my:TesterShape</span></span>;
@@ -3292,7 +3295,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!--       </p> -->
 <!--         <div id="semantic-actions-example-1" class="example wrapper"> -->
 <!--           <\!-\- ShExC example -\-> -->
-<!--           <pre class="schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span> -->
+<!--           <pre class="nohighlight schema shexc" style="float:left;"><span class="comment"># schema (ShExC)</span> -->
 <!-- <span class="shape-name hilight-shapeName lowlight2 top bot">my:IssueShape</span> { -->
 <!--   <span class="state      lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> [<span class="stateValue lowlight2 top bot object">ex:unassigned ex:assigned</span>]</span>; -->
 <!--   <span class="reportedBy lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span> <span class="object">@</span><span class="user lowlight2 top bot shape-name">my:UserShape</span></span> -->
@@ -3310,7 +3313,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!-- }</pre> -->
 
 <!--           <\!-\- JSON example -\-> -->
-<!--           <pre class="schema json" style="float:left;"> -->
+<!--           <pre class="nohighlight schema json" style="float:left;"> -->
 <!-- { "type": "Schema", -->
 <!--   "shapes": { -->
 <!--     <span class="shape-name hilight-shapeName lowlight2 top bot">"my:IssueShape"</span>: { "type": "Shape", -->
@@ -3365,7 +3368,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!-- }</pre> -->
 <!--           <div class="verticalDivider"><\!-\- acts as a divider -\-></div> -->
 <!--           <div style="float:left;"> -->
-<!--           <pre class="instance turtle pass"><span class="comment"># passing data</span> -->
+<!--           <pre class="nohighlight instance turtle pass"><span class="comment"># passing data</span> -->
 <!-- <span class="keyword">prefix</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span><span class="comment"> -->
 <!-- </span><span class="keyword">prefix</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span> -->
 <!-- <span class="keyword">prefix</span> <span class="type">xsd:</span> <span class="fullURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="comment"> -->
@@ -3378,7 +3381,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!--     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot">"Bob Smith"</span></span> ; -->
 <!--     <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 top"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span></span></span> ; -->
 <!--     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 bot"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> </span></span>.</pre> -->
-<!--           <pre class="instance turtle fail"><span class="comment"># failing data</span> -->
+<!--           <pre class="nohighlight instance turtle fail"><span class="comment"># failing data</span> -->
 <!-- <span class="keyword">prefix</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span><span class="comment"> -->
 <!-- </span><span class="keyword">prefix</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span> -->
 <!-- <span class="keyword">prefix</span> <span class="type">xsd:</span> <span class="fullURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="comment"> -->
@@ -3483,8 +3486,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
   /* a form like
         <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
   controls display of sections like
-  <pre class="schema shexc">...</pre>
-  <pre class="schema json">...</pre>
+  <pre class="nohighlight schema shexc">...</pre>
+  <pre class="nohighlight schema json">...</pre>
    */
   [
     { lookIn: ".schema", form: "#langOptions", radioName: "presLang", keys:
@@ -3531,7 +3534,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
     inputs.filter("[value="+targetClass+"]").prop("checked", true); // .change() did nothing
     // swap which is displayed.
     revealClass(x.lookIn, x.form, x.radioName);
-    updateAllTryItLinks(targetClass);
+    //updateAllTryItLinks(targetClass);
               }
         return false;
       };

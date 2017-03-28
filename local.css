@@ -146,8 +146,10 @@ a.ref:visited { color: #a00550; font-family: monospace; }
 .tryit { 
   position: absolute;
   z-index: 3; /* put .gold-box above .green-box and .dashed-box */
-  right: -5px;
-  top: -1.5ex;
+  //right: -5px;
+  //top: -1.5ex;
+  right: 0;
+  top: -0.5ex;
 }
 
       table td { vertical-align: top; }
@@ -199,7 +201,7 @@ pre.schema:before, pre.instance:before {
     background: white;
     display: block;
     font-family: sans-serif;
-    margin: -1em 0 0.4em -1em;
+    //margin: -1em 0 0.4em -1em;
     padding: 0.2em 1em;
 }
 .prefixes { display: none; }
