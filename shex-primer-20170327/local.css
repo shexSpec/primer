@@ -1,0 +1,205 @@
+      tr th { text-align: center; }
+      .todo {
+        color: red;
+      }
+        pre {
+        tab-size: 4;
+        }
+      th {
+        text-align: left;
+      }
+      .comment {
+        /* font-lock-comment-face */
+        color: #b22222;
+      }
+      .shh { color: #bbb; margin:0; }
+      .constant {
+        /* font-lock-constant-face */
+        color: #008b8b;
+      }
+      .fullURL {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .fullURL:visited {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .keyword, .schema .keyword.object {
+        /* font-lock-keyword-face */
+        color: #a020f0;
+      }
+      .string {
+        /* font-lock-string-face */
+        color: #8b2252;
+      }
+      .type {
+        /* font-lock-type-face */
+        color: #228b22;
+      }
+      .shape-name {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .shape-name:visited {
+        /* font-lock-variable-name-face */
+        color: #a0522d;
+      }
+      .constraint-name { color: #a08000; }
+      .schema .predicate, .schema .predicate .type, .schema .predicate .constant {
+        /* font-lock-variable-name-face */
+        color: #522da0;
+      }
+      /* .predicate { border: thin solid red; } */
+      /* .object, .lowlight1.object, .lowlight2.object { border: thin solid blue; } */
+      .schema .object {
+        /* font-lock-variable-name-face */
+        color: #2d52a0;
+      }
+      .code { color: #7bb; }
+
+      .example {
+        display: inline-block;
+      }
+      .example.wrapper {
+        background-color: #fff;
+      }
+      .example.wrapper pre {
+        background-color: #fcfaee;
+        margin-left: 0;
+        line-height: 1.2;
+        display: inline-block;
+      }
+      .example.wrapper .fail {
+        background-color: #fceefa
+      }
+      pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
+      pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
+      pre.instance { border: thick solid #f8f6ea; }
+      pre.schema, pre.instance { vertical-align: top; }
+      pre.instance.fail { border: thick solid #f8eaea; }
+      .verticalDivider {
+        float: left;
+        width: .5em;
+        border:thin solid #fff; /* disappears without this */
+      }
+
+.highlight1     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 176, 0, .5); border-right: 5px solid rgba(176, 176, 0, .5); } /* font-weight: bold  ;  */
+.highlight1.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+.highlight1.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+.lowlight1      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid transparent; border-right: 5px solid transparent;                     } /* font-weight: normal;  */
+.lowlight1.top  {    margin-top: -5px;                      border-top: 5px solid transparent;                                                          } /* font-weight: normal;  */
+.lowlight1.bot  { margin-bottom: -5px;                   border-bottom: 5px solid transparent;                                                          } /* font-weight: normal;  */
+.highlight2     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 0, 176, .5); border-right: 5px solid rgba(176, 0, 176, .5); } /* font-weight: bold  ;  */
+.highlight2.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+.highlight2.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+.lowlight2      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(127, 127, 127, .07); border-right: 5px solid rgba(127, 127, 127, .07);         } /* font-weight: normal;  */
+.lowlight2.top  {    margin-top: -5px;                      border-top: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+.lowlight2.bot  { margin-bottom: -5px;                   border-bottom: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+
+.highlightBG1   { /* border: 5px solid transparent; */ background-color: #bb0; font-weight: bold; }
+.lowlightBG1    { /* border: 5px solid transparent; */ font-weight: normal; }
+.highlightBG2   { /* border: 5px solid transparent; */ background-color: #b00; font-weight: bold; }
+.lowlightBG2    { /* border: 5px solid transparent; */ font-weight: normal; }
+
+.new            { font-weight: bold; }
+.lookit         { background-color: #fcfc00; }
+.errorSite, .errorSite .string, .errorSite.object, .errorSite .object      { color: red; }
+
+
+.issue div p { margin-left: 1em; }
+pre.shh { display: table; }
+pre.table { display: table; }
+.compact p { margin: 0; }
+.compact li { margin-bottom: 1ex; }
+#respecDocument img { width: 72px; }
+a.ref { color: #c83500; font-family: monospace; }
+a.ref:visited { color: #a00550; font-family: monospace; }
+.example.wrapper pre { margin-top: 0; margin-right: 1em; }
+#closed-shapes-example-2 pre { margin-top: 0; }
+
+/* http://stackoverflow.com/questions/2187008/styling-an-anchor-tag-to-look-like-a-submit-button#2187796 */
+/* fails on firefox
+.tryit:link {
+    appearance: button;
+    -moz-appearance: button;
+    -webkit-appearance: button;
+    text-decoration: none; font: menu; color: ButtonText;
+    display: inline-block; padding: 2px 8px;
+    padding: 0 .2em;
+} */
+.tryit:link {
+    text-decoration: none; font: menu;
+    display: inline-block; padding: 2px 8px;
+    background: ButtonFace; color: ButtonText;
+    border-style: solid; border-width: 2px;
+    border-color: ButtonHighlight ButtonShadow ButtonShadow ButtonHighlight;
+    padding: 0 .2em;
+}
+.tryit:active {
+    border-color: ButtonShadow ButtonHighlight ButtonHighlight ButtonShadow;
+}
+.tryable { 
+  position: relative;
+  z-index: 1;
+}
+.tryit { 
+  position: absolute;
+  z-index: 3; /* put .gold-box above .green-box and .dashed-box */
+  right: -5px;
+  top: -1.5ex;
+}
+
+      table td { vertical-align: top; }
+      table th { text-align: left; font-weight: normal; }
+      table { border-collapse: collapse; }
+      td, th { border-style: solid; border-width: thin; border-color: #bbb; font-size: small; padding: .5ex 1em; }
+      .pass { background-color: #cfc; }
+      .fail, .example.wrapper .results .fail { background-color: #fcc; }
+
+table.results:before {
+    content: "Validation Results";
+    width: 9.5em;
+    color: #333;
+    font-size: .6em;
+    border: 1px solid #bbb;
+    background: white;
+    display: block;
+    font-family: sans-serif;
+    margin: 0 0 -.1em -.5em;
+    padding: 0.2em 1em;
+}
+      
+      .qualifier { font-weight: normal; display:none; }
+
+pre.schema.shexc:before {
+    content: "Schema (ShExC)";
+    width: 8em;
+}
+pre.schema.shexj:before {
+    content: "Schema (ShExJ)";
+    width: 8em;
+}
+pre.instance.turtle:before {
+    content: "Data (Turtle)";
+    width: 10em;
+}
+pre.instance.turtle.pass:before {
+    content: "Passing Data (Turtle)";
+    width: 10em;
+}
+pre.instance.turtle.fail:before {
+    content: "Failing Data (Turtle)";
+    width: 10em;
+}
+pre.schema:before, pre.instance:before {
+    color: #333;
+    font-size: .6em;
+    border: 1px solid #bbb;
+    background: white;
+    display: block;
+    font-family: sans-serif;
+    margin: -1em 0 0.4em -1em;
+    padding: 0.2em 1em;
+}
+.prefixes { display: none; }

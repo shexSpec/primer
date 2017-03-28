@@ -1,0 +1,38 @@
+{
+  "name": "primer",
+  "version": "0.1.0",
+  "description": "Primer for Shape Expressions.",
+  "author": {
+    "name": "Eric Prud'hommeaux",
+    "email": "eric@w3.org",
+    "url": "http://www.w3.org/People/Eric/"
+  },
+  "keywords": [
+    "shex",
+    "shape expressions",
+    "rdf",
+    "query",
+    "parser"
+  ],
+  "license": "MIT",
+  "main": "./tools/grammarParser",
+  "files": [
+    "lib/",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "devDependencies": {
+    "json-grammar": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shexSpec/primer"
+  },
+  "bugs": {
+    "url": "https://github.com/shexSpec/primer/issues"
+  },
+  "dependencies": {
+  }
+}

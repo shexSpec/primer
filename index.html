@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Shape Expressions (ShEx) Primer</title>
-    <meta charset='utf-8'></meta>
+    <meta charset='utf-8'/>
     <!-- <script src='https://www.w3.org/Tools/respec/respec-w3c-common' -->
     <!--         async="async" class='remove'></script> -->
     <script src='respec-w3c-common.js' async class='remove'></script>
@@ -10,8 +10,17 @@
 
     <script class='remove'>
       var respecConfig = {
-      specStatus: "base",
+      localBiblio: {
+        "shex-semantics": {
+          "authors": ["Eric Prud'hommeaux", "Iovka Boneva", "Jose Labra Gayo", "Gregg Kellogg"],
+          "title": "Shape Expressions Language 2.0",
+          "href":  "http://shex.io/shex-semantics/"
+        }
+      },
+      specStatus: "CG-DRAFT",
       shortName:  "shex-primer",
+      latestVersion:  "http://shex.io/shex-primer/",
+      thisVersion:    "http://shex.io/shex-primer-20170327",
       edDraftURI: "https://shexspec.github.io/primer/",
       editors: [
       {   name:       "Thomas Baker",
@@ -57,10 +66,22 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         In the ShEx model, an RDF graph is tested against a ShEx schema to yield a validation result that flags any parts of the data which do not conform.
         ShEx schemas are intended for use in validating RDF data, communicating interface parameters and data structures, generating user interfaces, and transforming RDF graphs into other data formats and structures.  
         This primer introduces ShEx by means of annotated examples.  
-        Readers should already be familiar with the basic concepts of RDF [[rdf11-concepts]].
-        The primer is a companion to the full <a href="../spec/">ShEx language specification</a>.
+        Readers should already be familiar with the basic concepts of RDF.
+        The primer is a companion to the full ShEx language specification [[shex-semantics]].
 
       </p>    
+    </section>
+
+    <section id="sotd">
+      <p>This document has been developed by the
+        <a href="https://www.w3.org/community/shex/">Shape Expressions Community Group</a>.
+
+      <p>This version of the document represents a Candidate Release, with stable features. Comments and implementations are solicited prior to an eventual Final 2.0 Release.</p>
+
+      <p>The Shape Expressions language is expected to remain stable with the exception of:</p>
+      <ul>
+        <li>addition of a UNIQUE function</li>
+      </ul>
     </section>
 
     <section id="quickStart">
@@ -71,7 +92,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           A ShEx schema prescribes conditions that RDF data graphs must meet in order to be considered "conformant".
           In the ShEx model, an RDF graph is tested against a ShEx schema to yield a validation result that flags any parts of the data which do not conform.
           ShEx schemas are intended for use in validating instance data, communicating interface parameters and data structures, generating user interfaces, and transforming RDF graphs into other data formats and structures.  
-          This primer focuses on the common use case of validating instance data.
+          This primer, a companion to the full ShEx language specification [[shex-semantics]], focuses on the common use case of validating instance data.
         </p>
         <p>
           A ShEx schema is built on <span class="new">node constraints</span> and <span class="new">triple constraints</span> that define what it means for a given RDF data graph to conform.
@@ -251,8 +272,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       <section id="model-and-terminology">
         <h2>ShEx Model and Terminology</h2>
 
-    <section id="conventions" class="introductory">
 <!-- 
+    <section id="conventions" class="introductory">
       <h4>Conventions used in this Primer</h4>
       <p>
         @@@Most sections: ShEx Schema (in ShExC syntax by default), Passing Data, Failing Data, ?Data, Validation Result.
@@ -262,9 +283,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 -->
       <!-- p class="note">[for editors] current switches:<br/>
       (<code>j</code>)son vs. shex(<code>c</code>).
-      </p -->
+      </p>
     </section>
-    
+<-->
       <section id="validation">
         <h2>Validating RDF Data</h2>
         <p>
@@ -295,8 +316,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           or <span class="new">ShExC</span>, a compact syntax meant for human eyes and fingers; 
           <span class="new">ShExJ</span>, a JSON-LD [[json-ld]] (Javascript) syntax meant for machine processing; and <span class="new">ShExR</span>, the RDF interpretation of ShExJ expressed in RDF Turtle syntax [[turtle]].
           The ShEx schemas in this primer may be viewed in ShExC syntax (by default) or JSON-LD syntax by pressing 'c' or 'j' in the browser or by clicking on the following radio buttons:
-          <form id="langOptions" action=""><input type="radio" name="presLang" value="shexc" checked="checked">ShExC ('c')</input> <input type="radio" name="presLang" value="json">JSON ('j')</input> .</form>
         </p>
+          <form id="langOptions" action="#"><label><input type="radio" name="presLang" value="shexc" checked="checked"/>ShExC ('c')</label> <label><input type="radio" name="presLang" value="json"/>JSON ('j')</label> .</form>
       </section>
 
       <section id="vocabulary">
@@ -1779,7 +1800,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         Note that a shape composed of triple expressions with a minimum cardinality of zero will trivially match any RDF node that does not have outgoing arcs.
       </p>
       <div class="namespace">
-        <div id="" class="example wrapper">
+        <div class="example wrapper">
           <!-- ShExC example -->
           <pre class="schema shexc" id="issue-user-allOpt" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
@@ -1948,7 +1969,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
           It is also possible to write "anonymous" shapes directly in the value expression.
           In the example below, the value of the triple constraint on predicate <span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span> is a shape comprised of triples constraints on the predicates <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>.  
           In ShExC syntax, this anonymous shape is enclosed in curly brackets.
-          In ShExJ, it is contained in the triple constraint's <m>valueExpr</m> property.
+          In ShExJ, it is contained in the triple constraint's <span class="math">valueExpr</span> property.
         </p>
         <div class="namespace">
           <div id="nested-shapes-example-1" class="example wrapper">
@@ -3419,7 +3440,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           <table style="border-collapse: collapse; border-color: #000000" border="1" cellpadding="5">
             <tr>
               <th>Prefix</th>
-              <th>Namespace</th>
+              <th colspan="2">Namespace</th>
             </tr>
             <!-- tr>
               <td>sh:</td>
@@ -3427,11 +3448,11 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
             </tr -->
             <tr>
               <td>rdf:</td>
-              <td>http://www.w3.org/1999/02/22-rdf-syntax-ns#</td>
+              <td colspan="2">http://www.w3.org/1999/02/22-rdf-syntax-ns#</td>
             </tr>
             <tr>
               <td>xsd:</td>
-              <td>http://www.w3.org/2001/XMLSchema#</td>
+              <td colspan="2">http://www.w3.org/2001/XMLSchema#</td>
             </tr>
             <tr>
               <th colspan="2">Example namespaces</th>
