@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Shape Expressions (ShEx) JSON Formats</title>
+      <meta charset='utf-8'></meta>
+      <script src='respec-w3c-common.js' async class='remove'></script>
+      <script class='remove'>
+        var respecConfig = {
+            specStatus: "base",
+            shortName:  "shex-primer",
+            edDraftURI: "http://w3c.github.io/data-shapes/ShExJ/",
+            editors: [
+                  {   name:       "Eric Prud′hommeaux",
+                      url:        "http://www.w3.org/People/Eric/",
+                      company:    "W3C/MIT",
+                      companyURL: "http://www.w3.org/" }
+            ],
+            // wg:           "Shape Expressions ",
+            // wgURI:        "https://shex.io/",
+            // wgPublicList: "public-shex-dev",
+            // wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/424242/status",
+        };
+      </script>
+    <style>
+
+     <!-- obj -->
+     span.obj, a.obj, a.obj:visited { color: #008000; }
+     span.obj, a.obj, a.obj:visited {
+         color: #008000;
+     }
+     td.objref, a.objref {
+         background-color: #e0ffe0;
+     }
+     <!-- nob -->
+     span.nob, a.nob, a.nob:visited { color: #000080; }
+     span.nob, a.nob, a.nob:visited {
+         color: #000080;
+     }
+     td.nobref, a.nobref {
+         background-color: #e0e0ff;
+     }
+     <!-- trm -->
+     span.trm, a.trm, a.trm:visited { color: #007070; }
+     span.trm, a.trm, a.trm:visited {
+         color: #800080;
+     }
+     td.trmref, a.trmref { background-color: #c0ffff; }
+     td.trmref, a.trmref {
+         background-color: #ffd0ff;
+     }
+
+/*
+     span.objref, a.objref  { background-color: #e0ffe0; }
+     span.nobref, a.nobref  { background-color: #e0e0ff; }
+*/
+
+     .literal {
+         /*background-color: #ffefd0;*/
+         color: #602000;
+     }
+     tr.text td {
+         text-align: left
+     }
+     .description td {
+         background-color: #fef;
+     }
+
+     tr th { text-align: center; }
+     th:nth-child(1) { text-align: right; vertical-align:top }
+     .obj td:nth-child(2) { text-align: right; vertical-align:top }
+
+
+     .comment {
+         color: #a23222;
+     }
+
+     span.example {
+         white-space:pre;
+     }
+     span.example {
+         display: inline-block;
+         border: medium solid #ccd;
+         background-color: #eef;
+         font-family: monospace;
+     }
+     code { color:#d82500; }
+
+     .shh { color: #bbb; margin:0; }
+     .constant {
+         /* font-lock-constant-face */
+         color: #008b8b;
+     }
+     .function-name {
+         /* font-lock-function-name-face */
+         color: #0000ff;
+     }
+     .function-name:visited {
+         /* font-lock-function-name-face */
+         color: #0000ff;
+     }
+     .keyword {
+         /* font-lock-keyword-face */
+         color: #a020f0;
+     }
+     .string {
+         /* font-lock-string-face */
+         color: #8b2252;
+     }
+     .type {
+         /* font-lock-type-face */
+         color: #228b22;
+     }
+     .shape-name {
+         /* font-lock-variable-name-face */
+         color: #a0522d;
+     }
+     .shape-name:visited {
+         /* font-lock-variable-name-face */
+         color: #a0522d;
+     }
+     .constraint-name { color: #a08000; }
+     .predicate {
+         /* font-lock-variable-name-face */
+         color: #522da0;
+     }
+     .value-constraint {
+         /* font-lock-variable-name-face */
+         color: #2d52a0;
+     }
+
+
+
+
+
+
+
+
+     .highlight1     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 176, 0, .5); border-right: 5px solid rgba(176, 176, 0, .5); } /* font-weight: bold  ;  */
+     .highlight1.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+     .highlight1.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 176, 0, .5);                                                } /* font-weight: bold  ;  */
+     .lowlight1      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid transparent; border-right: 5px solid transparent;                     } /* font-weight: normal;  */
+     .lowlight1.top  {    margin-top: -5px;                      border-top: 5px solid transparent;                                                          } /* font-weight: normal;  */
+     .lowlight1.bot  { margin-bottom: -5px;                   border-bottom: 5px solid transparent;                                                          } /* font-weight: normal;  */
+     .highlight2     { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(176, 0, 176, .5); border-right: 5px solid rgba(176, 0, 176, .5); } /* font-weight: bold  ;  */
+     .highlight2.top {    margin-top: -5px;                      border-top: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+     .highlight2.bot { margin-bottom: -5px;                   border-bottom: 5px solid rgba(176, 0, 176, .5);                                                } /* font-weight: bold  ;  */
+     .lowlight2      { margin-left: -5px; margin-right: -5px;   border-left: 5px solid rgba(127, 127, 127, .07); border-right: 5px solid rgba(127, 127, 127, .07);         } /* font-weight: normal;  */
+     .lowlight2.top  {    margin-top: -5px;                      border-top: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+     .lowlight2.bot  { margin-bottom: -5px;                   border-bottom: 5px solid rgba(127, 127, 127, .07);                                                           } /* font-weight: normal;  */
+
+     .highlightBG1   { /* border: 5px solid transparent; */ background-color: #bb0; font-weight: bold; }
+     .lowlightBG1    { /* border: 5px solid transparent; */ font-weight: normal; }
+     .highlightBG2   { /* border: 5px solid transparent; */ background-color: #b00; font-weight: bold; }
+     .lowlightBG2    { /* border: 5px solid transparent; */ font-weight: normal; }
+
+     .new            { font-weight: bold; }
+     .errorSite      { color: red; }
+
+
+     .issue div p { margin-left: 1em; }
+     pre.shh { display: table; }
+     .compact p { margin: 0; }
+     .compact li { margin-bottom: 1ex; }
+     #respecDocument img { width: 72px; }
+     a.ref { color: #c83500; font-family: monospace; }
+     a.ref:visited { color: #a00550; font-family: monospace; }
+     .example.wrapper pre+pre { margin-top: 0; }
+     #closed-shapes-example-2 pre { margin-top: 0; }
+
+
+/*
+     .annotation .text { background-color: #fef; }
+     .example { border: medium solid #ccd; background-color: #eef; }
+*/
+     .fault { border: thick solid red; }
+    </style>
+    <script src="jquery.min.js" type= "text/javascript"></script>
+    <script type="text/javascript"><!--
+function prepareHighlight (highlightables, onClass, offClass, slide) {
+  if (slide === undefined)
+    slide = $("body .namespace").last();
+  $.each( highlightables, function( index, value ){
+    var elts = slide.find( "."+value );
+    elts
+    .mouseenter(function() {
+        elts.removeClass(offClass).addClass(onClass);
+    })
+    .mouseleave(function() {
+        elts.removeClass(onClass).addClass(offClass);
+    })
+    .addClass(offClass);
+  })
+}
+--> </script>
+    </head>
+    <body>
+
+      <section id="abstract">
+      <p>
+        The Shape Expressions (ShEx) language describes RDF graph structures.
+        A <code>shape</code> describes the triples touching nodes in RDF [[!rdf11-concepts]] graphs.
+        These descriptions identify predicates and their associated cardinalities and datatypes.
+        ShEx shapes can be used to communicate data structures associated with some process or interface, generate or validate data, or drive user interfaces.
+      </p>
+      <p>
+        This document defines the Shape Expressions JASON (ShExJ) format.
+      </p>    
+      </section>
+    
+      <section id="introduction">
+          <h2>Introduction</h2>
+          <p>
+            Most applications that share data do so using prescribed data structures.
+            While RDFS and OWL enable one to make assertions about the objects in some domain, ShEx describes data structures.
+            This document defines a JSON [[!json]] structure for expressing ShEx schemas.
+          </p>
+
+      </section>
+      
+      <section id="syntax">
+        <h2>Notation</h2>
+
+          <p>
+            The ShExJ structure is a sublanguage of <a href="http://www.json.org/">JSON</a>. consists of lists and maps of typed objects and values.
+            These are represented as <span class="obj">definitions</span> in the following grammar.
+            The content of some constructs involve many choices.
+            These are represented as <span class="nob">declarations</span>.
+          </p>
+
+          <ul>
+            <li><span class="obj">typeName</span> - a JSON object with a type property with the value "typeName" and the attributes listed to the right of the ":"</li>
+            <li>Each attribute is followed by a ":" identifying its type.
+            "[typeName]" identifies a list of objects with a type "typeName".
+            "[type1-&gt;type2] identifies a map from type1 to type2.</li>
+            <li><span class="nob">declName</span> - a hierarchical representation of choices in the grammar similar to BNF.
+            Declarations don't directly produce JSON objects; instead they capture the possible choices of defined objects or terminals.</li>
+          </ul>
+
+          <p style="margin:0;">
+            For example, the first production:
+          </p>
+          <pre style="margin:0;">
+<span class="obj">Schema           : prefixes:[<a class="nobref" href="#dcl-PREFIX">PREFIX</a>-&gt;<a class="nobref" href="#dcl-IRI">IRI</a>] startActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>] start:<a class="nobref" href="#dcl-shapeLabel">shapeLabel</a> shapes:[<a class="nobref" href="#dcl-shapeLabel">shapeLabel</a>-&gt;<a class="objref" href="#dfn-Shape">Shape</a>]</span></pre>
+          <p style="margin:0;">
+            indicates that a Schema object will have these properties:
+          </p>
+          <ul>
+            <li>"type": "Schema"</li>
+            <li>"prefixes": a JSON object which maps <a class="nobref" href="#dcl-PREFIX">PREFIX</a>es to <a class="nobref" href="#dcl-IRI">IRI</a>s.
+            The <a href="#dcl-PREFIX">PREFIX declaration</a> below identifies the terminal in the Turtle grammar which defines the lexical form of prefix.
+            </li>
+            <li>"startActs": a JSON structure with the type "<a class="objref" href="#dfn-SemAct">SemAct</a>"</li>
+            <li>"shapes": a JSON object which maps <a class="nobref" href="#dcl-shapeLabel">shapeLabel</a>s to <a class="objref" href="#dfn-Shape">Shape</a>s.</li>
+          </ul>
+
+        <p>
+          The grammars below can be viewed with or without human language annotations:
+        </p>
+        <form id="langOptions" action="">View with descriptions (press 'd') <input type="checkbox" name="description"></input>, examples (press 'e') <input type="checkbox" name="example"></input>. Double-clicking on production labels, e.g. <a class="obj" href="#dfn-Schema">Schema</a> or <a class="nob" href="#dcl-PREFIX">PREFIX</a> below, toggles their annotation display.</form>
+      </section>
+
+      <section id="schema" class="grammarSection">
+        <h2>ShExJ Schema Grammar</h2>
+
+        <p>
+          ShExJ schema documents start with the <a class="objref" href="#dfn-Schema">Schema</a> production.
+          The root object will therefor have a "type":"Schema" property.
+        </p>
+
+        <ul>
+          <li>The defaults for optional <code>min</code> and <code>max</code> attributes is the <a class="nobref" href="#dcl-INTEGER">INTEGER</a> 1.</li>
+          <li><a class="objref" href="#dfn-StemRange">StemRange</a>s inside exclusions cannot have exclusions.</li>
+        </ul>
+
+
+
+<table>
+  <tr class="obj"><th id="dfn-Schema" class="obj">Schema</th><td>:</td><td>prefixes:[<a class="trmref" href="#dfn-PREFIX">PREFIX</a>-&gt;<a class="trmref" href="#dfn-IRI">IRI</a>]? valueExprDefns:[<a class="nobref" href="#dfn-valueExprLabel">valueExprLabel</a>-&gt;<a class="objref" href="#dfn-ValueExprDefn">ValueExprDefn</a>]? startActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? start:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>? shapes:[<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>-&gt;<a class="objref" href="#dfn-Shape">Shape</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">Schema</span> has a <code>type</code>: <span class="literal">"Schema"</span>, <code>prefixes</code>: an optional a map from <a class="trmref" href="#dfn-PREFIX">PREFIX</a> to <a class="trmref" href="#dfn-IRI">IRI</a>, <code>valueExprDefns</code>: an optional a map from <a class="nobref" href="#dfn-valueExprLabel">valueExprLabel</a> to <a class="objref" href="#dfn-ValueExprDefn">ValueExprDefn</a>, <code>startActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, <code>start</code>: an optional <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <code>shapes</code>: an optional a map from <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> to <a class="objref" href="#dfn-Shape">Shape</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-Schema" class="example">{
+  "type":"Schema",
+  "prefixes": { "foaf": "http://xmlns.com/foaf/0.1/",
+                "dc": "http://purl.org/dc/elements/1.1/"},
+  "valueClasses": { "http://a.example/vs1" <a class="exmref" href="#exm-ValueClass">ValueClass</a>* },
+  "startActs": [ <a class="exmref" href="#exm-SemAct">SemAct</a>* ],
+  "start":"http://co.example/IssueShape",
+  "shapes":{ "http://co.example/IssueShape": <a class="exmref" href="#exm-Shape">Shape</a> }
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-Shape" class="obj">Shape</th><td>:</td><td>virtual:<a class="trmref" href="#dfn-BOOL">BOOL</a>? closed:<a class="trmref" href="#dfn-BOOL">BOOL</a>? extra:[<a class="trmref" href="#dfn-IRI">IRI</a>]? expression:<a class="nobref" href="#dfn-expr">expr</a>? inherit:[<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>]? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">Shape</span> has a <code>type</code>: <span class="literal">"Shape"</span>, <code>virtual</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>closed</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>extra</code>: an optional a list of <a class="trmref" href="#dfn-IRI">IRI</a>s, <code>expression</code>: an optional <a class="nobref" href="#dfn-expr">expr</a>, <code>inherit</code>: an optional a list of <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>s, and <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-Shape" class="example">{
+  "type":"Shape",
+  "virtual":true,
+  "closed":false,
+  "extra":["http://www.w3.org/2000/01/rdf-Schema#label"],
+  "expression":{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" },
+  "inherit":[]
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-SemAct" class="obj">SemAct</th><td>:</td><td>name:<a class="trmref" href="#dfn-IRI">IRI</a> code:<a class="trmref" href="#dfn-STRING">STRING</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">SemAct</span> has a <code>type</code>: <span class="literal">"SemAct"</span>, <code>name</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>code</code>: <a class="trmref" href="#dfn-STRING">STRING</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-SemAct" class="example">{
+  "type":"SemAct",
+  "name":"http://a.example/extension1",
+  "code":"val dt=o.datatype(); assert(dt.substr(20) == \"http://b.example/dt#\"); "
+}</span></td></tr>
+  <tr class="nob"><th id="dfn-expr" class="nob">expr</th><td>=</td><td><a class="objref" href="#dfn-EachOf">EachOf</a> | <a class="objref" href="#dfn-OneOf">OneOf</a> | <a class="objref" href="#dfn-TripleConstraint">TripleConstraint</a> | <a class="objref" href="#dfn-Inclusion">Inclusion</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="nob">expr</span> is either:<br /> ‣ <a class="objref" href="#dfn-EachOf">EachOf</a><br /> ‣ <a class="objref" href="#dfn-OneOf">OneOf</a><br /> ‣ <a class="objref" href="#dfn-TripleConstraint">TripleConstraint</a><br /> ‣ <a class="objref" href="#dfn-Inclusion">Inclusion</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-expr" class="example">{
+  "type":"TripleConstraint",
+  "valueExpr":{
+    "type": "ValueClass",
+    "reference": "http://a.example/UserShape"
+  },
+  "max":"*"
+}</span>, <span id="exm-expr2" class="example">{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" }</span></td></tr>
+  <tr class="obj"><th id="dfn-EachOf" class="obj">EachOf</th><td>:</td><td>expressions:[<a class="nobref" href="#dfn-expr">expr</a>] min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">EachOf</span> has a <code>type</code>: <span class="literal">"EachOf"</span>, <code>expressions</code>: a list of <a class="nobref" href="#dfn-expr">expr</a>s, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-group" class="example">{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "max":"*" }</span></td></tr>
+  <tr class="obj"><th id="dfn-OneOf" class="obj">OneOf</th><td>:</td><td>expressions:[<a class="nobref" href="#dfn-expr">expr</a>] min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">OneOf</span> has a <code>type</code>: <span class="literal">"OneOf"</span>, <code>expressions</code>: a list of <a class="nobref" href="#dfn-expr">expr</a>s, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-OneOf" class="example">{ "type":"EachOf", "expressions":[<a class="nobref" href="#dfn-expr">expr</a>], "min":0 }</span></td></tr>
+  <tr class="obj"><th id="dfn-Inclusion" class="obj">Inclusion</th><td>:</td><td>include:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">Inclusion</span> has a <code>type</code>: <span class="literal">"Inclusion"</span>, <code>include</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-Inclusion" class="example">{ "type":"Inclusion", "include":"http://co.example/IssueShape" }</span></td></tr>
+  <tr class="obj"><th id="dfn-TripleConstraint" class="obj">TripleConstraint</th><td>:</td><td>inverse:<a class="trmref" href="#dfn-BOOL">BOOL</a>? negated:<a class="trmref" href="#dfn-BOOL">BOOL</a>? predicate:<a class="trmref" href="#dfn-IRI">IRI</a> valueExpr:<a class="nobref" href="#dfn-valueExpr">valueExpr</a> min:<a class="trmref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>)? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">TripleConstraint</span> has a <code>type</code>: <span class="literal">"TripleConstraint"</span>, <code>inverse</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>negated</code>: an optional <a class="trmref" href="#dfn-BOOL">BOOL</a>, <code>predicate</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, <code>valueExpr</code>: <a class="nobref" href="#dfn-valueExpr">valueExpr</a>, <code>min</code>: an optional <a class="trmref" href="#dfn-INTEGER">INTEGER</a>, <code>max</code>: an optional (<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <span class="literal">"*"</span>), <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-TripleConstraint" class="example">{
+  "type":"TripleConstraint",
+  "value":<a class="dfnref" href="#exm-ValueClass">ValueClass</a>,
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="dfnref" href="#exm-SemAct">SemAct</a> ]
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-ValueExprDefn" class="obj">ValueExprDefn</th><td>:</td><td>valueExpr:<a class="nobref" href="#dfn-valueExpr">valueExpr</a> semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]? annotations:[<a class="objref" href="#dfn-Annotation">Annotation</a>]? ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueExprDefn</span> has a <code>type</code>: <span class="literal">"ValueExprDefn"</span>, <code>valueExpr</code>: <a class="nobref" href="#dfn-valueExpr">valueExpr</a>, <code>semActs</code>: an optional a list of <a class="objref" href="#dfn-SemAct">SemAct</a>s, and <code>annotations</code>: an optional a list of <a class="objref" href="#dfn-Annotation">Annotation</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueClass" class="example">{
+  "type":"ValueExprDefn",
+  "valueExpr": {
+    "type":"ValueClass",
+    "nodeKind":"IRI",
+    "reference":"http://co.example/UserShape"
+    "pattern":"^http://a.example/users/"
+  }
+}</span></td></tr>
+  <tr class="nob"><th id="dfn-valueClassOrRef" class="nob">valueClassOrRef</th><td>=</td><td><a class="objref" href="#dfn-ValueClass">ValueClass</a> | <a class="objref" href="#dfn-ValueRef">ValueRef</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueClassOrRef</span> is either:<br /> ‣ <a class="objref" href="#dfn-ValueClass">ValueClass</a><br /> ‣ <a class="objref" href="#dfn-ValueRef">ValueRef</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueClassOrRef" class="example">{
+  "type":"ValueClass",
+  "reference":"http://co.example/IssueShape"
+}</span>, <span id="exm-valueClassOrRef2" class="example">{
+  "type": "ValueRef",
+  "valueExprRef": "http://co.example/valueDefn3"
+}</span></td></tr>
+  <tr class="nob"><th id="dfn-valueExpr" class="nob">valueExpr</th><td>=</td><td><a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a> | <a class="objref" href="#dfn-ValueOr">ValueOr</a> | <a class="objref" href="#dfn-ValueAnd">ValueAnd</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueExpr</span> is either:<br /> ‣ <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a><br /> ‣ <a class="objref" href="#dfn-ValueOr">ValueOr</a><br /> ‣ <a class="objref" href="#dfn-ValueAnd">ValueAnd</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueExpr2" class="example">{
+  "type": "ValueClass",
+  "reference":"http://co.example/IssueShape"
+}</span>, <span id="exm-valueExpr2" class="example">{
+  "type": "ValueAnd",
+  "valueExprs": [
+    { "type":"ValueClass",
+      "reference":"http://co.example/IssueShape" },
+    { "type":"ValueClass",
+      "reference":"http://co.example/RecordShape" }
+  ]
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-ValueClass" class="obj">ValueClass</th><td>:</td><td>nodeKind:<span class="literal">"literal"</span> <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*</td></tr>
+    <tr><th></th><td>|</td><td>nodeKind:(<span class="literal">"iri"</span> | <span class="literal">"bnode"</span> | <span class="literal">"nonliteral"</span>) reference:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>? <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*</td></tr>
+    <tr><th></th><td>|</td><td>datatype:<a class="trmref" href="#dfn-IRI">IRI</a> <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*</td></tr>
+    <tr><th></th><td>|</td><td>reference:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*</td></tr>
+    <tr><th></th><td>|</td><td>values:[<a class="nobref" href="#dfn-valueSetValue">valueSetValue</a>]</td></tr>
+    <tr><th></th><td>|</td><td><span class="comment">/* empty */</span> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueClass</span> has a <code>type</code>: <span class="literal">"ValueClass"</span>, either:<br /> ‣ <code>nodeKind</code>: <span class="literal">"literal"</span>, and <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*<br /> ‣ <code>nodeKind</code>: (<span class="literal">"iri"</span> | <span class="literal">"bnode"</span> | <span class="literal">"nonliteral"</span>), <code>reference</code>: an optional <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*<br /> ‣ <code>datatype</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <a class="nobref" href="#dfn-xsFacet">xsFacet</a>*<br /> ‣ <code>reference</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>, and <a class="nobref" href="#dfn-stringFacet">stringFacet</a>*<br /> ‣ <code>values</code>: a list of <a class="nobref" href="#dfn-valueSetValue">valueSetValue</a>s<br /> ‣ no additional properties.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueClass" class="example">{
+  "type":"ValueClass",
+  "nodeKind":"IRI",
+  "reference":"http://co.example/UserShape"
+  "pattern":"^http://a.example/users/"
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-ValueRef" class="obj">ValueRef</th><td>:</td><td>valueExprRef:<a class="nobref" href="#dfn-shapeLabel">shapeLabel</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueRef</span> has a <code>type</code>: <span class="literal">"ValueRef"</span>, <code>valueExprRef</code>: <a class="nobref" href="#dfn-shapeLabel">shapeLabel</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueRef" class="example">{
+  "type": "ValueRef",
+  "valueExprRef": "http://co.example/valueDefn3"
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-ValueOr" class="obj">ValueOr</th><td>:</td><td>valueExprs:[<a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>] ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueOr</span> has a <code>type</code>: <span class="literal">"ValueOr"</span>, <code>valueExprs</code>: a list of <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-vor2" class="example">{
+  "type": "ValueAnd",
+  "valueExprs": [
+    { "type":"ValueClass", "reference":"http://co.example/ResolvedIssueShape" },
+    { "type":"ValueClass", "reference":"http://co.example/RejectedIssueShape" }
+  ]
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-ValueAnd" class="obj">ValueAnd</th><td>:</td><td>valueExprs:[<a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>] ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">ValueAnd</span> has a <code>type</code>: <span class="literal">"ValueAnd"</span>, <code>valueExprs</code>: a list of <a class="nobref" href="#dfn-valueClassOrRef">valueClassOrRef</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-ValueAnd2" class="example">{
+  "type": "ValueAnd",
+  "valueExprs": [
+    { "type":"ValueClass", "reference":"http://co.example/IssueShape" },
+    { "type":"ValueClass", "reference":"http://co.example/RecordShape" }
+  ]
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-Annotation" class="obj">Annotation</th><td>:</td><td>predicate:<a class="trmref" href="#dfn-IRI">IRI</a> object:<a class="trmref" href="#dfn-IRI">IRI</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">An <span class="obj">Annotation</span> has a <code>type</code>: <span class="literal">"Annotation"</span>, <code>predicate</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>object</code>: <a class="trmref" href="#dfn-IRI">IRI</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"></td></tr>
+  <tr class="nob"><th id="dfn-xsFacet" class="nob">xsFacet</th><td>=</td><td><a class="nobref" href="#dfn-stringFacet">stringFacet</a> | <a class="nobref" href="#dfn-numericFacet">numericFacet</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">xsFacet</span> is either:<br /> ‣ <a class="nobref" href="#dfn-stringFacet">stringFacet</a><br /> ‣ <a class="nobref" href="#dfn-numericFacet">numericFacet</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-xsFacet" class="example">"length":20</span>, <span id="exm-xsFacet2" class="example">"mininclusive":6.02e23</span></td></tr>
+  <tr class="nob"><th id="dfn-stringFacet" class="nob">stringFacet</th><td>=</td><td>(length|minlength|maxlength):<a class="trmref" href="#dfn-INTEGER">INTEGER</a> | pattern:<a class="trmref" href="#dfn-STRING">STRING</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">stringFacet</span> is either:<br /> ‣ one of (length, minlength, maxlength):<a class="trmref" href="#dfn-INTEGER">INTEGER</a><br /> ‣ <code>pattern</code>: <a class="trmref" href="#dfn-STRING">STRING</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-stringFacet" class="example">"lenght":20</span>, <span id="exm-stringFacet2" class="example">"pattern":"^http://"</span></td></tr>
+  <tr class="nob"><th id="dfn-numericFacet" class="nob">numericFacet</th><td>=</td><td>(mininclusive|minexclusive|maxinclusive|maxexclusive):<a class="nobref" href="#dfn-numericLiteral">numericLiteral</a></td></tr>
+    <tr><th></th><td>|</td><td>(totaldigits|fractiondigits):<a class="trmref" href="#dfn-INTEGER">INTEGER</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">numericFacet</span> is either:<br /> ‣ one of (mininclusive, minexclusive, maxinclusive, maxexclusive):<a class="nobref" href="#dfn-numericLiteral">numericLiteral</a><br /> ‣ one of (totaldigits, fractiondigits):<a class="trmref" href="#dfn-INTEGER">INTEGER</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-numericFacet" class="example">"mininclusive":3.14</span>, <span id="exm-numericFacet2" class="example">"totaldigits":1024</span></td></tr>
+  <tr class="nob"><th id="dfn-valueExprLabel" class="nob">valueExprLabel</th><td>=</td><td><a class="trmref" href="#dfn-IRI">IRI</a> | <a class="trmref" href="#dfn-BNODE">BNODE</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueExprLabel</span> is either:<br /> ‣ <a class="trmref" href="#dfn-IRI">IRI</a><br /> ‣ <a class="trmref" href="#dfn-BNODE">BNODE</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueExprLabel" class="example">"http://a.example/vs1"</span></td></tr>
+  <tr class="nob"><th id="dfn-shapeLabel" class="nob">shapeLabel</th><td>=</td><td><a class="trmref" href="#dfn-IRI">IRI</a> | <a class="trmref" href="#dfn-BNODE">BNODE</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">shapeLabel</span> is either:<br /> ‣ <a class="trmref" href="#dfn-IRI">IRI</a><br /> ‣ <a class="trmref" href="#dfn-BNODE">BNODE</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-shapeLabel" class="example">"http://co.example/IssueShape"</span></td></tr>
+  <tr class="nob"><th id="dfn-numericLiteral" class="nob">numericLiteral</th><td>=</td><td><a class="trmref" href="#dfn-INTEGER">INTEGER</a> | <a class="trmref" href="#dfn-DECIMAL">DECIMAL</a> | <a class="trmref" href="#dfn-DOUBLE">DOUBLE</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">numericLiteral</span> is either:<br /> ‣ <a class="trmref" href="#dfn-INTEGER">INTEGER</a><br /> ‣ <a class="trmref" href="#dfn-DECIMAL">DECIMAL</a><br /> ‣ <a class="trmref" href="#dfn-DOUBLE">DOUBLE</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-numericLiteral" class="example">1</span>, <span id="exm-numericLiteral" class="example">2.2</span>, <span id="exm-numericLiteral" class="example">3.3e3</span></td></tr>
+  <tr class="nob"><th id="dfn-valueSetValue" class="nob">valueSetValue</th><td>=</td><td><a class="trmref" href="#dfn-IRI">IRI</a></td></tr>
+    <tr><th></th><td>|</td><td><a class="trmref" href="#dfn-STRING">STRING</a></td></tr>
+    <tr><th></th><td>|</td><td><a class="trmref" href="#dfn-DATATYPE_STRING">DATATYPE_STRING</a></td></tr>
+    <tr><th></th><td>|</td><td><a class="trmref" href="#dfn-LANG_STRING">LANG_STRING</a></td></tr>
+    <tr><th></th><td>|</td><td><a class="objref" href="#dfn-StemRange">StemRange</a> ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="nob">valueSetValue</span> is either:<br /> ‣ <a class="trmref" href="#dfn-IRI">IRI</a><br /> ‣ <a class="trmref" href="#dfn-STRING">STRING</a><br /> ‣ <a class="trmref" href="#dfn-DATATYPE_STRING">DATATYPE_STRING</a><br /> ‣ <a class="trmref" href="#dfn-LANG_STRING">LANG_STRING</a><br /> ‣ <a class="objref" href="#dfn-StemRange">StemRange</a>.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-valueSetValue" class="example">"http://a.example/assigned"</span>, <span id="exm-valueSetValue" class="example">"\"repair\""</span>,
+<span id="exm-valueSetValue" class="example">{
+  "type":"StemRange",
+  "stem":"http://a.example/"
+}</span></td></tr>
+  <tr class="obj"><th id="dfn-StemRange" class="obj">StemRange</th><td>:</td><td>stem:<a class="trmref" href="#dfn-IRI">IRI</a> exclusions:[<a class="objref" href="#dfn-StemRange">StemRange</a>] ;</td></tr>
+<tr class="description"><th></th><td class="description" colspan="2">A <span class="obj">StemRange</span> has a <code>type</code>: <span class="literal">"StemRange"</span>, <code>stem</code>: <a class="trmref" href="#dfn-IRI">IRI</a>, and <code>exclusions</code>: a list of <a class="objref" href="#dfn-StemRange">StemRange</a>s.</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-StemRange" class="example">{
+  "type":"StemRange",
+  "stem":"http://a.example/",
+  "exclusions":[
+    "http://a.example/a",
+    {
+      "type":"StemRange",
+      "http://a.example/b",
+    }
+  ]
+}</span></td></tr>
+  <tr><th></th><th colspan="2" style="text-align: left;">Terminals</th></tr>
+<tr class="trm"><th id="dfn-PREFIX"class="trm">PREFIX</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-PREFIX" class="example">"foaf"</span>, <span id="exm-PREFIX2" class="example">"dc"</span>, the emtpy string <span id="exm-PREFIX3" class="example">""</span></td></tr>
+  <tr class="trm"><th id="dfn-IRI"class="trm">IRI</th><td>=</td><td>^[^_].*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-IRI" class="example">"http://co.example/IssueShape"</span>, <span id="exm-IRI2" class="example">"http://xmlns.com/foaf/0.1/"</span></td></tr>
+  <tr class="trm"><th id="dfn-BNODE"class="trm">BNODE</th><td>=</td><td>^_.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-BNODE" class="example">"_:IssueShape"</span>, <span id="exm-BNODE2" class="example">"_:b1"</span></td></tr>
+  <tr class="trm"><th id="dfn-BOOL"class="trm">BOOL</th><td>=</td><td>^(true|false)$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-BOOL" class="example">true</span>, <span id="exm-BOOL2" class="example">false</span></td></tr>
+  <tr class="trm"><th id="dfn-INTEGER"class="trm">INTEGER</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-BOOL" class="example">true</span>, <span id="exm-BOOL2" class="example">false</span></td></tr>
+  <tr class="trm"><th id="dfn-DECIMAL"class="trm">DECIMAL</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-DECIMAL" class="example">2.2</span></td></tr>
+  <tr class="trm"><th id="dfn-DOUBLE"class="trm">DOUBLE</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-DOUBLE" class="example">3.3e3</span></td></tr>
+  <tr class="trm"><th id="dfn-STRING"class="trm">STRING</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-STRING" class="example">"\"abc\""</span>, <span id="exm-STRING2" class="example">"\"Bob said \"The moon is made of green cheese.\"\""</span></td></tr>
+  <tr class="trm"><th id="dfn-DATATYPE_STRING"class="trm">DATATYPE_STRING</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-DATATYPE_STRING" class="example">"\"2015-11-15\"&lt;http://www.w3.org/2001/XMLSchema#date>"</span>, <span id="exm-DATATYPE_STRING2" class="example">"\"255\"^^xsd:byte"</span>, <span id="exm-DATATYPE_STRING3" class="example">"\"MCMLXVII\"^^my:romanNumeral"</span></td></tr>
+  <tr class="trm"><th id="dfn-LANG_STRING"class="trm">LANG_STRING</th><td>=</td><td>^.*$</td></tr>
+<tr class="example"><td></td><td class="example" colspan="2"><span id="exm-LANG_STRING" class="example">"\"chat\"@fr"</span>, <span id="exm-LANG_STRING2" class="example">"\"Cette Série des Années Septante\"@fr-BE"</span></td></tr>
+</table>
+
+      </section>
+      <section id="schemaImg">
+        <h2>ShExJ Schema Graphical Representation (Informative)</h2>
+
+        <p>
+            Following is a graphical representation of the <a href="ShExJ-grammar.jsg">ShExJ structure</a>.
+            The interconnections in the ShExJ schema are between these structures:
+        </p>
+        <ul>
+          <li>Schema</li>
+          <li>Shape</li>
+          <li>ValueExprDefn</li>
+          <li>shapeExpr</li>
+          <li>valueExpr</li>
+        </ul>
+
+        <img src="ShExJgrammar-diagram.svg" style="width:100%"/>"
+
+      </section>
+
+      <section id="validation" class="grammarSection">
+        <h2>ShExJ Validation Results Grammar</h2>
+        <h3>status: experimental</h3>
+
+        <p>
+          The validation results grammar uses some objects from the <a href="#schema">schema grammar</a>:
+          ShExJ Validation Results documents start with the <a class="objref" href="#dfn-validation">validation</a> production.
+          The root object will therefor have a "type":"validation" property.
+        </p>
+        <pre>
+<span class="obj" id="dfn-validation">validation</span>       : node:<a class="nobref" href="#dfn-IRI">IRI</a>, Shape:<a class="nobref" href="#dfn-IRI">IRI</a>, solutions:<a class="nobref" href="#dfn-soln">soln</a><span class="annotation">
+<span class="text">A <span class="obj">validation</span> object has: <code>type</code>:"<span class="obj">validation</span>", <code>node</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>Shape</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, and <code>solutions</code>: an array of <a class="nobref" href="#dfn-soln">soln</a>.</span>
+<span id="exm-validation" class="example">{
+  "type": "test",
+  "node": "http://a.example/Issue1",
+  "shape": "http://co.example/IssueShape",
+  "solutions": [ <a class="exmref" href="#exm-soln">soln</a>* ]
+}</span>
+
+</span>
+<span class="nob" id="dfn-soln">soln</span>             = <a class="objref" href="#dfn-groupSolutions">groupSolutions</a>
+                 | <a class="objref" href="#dfn-someOfSolutions">someOfSolutions</a>
+                 | <a class="objref" href="#dfn-tripleConstraintSolutions">tripleConstraintSolutions</a><span class="annotation">
+<span class="text">A <span class="nob">soln</span> is either (<a class="objref" href="#dfn-group">group</a>, <a class="objref" href="#dfn-OneOf">OneOf</a> or <a class="objref" href="#dfn-TripleConstraint">TripleConstraint</a>).</span>
+<span  id="exm-soln" class="example">{ "type":"group", "solutions":[<a class="nobref" href="#dfn-soln">soln</a>], "max":"*" }</span>
+
+</span>
+<span class="obj" id="dfn-groupSolutions">groupSolutions</span>   : solutions:[<a class="objref" href="#dfn-groupSolution">groupSolution</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?<span class="annotation">
+<span class="text">A <span class="obj">groupSolutions</span> object has: <code>type</code>:"<span class="obj">groupSolutions</span>", <code>solutions</code>: an array of <a class="objref" href="#dfn-groupSolution">groupSolution</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?.</span>
+<span id="exm-groupSolutions" class="example">{
+  "type": "groupSolutions",
+  "solutions": [ <a class="exmref" href="#exm-groupSolution">groupSolution</a>* ],
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="objref" href="#exm-SemAct">SemAct</a> ]
+}</span>
+
+</span>
+<span class="obj" id="dfn-groupSolution">groupSolution</span>    : expressions:<a class="nobref" href="#dfn-soln">soln</a><span class="annotation">
+<span class="text">A <span class="obj">groupSolution</span> object has: <code>type</code>:"<span class="obj">groupSolution</span>", <code>expressions</code>: an array of <a class="nobref" href="#dfn-soln">soln</a>.</span>
+<span id="exm-groupSolution" class="example">{
+  "type": "groupSolution",
+  "expressions": [ <a class="exmref" href="#exm-soln">soln</a>* ],
+}</span>
+
+</span>
+<span class="obj" id="dfn-someOfSolutions">someOfSolutions</span>  : solutions:[<a class="objref" href="#dfn-someOfSolution">someOfSolution</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?<span class="annotation">
+<span class="text">A <span class="obj">someOfSolutions</span> object has: <code>type</code>:"<span class="obj">someOfSolutions</span>", <code>solutions</code>: an array of <a class="objref" href="#dfn-someOfSolution">someOfSolution</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?.</span>
+<span id="exm-someOfSolutions" class="example">{
+  "type": "someOfSolutions",
+  "solutions": [ <a class="exmref" href="#exm-someOfSolution">someOfSolution</a>* ],
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="objref" href="#exm-SemAct">SemAct</a> ]
+}</span>
+
+</span>
+<span class="obj" id="dfn-someOfSolution">someOfSolution</span>   : expressions:<a class="nobref" href="#dfn-soln">soln</a><span class="annotation">
+<span class="text">A <span class="obj">someOfSolution</span> object has: <code>type</code>:"<span class="obj">someOfSolution</span>", <code>expressions</code>: an array of <a class="nobref" href="#dfn-soln">soln</a>.</span>
+<span id="exm-someOfSolution" class="example">{
+  "type": "someOfSolution",
+  "expressions": [ <a class="exmref" href="#exm-soln">soln</a>* ],
+}</span>
+
+</span>
+<span class="obj" id="dfn-tripleConstraintSolutions">tripleConstraintSolutions</span> : predicate:<a class="nobref" href="#dfn-IRI">IRI</a> value:<a class="objref" href="#dfn-ValueClass">ValueClass</a> solutions:[<a class="objref" href="#dfn-testedTriple">testedTriple</a>] min:<a class="nobref" href="#dfn-INTEGER">INTEGER</a>? max:(<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")? semActs:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?<span class="annotation">
+<span class="text">A <span class="obj">tripleConstraintSolutions</span> object has: <code>type</code>:"<span class="obj">tripleConstraintSolutions</span>", <code>predicate</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>value</code>:<a class="objref" href="#dfn-ValueClass">ValueClass</a>, <code>solutions</code>: an array of <a class="objref" href="#dfn-testedTriple">testedTriple</a>, (optional) <code>min</code>:<a class="nobref" href="#dfn-INTEGER">INTEGER</a> and (optional) <code>max</code>:((<a class="nobref" href="#dfn-INTEGER">INTEGER</a>|"*")) <code>semActs</code>:[<a class="objref" href="#dfn-SemAct">SemAct</a>]?.</span>
+<span id="exm-tripleConstraintSolutions" class="example">{
+  "type": "tripleConstraintSolutions",
+  "solutions": [ <a class="exmref" href="#exm-tripleConstraintSolution">tripleConstraintSolution</a>* ],
+  "min":"1",
+  "max":"*",
+  "semActs":[ <a class="objref" href="#exm-SemAct">SemAct</a> ]
+}</span>
+
+</span>
+<span class="obj" id="dfn-testedTriple">testedTriple</span>     : subject:(<a class="nobref" href="#dfn-IRI">IRI</a>|<a class="nobref" href="#dfn-BNODE">BNODE</a>), predicate:<a class="nobref" href="#dfn-IRI">IRI</a> object:(<a class="nobref" href="#dfn-IRI">IRI</a>|<a class="nobref" href="#dfn-STRING">STRING</a>|<a class="nobref" href="#dfn-BNODE">BNODE</a>|<a class="nobref" href="#dfn-dtSTRING">dtSTRING</a>|<a class="nobref" href="#dfn-langSTRING">langSTRING</a>) referenced:<a class="objref" href="#dfn-validation">validation</a>?<span class="annotation">
+<span class="text">A <span class="obj">testedTriple</span> object has: <code>type</code>:"<span class="obj">testedTriple</span>", <code>subject</code>:(<a class="nobref" href="#dfn-IRI">IRI</a> or <a class="nobref" href="#dfn-BNODE">BNODE</a>), <code>predicate</code>:<a class="nobref" href="#dfn-IRI">IRI</a>, <code>object</code>:(<a class="nobref" href="#dfn-IRI">IRI</a>, <a class="nobref" href="#dfn-STRING">STRING</a>, <a class="nobref" href="#dfn-BNODE">BNODE</a>, <a class="nobref" href="#dfn-dtSTRING">dtSTRING</a> or <a class="nobref" href="#dfn-langSTRING">langSTRING</a>), and (optional) <code>referenced</code>:<a class="objref" href="#dfn-validation">validation</a>.</span>
+<span id="exm-testedTriple" class="example">{
+  "type": "test",
+  "subject": "http://inst.example/#Issue1",
+  "predicate": "http://ex.example/#reportedBy",
+  "object": "http://inst.example/#User3",
+  "referenced":{
+    "type": "test",
+    "node": "http://a.example/User2",
+    "shape": "http://co.example/UserShape",
+    "solutions": [ <a class="exmref" href="#exm-soln">soln</a>* ]
+  }
+}</span></span></pre>
+        <ul>
+          <li>The defaults for optional <code>min</code> and <code>max</code> attributes is the <a class="nobref" href="#dfn-INTEGER">INTEGER</a> 1.</li>
+        </ul>
+      </section>
+
+      <section class="appendix" id="sec-mediaReg">
+        <h2>Internet Media Type, File Extension and Macintosh File Type for ShExJ Schemas</h2>
+        <dl>
+          <dt>Contact:</dt>
+          <dd>Eric Prud'hommeaux</dd>
+          <dt>See also:</dt>
+
+          <dd><a href="http://www.w3.org/2002/06/registering-mediatype">How to Register a Media Type for a <abbr title="World Wide Web Consortium">W3C</abbr> Specification</a></dd>
+          <dd><a href="http://www.w3.org/2001/tag/2002/0129-mime">Internet Media Type registration, consistency of use</a><br />TAG Finding 3 June 2002 (Revised 4 September 2002)</dd>
+        </dl>
+        <p>The Internet Media Type / MIME Type for ShExJ Schemas is &quot;application/json+shexschema&quot;.</p>
+        <p>It is recommended that ShExJ Schemas files have the extension &quot;.shes&quot; (all lowercase) on all platforms.</p>
+
+        <p>It is recommended that ShExJ Schemas files stored on Macintosh HFS file systems be given a file type of &quot;TEXT&quot;.</p>
+        <p>This information that follows <span class="todo">will be</span> <a href="http://www.w3.org/mid/20071218114549.GQ8244@w3.org">submitted to the IESG</a> for review, approval, and registration with IANA.</p>
+        <dl>
+          <dt>Type name:</dt>
+          <dd>application</dd>
+
+          <dt>Subtype name:</dt>
+          <dd>json+shexschema</dd>
+          <dt>Required parameters:</dt>
+          <dd>None</dd>
+          <dt>Optional parameters:</dt>
+          <dd><code>charset</code> — this parameter is required when transferring non-ASCII data. If present, the value of <code>charset</code> is always <code>UTF-8</code>.</dd>
+
+          <dt>Encoding considerations:</dt>
+          <dd>The encoding of ShExJ Schemas is prescribed by [[!json]] with the further restriction that the encoding is always UTF-8 [[!UTF-8]].</dd>
+          <dt>Security considerations:</dt>
+          <dd>ShExJ Schemas express rules to be applied to RDF triples visited during ShEx validation. This can include semantic actions which some party will consume and interpret.</dd>
+
+          <dd>ShExJ Schemas are applied to application data; security considerations will vary by domain of use. Security tools and protocols applicable to text (e.g. PGP encryption, MD5 sum validation, password-protected compression) may also be used on ShExJ Schemas documents. Security/privacy protocols must be imposed which reflect the sensitivity of the embedded information.</dd>
+          <dd>ShExJ Schemas uses IRIs as term identifiers. Applications interpreting data expressed in ShExJ Schemas should address the security issues of
+          <a href="http://www.ietf.org/rfc/rfc3987.txt" class="norm">Internationalized Resource Identifiers (IRIs)</a> [<cite><a class="bibref" href="#bib-RFC3987">RFC3987</a></cite>] Section 8, as well as
+          <a href="http://www.ietf.org/rfc/rfc3986.txt" class="norm">Uniform Resource Identifier (URI): Generic Syntax</a> [<cite><a class="bibref" href="#bib-RFC3986">RFC3986</a></cite>] Section 7.</dd>
+
+          <dd>Multiple IRIs may have the same appearance. Characters in different scripts may 
+          look similar (a Cyrillic &quot;о&quot; may appear similar to a Latin &quot;o&quot;). A character followed 
+          by combining characters may have the same visual representation as another character 
+          (LATIN SMALL LETTER E followed by COMBINING ACUTE ACCENT has the same visual representation 
+          as LATIN SMALL LETTER E WITH ACUTE).
+          
+          <!-- (<code>foo:resum&#40751;code> and <code>f&#1086;&#1086;:resume&#769;</code>)-->
+
+          Any person or application that is writing or interpreting data in ShExJ Schemas must take care to use the IRI that matches the intended semantics, and avoid IRIs that make look similar.
+          Further information about matching of similar characters can be found 
+          in <a href="http://www.unicode.org/reports/tr36/" class="inform">Unicode Security 
+          Considerations</a> [<cite><a class="bibref" href="#bib-UNICODE-SECURITY">UNICODE-SECURITY</a></cite>] and
+          <a href="http://www.ietf.org/rfc/rfc3987.txt" class="norm">Internationalized Resource 
+          Identifiers (IRIs)</a> [<cite><a class="bibref" href="#bib-RFC3987">RFC3987</a></cite>] Section 8.
+
+          
+          <!--@@ no security considerations section at this time. @@
+              See ShExJ Schemas - Terse RDF Triple Language appendix X, <a href="#security">Security Considerations</a> 
+              as well as <a class="norm" href="http://www.ietf.org/rfc/rfc3629.txt">RFC 3629</a> 
+              [<a href="#rfc3629">RFC3629</a>] section 7, Security Considerations. -->
+          </dd>
+
+          <dt>Interoperability considerations:</dt>
+          <dd>There are no known interoperability issues.</dd>
+          <dt>Published specification:</dt>
+          <dd>This specification.</dd>
+          <dt>Applications which use this media type:</dt>
+
+          <dd>No widely deployed applications are known to use this media type. It may be used by some web services and clients consuming their data.</dd>
+          <dt>Additional information:</dt>
+          <dt>Magic number(s):</dt>
+          <dd>ShExJ Schemas start with some form of '{"type":"validation"...' with arbitrary whitespace between the tokens and quoted strings.</dd>
+          <dt>File extension(s):</dt>
+          <dd>&quot;.shes&quot;</dd>
+
+          <dt>Base URI:</dt>
+          <dd>The ShExJ Schemas use absolute URIs.</dd>
+          <dt>Macintosh file type code(s):</dt>
+          <dd>&quot;TEXT&quot;</dd>
+          <dt>Person &amp; email address to contact for further information:</dt>
+
+          <dd>Eric Prud'hommeaux &lt;eric@w3.org&gt;</dd>
+          <dt>Intended usage:</dt>
+          <dd>COMMON</dd>
+          <dt>Restrictions on usage:</dt>
+          <dd>None</dd>
+          <dt>Author/Change controller:</dt>
+          <dd>Eric Prud'hommeaux &lt;eric@w3.org&gt;</dd>
+        </dl>
+      </section>
+
+      <section class="appendix" id="sec-mediaReg">
+        <h2>Internet Media Type, File Extension and Macintosh File Type for ShExJ Validation Results</h2>
+        <dl>
+          <dt>Contact:</dt>
+          <dd>Eric Prud'hommeaux</dd>
+          <dt>See also:</dt>
+
+          <dd><a href="http://www.w3.org/2002/06/registering-mediatype">How to Register a Media Type for a <abbr title="World Wide Web Consortium">W3C</abbr> Specification</a></dd>
+          <dd><a href="http://www.w3.org/2001/tag/2002/0129-mime">Internet Media Type registration, consistency of use</a><br />TAG Finding 3 June 2002 (Revised 4 September 2002)</dd>
+        </dl>
+        <p>The Internet Media Type / MIME Type for ShExJ Validation Results is &quot;application/json+shexval&quot;.</p>
+        <p>It is recommended that ShExJ Validation Results files have the extension &quot;.shev&quot; (all lowercase) on all platforms.</p>
+
+        <p>It is recommended that ShExJ Validation Results files stored on Macintosh HFS file systems be given a file type of &quot;TEXT&quot;.</p>
+        <p>This information that follows <span class="todo">will be</span> <a href="http://www.w3.org/mid/20071218114549.GQ8244@w3.org">submitted to the IESG</a> for review, approval, and registration with IANA.</p>
+        <dl>
+          <dt>Type name:</dt>
+          <dd>application</dd>
+
+          <dt>Subtype name:</dt>
+          <dd>json+shexval</dd>
+          <dt>Required parameters:</dt>
+          <dd>None</dd>
+          <dt>Optional parameters:</dt>
+          <dd><code>charset</code> — this parameter is required when transferring non-ASCII data. If present, the value of <code>charset</code> is always <code>UTF-8</code>.</dd>
+
+          <dt>Encoding considerations:</dt>
+          <dd>The encoding of ShExJ Validation Results is prescribed by [[!json]] with the further restriction that the encoding is always UTF-8 [[!UTF-8]].</dd>
+          <dt>Security considerations:</dt>
+          <dd>ShExJ Validation Results expresses the ShEx rules and RDF triples visited during ShEx validation. This can include semantic actions which some party will consume and interpret.</dd>
+
+          <dd>ShExJ Validation Results include arbitrary application data; security considerations will vary by domain of use. Security tools and protocols applicable to text (e.g. PGP encryption, MD5 sum validation, password-protected compression) may also be used on ShExJ Validation Results documents. Security/privacy protocols must be imposed which reflect the sensitivity of the embedded information.</dd>
+          <dd>ShExJ Validation Results uses IRIs as term identifiers. Applications interpreting data expressed in ShExJ Validation Results should address the security issues of
+          <a href="http://www.ietf.org/rfc/rfc3987.txt" class="norm">Internationalized Resource Identifiers (IRIs)</a> [<cite><a class="bibref" href="#bib-RFC3987">RFC3987</a></cite>] Section 8, as well as
+          <a href="http://www.ietf.org/rfc/rfc3986.txt" class="norm">Uniform Resource Identifier (URI): Generic Syntax</a> [<cite><a class="bibref" href="#bib-RFC3986">RFC3986</a></cite>] Section 7.</dd>
+
+          <dd>Multiple IRIs may have the same appearance. Characters in different scripts may 
+          look similar (a Cyrillic &quot;о&quot; may appear similar to a Latin &quot;o&quot;). A character followed 
+          by combining characters may have the same visual representation as another character 
+          (LATIN SMALL LETTER E followed by COMBINING ACUTE ACCENT has the same visual representation 
+          as LATIN SMALL LETTER E WITH ACUTE).
+          
+          <!-- (<code>foo:resum&#40751;code> and <code>f&#1086;&#1086;:resume&#769;</code>)-->
+
+          Any person or application that is writing or interpreting data in ShExJ Validation Results must take care to use the IRI that matches the intended semantics, and avoid IRIs that make look similar.
+          Further information about matching of similar characters can be found 
+          in <a href="http://www.unicode.org/reports/tr36/" class="inform">Unicode Security 
+          Considerations</a> [<cite><a class="bibref" href="#bib-UNICODE-SECURITY">UNICODE-SECURITY</a></cite>] and
+          <a href="http://www.ietf.org/rfc/rfc3987.txt" class="norm">Internationalized Resource 
+          Identifiers (IRIs)</a> [<cite><a class="bibref" href="#bib-RFC3987">RFC3987</a></cite>] Section 8.
+
+          
+          <!--@@ no security considerations section at this time. @@
+              See ShExJ Validation Results - Terse RDF Triple Language appendix X, <a href="#security">Security Considerations</a> 
+              as well as <a class="norm" href="http://www.ietf.org/rfc/rfc3629.txt">RFC 3629</a> 
+              [<a href="#rfc3629">RFC3629</a>] section 7, Security Considerations. -->
+          </dd>
+
+          <dt>Interoperability considerations:</dt>
+          <dd>There are no known interoperability issues.</dd>
+          <dt>Published specification:</dt>
+          <dd>This specification.</dd>
+          <dt>Applications which use this media type:</dt>
+
+          <dd>No widely deployed applications are known to use this media type. It may be used by some web services and clients consuming their data.</dd>
+          <dt>Additional information:</dt>
+          <dt>Magic number(s):</dt>
+          <dd>ShExJ Validation Results start with some form of '{"type":"validation"...' with arbitrary whitespace between the tokens and quoted strings.</dd>
+          <dt>File extension(s):</dt>
+          <dd>&quot;.shev&quot;</dd>
+
+          <dt>Base URI:</dt>
+          <dd>The ShExJ Validation Results use absolute URIs.</dd>
+          <dt>Macintosh file type code(s):</dt>
+          <dd>&quot;TEXT&quot;</dd>
+          <dt>Person &amp; email address to contact for further information:</dt>
+
+          <dd>Eric Prud'hommeaux &lt;eric@w3.org&gt;</dd>
+          <dt>Intended usage:</dt>
+          <dd>COMMON</dd>
+          <dt>Restrictions on usage:</dt>
+          <dd>None</dd>
+          <dt>Author/Change controller:</dt>
+          <dd>Eric Prud'hommeaux &lt;eric@w3.org&gt;</dd>
+        </dl>
+      </section>
+
+        <script type="application/javascript">
+        var bodyKeypressCallbacks = {};
+        /* a form like
+           <form id="langOptions" action="">View as: <input type="checkbox" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="checkbox" name="presLang" value="json">JSON (press 'j')</input> .</form>
+           controls display of sections like 
+           <pre class="schema shexc">...</pre>
+           <pre class="schema json">...</pre>
+        */
+        [
+          { lookIn: ".grammarSection ", form: "#langOptions", checkboxName: "description",
+            keys: { "d": "description", "D": "description" }
+          },
+          { lookIn: ".grammarSection ", form: "#langOptions", checkboxName: "example",
+            keys: { "e": "example", "E": "example" }
+          }
+        ].forEach(function (x) {
+
+          /* In lookIn, reveal classes selected by checkboxName; hide others.
+           */
+          function toggleClass (lookIn, form, checkboxName) {
+            $("tr ."+checkboxName+"").toggle($("#langOptions input[name="+checkboxName+"]").is(":checked"))
+          }
+          /* Look in all lookIn containers for the height different of from and to targets.
+           */
+          function adjustHeight (lookIn, from, sign) {
+            var visibleTop = $(window).scrollTop();
+            var all = $(lookIn+"."+from); // all containers of from
+            var adj = 0;
+            for (var i = 0; i < all.length; ++i) {
+              var elt = all.slice(i, i+1);
+              if (elt.offset().top >= visibleTop) // stop when we pass the current scroll top.
+                break;
+              adj += elt.height() * sign;
+            }
+            $(window).scrollTop($(window).scrollTop() + adj); // move the scroll top.
+          }
+
+          var inputs = $(x.form + " input[name="+x.checkboxName+"]");
+          // Listen for checkbox changes.
+          inputs.change(function() {toggleClass(x.lookIn, x.form, x.checkboxName);})
+          // Show only the currently selected class.
+          toggleClass(x.lookIn, x.form, x.checkboxName);
+           $(x.lookIn+".obj,"+x.lookIn+".nob,"+x.lookIn+".trm").each(function (ord, node) {
+            if ($(node).attr("id") === undefined)
+              return;
+            // Create anchor
+            var elt = $("<a href='#' title='double-click to display annotation'/>");
+            //   with click and double-click
+              // $(node).parent().nextAll(".description").first().toggle();
+              // $(node).parent().nextAll(".example").first().toggle();
+            elt.dblclick(function () {
+                $(this).parent().parent().nextAll(".description").first().toggle();
+                $(this).parent().parent().nextAll(".example").first().toggle();
+                $($(this).nextAll(".annotation").get(0)).toggle();
+              }).click(function () {
+                return false;
+              });
+            //   and attributes
+            $.each(node.attributes, function(i, a) {
+              if(a.specified) {
+                elt.attr(a.name, a.value)
+              }
+            });
+            //   and child nodes.
+            $(node).contents().each(function (idx, ob) {
+              elt.append(ob);
+            });
+            // Replace the old elt with this.
+            $(node).append(elt);
+          });
+          // Assign callbacks the the associated keycodes.
+          Object.keys(x.keys).forEach(function (kStr) {
+            var k = kStr.charCodeAt(0);
+            bodyKeypressCallbacks[k] = function () { debugger;
+              var checked = inputs.is(":checked");
+              // If the corresponding checkbox button isn't already selected,
+                // adjust the height from the current class to the new class;
+                adjustHeight(x.lookIn, x.keys[kStr], checked ? -1 : 1);
+                // set it as "checked";
+                inputs.prop("checked", !checked);
+                // swap which is displayed.
+                toggleClass(x.lookIn, x.form, x.checkboxName);
+              return false;
+            };
+          });
+        });
+        $("html > body").keypress(function (evt) {
+          if (evt.ctrlKey)
+            return true; // don't interfere with browser control keys.
+          if (evt.which in bodyKeypressCallbacks)
+            return bodyKeypressCallbacks[evt.which]();
+          return true;
+        });
+        function check (sec, span, dfn, ref) {
+          function fail (elt, msg) {
+            console.log(msg);
+            $(elt).addClass("fault");
+            $(elt).attr("title", msg);
+          }
+          $(sec+" ."+span).each(function (idx, elt) {
+            var name = $(elt).text();
+            var id = elt.id;
+            if (id === "")
+              return;
+            if (id.substr(0, dfn.length) !== dfn)
+              fail(elt, "expected "+id.substr(0, dfn.length)+" === "+dfn+": "+ $(elt).html());
+            var referers = $(sec+" a[href='#"+id+"']");
+            if (referers.length === 0)
+              fail(elt, "no references to " + id);
+            referers.each(function (idx2, innerElt) {
+              if (innerElt.className !== ref)
+                fail(innerElt, "expected "+innerElt.className+" === "+ref+": "+ $(innerElt).html());
+            });
+          });
+        }
+        check(".grammarSection", "obj", "dfn-", "objref");
+        check(".grammarSection", "nob", "dfn-", "nobref");
+        </script>
+    </body>
+</html>
