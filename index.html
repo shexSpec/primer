@@ -240,34 +240,6 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </script>
       </div>
     </section>
-    <script type="text/javascript">
-      <!--
-        Interfaces = [
-//          "http://localhost/shexSpec/shex.js/doc/shex-simple.html?"
-          "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?"
-        ];
-        document.respecIsReady.then(function(){ 
-           console.log("Fix Try It links");
-           updateAllTryItLinks($("#langOptions input:checked").val()); };
-        });
-        function updateAllTryItLinks (schemaClass) {
-          $(".tryit").map((idx, elt) => { updateTryItLink($(elt), schemaClass); })
-        }
-        function updateTryItLink (e, schemaClass) {debugger;
-          // var schemaElt = $(e.attr("href") + " ." + schemaClass);
-          var schemaElt = e.parent().parent().find("."+schemaClass);
-          var schema = schemaElt.text().replace(/^#.*?\n/, "");
-          var data = e.parent().text();
-          data = data.replace(/^\n +/, "").replace(/ *\n?try it\n? */g, "");
-          e.attr("href", Interfaces[0] + [
-            "interface=simple",
-            "schema=" + encodeURIComponent(schema),
-            "data=" + encodeURIComponent(data),
-            "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
-          ].join("&"));
-        }
-      -->
-    </script>
 
       <section id="model-and-terminology">
         <h2>ShEx Model and Terminology</h2>
@@ -3135,7 +3107,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
             </script>
           </div>
         </div>
-            <p>
+            <p id="partition-complexity">
             Note that ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
               It is possible to construct schemas for which it is quite expensive to find a mapping from RDF data triple to ShEx triple constraint that satisfies the schema.
               In practical schemas, this is rarely a concern as the search space is quite small, however, certain mistakes in a schema can create a large search space.
@@ -3548,6 +3520,38 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
     return true;
         });
         </script>
+    <script type="text/javascript">
+      <!--
+        Interfaces = [
+//          "http://localhost/shexSpec/shex.js/doc/shex-simple.html?"
+          "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?"
+        ];
+        window.addEventListener("load", function() {
+          setTimeout(() => { // respecIsReady not yet defined in Chrome.
+            document.respecIsReady.then(function(conf) {
+              console.log("Fix Try It links");
+              updateAllTryItLinks($("#langOptions input:checked").val());
+            });
+          }, 0);
+        });
+        function updateAllTryItLinks (schemaClass) {
+          $(".tryit").map((idx, elt) => { updateTryItLink($(elt), schemaClass); })
+        }
+        function updateTryItLink (e, schemaClass) {debugger;
+          // var schemaElt = $(e.attr("href") + " ." + schemaClass);
+          var schemaElt = e.parent().parent().find("."+schemaClass);
+          var schema = schemaElt.text().replace(/^#.*?\n/, "");
+          var data = e.parent().text();
+          data = data.replace(/^\n +/, "").replace(/ *\n?try it\n? */g, "");
+          e.attr("href", Interfaces[0] + [
+            "interface=simple",
+            "schema=" + encodeURIComponent(schema),
+            "data=" + encodeURIComponent(data),
+            "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
+          ].join("&"));
+        }
+      -->
+    </script>
 
     </body>
 </html>

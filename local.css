@@ -115,7 +115,7 @@ pre.table { display: table; }
 #respecDocument img { width: 72px; }
 a.ref { color: #c83500; font-family: monospace; }
 a.ref:visited { color: #a00550; font-family: monospace; }
-.example.wrapper pre { margin-top: 0; margin-right: 1em; }
+.example.wrapper pre { margin-top: 0; margin-right: 1em; overflow: visible; }
 #closed-shapes-example-2 pre { margin-top: 0; }
 
 /* http://stackoverflow.com/questions/2187008/styling-an-anchor-tag-to-look-like-a-submit-button#2187796 */
