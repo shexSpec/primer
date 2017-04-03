@@ -2215,9 +2215,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             "valueExpr": {
               "type": "NodeConstraint",
               "values": [
-                { "type": "IRIStemRange",
+                { "type": "IriStemRange",
                   "stem": "http://a.example/codes#" },
-                { "type": "IRIStemRange",
+                { "type": "IriStemRange",
                   "stem": "http://aux.example/terms#" }
               ] } },
           { "type": "TripleConstraint",
@@ -2313,13 +2313,13 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         "valueExpr": {
           "type": "NodeConstraint",
           "values": [
-            { "type": "StemRange",
+            { "type": "IriStemRange",
               "stem": "http://a.example/codes#",
               "exclusions": [
                 "http://a.example/codes#unassigned",
                 "http://a.example/codes#assigned"
               ] },
-            { "type": "StemRange",
+            { "type": "IriStemRange",
               "stem": "http://aux.example/terms#",
               "exclusions": [
                 { "type": "Stem",
@@ -2389,7 +2389,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
         "valueExpr": {
           "type": "NodeConstraint",
           "values": [
-            { "type": "StemRange",
+            { "type": "IriStemRange",
               "stem": {
                 "type": "Wildcard" },
               "exclusions": [
