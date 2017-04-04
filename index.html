@@ -129,9 +129,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
     { "id": "http://school.example/#Enrollee",
       "type": "Shape",
       "expression": {
-        "type": "TripleConstraint",
+        "type": "TripleConstraint", "min": 1, "max": 2,
         "predicate": "http://ex.example/#hasGuardian",
-        "min": 1, "max": 2,
         "valueExpr": {
           "type": "NodeConstraint",
           "nodeKind": "iri" } } }
@@ -150,7 +149,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
 <span class="fullURL">inst:Student2</span> <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span>
   <span class="fullURL object">inst:Person4</span>, <span class="fullURL object">inst:Person5</span>, <span class="fullURL object">inst:Person6</span> .
-<a class="tryit" href="" data-shape-map="inst:Student2@school:Enrollee">try it</a></pre>
+<a class="tryit" href="" data-shape-map="inst:Student2@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
         </div>
         <p>
         The next example adds a triple constraint on the data predicate <span class="predicate"><span class="type">foaf:</span><span class="constant">age</span></span>, which must have a value matching the node constraint <span class="shape-name">school:enrolleeAge</span>, which is cited in the triple constraint by reference, indicated by the '@' symbol.
@@ -187,9 +186,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           { "type": "TripleConstraint",
             "predicate": "http://xmlns.com/foaf/0.1/age",
             "valueExpr": "http://school.example/#enrolleeAge" },
-          { "type": "TripleConstraint",
+          { "type": "TripleConstraint", "min": 1, "max": 2,
             "predicate": "http://ex.example/#hasGuardian",
-            "min": 1, "max": 2,
             "valueExpr": {
               "type": "NodeConstraint",
               "nodeKind": "iri" } }
@@ -1714,9 +1712,8 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
             "valueExpr": {
               "type": "NodeConstraint",
               "datatype": "http://www.w3.org/2001/XMLSchema#string" } },
-          { "type": "TripleConstraint",
+          { "type": "TripleConstraint", "min": 1, "max": -1,
             "predicate": "http://xmlns.com/foaf/0.1/mbox",
-            "min": 1, "max": "unbounded",
             "valueExpr": {
               "type": "NodeConstraint",
               "nodeKind": "iri" } }
@@ -1789,6 +1786,48 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="object"><span class="keyword">IRI<span class="lookit">*</span></span></span>
 }
 </pre>
+
+          <!-- JSON example -->
+          <pre class="nohighlight schema json">
+{ "@context": "https://shexspec.github.io/context.jsonld",
+  "type": "Schema",
+  "shapes": [
+    { "id": "http://my.example/#IssueShape",
+      "type": "Shape",
+      "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#state",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "values": [
+                "http://ex.example/#unassigned",
+                "http://ex.example/#assigned"
+              ] } },
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#reportedBy",
+            "valueExpr": "http://my.example/#UserShape" }
+        ] } },
+    { "id": "http://my.example/#UserShape",
+      "type": "Shape",
+      "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "TripleConstraint", "min": 0, "max": 1,
+            "predicate": "http://xmlns.com/foaf/0.1/name",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "literal" }
+          },
+          { "type": "TripleConstraint", "min": 0, "max": -1,
+            "predicate": "http://xmlns.com/foaf/0.1/mbox",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "iri" } }
+        ] } }
+  ] }
+</pre>
           <pre class="nohighlight instance turtle pass tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1796,7 +1835,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 </span><span class="fullURL">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span> ;
     <span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span>   <span class="string object">"Bob Smith"</span> .
-<a class="tryit" href="" data-shape-map="inst:Issue1@my:IssueShape,'Bob Smith'@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,'Bob Smith'@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
         </div>
         <div style="clear:both;"></div>
 
@@ -1990,10 +2029,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
                       "type": "NodeConstraint",
                       "nodeKind": "literal" } },
                   {
-                    "type": "TripleConstraint",
+                    "type": "TripleConstraint", "min": 1, "max": -1,
                     "predicate": "http://xmlns.com/foaf/0.1/mbox",
-                    "min": 1,
-                    "max": "unbounded",
                     "valueExpr": {
                       "type": "NodeConstraint",
                       "nodeKind": "iri" } }
@@ -2055,9 +2092,8 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
                   "nodeKind": "literal" } },
               { "type": "EachOf",
                 "expressions": [
-                  { "type": "TripleConstraint",
+                  { "type": "TripleConstraint", "min": 1, "max": -1,
                     "predicate": "http://xmlns.com/foaf/0.1/givenName",
-                    "min": 1, "max": "unbounded",
                     "valueExpr": {
                       "type": "NodeConstraint",
                       "nodeKind": "literal" } },
@@ -2322,7 +2358,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
             { "type": "IriStemRange",
               "stem": "http://aux.example/terms#",
               "exclusions": [
-                { "type": "Stem",
+                { "type": "IriStem",
                   "stem": "http://aux.example/terms#med_" }
               ] }
           ] } } }
@@ -2486,7 +2522,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             <span class="object">"value": { "type": "NodeConstraint",</span>              
             <span class="object">  "nodeKind": "iri"             </span>              
             <span class="object">},                              </span>
-            "min": 1, "max": "*"
+            "min": 1, "max": -1
           },                                              
           <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reportedIssue"</span></span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": false</span>,</span>
@@ -2587,7 +2623,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
             <span class="object">"value": { "type": "NodeConstraint",</span>              
             <span class="object">  "nodeKind": "iri"             </span>              
             <span class="object">},                              </span>
-            <span class="object">"min": 1, "max": "*"            </span>
+            <span class="object">"min": 1, "max": -1            </span>
           }                                               
         ]
       }
@@ -2939,7 +2975,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
                 "valueExpr": {
                   "type": "NodeConstraint",
                   "nodeKind": "literal" } },
-              { "type": "TripleConstraint", "min": 1, "max": "unbounded",
+              { "type": "TripleConstraint", "min": 1, "max": -1,
                 "predicate": "http://xmlns.com/foaf/0.1/mbox",
                 "valueExpr": {
                   "type": "NodeConstraint",
@@ -3319,7 +3355,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!--                 "expressions": [ -->
 <!--                   <span class="gname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "foaf:givenName"</span></span>,  </span> -->
 <!--                   <span class="gname      lowlight1    ">  <span class="object">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>,</span> -->
-<!--                   <span class="gname      lowlight1 bot">  "min": 1, "max": "*" },                                     </span> -->
+<!--                   <span class="gname      lowlight1 bot">  "min": 1, "max": -1 },                                     </span> -->
 <!--                   <span class="fname      lowlight1 top">{ "type": "TripleConstraint", <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "foaf:familyName"</span></span>,  </span> -->
 <!--                   <span class="fname      lowlight1 bot">  <span class="object">"value": { "type": "NodeConstraint", "datatype": "xsd:string" }</span>, -->
 <!--                     "semActs": [ { "type": "SemAct", "name": "test:", -->
@@ -3506,7 +3542,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
     inputs.filter("[value="+targetClass+"]").prop("checked", true); // .change() did nothing
     // swap which is displayed.
     revealClass(x.lookIn, x.form, x.radioName);
-    //updateAllTryItLinks(targetClass);
+    updateAllTryItLinks(targetClass);
               }
         return false;
       };
