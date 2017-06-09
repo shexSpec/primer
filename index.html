@@ -86,8 +86,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       <div class="namespace">
         <p>
           Shape Expressions (ShEx) is a language for describing RDF graph structures.
-          A ShEx schema prescribes conditions that RDF data graphs must meet in order to be considered "conformant".
-          In the ShEx model, an RDF graph is tested against a ShEx schema to yield a validation result that flags any parts of the data which do not conform.
+          A <span class="new">ShEx schema</span> prescribes conditions that RDF data graphs must meet in order to be considered "conformant".
+          In the ShEx model, a <span class="new">shape map</span> specifies which nodes in an RDF graph will be tested against a ShEx schema.
           ShEx schemas are intended for use in validating instance data, communicating interface parameters and data structures, generating user interfaces, and transforming RDF graphs into other data formats and structures.  
           This primer, a companion to the full ShEx language specification [[shex-semantics]], focuses on the common use case of validating instance data.
         </p>
@@ -222,7 +222,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <div style="clear:both;"></div>
 
         <p>
-          When this ShEx schema is tested against the RDF data, four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) are evaluated against a single shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) to yield a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may provide validation results in other formats and at different levels of verbosity.
+          A shape map testing four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) against the shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) yields a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may provide validation results in other formats and at different levels of verbosity.
         </p>
         <table class="example results">
           <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
@@ -264,7 +264,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           A triple is a data structure composed of three <span class="new">RDF terms</span>.
           An RDF term may be an <span class="new">IRI</span>, <span class="new">blank node (BNode)</span>, or <span class="new">literal</span>.
           In a triple, RDF terms are arranged in a fixed order, or <span class="new">directed arc</span>, from <span class="new">subject</span> to <span class="new">predicate</span> to <span class="new">object</span>.
-          From the standpoint of ShEx, a triple may be seen as having an <span class="new">outgoing arc</span> from a subject or an <span class="new">incoming arc</span> to an object.
+          A node in the subject position has an <span class="new">outgoing arc</span> and a node in the object position has an <span class="new">incoming arc</span>.
           RDF data may be serialized in any of several interchangeable concrete syntaxes designed for a variety of application requirements.
         </p>
         <p>
@@ -300,7 +300,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints which may be combined in groups or choices.</dd>
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint with a given predicate which is tested against RDF triples with that predicate and the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
-          <dt id="vocab-object">value constraint</dt><dd>A shape expression used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".
+          <dt id="vocab-value-constraint">value constraint</dt><dd>A shape expression used in a triple constraint. "Value constraint" (or "value constraint on a property") is a shorthand way of saying: "node constraint on the RDF node of the object associated in a triple with a given predicate".
           For inverse triple constraints, this shorthand is: "node constraint on the RDF node of the subject associated in a triple with a given predicate".</dd>
           <dt id="vocab-value-set">value set</dt><dd>A set of values composed of RDF terms and substrings.</dd>
           <dt id="vocab-value">value</dt><dd>A shorthand designation for the RDF node at the opposite end of an RDF data triple from a focus node. In typical usage, this is the object of a triple, or for <a href="#inverse-properties">inverse triple constraints</a>, its subject.</dd>
@@ -1528,7 +1528,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
           </dd>
-          <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the object is described by another shape, e.g.
+          <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the value is described by another shape, e.g.
           <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span> <span class="lookit object"><span class="keyword">@</span><span class="shape-name">my:UserShape</span></span>
 }</pre>
@@ -1546,9 +1546,10 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <p>
           Triple constraints are evaluated against all of the triples in an RDF graph that touch a given data node.  
           The RDF data node examined during validation is called the <span class="new">focus node</span>.
-          Triple constraints typically identify a predicate and describe matching triples as having the focus node as the subject in a triple with the given predicate.
+          Triple constraints identify a predicate and describe matching triples as having the focus node as the subject (or object).
           (The exception is the inverse triple constraint, which describes matching triples as having the focus node as the object.)
-          Triple constraints may specify how many matching triples are required and what kinds of objects are expected.
+          Triple constraints specify a cardinality (how many matching triples are expected or permitted).
+          They may include a value constraint, which is a node constraint describing the object of matching triples (or subject, in the case of inverse triple constraints).
         </p>
         <div class="namespace">
         <p>
@@ -1559,15 +1560,16 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
         <div class="example wrapper">
           <!-- ShExC example -->
-          <pre id="schema-triple-constraints" class="schema shexc">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
+          <pre id="schema-triple-constraints" class="nohighlight schema shexc">
+<span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="fullURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
 
-</span><span class="shape-name usershape lowlight2 top bot">my:UserShape</span> {
-  <span class="foaf-name lowlight2 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span></span> <span class="xsd-string lowlight2 top bot object"><span class="type">xsd:</span><span class="constant">string</span></span>
-}</pre>
+</span><span class="shape-name">my:UserShape</span> {
+  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string">xsd:string</span>
+}
+</pre>
           <!-- JSON example -->
           <pre class="nohighlight schema json">
 { "@context": "http://www.w3.org/ns/shex.jsonld",
@@ -1645,7 +1647,8 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
         <h2>Grouping Triple Constraints in Shapes</h2>
         <div class="namespace">
         <p>
-          The examples above show just one triple constraint per shape but in practice, most shape declarations will include multiple constraints.
+          The examples above show just one triple constraint per shape.
+          In practice, most shape declarations will include multiple constraints.
           In the ShExC syntax, triple constraints are separated by a semi-colon.
           In the following example, the shape <span class="shape-name">my:IssueShape</span> will match:
         </p>
@@ -1840,9 +1843,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         <div style="clear:both;"></div>
 
         <table class="example results">
-          <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th></tr>
-          <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td></tr>
-          <tr class="pass"><td>"Bob Smith" </td><td>my:UserShape</td><td>pass</td></tr>
+          <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+          <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="pass"><td>"Bob Smith" </td><td>my:UserShape</td><td>pass</td><td class="pass">Matched 0 <span class="object"><span class="type">foaf:</span><span class="constant">name</span></span> and 0 <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> arcs.</td></tr>
         </tbody></table>
       </div>
       <p>
@@ -1856,12 +1859,12 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
         <h3>Combining Value Constraints</h3>
         <div class="namespace">
           <p>
-            Value constraints can be combined, for example to say that an issue conforms to a given shape and is identified by an IRI matching a certain pattern.
+            <a href="#vocab-value-constraint">Value constraints</a> can be combined, for example to say that an issue conforms to a given shape and is identified by an IRI matching a certain pattern.
           </p>
 
           <div class="example wrapper">
             <!-- ShExC example -->
-            <pre id="example-combined1" class="schema shexc" style="float:left;">
+            <pre class="nohighlight schema shexc" id="example-combined1" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="fullURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
@@ -1957,6 +1960,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
   <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .  
 <a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#abc&gt;@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
+          </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
@@ -1969,7 +1973,6 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "lowlight2");
             -->
             </script>
-          </div>
         </div>
       </section>
 
@@ -2147,6 +2150,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
 <a class="tryit" href="" data-shape-map="inst:User3@&lt;http://my.example/#UserShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;inst:User5@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
 
           <div style="clear:both;"></div>
+      </div>
           <table class="example results">
             <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
             <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
@@ -2155,7 +2159,6 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
             <tr class="fail hilight-invComponent lowlight1 bot"><td>inst:User4</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected only one disjunction to pass.</td></tr>
             <tr class="fail hilight-component top lowlight2"><td>inst:User5</td><td>my:UserShape</td><td>fail</td><td class="fail">Extra <span class="predicate"><span class="type">foaf:</span><span class="constant">givenName</span></span> arc.</td></tr>
           </tbody></table>
-      </div>
       <script type="text/javascript">
       <!--
 prepareHighlight(['oneOrMore', 'eitherOr'], "highlight2", "lowlight2");
@@ -2169,8 +2172,9 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
       <section id="value-sets">
         <h2>Value Sets</h2>
         <p>
-          A <span class="new">value set</span> is a value constraint for enumerating the set of permissible values for a property.
+          A <span class="new">value set</span> is a value constraint for enumerating the set of permissible RDF nodes.
           The values can be IRIs, literals or language tags.
+          In the example below, "<code>[@en @fr]</code>" matches any RDF literal with a language tag of "en" or "fr".
         </p>
         <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">[ex:unassigned ex:assigned]</span>
@@ -2219,8 +2223,10 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <div id="sec-iri-range">
           <div class="example wrapper">
             <p>
-              A value set can also contain <span class="new">IRI</span>, <span class="new">string</span> and <span class="new">language tag</span> ranges.
-              An IRI range can be defined as including all IRIs that start with a given base IRI by appending a tilde ("<code>~</code>").
+              A value set can also contain <span class="new">stems</span> for IRIs, strings and language tags.
+              An IRI orx string stem matches any IRI or string that starts with the stem.
+              A language tag stem matches any literal with a language tag that starts with the stem.
+              These are flagged as stems by appending a tilde ("<code>~</code>").
             </p>
 
             <!-- ShExC example -->
@@ -2306,22 +2312,23 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="status lowlight1 top bot"><span class="fullURL errorSite">my:Product3 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue3</span></span></span> .
 <a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
+          </div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
                 <tr class="pass user2 top lowlight1"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
                 <tr class="fail user5 bot lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="type">ex:</span><span class="constant">done</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>.<br/>Excluded language tag for <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>.</td></tr>
                 <tr class="fail user5 bot lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="fullURL">my:Product3</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span>.</td></tr>
               </tbody></table>
-          </div>
         </div>
 
-        <div id="sec-iri-range-exclusion" class="namespace">
+        <div id="sec-iri-range-exclusion">
+          <div class="namespace">
           <div class="example wrapper">
             <p>
-            An IRI range matches multiple IRIs, from which one may wish to exclude specific IRIs or IRI ranges.
-            <span class="new">IRI range exclusions</span> are expressed by following an IRI range with: minus sign (<code>-</code>), whitespace, and a specific IRI, or IRI range, to be excluded from the IRI range.  An arbitrary number of IRIs, each prefixed with a minus sign and whitespace, can follow the first.
+            While IRI, string and language tag stems match any terms starting with the stem, one may wish to exclude specific terms or term stems.
+            <span class="new">Stem exclusions</span> are expressed by following a stem with one or more <span class="new">exclusions</span>.
+            An exclusion consists of a minus ("<code>-</code>") followed by an IRI, IRI stem, string, string stem, language tag, or language tag stem.
             </p>
-
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
@@ -2380,6 +2387,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue5</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite object">ex:done</span></span></span>.
 <a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;,inst:Issue4@&lt;http://my.example/#IssueShape&gt;,inst:Issue5@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
+          </div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
                 <tr class="pass user2 top"><td>inst:Issue2</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
@@ -2394,9 +2402,10 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             -->
             </script>
           </div>
+          <div class="namespace">
           <div class="example wrapper">
             <p>
-              A period (<code>.</code>) can be used with IRI exclusions to say that any IRI is permitted except the excluded IRIs.
+              A period (<code>.</code>) can be used with exclusions to say that any term is permitted except the exclusions.
             </p>
 
             <!-- ShExC example -->
@@ -2451,15 +2460,16 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="keyword">PREFIX</span> <span class="type">auxterms:</span> <span class="fullURL">&lt;http://aux.example/terms#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
-</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue2</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="min lowlight2 top bot"><span class="errorSite object">excodes:assigned</span></span></span>.
+</span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue2</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="min"><span class="errorSite object">excodes:assigned</span></span></span>.
 <a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
             <div style="clear:both;"></div>
+          </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
               <tr class="fail"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="object"><span class="type">excodes:</span><span class="constant">assigned</span></span> is excluded.</td></tr>
             </tbody></table>
-          </div>
+        </div>
         </div>
       </section>
   </section>
@@ -2550,13 +2560,13 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
     <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.</pre>
             <div style="clear:both;"></div>
+          </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
               <tr class="fail"><td>inst:User2</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected <span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> property.</td></tr>
               <tr class="pass"><td>inst:User3</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
             </tbody></table>
-          </div>
           <script type="text/javascript">
           <!--
 prepareHighlight(["inst-User6"], "highlight2", "lowlight2");
@@ -2667,6 +2677,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 </pre>
   </div>
             <div style="clear:both;"></div>
+          </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
@@ -2675,7 +2686,6 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
               <tr class="fail"><td>inst:Issue4</td><td>my:IssueShape</td><td>fail</td><td class="fail">Subject of <span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> does not match <span class="shape-name">my:UserShape</span>;</td></tr>
               <tr class="fail"><td>inst:User4</td><td>my:UserShape</td><td>fail</td><td class="fail">Max cardinality of <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> exceeded.</td></tr>
             </tbody></table>
-          </div>
           <script type="text/javascript">
           <!--
 prepareHighlight(["inversePredicate"], "highlight2", "lowlight2");
@@ -2726,13 +2736,13 @@ TODO</pre>
 <span class="fail hilight-invComponent lowlight1 bot">    <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .      </span></pre>
               </div>
               <div style="clear:both;"></div>
+            </div>
               <table class="example results">
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
                 <tr class="pass hilight-componentless lowlight1 top"><td>inst:Issue1</td><td>my:SolitaryIssueShape</td><td>pass</td><td class="noreason"></td></tr>
                 <tr class="fail hilight-component lowlight1"><td>inst:Issue2</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero outgoing <span class="predicate"><span class="type">ex:</span><span class="constant">component</span></span> arcs.</td></tr>
                 <tr class="fail hilight-invComponent lowlight1 bot"><td>inst:Issue3</td><td>my:SolitaryIssueShape</td><td>fail</td><td class="fail">Expected zero incoming <span class="predicate"><span class="type">ex:</span><span class="constant">component</span></span> arcs.</td></tr>
               </tbody></table>
-            </div>
             <script type="text/javascript">
             <!--
 prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComponent"], "highlight2", "lowlight2");
@@ -2943,7 +2953,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
 
           <div class="example wrapper">
             <!-- ShExC example -->
-            <pre id="schema-TE-reuse" class="schema shexc" style="float:left;">
+            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> my: <span class="fullURL">&lt;http://my.example/#&gt;</span>
 <span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -3018,13 +3028,13 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
   <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="string object">"u01"</span> .
 <a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
             <div style="clear:both;"> </div>
+          </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
               <tr class="pass"><td>inst:Employee2</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
               <tr class="fail hilight-component top lowlight2"><td>inst:Employee3</td><td>my:EmployeeShape</td><td>fail</td><td class="fail">Expected <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> arcs.</td></tr>
               <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
             </tbody></table>
-          </div>
 
           <script type="text/javascript">
             <!--
