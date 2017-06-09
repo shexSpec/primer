@@ -1501,7 +1501,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <dt id="vocab-literal-facets" class="new">literal facet</dt> <dd>A node constraint that applies <a href="http://www.w3.org/TR/xmlschema-2/#rf-facets">XML Schema constraining facets</a>, including <span class="new">numeric facets</span>, which apply only to numeric RDF literals (<code class="keyword">MinInclusive</code>, <code class="keyword">MinExclusive</code>, <code class="keyword">MaxInclusive</code>, <code class="keyword">MaxExclusive</code>, <code class="keyword">TotalDigits</code>, <code class="keyword">FractionDigits</code>) and <span class="new">string facets</span>, which apply to all RDF literals (<code class="keyword">Length</code>, <code class="keyword">MinLength</code>, <code class="keyword">MaxLength</code>, <code class="keyword">Pattern</code>).  In the ShExC syntax, facet names are not case-sensitive.
 
           <pre class="nohighlight schema shexc table"><span class="shape-name">my:UserShape</span> {
-  <span class="predicate"><span class="type">ex:</span><span class="constant">shoeSize</span></span> <span class="object">xsd:float <span class="lookit"><span class="keyword">MinInclusive</span> 5.5 <span class="keyword">maxInclusive</span> 12.5</span></span>
+  <span class="predicate"><span class="type">ex:</span><span class="constant">shoeSize</span></span> <span class="object">xsd:float <span class="lookit"><span class="keyword">MinInclusive</span> 5.5 <span class="keyword">MaxInclusive</span> 12.5</span></span>
 }</pre>
           <pre class="nohighlight schema json table">{ "my:UserShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:shoeSize",
@@ -1873,7 +1873,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 }
 
 <span class="shape-name">my:EmployeeShape</span> <span class="keyword">IRI</span>                      
- <span class="hilight-reproducedBy lowlight2 top bot">/<span class="string">^http:\/\/hr.example\/id#[0-9]+</span>/</span> {      
+ <span class="hilight-reproducedBy lowlight2 top bot">/<span class="string">^http:\/\/hr\.example\/id#[0-9]+</span>/</span> {      
   <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="keyword object">LITERAL</span>;                      
   <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> [<span class="object">ex:ProgrammingDepartment</span>]
 }                                         
@@ -2635,7 +2635,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
             <pre class="nohighlight instance turtle pass">
 <span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
-<span class="fullURL">inst:user1</span> <span class="keyword predicate">a</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
+<span class="fullURL">inst:User1</span> <span class="keyword predicate">a</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span></span> ;
     <span class="reportedIssue lowlight1 top bot new"><span class="object"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
@@ -2644,7 +2644,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 <span class="fullURL">inst:Issue2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
     <span class="reportedBy lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span>    <span class="fullURL object">inst:User2</span></span> .
-<span class="fullURL">inst:user2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
+<span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>        <span class="string predicate">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
     <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.
@@ -2652,7 +2652,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 <span class="fullURL">inst:Issue3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
     <span class="reportedIssue lowlight1 top bot errorSite new"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User3</span></span> .
-<span class="fullURL">inst:user3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
+<span class="fullURL">inst:User3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>        <span class="string object">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
     <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.
@@ -2660,7 +2660,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
 <span class="fullURL">inst:Issue4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
     <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
     <span class="reportedIssue lowlight1 top bot errorSite new"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User4</span></span> .
-<span class="fullURL">inst:user4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
+<span class="fullURL">inst:User4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot errorSite"><span class="predicate">foaf:name</span>        <span class="string object">"Robert"</span></span> ;
     <span class="name lowlight1 top bot errorSite"><span class="predicate">foaf:name</span>        <span class="string object">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
@@ -2835,7 +2835,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
         <tr class="fail hilight-component top lowlight2"><td>inst:User2</td><td>my:ClosedUserShape</td><td>fail</td><td class="fail">Unexpected <span class="rdftype lowlight1 top bot predicate"><span class="type">rdf:</span><span class="constant">type</span></span> and <span class="foafknows lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">knows</span></span></span> arcs.</td></tr>
       </tbody></table>
       <p>
-        The <span class="predicate"><span class="type">foaf:</span><span class="constant">knows</span></span> arc invalidates <span class="fullURL">inst:User2</span> but not <span class="fullURL">inst:User2</span> because <span class="keyword closed lowlight2 top bot">CLOSED</span> applies only to outgoing arcs.
+        The <span class="predicate"><span class="type">foaf:</span><span class="constant">knows</span></span> arc invalidates <span class="fullURL">inst:User2</span> but not <span class="fullURL">inst:User1</span> because <span class="keyword closed lowlight2 top bot">CLOSED</span> applies only to outgoing arcs.
       </p>
       <script type="text/javascript">
       <!--
