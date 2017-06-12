@@ -222,7 +222,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <div style="clear:both;"></div>
 
         <p class="leadup">
-          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  (For readability, the IRIs in the examples below are rendered with prefixes.)
+          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  In the latter, the shape map keyword "<code>FOCUS</code>" identifies the node of the triple to be selected (here, the subject node), and the keyword "<code>_</code>" acts as a placeholder for any object.  For readability, the IRIs in the examples below are rendered with prefixes.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre class="nohighlight shapemap fixed" id="school-Enrollee-fixed-shapemap" style="float:left;">
@@ -238,11 +238,9 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           </pre>
         </div>
         <p class="followup">
-          The shape map keyword "<code>FOCUS</code>" identifies the part of the triple to be selected (here, the subject), 
-          and the keyword "<code>_</code>" acts as a placeholder for any object.
         </p>
         <p>
-          This example yields a validation result in the form of a <span class="new">result shape map</span>.  (Note that the validation result, rendered here with prefixes for readability, may be provided in other formats and at different levels of verbosity according to implementation requirements.)
+          This example yields a validation result in the form of a <span class="new">result shape map</span> (which may be provided in other formats and at different levels of verbosity according to implementation requirements.)
         </p>
         <table class="nohighlight example results">
           <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
