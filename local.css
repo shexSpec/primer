@@ -73,6 +73,9 @@
       .example.wrapper .fail {
         background-color: #fceefa
       }
+      pre.shapemap.fixed { background-color: #ECEBF7; border: thick solid #e4e3ec; }
+      pre.shapemap.query { background-color: #ECEBF7; border: thick solid #e4e3ec; }
+      pre.shapemap.result { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
       .example pre.shapemap { background-color: #eefcfa; border: thick solid #ece4e3; }
@@ -175,6 +178,18 @@ table.results:before {
       
       .qualifier { font-weight: normal; display:none; }
 
+pre.shapemap.fixed:before {
+    content: "Fixed shapemap";
+    width: 8em;
+}
+pre.shapemap.query:before {
+    content: "Query shapemap";
+    width: 8em;
+}
+pre.shapemap.result:before {
+    content: "Query shapemap";
+    width: 8em;
+}
 pre.schema.shexc:before {
     content: "Schema (ShExC)";
     width: 8em;
