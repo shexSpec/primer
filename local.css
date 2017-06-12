@@ -73,12 +73,9 @@
       .example.wrapper .fail {
         background-color: #fceefa
       }
-      pre.shapemap.fixed { background-color: #ECEBF7; border: thick solid #e4e3ec; }
-      pre.shapemap.query { background-color: #ECEBF7; border: thick solid #e4e3ec; }
-      pre.shapemap.result { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
-      .example pre.shapemap { background-color: #eefcfa; border: thick solid #ece4e3; }
+      .example pre.shapemap { background-color: #eefcfa; border: thick solid #eaf8ea; }
       pre.instance { border: thick solid #f8f6ea; }
       pre.schema, pre.instance { vertical-align: top; }
       pre.instance.fail { border: thick solid #f8eaea; }
@@ -163,9 +160,22 @@ a.ref:visited { color: #a00550; font-family: monospace; }
       .pass { background-color: #cfc; }
       .fail, .example.wrapper .results .fail { background-color: #fcc; }
 
+.example::before {
+    text-transform: inherit !important; /* override this:  .example::before, .example > .marker {
+    text-transform: uppercase; */
+}
+
+.example .shapemap:before {
+    color: #333;
+    font-size: .6em;
+    border: 1px solid #bbb;
+    background: white;
+    display: block;
+    font-family: sans-serif;
+    padding: 0.2em 1em;
+}
+
 table.results:before {
-    content: "Result Shape Map";
-    width: 11em;
     color: #333;
     font-size: .6em;
     border: 1px solid #bbb;
@@ -178,17 +188,17 @@ table.results:before {
       
       .qualifier { font-weight: normal; display:none; }
 
-pre.shapemap.fixed:before {
+.example .shapemap.fixed:before {
     content: "Fixed Shape Map";
     width: 8em;
 }
-pre.shapemap.query:before {
+.example .shapemap.query:before {
     content: "Query Shape Map";
     width: 8em;
 }
-pre.shapemap.result:before {
+table.results:before {
     content: "Result Shape Map";
-    width: 8em;
+    width: 9em;
 }
 pre.schema.shexc:before {
     content: "Schema (ShExC)";
