@@ -187,7 +187,7 @@ pre.shapemap.query:before {
     width: 8em;
 }
 pre.shapemap.result:before {
-    content: "Query Shape Map";
+    content: "Result Shape Map";
     width: 8em;
 }
 pre.schema.shexc:before {
