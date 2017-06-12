@@ -190,19 +190,19 @@ table.results:before {
 
 .example .shapemap.fixed:before {
     content: "Fixed Shape Map";
-    width: 8em;
+    width: 9em;
 }
 .example .shapemap.query:before {
     content: "Query Shape Map";
-    width: 8em;
+    width: 9em;
 }
 table.results:before {
     content: "Result Shape Map";
-    width: 9em;
+    width: 9.5em;
 }
 pre.schema.shexc:before {
     content: "Schema (ShExC)";
-    width: 8em;
+    width: 9em;
 }
 pre.schema.shexj:before {
     content: "Schema (ShExJ)";
@@ -214,11 +214,11 @@ pre.instance.turtle:before {
 }
 pre.instance.turtle.pass:before {
     content: "Passing Data (Turtle)";
-    width: 10em;
+    width: 11em;
 }
 pre.instance.turtle.fail:before {
     content: "Failing Data (Turtle)";
-    width: 10em;
+    width: 11em;
 }
 pre.schema:before, pre.instance:before {
     color: #333;
