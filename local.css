@@ -75,6 +75,7 @@
       }
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
+      .example pre.shapemap { background-color: #eefcfa; border: thick solid #ece4e3; }
       pre.instance { border: thick solid #f8f6ea; }
       pre.schema, pre.instance { vertical-align: top; }
       pre.instance.fail { border: thick solid #f8eaea; }
@@ -160,8 +161,8 @@ a.ref:visited { color: #a00550; font-family: monospace; }
       .fail, .example.wrapper .results .fail { background-color: #fcc; }
 
 table.results:before {
-    content: "Validation Results";
-    width: 9.5em;
+    content: "Result Shape Map";
+    width: 11em;
     color: #333;
     font-size: .6em;
     border: 1px solid #bbb;
