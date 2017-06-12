@@ -206,3 +206,12 @@ pre.schema:before, pre.instance:before {
     padding: 0.2em 1em;
 }
 .prefixes { display: none; }
+
+.leadup, .example.leadup {
+    margin-bottom: 0;
+}
+
+.followup, .example.followup {
+    margin-top: 0;
+}
+

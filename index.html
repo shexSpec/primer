@@ -221,23 +221,23 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </div>
         <div style="clear:both;"></div>
 
-        <p>
+        <p class="leadup">
           A fixed shape map testing four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) against the shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) would look like
         </p>
-        <div id="example-school-enrolleeAge" class="example wrapper">
+        <div id="example-school-enrolleeAge" class="example wrapper followup leadup">
           <pre class="nohighlight shapemap"><span class="fullURL">inst:Alice</span> @ <span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Alice</span>@<span class="shape-name">school:Enrollee</span>,
 <span class="fullURL">inst:Claire</span>@<span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Don</span>@<span class="shape-name">school:Enrollee</span></pre>
         </div>
-        <p>
+        <p class="followup">
           yields a <span class="new">result shape map</span>, summarized below.  Implementations of ShEx may provide validation results in other formats and at different levels of verbosity.
         </p>
-        <p>
+        <p class="leadup">
           We could instead use triple patterns to select those nodes with a query shape map:
         </p>
-        <div id="example-school-enrolleeAge" class="example wrapper">
+        <div id="example-school-enrolleeAge" class="example wrapper leadup followup">
           <pre class="nohighlight shapemap"><span class="fullURL">{FOCUS, foaf:age, _}</span> @ <span class="shape-name">school:Enrollee</span></pre>
         </div>
-        <p>
+        <p class="followup">
           The keyword "<code>FOCUS</code>" identifies which part of the triple pattern is being selected; here, it's the subject.
           The keyword "<code>_</code>" acts as a placeholder to say that we are not restricting the object.
         </p>
