@@ -222,29 +222,23 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <div style="clear:both;"></div>
 
         <p class="leadup">
-          A fixed shape map testing four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) against the shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) would look like
+          The four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) can be tested against the shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a query shape map.  (For readability, the IRIs in the examples below are rendered with prefixes.)
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper followup leadup">
-          <pre class="nohighlight shapemap"><span class="fullURL">inst:Alice</span> @ <span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Alice</span>@<span class="shape-name">school:Enrollee</span>,
+          <pre class="nohighlight shapemap fixed"><span class="fullURL">inst:Alice</span> @ <span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Alice</span>@<span class="shape-name">school:Enrollee</span>,
 <span class="fullURL">inst:Claire</span>@<span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Don</span>@<span class="shape-name">school:Enrollee</span></pre>
         </div>
-        <p class="followup">
-          yields a <span class="new">result shape map</span>, summarized below.  Implementations of ShEx may provide validation results in other formats and at different levels of verbosity.
-        </p>
-        <p class="leadup">
-          We could instead use triple patterns to select those nodes with a query shape map:
-        </p>
         <div id="example-school-enrolleeAge" class="example wrapper leadup followup">
-          <pre class="nohighlight shapemap"><span class="fullURL">{FOCUS, foaf:age, _}</span> @ <span class="shape-name">school:Enrollee</span></pre>
+          <pre class="nohighlight shapemap query"><span class="fullURL">{FOCUS, foaf:age, _}</span> @ <span class="shape-name">school:Enrollee</span></pre>
         </div>
         <p class="followup">
-          The keyword "<code>FOCUS</code>" identifies which part of the triple pattern is being selected; here, it's the subject.
-          The keyword "<code>_</code>" acts as a placeholder to say that we are not restricting the object.
+          The shape map keyword "<code>FOCUS</code>" identifies which part of the triple pattern is being selected (here, the subject), 
+          and the keyword "<code>_</code>" acts as a placeholder for any object.
         </p>
         <p>
-          This example would yield a validation result like:
+          This example yields a validation result in the form of a <span class="new">result shape map</span>.  (Note that the validation result, rendered here with prefixes for readability, may be provided in other formats and at different levels of verbosity according to implementation requirements.)
         </p>
-        <table class="example results">
+        <table class="nohighlight shapemap results">
           <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
           <tr class="pass alice  top lowlight1"><td>inst:Alice </td><td>school:Enrollee</td><td>pass</td><td class="noreason"></td></tr>
           <tr class="pass bob        lowlight1"><td>inst:Bob   </td><td>school:Enrollee</td><td>pass</td><td class="noreason"></td></tr>
