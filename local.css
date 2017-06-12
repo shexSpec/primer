@@ -179,15 +179,15 @@ table.results:before {
       .qualifier { font-weight: normal; display:none; }
 
 pre.shapemap.fixed:before {
-    content: "Fixed shapemap";
+    content: "Fixed Shape Map";
     width: 8em;
 }
 pre.shapemap.query:before {
-    content: "Query shapemap";
+    content: "Query Shape Map";
     width: 8em;
 }
 pre.shapemap.result:before {
-    content: "Query shapemap";
+    content: "Query Shape Map";
     width: 8em;
 }
 pre.schema.shexc:before {

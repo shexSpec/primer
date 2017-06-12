@@ -222,11 +222,13 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <div style="clear:both;"></div>
 
         <p class="leadup">
-          The four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) can be tested against the shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a query shape map.  (For readability, the IRIs in the examples below are rendered with prefixes.)
+          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  (For readability, the IRIs in the examples below are rendered with prefixes.)
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper followup leadup">
-          <pre class="nohighlight shapemap fixed"><span class="fullURL">inst:Alice</span> @ <span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Alice</span>@<span class="shape-name">school:Enrollee</span>,
-<span class="fullURL">inst:Claire</span>@<span class="shape-name">school:Enrollee</span>, <span class="fullURL">inst:Don</span>@<span class="shape-name">school:Enrollee</span></pre>
+          <pre class="nohighlight shapemap fixed"><span class="fullURL">inst:Alice</span> @ <span class="shape-name">school:Enrollee</span>, <br>
+          <span class="fullURL">inst:Alice</span>@<span class="shape-name">school:Enrollee</span>, <br> 
+          <span class="fullURL">inst:Claire</span> @ <span class="shape-name">school:Enrollee</span>, <br> 
+          <span class="fullURL">inst:Don</span> @ <span class="shape-name">school:Enrollee</span></pre>
         </div>
         <div id="example-school-enrolleeAge" class="example wrapper leadup followup">
           <pre class="nohighlight shapemap query"><span class="fullURL">{FOCUS, foaf:age, _}</span> @ <span class="shape-name">school:Enrollee</span></pre>
