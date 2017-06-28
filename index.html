@@ -2574,7 +2574,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
 <span class="fullURL">inst:User3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span></span> ;
-    <span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue4</span></span> ;
+    <span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
     <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.</pre>
             <div style="clear:both;"></div>
@@ -2686,12 +2686,12 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
     <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.
 
 <span class="fullURL">inst:Issue4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
-    <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> ;
-    <span class="reportedIssue lowlight1 top bot errorSite new"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:User4</span></span> .
+    <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>         <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
 <span class="fullURL">inst:User4</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
     <span class="name lowlight1 top bot errorSite"><span class="predicate">foaf:name</span>        <span class="string object">"Robert"</span></span> ;
     <span class="name lowlight1 top bot errorSite"><span class="predicate">foaf:name</span>        <span class="string object">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>        <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
+    <span class="reportedIssue lowlight1 top bot errorSite new"><span class="predicate">ex:reportedIssue</span> <span class="fullURL object">inst:Issue4</span></span> .
 </pre>
   </div>
             <div style="clear:both;"></div>
@@ -2849,7 +2849,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
     <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span> ;
     <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span> .
 
-<span class="foafknows lowlight2 top bot errorSite">inst:User2 <span class="predicate">foaf:knows</span></span> <span class="object">inst:User1</span> ;
+<span class="foafknows lowlight2 top bot errorSite">inst:User2 <span class="predicate">foaf:knows</span></span> <span class="fullURL">inst:User1</span> .
 </pre>
   </div>
           <div style="clear:both;"></div>
@@ -2876,7 +2876,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           <section id="extra-properties">
             <h4>Permitting Extra Properties</h4>
             <p>
-              If a shape contains a triple constraint with predicate P, the shape is said to "mention" P.  By default, for an RDF data node to match that shape, every outgoing arc from that node that uses a mentioned predicate must match a triple constraint in the shape.  This is called "closing a property".  The following example says that all data triples that are mapped to my:UserShape and that use the property rdf:type (in ShExC syntax: <span class="keyword">a</span>) must have either <span class="predicate"><span class="type">foaf:</span><span class="constant">Person</span></span> or ex:Employee as object.  The example data fails validation because ex:Manager is not a permitted object.
+              If a shape contains a triple constraint with predicate P, the shape is said to "mention" P.  By default, for an RDF data node to match that shape, every outgoing arc from that node that uses a mentioned predicate must match a triple constraint in the shape.  This is called "closing a property". The following example asserts that every <span class="shape-name">my:UserShape</span> must have two <span class="type">rdf:</span><span class="constant">type</span>s: <span class="type">ex:</span><span class="constant">Employee</span>  and <span class="type">foaf:</span><span class="constant">Person</span>. The example data fails validation because <span class="type">ex:</span><span class="constant">Manager</span> is not a permitted object.
             </p>
         <div id="extra-properties-example-1" class="example wrapper">
           <!-- ShExC example -->
@@ -2918,7 +2918,7 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
           <div style="clear:both;"></div>
       </div>
             <p style="margin-bottom: 0;">
-            The shape my:UserShape can be modified to accept any number of additional arcs with the predicate rdf:type by using the keyword <span class="keyword closed lowlight2 top bot">EXTRA</span> followed by the permitted predicate (here: <span class="keyword">a</span>).
+            The shape <span class="shape-name">my:UserShape</span> can be modified to accept any number of additional arcs with the predicate rdf:type by using the keyword <span class="keyword closed lowlight2 top bot">EXTRA</span> followed by the permitted predicate (here: <span class="keyword">a</span>).
             </p>
         <div id="extra-properties-example-2" class="example wrapper">
           <!-- ShExC example -->
@@ -3142,11 +3142,11 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-programmer lowlight2 top bot object"><span class="type">inst:</span><span class="constant">Programmer3</span></span> .
 
 <span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester2</span>              </span>
-<span class="hilight-tester lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object"><span class="type">xsd:</span><span class="constant">string</span></span> ;  </span>
+<span class="hilight-tester lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Uldis"</span> ;     </span>
 <span class="hilight-tester lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">role</span></span> <span class="object"><span class="type">ex:</span><span class="constant">testingRole</span></span> .</span>
 
 <span class="hilight-programmer lowlight2 top"><span class="type">inst:</span><span class="constant">Programmer3</span>                          </span>
-<span class="hilight-programmer lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object"><span class="type">xsd:</span><span class="constant">string</span></span> ;                  </span>
+<span class="hilight-programmer lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object string">"Liga"</span> ;                      </span>
 <span class="hilight-programmer lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .</span></pre>
               <div></div>
               <pre class="nohighlight instance turtle fail">
@@ -3156,11 +3156,11 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
   <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> <span class="hilight-tester lowlight2 bot object"><span class="type">inst:</span><span class="constant">Tester4</span></span> .
 
 <span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester2</span>              </span>
-<span class="hilight-tester lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="type">xsd:</span><span class="constant">string</span> ;  </span>
+<span class="hilight-tester lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object string">"Uldis"</span> ;     </span>
 <span class="hilight-tester lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">role</span></span> <span class="object"><span class="type">ex:</span><span class="constant">testingRole</span></span> .</span>
 
 <span class="hilight-tester lowlight2 top"><span class="type">inst:</span><span class="constant">Tester4</span>              </span>
-<span class="hilight-tester lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="type">xsd:</span><span class="constant">string</span> ;  </span>
+<span class="hilight-tester lowlight2    ">  <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="object string">"Liene"</span> ;     </span>
 <span class="hilight-tester lowlight2 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">role</span></span> <span class="object"><span class="type">ex:</span><span class="constant">testingRole</span></span> .</span></pre>
               </div>
 
