@@ -221,10 +221,28 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </div>
         <div style="clear:both;"></div>
 
-        <p>
-          A shape map testing four RDF data nodes (<span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, <span class="fullURL">inst:Don</span>) against the shape (<a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>) yields a <span class="new">validation result</span>, summarized below.  Implementations of ShEx may provide validation results in other formats and at different levels of verbosity.
+        <p class="leadup">
+          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  In the latter, the shape map keyword "<code>FOCUS</code>" identifies the node of the triple to be selected (here, the subject node), and the keyword "<code>_</code>" acts as a placeholder for any object.  For readability, the IRIs are rendered here with prefixes.
         </p>
-        <table class="example results">
+        <div id="example-school-enrolleeAge" class="example wrapper">
+          <pre class="nohighlight shapemap fixed" id="school-Enrollee-fixed-shapemap" style="float:left;">
+<span class="fullURL">inst:Alice</span> @ <span class="shape-name">school:Enrollee</span>,
+<span class="fullURL">inst:Bob</span> @ <span class="shape-name">school:Enrollee</span>,
+<span class="fullURL">inst:Claire</span> @ <span class="shape-name">school:Enrollee</span>,
+<span class="fullURL">inst:Don</span> @ <span class="shape-name">school:Enrollee</span>
+          </pre>
+        </div>
+        <div id="example-school-enrolleeAge" class="example wrapper" style="vertical-align: top;">
+          <pre class="nohighlight shapemap query" id="school-Enrollee-query-shapemap" style="float:left;">
+<span class="fullURL">{FOCUS, foaf:age, _}</span> @ <span class="shape-name">school:Enrollee</span>
+          </pre>
+        </div>
+        <p class="followup">
+        </p>
+        <p>
+          This example yields a validation result in the form of a <span class="new">result shape map</span>.  A validation result may be presented in different formats and with different levels of verbosity according to implementation requirements.
+        </p>
+        <table class="nohighlight example results">
           <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
           <tr class="pass alice  top lowlight1"><td>inst:Alice </td><td>school:Enrollee</td><td>pass</td><td class="noreason"></td></tr>
           <tr class="pass bob        lowlight1"><td>inst:Bob   </td><td>school:Enrollee</td><td>pass</td><td class="noreason"></td></tr>
@@ -278,7 +296,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           In the <a href="#simple-expressions-example-1">example above</a>, the RDF nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span> and <span class="fullURL">inst:Don</span> are tested against the ShEx shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>.
           In the validation process, each of four nodes in the RDF data is treated, in turn, as a <span class="new">focus node</span>, and triples involving that node are tested against a triple constraint which, in turn, includes the node constraint <span class="keyword">IRI</span>.
           This validation process is controlled by a <span class="new">shape map</span> that specifies how the constructs of a ShEx schema relate to the components of RDF data graphs.
-          There are many ways one may select nodes for validation, including queries, APIs, protocols, manual selection, or by the use of <a href="http://w3c.github.io/data-shapes/shacl/#targets">SHACL "target" properties</a>.
+          There are many ways to populate a shape map with nodes to be validated: through queries, APIs, protocols, or simple enumeration.
         </p>
         <p>
           ShEx may be serialized using any of three interchangeable concrete syntaxes: 
@@ -1621,7 +1639,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
             <tr class="pass user2     lowlight1"><td>inst:User2</td><td>my:UserShape</td><td>pass</td><td>Literals in Turtle have a default datatype of <span class="xsd-string lowlight2 top bot object"><span class="type">xsd:</span><span class="constant">string</span></span>.</td></tr>
             <tr class="fail user3     lowlight1"><td>inst:User3</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected exactly one <span class="foaf-name lowlight2 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span></span> arc.</td></tr>
             <tr class="fail user4 bot lowlight1"><td>inst:User4</td><td>my:UserShape</td><td>fail</td><td class="fail">Expected an <span class="xsd-string lowlight2 top bot object"><span class="type">xsd:</span><span class="constant">string</span></span>, not a <span class="xsd-anyURI lowlight2 top bot object"><span class="type">xsd:</span><span class="constant">anyURI</span></span>.</td></tr>
-          </tbody></table>          
+          </tbody></table>
 
           <p>
             The following regular expression conventions are used to specify cardinalities other than the default of "exactly one" (see the <a href="#simple-expressions-example-1">example in Quick Start</a>, with cardinality "one or two").

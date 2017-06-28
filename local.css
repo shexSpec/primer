@@ -75,6 +75,7 @@
       }
       pre.schema.shexc { background-color: #ECEBF7; border: thick solid #e4e3ec; }
       pre.schema.json { background-color: #ECEBF7; border: thick solid #DCDBE7; }
+      .example pre.shapemap { background-color: #eefcfa; border: thick solid #eaf8ea; }
       pre.instance { border: thick solid #f8f6ea; }
       pre.schema, pre.instance { vertical-align: top; }
       pre.instance.fail { border: thick solid #f8eaea; }
@@ -159,9 +160,22 @@ a.ref:visited { color: #a00550; font-family: monospace; }
       .pass { background-color: #cfc; }
       .fail, .example.wrapper .results .fail { background-color: #fcc; }
 
+.example::before {
+    text-transform: inherit !important; /* override this:  .example::before, .example > .marker {
+    text-transform: uppercase; */
+}
+
+.example .shapemap:before {
+    color: #333;
+    font-size: .6em;
+    border: 1px solid #bbb;
+    background: white;
+    display: block;
+    font-family: sans-serif;
+    padding: 0.2em 1em;
+}
+
 table.results:before {
-    content: "Validation Results";
-    width: 9.5em;
     color: #333;
     font-size: .6em;
     border: 1px solid #bbb;
@@ -174,9 +188,21 @@ table.results:before {
       
       .qualifier { font-weight: normal; display:none; }
 
+.example .shapemap.fixed:before {
+    content: "Fixed Shape Map";
+    width: 9em;
+}
+.example .shapemap.query:before {
+    content: "Query Shape Map";
+    width: 9em;
+}
+table.results:before {
+    content: "Result Shape Map";
+    width: 9.5em;
+}
 pre.schema.shexc:before {
     content: "Schema (ShExC)";
-    width: 8em;
+    width: 9em;
 }
 pre.schema.shexj:before {
     content: "Schema (ShExJ)";
@@ -188,11 +214,11 @@ pre.instance.turtle:before {
 }
 pre.instance.turtle.pass:before {
     content: "Passing Data (Turtle)";
-    width: 10em;
+    width: 11em;
 }
 pre.instance.turtle.fail:before {
     content: "Failing Data (Turtle)";
-    width: 10em;
+    width: 11em;
 }
 pre.schema:before, pre.instance:before {
     color: #333;
@@ -205,3 +231,12 @@ pre.schema:before, pre.instance:before {
     padding: 0.2em 1em;
 }
 .prefixes { display: none; }
+
+.leadup, .example.leadup {
+    margin-bottom: 0;
+}
+
+.followup, .example.followup {
+    margin-top: 0;
+}
+
