@@ -1981,9 +1981,9 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
           </div>
             <table class="example results">
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
               <tr class="pass"><td>&lt;http://hr.example/id#123&gt;</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail hilight-component top lowlight2"><td>inst:User3</td><td>my:UserShape</td><td>fail</td><td class="fail">Object of <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> does not match <span class="shape-name">my:EmployeeShape</span>.</td></tr>
+              <tr class="fail hilight-component top lowlight2"><td>inst:Issue1</td><td>my:IssueShape</td><td>fail</td><td class="fail">Object of <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> does not match <span class="shape-name">my:EmployeeShape</span>.</td></tr>
               <tr class="fail hilight-invComponent lowlight1 bot"><td>&lt;http://hr.example/id#abc&gt;</td><td>my:EmployeeShape</td><td>fail</td><td class="fail"><span class="fullURL">&lt;http://hr.example/id#abc&gt;</span> does not match regular expression.</td></tr>
             </tbody></table>
             <script type="text/javascript">
@@ -2566,11 +2566,10 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
   }
 }</pre>
             <pre class="nohighlight instance turtle pass">
-	<span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
-	<span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .</pre>
-
-<pre class="nohighlight instance turtle pass">
-	<span class="fullURL">inst:User3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
+<span class="issue1 lowllight1 top"><span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;</span>
+	<span class="state lowlight1 bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
+	
+<span class="fullURL">inst:User3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
 	<span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span></span> ;
 	<span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> ;
 	<span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
@@ -2578,10 +2577,10 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 </pre>
 
 <pre class="nohighlight instance turtle fail">
-	<span class="fail inst-User6 lowlight2 top"><span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;                     </span>
-	<span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span></span> ;              </span>
-	<span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ; </span>
-	<span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.  </span>
+<span class="inst-User2 lowlight1 top"><span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;                     </span>
+	<span class="name lowlight1"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span> ;              </span>
+	<span class="mbox lowlight1"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span> ; </span>
+	<span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> .  </span>
 </pre>
 
             <div style="clear:both;"></div>
@@ -3177,6 +3176,11 @@ prepareHighlight(["hilight-tester", "hilight-programmer"], "highlight2", "lowlig
             -->
             </script>
           </div>
+            <table class="example results">
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail"><td>inst:Issue1</td><td>my:IssueShape</td><td>fail</td><td class="fail">One of the Objects of <span class="predicate"><span class="type">ex:</span><span class="constant">reproducedBy</span></span> matches <span class="shape-name">my:TesterShape</span> but none matches <span class="shape-name">my:ProgrammerShape</span>.</td></tr>
+            </tbody></table>
         </div>
             <p id="partition-complexity">
             Note that ShEx uses a partitioning strategy to find a solution whereby triples in the data are assigned to triple constraints in the schema.
