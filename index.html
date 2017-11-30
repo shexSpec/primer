@@ -314,7 +314,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
           <dt id="vocab-shape-expression">shape expression</dt><dd>Shapes and node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
           <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
-          <dt id="vocab-shape">shape</dt><dd>A triple expression aginst which a focus node is tested to see of all arcs in or out matching predicates in the triple expression have appropriate number (cardinality) and values.</dd>
+          <dt id="vocab-shape">shape</dt><dd>A triple expression aginst which a focus node is tested to see of all incoming or outgoing arcs matching predicates in the triple expression have appropriate number (cardinality) and values.</dd>
           <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints which may be combined in groups or choices.</dd>
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint with a given predicate which is tested against RDF triples with that predicate and the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
@@ -336,7 +336,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       <section id="shex-essentials">
         <h2>ShEx Essentials</h2>
           <p>
-            This document uses a running example illustrated by the following graph in which an Issue which is submitted by some person and potentially assigned to the same person or someone else.
+            This document uses a running example illustrated by the following graph in which an Issue is submitted by some person and potentially assigned to the same person or someone else.
             These issues can have a status of <code>unassigned</code> or <code>assigned</code>.
           </p>
 <svg
@@ -2245,6 +2245,8 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
               An IRI orx string stem matches any IRI or string that starts with the stem.
               A language tag stem matches any literal with a language tag that starts with the stem.
               These are flagged as stems by appending a tilde ("<code>~</code>").
+              Note that this example contains an inverse constraint (<code>^ex:hasIssue</code>).
+              See <a href="#inverse-properties">inverse triple constraints</a>) for a detailed explanation of that concept.
             </p>
 
             <!-- ShExC example -->
@@ -2335,7 +2337,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
                 <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
                 <tr class="pass user2 top lowlight1"><td>inst:Issue1</td><td>my:IssueShape</td><td>pass</td><td class="noreason"></td></tr>
                 <tr class="fail user5 bot lowlight1"><td>inst:Issue2</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="type">ex:</span><span class="constant">done</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>.<br/>Excluded language tag for <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>.</td></tr>
-                <tr class="fail user5 bot lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="fullURL">my:Product3</span></span></span> not in range of <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span>.</td></tr>
+                <tr class="fail user5 bot lowlight1"><td>inst:Issue3</td><td>my:IssueShape</td><td>fail</td><td class="fail"><span class="done top bot lowlight2"><span class="object"><span class="fullURL">my:Product3</span></span></span> not in domain of <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span>.</td></tr>
               </tbody></table>
         </div>
 
@@ -2563,20 +2565,25 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
     }
   }
 }</pre>
-            <pre class="nohighlight instance turtle">
-<span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
-    <span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .
+            <pre class="nohighlight instance turtle pass">
+	<span class="fullURL">inst:Issue1</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">ex:</span><span class="constant">Issue</span></span> ;
+	<span class="state lowlight1 top bot"><span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span></span> .</pre>
 
-<span class="fail inst-User6 lowlight2 top"><span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;                     </span>
-<span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span></span> ;              </span>
-<span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ; </span>
-<span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.  </span>
+<pre class="nohighlight instance turtle pass">
+	<span class="fullURL">inst:User3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
+	<span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span></span> ;
+	<span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> ;
+	<span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
+	<span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.
+</pre>
 
-<span class="fullURL">inst:User3</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;
-    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string object">"Bob Smith"</span></span> ;
-    <span class="reportedIssue lowlight1 top bot new"><span class="predicate"><span class="type">ex:</span><span class="constant">reportedIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> ;
-    <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ;
-    <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.</pre>
+<pre class="nohighlight instance turtle fail">
+	<span class="fail inst-User6 lowlight2 top"><span class="fullURL">inst:User2</span> <span class="keyword predicate">a</span> <span class="object"><span class="type">foaf:</span><span class="constant">Person</span></span> ;                     </span>
+	<span class="fail inst-User6 lowlight2    ">    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span></span> ;              </span>
+	<span class="fail inst-User6 lowlight2    ">    <span class="mbox lowlight1 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bob@example.org&gt;</span></span> ; </span>
+	<span class="fail inst-User6 lowlight2 bot">    <span class="mbox lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rs@example.org&gt;</span> </span>.  </span>
+</pre>
+
             <div style="clear:both;"></div>
           </div>
             <table class="example results">
