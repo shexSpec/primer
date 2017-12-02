@@ -2864,7 +2864,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
         <tr class="fail hilight-component top lowlight2"><td>inst:User2</td><td>my:ClosedUserShape</td><td>fail</td><td class="fail">Unexpected <span class="rdftype lowlight1 top bot predicate"><span class="type">rdf:</span><span class="constant">type</span></span> and <span class="foafknows lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">knows</span></span></span> arcs.</td></tr>
       </tbody></table>
       <p>
-        The <span class="predicate"><span class="type">foaf:</span><span class="constant">knows</span></span> arc invalidates <span class="fullURL">inst:User2</span> but not <span class="fullURL">inst:User1</span> because <span class="keyword closed lowlight2 top bot">CLOSED</span> applies only to outgoing arcs.
+        The triple <span class="fullURL">inst:User2</span>  <span class="predicate"><span class="type">foaf:</span><span class="constant">knows</span> <span class="fullURL">inst:User1</span></span> makes <span class="fullURL">inst:User2</span> non-conformant with <span class="fullURL">my:ClosedUserShape</span>, but it does not make <span class="fullURL">inst:User1</span> non-conformant because <span class="keyword closed lowlight2 top bot">CLOSED</span> applies only to outgoing arcs.
       </p>
       <script type="text/javascript">
       <!--
