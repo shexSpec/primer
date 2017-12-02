@@ -2347,13 +2347,14 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         </div>
 
         <div id="sec-iri-range-exclusion">
-          <div class="namespace">
-          <div class="example wrapper">
-            <p>
+          <p>
             While IRI, string and language tag stems match any terms starting with the stem, one may wish to exclude specific terms or term stems.
             <span class="new">Stem exclusions</span> are expressed by following a stem with one or more <span class="new">exclusions</span>.
             An exclusion consists of a minus ("<code>-</code>") followed by an IRI, IRI stem, string, string stem, language tag, or language tag stem.
-            </p>
+          </p>
+
+          <div class="namespace">
+          <div class="example wrapper">
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
@@ -2427,12 +2428,13 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             -->
             </script>
           </div>
+
+          <p>
+            A period (<code>.</code>) can be used with exclusions to say that any term is permitted except the exclusions.
+          </p>
+
           <div class="namespace">
           <div class="example wrapper">
-            <p>
-              A period (<code>.</code>) can be used with exclusions to say that any term is permitted except the exclusions.
-            </p>
-
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
