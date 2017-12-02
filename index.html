@@ -3609,7 +3609,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           var data = e.parent().text();
           data = data.replace(/^\n +/, "").replace(/ *\n?try it\n? */g, "");
           e.attr("href", Interfaces[0] + [
-            "interface=simple",
+            "interface=minimal",
             "schema=" + encodeURIComponent(schema),
             "data=" + encodeURIComponent(data),
             "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
