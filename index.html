@@ -2239,15 +2239,21 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
         <div style="clear:both;"> </div>
 
+        <p>
+          A value set can also contain <span class="new">stems</span> for IRIs, strings and language tags.
+          An IRI orx string stem matches any IRI or string that starts with the stem.
+          A language tag stem matches any literal with a language tag that starts with the stem.
+          These are flagged as stems by appending a tilde ("<code>~</code>").
+        </p>
+
+        <p>
+          The last triple constraint in <span class="shape-name">my:IssueShape</span> below is an       <a href="#inverse-properties">inverse triple constraint</a>.
+          These are described in the next section.
+          This inverse triple constraint states that every <span class="shape-name">my:IssueShape</span> must have an incoming arc from one of two nodes: <span class="type">my:</span><span class="constant">Product1</span> or <span class="type">my:</span><span class="constant">Product2</span>.
+        </p>
+
         <div id="sec-iri-range">
           <div class="example wrapper">
-            <p>
-              A value set can also contain <span class="new">stems</span> for IRIs, strings and language tags.
-              An IRI orx string stem matches any IRI or string that starts with the stem.
-              A language tag stem matches any literal with a language tag that starts with the stem.
-              These are flagged as stems by appending a tilde ("<code>~</code>").
-            </p>
-
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
