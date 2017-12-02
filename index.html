@@ -21,7 +21,8 @@
       specStatus: "CG-DRAFT",
       shortName:  "shex-primer",
       latestVersion:  "http://shex.io/shex-primer/",
-      thisVersion:    "http://shex.io/shex-primer-20170327",
+      thisVersion:    "http://shex.io/shex-primer-20170713",
+      prevVersion:    "http://shex.io/shex-primer-20170327",
       edDraftURI: "https://shexspec.github.io/primer/",
       editors: [
       {   name:       "Thomas Baker",
@@ -336,7 +337,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
       <section id="shex-essentials">
         <h2>ShEx Essentials</h2>
           <p>
-            This document uses a running example illustrated by the following graph in which an Issue is submitted by some person and potentially assigned to the same person or someone else.
+            This document uses a running example illustrated by the following graph in which an Issue is submitted by some person and may be reproduced by the same person or someone else.
             These issues can have a status of <code>unassigned</code> or <code>assigned</code>.
           </p>
 <svg
@@ -1545,6 +1546,20 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
     "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
+  <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="lookit object">[<span class="string">"unassigned"</span> <span class="string">"assigned"</span>]</span>
+}</pre>
+          <pre class="nohighlight schema json table">
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ { "value": "unassigned" }, { "value": "assigned" } ]</span> } } } }</pre>
+          <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
+  <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="lookit object">[0 1]</span>
+}</pre>
+          <pre class="nohighlight schema json table">
+{ "my:IssueShape": { "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
+    "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ { "value": "0" }, { "value": "1" } ]</span> } } } }</pre>
           </dd>
           <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the value is described by another shape, e.g.
           <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
@@ -2238,16 +2253,23 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 }</pre>
         <div style="clear:both;"> </div>
 
+        <p>
+          A value set can also contain <span class="new">stems</span> for IRIs, strings and language tags.
+          An IRI orx string stem matches any IRI or string that starts with the stem.
+          A language tag stem matches any literal with a language tag that starts with the stem.
+          These are flagged as stems by appending a tilde ("<code>~</code>").
+          Note that this example contains an inverse constraint (<code>^ex:hasIssue</code>).
+          See <a href="#inverse-properties">inverse triple constraints</a>) for a detailed explanation of that concept.
+        </p>
+
+        <p>
+          The last triple constraint in <span class="shape-name">my:IssueShape</span> below is an       <a href="#inverse-properties">inverse triple constraint</a>.
+          These are described in the next section.
+          This inverse triple constraint states that every <span class="shape-name">my:IssueShape</span> must have an incoming arc from one of two nodes: <span class="type">my:</span><span class="constant">Product1</span> or <span class="type">my:</span><span class="constant">Product2</span>.
+        </p>
+
         <div id="sec-iri-range">
           <div class="example wrapper">
-            <p>
-              A value set can also contain <span class="new">stems</span> for IRIs, strings and language tags.
-              An IRI orx string stem matches any IRI or string that starts with the stem.
-              A language tag stem matches any literal with a language tag that starts with the stem.
-              These are flagged as stems by appending a tilde ("<code>~</code>").
-              Note that this example contains an inverse constraint (<code>^ex:hasIssue</code>).
-              See <a href="#inverse-properties">inverse triple constraints</a>) for a detailed explanation of that concept.
-            </p>
 
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
@@ -2342,13 +2364,14 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         </div>
 
         <div id="sec-iri-range-exclusion">
-          <div class="namespace">
-          <div class="example wrapper">
-            <p>
+          <p>
             While IRI, string and language tag stems match any terms starting with the stem, one may wish to exclude specific terms or term stems.
             <span class="new">Stem exclusions</span> are expressed by following a stem with one or more <span class="new">exclusions</span>.
             An exclusion consists of a minus ("<code>-</code>") followed by an IRI, IRI stem, string, string stem, language tag, or language tag stem.
-            </p>
+          </p>
+
+          <div class="namespace">
+          <div class="example wrapper">
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
@@ -2422,12 +2445,13 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
             -->
             </script>
           </div>
+
+          <p>
+            A period (<code>.</code>) can be used with exclusions to say that any term is permitted except the exclusions.
+          </p>
+
           <div class="namespace">
           <div class="example wrapper">
-            <p>
-              A period (<code>.</code>) can be used with exclusions to say that any term is permitted except the exclusions.
-            </p>
-
             <!-- ShExC example -->
             <pre class="nohighlight schema shexc" style="float:left;">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
@@ -3619,7 +3643,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           var data = e.parent().text();
           data = data.replace(/^\n +/, "").replace(/ *\n?try it\n? */g, "");
           e.attr("href", Interfaces[0] + [
-            "interface=simple",
+            "interface=minimal",
             "schema=" + encodeURIComponent(schema),
             "data=" + encodeURIComponent(data),
             "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
