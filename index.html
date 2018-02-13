@@ -2983,108 +2983,6 @@ prepareHighlight(["closed", "rdftype", "foafknows"], "highlight2", "lowlight2");
       </div>
           </section>
 
-      <section id="labeled-constraints">
-        <h3>Reusing Triple Expressions</h3>
-        <div class="namespace">
-          <p>
-            When multiple shapes share triple constraints in common, the triple constraints can be defined and labeled just once and referenced multiple times.
-            In the example below, both users and employees are expected to have a <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>.
-            <span class="shape-name">my:UserShape</span> declares <span class="shape-name entity lowlight1 top bot">my:entity</span> (with a dollar-sign prefix) and <span class="shape-name">my:EmployeeShape</span> includes it (with an ampersand prefix).
-          </p>
-
-          <div class="example wrapper">
-            <!-- ShExC example -->
-            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
-<span class="prefixes"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;http://ex.example/#&gt;</span>
-<span class="keyword">PREFIX</span> my: <span class="fullURL">&lt;http://my.example/#&gt;</span>
-<span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
-
-</span><span class="shape-name">my:UserShape</span> {
-  $<span class="shape-name entity lowlight1 top bot">my:entity</span> (
-    <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="keyword object">LITERAL</span> ;
-    <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="keyword object">IRI+</span>
-  ) ;
-  <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="keyword object">LITERAL</span>
-}
-
-<span class="shape-name">my:EmployeeShape</span> {
-  &amp;<span class="shape-name entity lowlight1 top bot">my:entity</span> ;
-  <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="keyword object">LITERAL</span>
-}
-</pre>
-
-            <!-- JSON example -->
-            <pre class="nohighlight schema json" style="float:left;">{ "@context": "http://www.w3.org/ns/shex.jsonld",
-  "type": "Schema", "shapes": [
-    { "id": "http://my.example/#UserShape",
-      "type": "Shape", "expression": {
-        "type": "EachOf",
-        "expressions": [
-          { "type": "EachOf", "expressions": [
-              { "type": "TripleConstraint",
-                "predicate": "http://xmlns.com/foaf/0.1/name",
-                "valueExpr": {
-                  "type": "NodeConstraint",
-                  "nodeKind": "literal" } },
-              { "type": "TripleConstraint", "min": 1, "max": -1,
-                "predicate": "http://xmlns.com/foaf/0.1/mbox",
-                "valueExpr": {
-                  "type": "NodeConstraint",
-                  "nodeKind": "iri" } }
-            ],
-            "id": <span class="shape-name entity lowlight1 top bot">"http://my.example/#entity"</span>
-          },
-          { "type": "TripleConstraint",
-            "predicate": "http://ex.example/#userID",
-            "valueExpr": {
-              "type": "NodeConstraint",
-              "nodeKind": "literal" } }
-        ] }
-    },
-    { "id": "http://my.example/#EmployeeShape",
-      "type": "Shape", "expression": {
-        "type": "EachOf",
-        "expressions": [
-          <span class="shape-name entity lowlight1 top bot">"http://my.example/#entity"</span>,
-          { "type": "TripleConstraint",
-            "predicate": "http://ex.example/#employeeID",
-            "valueExpr": {
-              "type": "NodeConstraint",
-              "nodeKind": "literal" } }
-        ] } }
-  ] }</pre>
-              <pre class="nohighlight instance turtle tryable">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
-<span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
-
-</span><span class="type">inst:</span><span class="constant">Employee2</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Bob"</span> ;
-  <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:bob&#64;example.com&gt;</span> ;
-  <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="string object">"e02"</span> .
-
-<span class="fail bot"><span class="type">inst:</span><span class="constant">Employee3</span> <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="string object">"e03"</span> .    </span>
-
-<span class="type">inst:</span><span class="constant">User1</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Alice"</span> ;
-  <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:alice&#64;example.com&gt;</span> ;
-  <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="string object">"u01"</span> .
-<a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
-            <div style="clear:both;"> </div>
-          </div>
-            <table class="example results">
-              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
-              <tr class="pass"><td>inst:Employee2</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
-              <tr class="fail hilight-component top lowlight2"><td>inst:Employee3</td><td>my:EmployeeShape</td><td>fail</td><td class="fail">Expected <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> arcs.</td></tr>
-              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
-            </tbody></table>
-
-          <script type="text/javascript">
-            <!--
-prepareHighlight(["entity"], "highlight2", "lowlight2");
-            -->
-          </script>
-        </div>
-      </section>
-
         <section id="repeated-properties">
           <h3>Repeated Properties</h3>
           <div class="namespace">
@@ -3465,6 +3363,279 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <!--     </section> -->
   </section>
 
+  <section id="reuse">
+    <h2>Shape Re-use</h2>
+    <p>
+      In good programming spirit, ShEx provides mechanisms to factor and re-use shapes or schemas.
+    </p>
+      <section id="labeled-constraints">
+        <h3>Reusing Triple Expressions</h3>
+        <div class="namespace">
+          <p>
+            When multiple shapes share triple constraints in common, the triple constraints can be defined and labeled just once and referenced multiple times.
+            In the example below, both users and employees are expected to have a <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>.
+            <span class="shape-name">my:UserShape</span> declares <span class="shape-name entity lowlight1 top bot">my:entity</span> (with a dollar-sign prefix) and <span class="shape-name">my:EmployeeShape</span> includes it (with an ampersand prefix).
+          </p>
+
+          <div class="example wrapper">
+            <!-- ShExC example -->
+            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
+<span class="prefixes"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> my: <span class="fullURL">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+
+</span><span class="shape-name">my:UserShape</span> {
+  $<span class="shape-name entity lowlight1 top bot">my:entity</span> (
+    <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="keyword object">LITERAL</span> ;
+    <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="keyword object">IRI+</span>
+  ) ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="keyword object">LITERAL</span>
+}
+
+<span class="shape-name">my:EmployeeShape</span> {
+  &amp;<span class="shape-name entity lowlight1 top bot">my:entity</span> ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="keyword object">LITERAL</span>
+}
+</pre>
+
+            <!-- JSON example -->
+            <pre class="nohighlight schema json" style="float:left;">{ "@context": "http://www.w3.org/ns/shex.jsonld",
+  "type": "Schema", "shapes": [
+    { "id": "http://my.example/#UserShape",
+      "type": "Shape", "expression": {
+        "type": "EachOf",
+        "expressions": [
+          { "type": "EachOf", "expressions": [
+              { "type": "TripleConstraint",
+                "predicate": "http://xmlns.com/foaf/0.1/name",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "nodeKind": "literal" } },
+              { "type": "TripleConstraint", "min": 1, "max": -1,
+                "predicate": "http://xmlns.com/foaf/0.1/mbox",
+                "valueExpr": {
+                  "type": "NodeConstraint",
+                  "nodeKind": "iri" } }
+            ],
+            "id": <span class="shape-name entity lowlight1 top bot">"http://my.example/#entity"</span>
+          },
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#userID",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "literal" } }
+        ] }
+    },
+    { "id": "http://my.example/#EmployeeShape",
+      "type": "Shape", "expression": {
+        "type": "EachOf",
+        "expressions": [
+          <span class="shape-name entity lowlight1 top bot">"http://my.example/#entity"</span>,
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#employeeID",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "literal" } }
+        ] } }
+  ] }</pre>
+              <pre class="nohighlight instance turtle tryable">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+
+</span><span class="type">inst:</span><span class="constant">Employee2</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Bob"</span> ;
+  <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:bob&#64;example.com&gt;</span> ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="string object">"e02"</span> .
+
+<span class="fail bot"><span class="type">inst:</span><span class="constant">Employee3</span> <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="string object">"e03"</span> .    </span>
+
+<span class="type">inst:</span><span class="constant">User1</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Alice"</span> ;
+  <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:alice&#64;example.com&gt;</span> ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="string object">"u01"</span> .
+<a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
+            <div style="clear:both;"> </div>
+          </div>
+            <table class="example results">
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+              <tr class="pass"><td>inst:Employee2</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
+              <tr class="fail hilight-component top lowlight2"><td>inst:Employee3</td><td>my:EmployeeShape</td><td>fail</td><td class="fail">Expected <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> arcs.</td></tr>
+              <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+            </tbody></table>
+
+          <script type="text/javascript">
+            <!--
+prepareHighlight(["entity"], "highlight2", "lowlight2");
+            -->
+          </script>
+        </div>
+      </section>
+
+    <section id="import">
+      <h3>Import</h3>
+      <div class="namespace">
+        <p>
+          The <span class="keyword">IMPORT</span> directive allows the importing schema to reference shape and triple expressions in imported schemas.
+          In the schema above, <span class="shape-name">my:EmployeeShape</span> references a triple expression (<span class="shape-name entity lowlight1 top bot">my:entity</span>) in <span class="shape-name">my:UserShape</span>.
+          If <span class="shape-name">my:UserShape</span> were defined in another schema, the schema containing <span class="shape-name">my:EmployeeShape</span> could import it and still reference <span class="shape-name">my:UserShape</span> and <span class="shape-name entity lowlight1 top bot">my:entity</span>.
+          In the example below, <span class="shape-name">my:UserShape</span> is at the URL <span class="fullURL">&lt;http://schema.example/schemas/UserShape&gt;</span>.
+        </p>
+
+        <div class="example wrapper">
+          <!-- ShExC example -->
+          <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
+<span class="prefixes"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> my: <span class="fullURL">&lt;http://my.example/#&gt;</span>
+<span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+
+</span><span class="keyword">IMPORT</span> <span class="fullURL">&lt;http://schema.example/UserShape&gt;</span>
+
+<span class="shape-name">my:EmployeeShape</span> {
+  &amp;<span class="shape-name entity lowlight1 top bot">my:entity</span> ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="keyword object">LITERAL</span>
+}
+</pre>
+
+            <!-- JSON example -->
+          <pre class="nohighlight schema json" style="float:left;">{ "@context": "http://www.w3.org/ns/shex.jsonld",
+  "type": "Schema", "imports" [<span class="fullURL">"http://schema.example/UserShape"</span>],
+  "shapes": [
+    { "id": "http://my.example/#EmployeeShape",
+      "type": "Shape", "expression": {
+        "type": "EachOf",
+        "expressions": [
+          "http://my.example/#entity",
+          { "type": "TripleConstraint",
+            "predicate": "http://ex.example/#employeeID",
+            "valueExpr": {
+              "type": "NodeConstraint",
+              "nodeKind": "literal" } }
+        ] } }
+  ] }</pre>
+          <pre class="nohighlight instance turtle tryable">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
+
+</span><span class="type">inst:</span><span class="constant">Employee2</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Bob"</span> ;
+  <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:bob&#64;example.com&gt;</span> ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="string object">"e02"</span> .
+
+<span class="fail bot"><span class="type">inst:</span><span class="constant">Employee3</span> <span class="predicate"><span class="type">ex:</span><span class="constant">employeeID</span></span> <span class="string object">"e03"</span> .    </span>
+
+<span class="type">inst:</span><span class="constant">User1</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Alice"</span> ;
+  <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:alice&#64;example.com&gt;</span> ;
+  <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="string object">"u01"</span> .
+<a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
+          <div style="clear:both;"> </div>
+        </div>
+        <table class="example results">
+          <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+          <tr class="pass"><td>inst:Employee2</td><td>my:EmployeeShape</td><td>pass</td><td class="noreason"></td></tr>
+          <tr class="fail hilight-component top lowlight2"><td>inst:Employee3</td><td>my:EmployeeShape</td><td>fail</td><td class="fail">Expected <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> and <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> arcs.</td></tr>
+          <tr class="pass"><td>inst:User1</td><td>my:UserShape</td><td>pass</td><td class="noreason"></td></tr>
+        </tbody></table>
+
+        <script type="text/javascript">
+          <!--
+prepareHighlight(["entity"], "highlight2", "lowlight2");
+          -->
+        </script>
+        </div>
+    </section>
+    <section id="restriction">
+      <h3>Restriction</h3>
+      <div class="namespace">
+        <p>
+          It is common to take a 
+        </p>
+        <p>
+          The declaration that <span class="shape-name">my:@@Derived</span> <span class="keyword">RESTRICTS</span> <span class="shape-name">my:@@Base</span> has the same effect as <span class="keyword">AND</span>ing <span class="shape-name">my:@@Derived</span> with <span class="shape-name">my:@@Base</span> except that <span class="shape-name">my:@@Derived</span> is said to <code>inherit</code> from <span class="shape-name">my:@@Base</span>, as described in the next section
+        </p>
+      </div>
+    </section>
+    <section id="inheritance">
+      <h3>Inheritance</h3>
+      <div class="namespace">
+      </div>
+    </section>
+    <section id="extension">
+      <h3>Extension</h3>
+      <div class="namespace">
+        <p>
+          Frequently, we want to describe a data structure as being like another with some additional properties.
+        </p>
+        <div class="example wrapper">
+          <!-- ShExC example -->
+          <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
+PREFIX ex: &lt;http://ex.example/#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+
+&lt;IssueShape&gt; {
+  ex:reportedBy @&lt;PersonShape&gt;,
+  ex:reproducedBy @&lt;EmployeeShape&gt;?
+}
+
+ABSTRACT &lt;PersonShape&gt; {
+  (  foaf:name xsd:string
+   | foaf:givenName xsd:string+,
+     foaf:familyName xsd:string),
+  foaf:mbox IRI
+}
+
+&lt;UserShape&gt; &amp;&lt;PersonShape&gt; {
+  ex:representative @&lt;EmployeeShape&gt;
+}
+
+ABSTRACT &lt;RepShape&gt; {
+  foaf:phone IRI+
+}
+
+&lt;EmployeeShape&gt; &amp;&lt;PersonShape&gt; &amp;&lt;RepShape&gt; {
+}
+</pre>
+
+            <!-- JSON example -->
+          <pre class="nohighlight schema json" style="float:left;"></pre>
+          <pre class="nohighlight instance turtle tryable">
+PREFIX ex: &lt;http://ex.example/#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+&lt;Issue1&gt;
+    ex:reportedBy   &lt;User2&gt; ;
+    ex:reproducedBy &lt;Thompson.J&gt; ;
+.
+
+&lt;User2&gt;
+    foaf:givenName "Bob" ;
+    foaf:familyName "Smith" ;
+    foaf:mbox &lt;mail:bob@example.org&gt; ;
+    ex:representative &lt;Thompson.J&gt;
+.
+
+&lt;Thompson.J&gt;
+    foaf:givenName "Joe", "Joseph" ;
+    foaf:familyName "Thompson" ;
+    foaf:phone &lt;tel:+456&gt; ;
+    foaf:mbox &lt;mail:joe@example.org&gt;
+.
+<a class="tryit" href="" data-shape-map="&lt;Issue1&gt;@&lt;IssueShape&gt;">try it</a></pre>
+          <div style="clear:both;"> </div>
+        </div>
+      </div>
+      <section id="onSE">
+        <h3>shape expressions on partitions</h3>
+        <div class="namespace">
+          <p>
+             <span class="keyword">ON SHAPE EXPRESSION</span> (or more succinctly, just <span class="keyword">ON</span>)
+          </p>
+        </div>
+      </section>
+    </section>
+  </section>
+
       <section id="relationship">
         <h2>Relationship of ShEx to RDF and OWL</h2>
     	<p>
@@ -3611,7 +3782,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
       <!--
         Interfaces = [
 //          "http://localhost/shexSpec/shex.js/doc/shex-simple.html?"
-          "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?"
+          "http://rawgit.com/shexSpec/shex.js/on-shape-expression/doc/shex-simple.html?"
         ];
         window.addEventListener("load", function() {
           setTimeout(() => { // respecIsReady not yet defined in Chrome.
