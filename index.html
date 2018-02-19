@@ -3567,60 +3567,60 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
         <div class="example wrapper">
           <!-- ShExC example -->
           <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
-PREFIX ex: &lt;http://ex.example/#&gt;
-PREFIX foaf: &lt;http://xmlns.com/foaf/&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
-PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
-
-&lt;IssueShape&gt; {
-  ex:reportedBy @&lt;PersonShape&gt;,
-  ex:reproducedBy @&lt;EmployeeShape&gt;?
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="shape-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="shape-name">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
+<span class="keyword">PREFIX</span> xsd: <span class="shape-name">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> rdf: <span class="shape-name">&lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>&gt;</span><span class="comment">
+</span>
+</span><span class="shape-name">&lt;IssueShape&gt;</span> {
+  <span class="type">ex:</span><span class="constant">reportedBy</span> <span class="shape-name">@&lt;PersonShape&gt;</span>,
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span><span class="keyword">?</span>
 }
 
-ABSTRACT &lt;PersonShape&gt; {
-  (  foaf:name xsd:string
-   | foaf:givenName xsd:string+,
-     foaf:familyName xsd:string),
-  foaf:mbox IRI
+<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;PersonShape&gt;</span> {
+  (  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span>
+   | <span class="type">foaf:</span><span class="constant">givenName</span> <span class="type">xsd:</span><span class="constant">string</span><span class="keyword">+</span>,
+     <span class="type">foaf:</span><span class="constant">familyName</span> <span class="type">xsd:</span><span class="constant">string</span>),
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI</span>
 }
 
-&lt;UserShape&gt; &amp;&lt;PersonShape&gt; {
-  ex:representative @&lt;EmployeeShape&gt;
+<span class="shape-name">&lt;UserShape&gt;</span> <span class="keyword">EXTENDS</span> <span class="shape-name">&lt;PersonShape&gt;</span> {
+  <span class="type">ex:</span><span class="constant">representative</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span>
 }
 
-ABSTRACT &lt;RepShape&gt; {
-  foaf:phone IRI+
+<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;RepShape&gt;</span> {
+  <span class="type">foaf:</span><span class="constant">phone</span> <span class="keyword">IRI+</span>
 }
 
-&lt;EmployeeShape&gt; &amp;&lt;PersonShape&gt; &amp;&lt;RepShape&gt; {
-}
-</pre>
+<span class="shape-name">&lt;EmployeeShape&gt;</span>
+  <span class="keyword">EXTENDS</span> <span class="shape-name">&lt;PersonShape&gt;</span> <span class="shape-name">&lt;RepShape&gt;</span> {
+}</pre>
 
             <!-- JSON example -->
           <pre class="nohighlight schema json" style="float:left;"></pre>
           <pre class="nohighlight instance turtle tryable">
-PREFIX ex: &lt;http://ex.example/#&gt;
-PREFIX foaf: &lt;http://xmlns.com/foaf/&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
+<span class="keyword">PREFIX</span> xsd: <span class="fullURL">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
+</span>
+</span><span class="fullURL">&lt;Issue1&gt;</span>
+    <span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="fullURL">&lt;User2&gt;</span> ;
+    <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="fullURL">&lt;Thompson.J&gt;</span> ;
+<span class="keyword">.</span>
 
-&lt;Issue1&gt;
-    ex:reportedBy   &lt;User2&gt; ;
-    ex:reproducedBy &lt;Thompson.J&gt; ;
-.
+<span class="fullURL">&lt;User2&gt;</span>
+    <span class="type">foaf:</span><span class="constant">givenName</span> <span class="string">"Bob"</span> ;
+    <span class="type">foaf:</span><span class="constant">familyName</span> <span class="string">"Smith"</span> ;
+    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:bob@example.org&gt;</span> ;
+    <span class="type">ex:</span><span class="constant">representative</span> <span class="fullURL">&lt;Thompson.J&gt;</span>
+<span class="keyword">.</span>
 
-&lt;User2&gt;
-    foaf:givenName "Bob" ;
-    foaf:familyName "Smith" ;
-    foaf:mbox &lt;mail:bob@example.org&gt; ;
-    ex:representative &lt;Thompson.J&gt;
-.
-
-&lt;Thompson.J&gt;
-    foaf:givenName "Joe", "Joseph" ;
-    foaf:familyName "Thompson" ;
-    foaf:phone &lt;tel:+456&gt; ;
-    foaf:mbox &lt;mail:joe@example.org&gt;
-.
+<span class="fullURL">&lt;Thompson.J&gt;</span>
+    <span class="type">foaf:</span><span class="constant">givenName</span> <span class="string">"Joe"</span>, <span class="string">"Joseph"</span> ;
+    <span class="type">foaf:</span><span class="constant">familyName</span> <span class="string">"Thompson"</span> ;
+    <span class="type">foaf:</span><span class="constant">phone</span> <span class="fullURL">&lt;tel:+456&gt;</span> ;
+    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:joe@example.org&gt;</span>
+<span class="keyword">.</span>
 <a class="tryit" href="" data-shape-map="&lt;Issue1&gt;@&lt;IssueShape&gt;">try it</a></pre>
           <div style="clear:both;"> </div>
         </div>
