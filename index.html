@@ -38,7 +38,10 @@
       wgPublicList: "public-shex"
     };
     </script>
-    <script src="jquery.min.js" type= "text/javascript"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <script src="jquery.min.js" type= "text/javascript"></script> -->
     <script type="text/javascript"><!--
 function prepareHighlight (highlightables, onClass, offClass, slide) {
   if (slide === undefined)
@@ -143,14 +146,14 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
 <span class="fullURL">inst:Student1</span> <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span>
   <span class="fullURL object">inst:Person2</span>, <span class="fullURL object">inst:Person3</span> .
-<a class="tryit" href="" data-shape-map="inst:Student1@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Student1@&lt;http://school.example/#Enrollee&gt;"/></pre>
           <pre class="nohighlight instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://example.com/users/&gt;</span>
 
 <span class="fullURL">inst:Student2</span> <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span>
   <span class="fullURL object">inst:Person4</span>, <span class="fullURL object">inst:Person5</span>, <span class="fullURL object">inst:Person6</span> .
-<a class="tryit" href="" data-shape-map="inst:Student2@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Student2@&lt;http://school.example/#Enrollee&gt;"/></pre>
         </div>
         <p>
         The next example adds a triple constraint on the data predicate <span class="predicate"><span class="type">foaf:</span><span class="constant">age</span></span>, which must have a value matching the node constraint <span class="shape-name">school:enrolleeAge</span>, which is cited in the triple constraint by reference, indicated by the '@' symbol.
@@ -206,7 +209,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
 <span class="bob    lowlight1 top"><span class="fullURL">inst:Bob</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">age</span></span> <span class="object">15</span> ;                       </span>
 <span class="bob    lowlight1 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span> <span class="fullURL object">inst:Person4</span> .              </span>
-<a class="tryit" href="" data-shape-map="inst:Alice@&lt;http://school.example/#Enrollee&gt;,inst:Bob@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Alice@&lt;http://school.example/#Enrollee&gt;,inst:Bob@&lt;http://school.example/#Enrollee&gt;"/></pre>
 
             <pre class="nohighlight instance turtle fail tryable">
 <span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -218,7 +221,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="claire lowlight1 bot">  <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span> <span class="fullURL object">inst:Person5</span> .               </span>
 
 <span class="don    lowlight1 top bot"><span class="fullURL">inst:Don</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">age</span></span> <span class="object">14</span> .                        </span>
-<a class="tryit" href="" data-shape-map="inst:Claire@&lt;http://school.example/#Enrollee&gt;,inst:Don@&lt;http://school.example/#Enrollee&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Claire@&lt;http://school.example/#Enrollee&gt;,inst:Don@&lt;http://school.example/#Enrollee&gt;"/></pre>
         </div>
         <div style="clear:both;"></div>
 
@@ -1630,7 +1633,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
 <span class="user2 lowlight1 top"><span class="fullURL">inst:User2</span>                              </span>
 <span class="user2 lowlight1 bot">    <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>  <span class="string top bot object">"Bob Smith"</span></span> .            </span>
-<a class="tryit" href="" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;"/></pre>
 
           <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
@@ -1644,7 +1647,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 
 <span class="user4 lowlight1 top"><span class="fullURL">inst:User4</span>                              </span>
 <span class="user4 lowlight1 bot">    <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>  <span class="string top bot object">"Bob Smith"^^<span class="xsd-anyURI lowlight2 top bot errorSite">xsd:anyURI</span></span> .</span>
-<a class="tryit" href="" data-shape-map="inst:User3@&lt;http://my.example/#UserShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:User3@&lt;http://my.example/#UserShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;"/></pre>
 
           </div>
           <div style="clear:both;"> </div>
@@ -1769,7 +1772,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 top object"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span></span></span> ;
     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 bot object"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> </span></span>.
-<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;"/></pre>
           <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://ex.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
@@ -1783,7 +1786,7 @@ prepareHighlight(["user1", "user2", "user3", "user4"], "highlight1", "lowlight1"
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"Bob Smith"</span>, <span class="string top bot errorSite object">"Robert Smith"</span></span> ;
     <span class="mbox lowlight1 top"><span class="oneOrMore lowlight2 top"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 top object"><span class="fullURL">&lt;mailto:bob@example.org&gt;</span></span></span> ;
     <span class="mbox lowlight1 bot"><span class="oneOrMore lowlight2 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span></span>       <span class="IRI lowlight2 bot object"><span class="fullURL">&lt;mailto:rs@example.org&gt;</span> </span></span>.
-<a class="tryit" href="" data-shape-map="inst:Issue3@&lt;http://my.example/#IssueShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue3@&lt;http://my.example/#IssueShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;"/></pre>
       </div>
           <div style="clear:both;"></div>
       <table class="example results">
@@ -1871,7 +1874,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 </span><span class="fullURL">inst:Issue1</span> <span class="keyword">a</span> <span class="type">ex:</span><span class="constant">Issue</span> ;
     <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span>        <span class="object"><span class="type">ex:</span><span class="constant">unassigned</span></span> ;
     <span class="predicate"><span class="type">ex:</span><span class="constant">reportedBy</span></span>   <span class="string object">"Bob Smith"</span> .
-<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,'Bob Smith'@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,'Bob Smith'@&lt;http://my.example/#UserShape&gt;"/></pre>
         </div>
         <div style="clear:both;"></div>
 
@@ -1978,7 +1981,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 <span class="fullURL hilight-reproducedBy lowlight2 top bot">&lt;http://hr.example/id#123&gt;</span>                  
   <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string top bot object">"Bob Smith"</span> ;                   
   <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .  
-<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#123&gt;@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#123&gt;@&lt;http://my.example/#EmployeeShape&gt;"/></pre>
               <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
@@ -1991,7 +1994,7 @@ prepareHighlight(["state", "reportedBy", "name", "mbox"], "highlight1", "lowligh
 <span class="fullURL hilight-reproducedBy lowlight2 top bot">&lt;http://hr.example/id<span class="errorSite">#abc</span>&gt;</span>                  
   <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string top bot object">"Bob Smith"</span> ;                   
   <span class="predicate"><span class="type">ex:</span><span class="constant">department</span></span> <span class="object"><span class="type">ex:</span><span class="constant">ProgrammingDepartment</span></span> .  
-<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#abc&gt;@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;,&lt;http://hr.example/id#abc&gt;@&lt;http://my.example/#EmployeeShape&gt;"/></pre>
             <div style="clear:both;"></div>
           </div>
             <table class="example results">
@@ -2161,7 +2164,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <span class="gname lowlight1 bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">givenName</span></span>  <span class="string top bot object">"Paris"</span> </span>;
     <span class="fname lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">familyName</span></span> <span class="string top bot object">"Moses"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:rpmoses@example.org&gt;</span></span> .
-<a class="tryit" href="" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:User1@&lt;http://my.example/#UserShape&gt;,inst:User2@&lt;http://my.example/#UserShape&gt;"/></pre>
           <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">foaf:</span> <span class="fullURL">&lt;http://xmlns.com/foaf/0.1/&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
@@ -2180,7 +2183,7 @@ prepareHighlight(["hilight-reproducedBy", "hilight-assignedTo"], "highlight2", "
     <span class="name lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span>       <span class="string top bot object">"A"</span></span> ;
     <span class="gname lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">givenName</span></span>  <span class="string top bot object">"B"</span></span> ;
     <span class="mbox lowlight1 top bot"><span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span>       <span class="fullURL object">&lt;mailto:bobs@example.org&gt;</span></span> .
-<a class="tryit" href="" data-shape-map="inst:User3@&lt;http://my.example/#UserShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;inst:User5@&lt;http://my.example/#UserShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:User3@&lt;http://my.example/#UserShape&gt;,inst:User4@&lt;http://my.example/#UserShape&gt;inst:User5@&lt;http://my.example/#UserShape&gt;"/></pre>
 
           <div style="clear:both;"></div>
       </div>
@@ -2335,7 +2338,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 </span><span class="fullURL">inst:Issue1</span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>   <span class="object"><span class="type">excodes:</span><span class="constant">resolved</span></span> ;
             <span class="predicate"><span class="type">ex:</span><span class="constant">mood</span></span>     <span class="string object">"hungry"@en-gb</span> .
 <span class="fullURL">my:Product2 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue1</span></span> .
-<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;"/></pre>
               <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
@@ -2349,7 +2352,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 
 <span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue3</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="object"><span class="type">auxterms:</span><span class="constant">done</span></span></span>.
 <span class="status lowlight1 top bot"><span class="fullURL errorSite">my:Product3 <span class="predicate"><span class="type">ex:</span><span class="constant">hasIssue</span></span> <span class="fullURL object">inst:Issue3</span></span></span> .
-<a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;"/></pre>
             <div style="clear:both;"></div>
           </div>
               <table class="example results">
@@ -2425,7 +2428,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 <span class="fail user4 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue4</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="min lowlight2 top bot"><span class="med_ top bot errorSite object">auxterms:med_sniffles</span></span></span>.
 <span>                                         </span>
 <span class="fail user5 status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue5</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="min lowlight2 top bot"><span class="done top bot errorSite object">ex:done</span></span></span>.
-<a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;,inst:Issue4@&lt;http://my.example/#IssueShape&gt;,inst:Issue5@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;,inst:Issue3@&lt;http://my.example/#IssueShape&gt;,inst:Issue4@&lt;http://my.example/#IssueShape&gt;,inst:Issue5@&lt;http://my.example/#IssueShape&gt;"/></pre>
             <div style="clear:both;"></div>
           </div>
               <table class="example results">
@@ -2493,7 +2496,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
 </span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue1</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="object"><span class="type">ex:</span><span class="constant">random</span></span></span> .
-<a class="tryit" href="" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue1@&lt;http://my.example/#IssueShape&gt;"/></pre>
               <pre class="nohighlight instance turtle fail tryable">
 <span class="prefixes"><span class="keyword">PREFIX</span> <span class="type">ex:</span> <span class="fullURL">&lt;http://a.example/#&gt;</span>
 <span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
@@ -2502,7 +2505,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 <span class="keyword">PREFIX</span> <span class="type">inst:</span> <span class="fullURL">&lt;http://inst.example/#&gt;</span>
 
 </span><span class="status lowlight1 top bot"><span class="user lowlight2 top bot"><span class="fullURL">inst:Issue2</span></span> <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span>  <span class="min"><span class="errorSite object">excodes:assigned</span></span></span>.
-<a class="tryit" href="" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Issue2@&lt;http://my.example/#IssueShape&gt;"/></pre>
             <div style="clear:both;"></div>
           </div>
             <table class="example results">
@@ -3452,7 +3455,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
 <span class="type">inst:</span><span class="constant">User1</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Alice"</span> ;
   <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:alice&#64;example.com&gt;</span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="string object">"u01"</span> .
-<a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;"/></pre>
             <div style="clear:both;"> </div>
           </div>
             <table class="example results">
@@ -3525,7 +3528,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
 <span class="type">inst:</span><span class="constant">User1</span> <span class="predicate"><span class="type">foaf:</span><span class="constant">name</span></span> <span class="string object">"Alice"</span> ;
   <span class="predicate"><span class="type">foaf:</span><span class="constant">mbox</span></span> <span class="fullURL object">&lt;mailto:alice&#64;example.com&gt;</span> ;
   <span class="predicate"><span class="type">ex:</span><span class="constant">userID</span></span> <span class="string object">"u01"</span> .
-<a class="tryit" href="" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="inst:Employee2@&lt;http://my.example/#EmployeeShape&gt;,inst:Employee3@&lt;http://my.example/#EmployeeShape&gt;"/></pre>
           <div style="clear:both;"> </div>
         </div>
         <table class="example results">
@@ -3621,7 +3624,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
     <span class="type">foaf:</span><span class="constant">phone</span> <span class="fullURL">&lt;tel:+456&gt;</span> ;
     <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:joe@example.org&gt;</span>
 <span class="keyword">.</span>
-<a class="tryit" href="" data-shape-map="&lt;Issue1&gt;@&lt;IssueShape&gt;">try it</a></pre>
+<span class="tryit" data-shape-map="&lt;Issue1&gt;@&lt;IssueShape&gt;"/></pre>
           <div style="clear:both;"> </div>
         </div>
       </div>
@@ -3710,106 +3713,16 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
             </tr>
           </table>
       </section>
-        <script type="application/javascript">
-  var bodyKeypressCallbacks = {};
 
-  /* a form like
-        <form id="langOptions" action="">View as: <input type="radio" name="presLang" value="turtle" checked="checked">ShExC (press 'c')</input> <input type="radio" name="presLang" value="json">JSON (press 'j')</input> .</form>
-  controls display of sections like
-  <pre class="nohighlight schema shexc">...</pre>
-  <pre class="nohighlight schema json">...</pre>
-   */
-  [
-    { lookIn: ".schema", form: "#langOptions", radioName: "presLang", keys:
-      { 74: "json", 106: "json", 67: "shexc", 99: "shexc" }
-    }
-  ].forEach(function (x) {
-
-    /* In lookIn, reveal classes selected by radioName; hide others.
-     */
-    function revealClass (lookIn, form, radioName) {
-            $(lookIn+"."+$(form+" input[name="+radioName+"]").not(":checked").val()).hide();
-            $(lookIn+"."+$(form+" input[name="+radioName+"]" +    ":checked").val()).show();
-          }
-    /* Look in all lookIn containers for the height different of from and to targets.
-     */
-          function adjustHeight (lookIn, from, to) {
-            var visibleTop = $(window).scrollTop();
-            var all = $(lookIn+"."+from); // all containers of from (and presumably, to)
-            var adj = 0;
-            for (var i = 0; i < all.length; ++i) {
-              var elt = all.slice(i, i+1);
-              if (elt.offset().top >= visibleTop) // stop when we pass the current scroll top.
-    break;
-              adj += elt.siblings("."+to).height() - elt.height();
-            }
-            $(window).scrollTop($(window).scrollTop() + adj); // move the scroll top.
-          }
-
-          var inputs = $(x.form + " input[name="+x.radioName+"]");
-    // Listen for checkbox changes.
-          inputs.change(function() {revealClass(x.lookIn, x.form, x.radioName);})
-    // Show only the currently selected class.
-          revealClass(x.lookIn, x.form, x.radioName);
-    // Assign callbacks the the associated keycodes.
-    Object.keys(x.keys).forEach(function (k) {
-      bodyKeypressCallbacks[k] = function () {
-    var sourceClass = $("input[name="+x.radioName+"]:checked", x.form).val();
-    var targetClass = x.keys[k];
-        // If the corresponding radio button isn't already selected,
-              if(!inputs.filter("[value="+targetClass+"]").is(":checked")) {
-    // adjust the height from the current class to the new class;
-    adjustHeight(x.lookIn, sourceClass, targetClass);
-    // set it as "checked";
-    inputs.filter("[value="+targetClass+"]").prop("checked", true); // .change() did nothing
-    // swap which is displayed.
-    revealClass(x.lookIn, x.form, x.radioName);
-    updateAllTryItLinks(targetClass);
-              }
-        return false;
-      };
-    });
-  });
-        $("html > body").keypress(function (evt) {
-          if (evt.ctrlKey)
-            return true; // don't interfere with browser control keys.
-    if (evt.which in bodyKeypressCallbacks)
-      return bodyKeypressCallbacks[evt.which]();
-    return true;
-        });
-        </script>
-    <script type="text/javascript">
-      <!--
-        Interfaces = [
-//          "http://localhost/shexSpec/shex.js/doc/shex-simple.html?"
-          "http://rawgit.com/shexSpec/shex.js/on-shape-expression/doc/shex-simple.html?"
-        ];
-        window.addEventListener("load", function() {
-          setTimeout(() => { // respecIsReady not yet defined in Chrome.
-            document.respecIsReady.then(function(conf) {
-              console.log("Fix Try It links");
-              updateAllTryItLinks($("#langOptions input:checked").val());
-            });
-          }, 0);
-        });
-        function updateAllTryItLinks (schemaClass) {
-          $(".tryit").map((idx, elt) => { updateTryItLink($(elt), schemaClass); })
-        }
-        function updateTryItLink (e, schemaClass) {debugger;
-          // var schemaElt = $(e.attr("href") + " ." + schemaClass);
-          var schemaElt = e.parent().parent().find("."+schemaClass);
-          var schema = schemaElt.text().replace(/^#.*?\n/, "");
-          var data = e.parent().text();
-          data = data.replace(/^\n +/, "").replace(/ *\n?try it\n? */g, "");
-          e.attr("href", Interfaces[0] + [
-            "interface=minimal",
-            "schema=" + encodeURIComponent(schema),
-            "data=" + encodeURIComponent(data),
-            "shape-map=" + encodeURIComponent(e.attr("data-shape-map"))
-          ].join("&"));
-        }
-      -->
-    </script>
+      <div id="defaultValidator-form" title="select validator">
+        <form>
+          <fieldset>
+          </fieldset>
+          <p><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></input></p>
+          <p>Contol click to return to this form.</p>
+        </form>
+      </div>
+      <script type="application/javascript" src="local.js"></script>
 
     </body>
 </html>
