@@ -38,10 +38,12 @@
       wgPublicList: "public-shex"
     };
     </script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- <script src="jquery.min.js" type= "text/javascript"></script> -->
+    <link rel="stylesheet" href="jquery-ui.css"/>
+    <!-- <script src="../../jquery-ui-1.12.1-dialog.custom/external/jquery/jquery.js"></script> -->
+    <script src="jquery.min.js"></script>
+    <script>JQuery = $</script>
+    <!-- from https://jqueryui.com/download/#!version=1.12.1&components=111111011111101000011101010000000000000000000000 -->
+    <script src="jquery-ui.min.js"></script>
     <script type="text/javascript"><!--
 function prepareHighlight (highlightables, onClass, offClass, slide) {
   if (slide === undefined)
@@ -3714,15 +3716,12 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
           </table>
       </section>
 
-      <div id="defaultValidator-form" title="select validator">
-        <form>
-          <fieldset>
-          </fieldset>
-          <p><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></input></p>
-          <p>Contol click to return to this form.</p>
-        </form>
-      </div>
+      <form id="defaultValidator-form" title="select validator:">
+        <fieldset>
+        </fieldset>
+        <p><input type="submit" tabindex="-1" style="position:absolute; top:-1000px"></input></p>
+        <p>Contol click to return to this form.</p>
+      </form>
       <script type="application/javascript" src="local.js"></script>
-
     </body>
 </html>

@@ -1,4 +1,4 @@
-$(function () {
+(function () {
   var bodyKeypressCallbacks = {};
 
   /* a form like
@@ -65,6 +65,16 @@ $(function () {
       return bodyKeypressCallbacks[evt.which]();
     return true;
   });
+
+  window.addEventListener("load", function() {
+    setTimeout(() => { // respecIsReady not defined during this event cycle in Chrome.
+      document.respecIsReady.then(function(conf) {
+        console.log("Fix Try It links");
+        updateAllTryItLinks($("#langOptions input:checked").val());
+      });
+    }, 300);
+  });
+
   Interfaces = [
     // { label: "local",
     //   link: "http://localhost/shexSpec/shex.js/doc/shex-simple.html?" },
@@ -77,87 +87,90 @@ $(function () {
 
   var pickDefaultValidator_form = $("#defaultValidator-form");
   var pickDefaultValidator_dialog;
-  
-  Interfaces.forEach(
-    iface => pickDefaultValidator_form.find("fieldset").append(
-      $("<input/>", {type: "radio", name: "fave", id: "select-"+iface.label, value: iface.label}),
-      $("<label/>", {for: "select-"+iface.label, title: iface.link}).append(
-        iface.label + ' - ' + iface.name,
-        $("<br/>"),
-        iface.link,
-      ),
-      $("<br/>"),
+
+  pickDefaultValidator_form.find("fieldset").append(
+    $("<dl/>").append(
+      Interfaces.reduce(
+        (acc, iface) => acc.concat(
+          $("<dt/>").append(
+            $("<input/>", {type: "radio", name: "fave", id: "select-"+iface.label, value: iface.label}),
+            $("<label/>", {for: "select-"+iface.label, title: iface.link}).append(iface.label + ' - ' + iface.name)
+          ),
+          $("<dd/>").append(iface.link)
+        ), []
+      )
     )
   )
 
-  window.addEventListener("load", function() {
-    setTimeout(() => { // respecIsReady not defined during this event cycle in Chrome.
-      document.respecIsReady.then(function(conf) {
-        console.log("Fix Try It links");
-        updateAllTryItLinks($("#langOptions input:checked").val());
-      });
-    }, 3000);
-  });
-
-  pickDefaultValidator_dialog = $( "#defaultValidator-form" ).dialog({
+  $ = JQuery;
+  var relay = null; // hacky way to pass context from span event click form Update click action.
+  pickDefaultValidator_dialog = JQuery("#defaultValidator-form").dialog({
     autoOpen: false,
     modal: true,
     width: "auto",
     buttons: {
-      "Update": function(evt) {
-        $("#faveInterface").text(FaveInterface = $('input[name=fave]:checked').val());
+      "Update": function (evt, p2) {
+        var pickedLabel = $('input[name=fave]:checked').val();
+        FaveInterface = Interfaces.find(iface => iface.label === pickedLabel);
+        // $("#faveInterface").text();
         pickDefaultValidator_dialog.dialog( "close" );
-        validate(evt);
+        validate(relay);
         return true;
       },
-      Cancel: function(evt) {
+      Cancel: function (evt) {
         pickDefaultValidator_dialog.dialog( "close" );
       }
     }
   });
-  
-  $( ".tryit" ).button().on( "click", function(evt) {
-    console.log(evt);
-    if (FaveInterface && !evt.ctrlKey)
-      validate(evt);
-    else
-      pickDefaultValidator_dialog.dialog( "open" );
-  });
 
-  function validate () {
-    window.location.replace(FaveInterface + [
-              "interface=minimal",
-              "schema=" + encodeURIComponent(schema),
-              "data=" + encodeURIComponent(data),
-              "shape-map=" + encodeURIComponent(span.attr("data-shape-map"))
-            ].join("&"))
+  function tryItSpanHandler (evt) {
+    console.log(evt);
+    // JQuery("#defaultValidator-form").css("top", evt.pageY).show()
+    if (FaveInterface && !evt.ctrlKey) {
+      validate($(evt.target).parent());
+    } else {
+      relay = $(evt.target).parent();
+      pickDefaultValidator_dialog.dialog("open");
+    }
+  }
+
+  function validate (span) {
+    var parms = getShExApiParms(span, $("#langOptions input:checked").val());
+    window.open(createLink(FaveInterface.link, parms));
   }
 
   function updateAllTryItLinks (schemaClass) {
     $(".tryit").map((idx, elt) => { updateTryItLink($(elt), schemaClass); })
   }
   function updateTryItLink (span, schemaClass) {
-    debugger
-    // var schemaElt = $(span.attr("href") + " ." + schemaClass);
-    var schemaElt = span.parent().parent().find("."+schemaClass);
-    var schema = schemaElt.text().replace(/^#.*?\n/, "");
-    var data = span.parent().text();
-    data = data.replace(/^\n +/, ""); // remove trailing spaces in data
+    var parms = getShExApiParms(span, schemaClass);
     span.append(
       Interfaces.reduce(
         (toAdd, iface, idx) => toAdd.concat(
-          (idx === 0 ? "try it: " : " | "),
-          $("<a/>", {
-            href: iface.link + [
-              "interface=minimal",
-              "schema=" + encodeURIComponent(schema),
-              "data=" + encodeURIComponent(data),
-              "shape-map=" + encodeURIComponent(span.attr("data-shape-map"))
-            ].join("&")
-          }).text(iface.label),
+          (idx === 0 ?
+           $("<span/>").text("try it: ").on("click", tryItSpanHandler) :
+           " | "),
+          $("<a/>", { href: createLink(iface.link, parms) }).text(iface.label),
         ), []
       )
     );
+  }
+
+  function getShExApiParms (span, schemaClass) {
+    var schemaElt = span.parent().parent().find("."+schemaClass);
+    var schema = schemaElt.text().replace(/^#.*?\n/, "");
+    var data = $(span).parent().clone().find('.tryit').remove().end().text();
+    data = data.replace(/^\n +/, ""); // remove trailing spaces in data
+    return { schema: schema, data: data, shapeMap: span.attr("data-shape-map") };
+  }
+
+  function createLink (base, shExApiParms) {
+    return base + [
+      "interface=minimal",
+      "schema=" + encodeURIComponent(shExApiParms.schema),
+      "data=" + encodeURIComponent(shExApiParms.data),
+      "shape-map=" + encodeURIComponent(shExApiParms.shapeMap)
+    ].join("&");
   }
 })()
 
