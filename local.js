@@ -144,7 +144,7 @@
   }
   function updateTryItLink (span, schemaClass) {
     var parms = getShExApiParms(span, schemaClass);
-    span.append(
+    span.empty().append(
       Interfaces.reduce(
         (toAdd, iface, idx) => toAdd.concat(
           (idx === 0 ?
