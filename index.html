@@ -2458,7 +2458,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
 </span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span> <span class="object">[
-    <span class="keyword">.</span> - <span class="type">excodes:</span><span class="constant">bad</span> - <span class="type">excodes:</span><span class="constant">assigned</span>
+    <span class="keyword">.</span> - <span class="type">excodes:</span><span class="constant">retracted</span> - <span class="type">excodes:</span><span class="constant">assigned</span>
   ]</span>
 }</pre>
 
@@ -2479,7 +2479,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
               "stem": {
                 "type": "Wildcard" },
               "exclusions": [
-                "http://a.example/codes#bad",
+                "http://a.example/codes#retracted",
                 "http://a.example/codes#assigned"
               ] }
           ] } } }
