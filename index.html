@@ -118,7 +118,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">school:enrolleeAge</span> <span class="object"><span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</span>
 
 
-<span class="shape-name">school:Enrollee</span> {
+<span class="shape-name" id="schema-school-enrollee">school:Enrollee</span> {
   <span class="comment"># <span class="object new lookit">Triple constraint</span> (including <span class="object new lookit">node constraint</span> <span class="keyword">IRI</span>)</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span> <span class="object"><span class="keyword">IRI</span> {1,2}</span>
 }
@@ -228,7 +228,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <div style="clear:both;"></div>
 
         <p class="leadup">
-          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  In the latter, the shape map keyword "<code>FOCUS</code>" identifies the node of the triple to be selected (here, the subject node), and the keyword "<code>_</code>" acts as a placeholder for any object.  For readability, the IRIs are rendered here with prefixes.
+          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrollee" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  In the latter, the shape map keyword "<code>FOCUS</code>" identifies the node of the triple to be selected (here, the subject node), and the keyword "<code>_</code>" acts as a placeholder for any object.  For readability, the IRIs are rendered here with prefixes.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre class="nohighlight shapemap fixed" id="school-Enrollee-fixed-shapemap" style="float:left;">
@@ -240,7 +240,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </div>
         <div id="example-school-enrolleeAge" class="example wrapper" style="vertical-align: top;">
           <pre class="nohighlight shapemap query" id="school-Enrollee-query-shapemap" style="float:left;">
-<span class="fullURL">{FOCUS, foaf:age, _}</span> @ <span class="shape-name">school:Enrollee</span>
+<span class="fullURL">{FOCUS foaf:age _}</span> @ <span class="shape-name">school:Enrollee</span>
           </pre>
         </div>
         <p class="followup">
@@ -299,7 +299,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
         <p>
           In the <span class="new">ShEx model</span>, a given RDF data graph is tested against a ShEx schema to yield a <span class="new">validation result</span>.
-          In the <a href="#simple-expressions-example-1">example above</a>, the RDF nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span> and <span class="fullURL">inst:Don</span> are tested against the ShEx shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>.
+          In the <a href="#simple-expressions-example-1">example above</a>, the RDF nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span> and <span class="fullURL">inst:Don</span> are tested against the ShEx shape <a href="#schema-school-enrollee" class="shape-name">school:Enrollee</a>.
           In the validation process, each of four nodes in the RDF data is treated, in turn, as a <span class="new">focus node</span>, and triples involving that node are tested against a triple constraint which, in turn, includes the node constraint <span class="keyword">IRI</span>.
           This validation process is controlled by a <span class="new">shape map</span> that specifies how the constructs of a ShEx schema relate to the components of RDF data graphs.
           There are many ways to populate a shape map with nodes to be validated: through queries, APIs, protocols, or simple enumeration.
@@ -319,8 +319,8 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <dl>
           <dt id="vocab-schema">ShEx schema</dt><dd>A collection of shape expressions.</dd>
           <dt id="vocab-shape-expression">shape expression</dt><dd>Shapes and node constraints, possibly combined with AND, OR, and NOT expressions.</dd>
-          <dt id="vocab-focus-node">focus node</dt><dd>A RDF data node of interest that is examined during validation.</dd>
-          <dt id="vocab-shape">shape</dt><dd>A triple expression aginst which a focus node is tested to see of all incoming or outgoing arcs matching predicates in the triple expression have appropriate number (cardinality) and values.</dd>
+          <dt id="vocab-focus-node">focus node</dt><dd>An RDF data node of interest that is examined during validation.</dd>
+          <dt id="vocab-shape">shape</dt><dd>A triple expression against which a focus node is tested to see whether all incoming or outgoing arcs, which match predicates in the triple expression, have the appropriate cardinality and values.</dd>
           <dt id="vocab-triple-expression">triple expression</dt><dd>A collection of triple constraints which may be combined in groups or choices.</dd>
           <dt id="vocab-triple-constraint">triple constraint</dt><dd>A constraint with a given predicate which is tested against RDF triples with that predicate and the focus node as subject (or object, for <a href="#inverse-properties">inverse triple constraints</a>).</dd>
           <dt id="vocab-node-constraint">node constraint</dt><dd>A collection of constraints on a given focus node.</dd>
@@ -2463,7 +2463,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
 
 </span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">status</span></span> <span class="object">[
-    <span class="keyword">.</span> - <span class="type">excodes:</span><span class="constant">bad</span>- - <span class="type">excodes:</span><span class="constant">assigned</span>
+    <span class="keyword">.</span> - <span class="type">excodes:</span><span class="constant">retracted</span> - <span class="type">excodes:</span><span class="constant">assigned</span>
   ]</span>
 }</pre>
 
@@ -2484,7 +2484,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
               "stem": {
                 "type": "Wildcard" },
               "exclusions": [
-                "http://a.example/codes#bad-",
+                "http://a.example/codes#retracted",
                 "http://a.example/codes#assigned"
               ] }
           ] } } }
