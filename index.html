@@ -113,7 +113,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 <span class="shape-name">school:enrolleeAge</span> <span class="object"><span class="type">xsd:</span><span class="constant">integer</span> <span class="keyword">MinInclusive</span> 13 <span class="keyword">MaxInclusive</span> 20</span>
 
 
-<span class="shape-name">school:Enrollee</span> {
+<span class="shape-name" id="schema-school-enrollee">school:Enrollee</span> {
   <span class="comment"># <span class="object new lookit">Triple constraint</span> (including <span class="object new lookit">node constraint</span> <span class="keyword">IRI</span>)</span>
   <span class="predicate"><span class="type">ex:</span><span class="constant">hasGuardian</span></span> <span class="object"><span class="keyword">IRI</span> {1,2}</span>
 }
@@ -223,7 +223,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         <div style="clear:both;"></div>
 
         <p class="leadup">
-          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  In the latter, the shape map keyword "<code>FOCUS</code>" identifies the node of the triple to be selected (here, the subject node), and the keyword "<code>_</code>" acts as a placeholder for any object.  For readability, the IRIs are rendered here with prefixes.
+          The four RDF data nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span>, and <span class="fullURL">inst:Don</span> can be tested against the shape <a href="#schema-school-enrollee" class="shape-name">school:Enrollee</a> by using either a <span class="new">fixed shape map</span>, which selects nodes by simple enumeration, or a <span class="new">query shape map</span>, which selects nodes matching a triple pattern.  In the latter, the shape map keyword "<code>FOCUS</code>" identifies the node of the triple to be selected (here, the subject node), and the keyword "<code>_</code>" acts as a placeholder for any object.  For readability, the IRIs are rendered here with prefixes.
         </p>
         <div id="example-school-enrolleeAge" class="example wrapper">
           <pre class="nohighlight shapemap fixed" id="school-Enrollee-fixed-shapemap" style="float:left;">
@@ -294,7 +294,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
         </p>
         <p>
           In the <span class="new">ShEx model</span>, a given RDF data graph is tested against a ShEx schema to yield a <span class="new">validation result</span>.
-          In the <a href="#simple-expressions-example-1">example above</a>, the RDF nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span> and <span class="fullURL">inst:Don</span> are tested against the ShEx shape <a href="#schema-school-enrolleeAge" class="shape-name">school:Enrollee</a>.
+          In the <a href="#simple-expressions-example-1">example above</a>, the RDF nodes <span class="fullURL">inst:Alice</span>, <span class="fullURL">inst:Bob</span>, <span class="fullURL">inst:Claire</span> and <span class="fullURL">inst:Don</span> are tested against the ShEx shape <a href="#schema-school-enrollee" class="shape-name">school:Enrollee</a>.
           In the validation process, each of four nodes in the RDF data is treated, in turn, as a <span class="new">focus node</span>, and triples involving that node are tested against a triple constraint which, in turn, includes the node constraint <span class="keyword">IRI</span>.
           This validation process is controlled by a <span class="new">shape map</span> that specifies how the constructs of a ShEx schema relate to the components of RDF data graphs.
           There are many ways to populate a shape map with nodes to be validated: through queries, APIs, protocols, or simple enumeration.
