@@ -3598,14 +3598,174 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
     <section id="inheritance">
       <h3>Inheritance</h3>
       <p>
-        In addition to allowing one to textually include other schemas, ShEx provides operators to define shape expressions as <code>restrictions</code> or <code>extensions</code> of other shapes.
+        In addition to allowing one to textually include other schemas, ShEx provides operators to define shape expressions as <code>extensions</code> or <code>restrictions</code> of other shapes.
       </p>
 
-      <div class="namespace">
+      <section id="extension">
+        <h3>Extension</h3>
+        <p>
+          As described in <a href="#labeled-constraints">Reusing Triple Expressions</a>, <code>Extension</code> can be simulated with <a href="#labeled-constraints">triple expression references</a>, i.e. the <span class="keyword">&amp;</span> operator.
+          For instance, a <span class="shape-name">UserShape</span> and an <span class="shape-name">EmployeeShape</span> may both add properties to a <span class="shape-name">PersonShape</span>.
+        </p>
+        <div class="namespace">
+          <div class="example wrapper">
+            <!-- ShExC example -->
+            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="shape-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="shape-name">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
+<span class="keyword">PREFIX</span> xsd: <span class="shape-name">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> rdf: <span class="shape-name">&lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>&gt;</span><span class="comment">
+</span>
+</span><span class="shape-name">&lt;IssueShape&gt;</span> {
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="shape-name">@&lt;UserShape&gt;</span>
+               <span class="keyword">OR</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span><span class="keyword">?</span>
+}
+
+<span class="shape-name">&lt;PersonShape&gt;</span> {
+  $<span class="shape-name">&lt;PersonProperties&gt;</span> (
+    <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
+    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI</span>
+  )
+}
+
+<span class="shape-name">&lt;UserShape&gt;</span> {
+  &amp;<span class="shape-name">&lt;PersonProperties&gt;</span> ;
+  <span class="type">ex:</span><span class="constant">representative</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span>
+}
+
+<span class="shape-name">&lt;EmployeeShape&gt;</span> {
+  &amp;<span class="shape-name">&lt;PersonProperties&gt;</span> ;
+  <span class="type">foaf:</span><span class="constant">phone</span> <span class="keyword">IRI+</span>
+}</pre>
+
+            <!-- JSON example -->
+            <pre class="nohighlight schema json" style="float:left;"></pre>
+            <div style="clear:both;"> </div>
+          </div>
+        </div>
+        <p>
+          Here, <span class="shape-name">&lt;UserShape&gt;</span> and <span class="shape-name">&lt;EmployeeShape&gt;</span> both <span class="new">extend</span> <span class="shape-name">&lt;PersonShape&gt;</span> by providing additional properties.
+          In the above example, the triple expression $<span class="shape-name">&lt;PersonProperties&gt;</span> is the only triple expression in the shape <span class="shape-name">&lt;PersonShape&gt;</span>.
+          This common case for extending shapes would require the maintainer of the <span class="shape-name">&lt;PersonShape&gt;</span> to add the $<span class="shape-name">&lt;PersonProperties&gt;</span> triple expression label, so that others may extend it.
+          In order to facilitate reuse, ShEx allows a shape to include a reference to another shape, implicitly including the triple expression for that shape.
+        </p>
+        <div class="namespace">
+          <div class="example wrapper">
+            <!-- ShExC example -->
+            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="shape-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="shape-name">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
+<span class="keyword">PREFIX</span> xsd: <span class="shape-name">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> rdf: <span class="shape-name">&lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>&gt;</span><span class="comment">
+</span>
+</span><span class="shape-name">&lt;IssueShape&gt;</span> {
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="shape-name">@&lt;UserShape&gt;</span>
+               <span class="keyword">OR</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span><span class="keyword">?</span>
+}
+
+<span class="shape-name">&lt;PersonShape&gt;</span> {
+  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI</span>
+}
+
+<span class="shape-name">&lt;UserShape&gt;</span> {
+  &amp;<span class="shape-name">&lt;PersonShape&gt;</span> ;
+  <span class="type">ex:</span><span class="constant">representative</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span>
+}
+
+<span class="shape-name">&lt;EmployeeShape&gt;</span> {
+  &amp;<span class="shape-name">&lt;PersonShape&gt;</span> ;
+  <span class="type">foaf:</span><span class="constant">phone</span> <span class="keyword">IRI+</span>
+}</pre>
+
+            <!-- JSON example -->
+            <pre class="nohighlight schema json" style="float:left;"></pre>
+            <div style="clear:both;"> </div>
+          </div>
+        </div>
+        <p>
+          We've reused the triple expressions in <span class="shape-name">&lt;PersonShape&gt;</span> in <span class="shape-name">&lt;UserShape&gt;</span> and <span class="shape-name">&lt;EmployeeShape&gt;</span> and then restricted <span class="type">ex:</span><span class="constant">reproducedBy</span> to be either of those shapes.
+          The keywords <span class="keyword">EXTENDS</span> and <span class="keyword">ABSTRACT</span> allow us to say that <span class="type">ex:</span><span class="constant">reproducedBy</span> can be any object which extends <span class="shape-name">&lt;PersonShape&gt;</span>.
+          The following example uses multiple inheritance to construct the <span class="shape-name">&lt;EmployeeShape&gt;</span> from two base shapes:
+        </p>
+        <!--
+      <p>
+        In both of these examples, the value of the <span class="type">ex:</span><span class="constant">reproducedBy</span> property could be any of the shapes that were restrictions or extensions of <span class="shape-name">@&lt;PersonShape&gt;</span>.
+        These two examples can be simplified with <span class="keyword">EXTENDS</span> and <span class="keyword">RESTRICTS</span> respectively.
+        These keywords combine the <em>extension</em> and <em>restriction</em> above with a notion of inheritance where a value can be said to match <span class="shape-name">&lt;PersonShape&gt;</span> if the value matched any node which extends or restricts that shape.
+        </p>
+        -->
+        <div class="namespace">
+          <!--
+          <p>
+            The declaration that <span class="shape-name">my:UserShape</span> <span class="keyword">RESTRICTS</span> <span class="shape-name">my:PersonShape</span> has the same effect as <span class="keyword">AND</span>ing <span class="shape-name">my:UserShape</span> with <span class="shape-name">my:PersonShape</span> except that <span class="shape-name">my:UserShape</span> is said to <code>inherit</code> from <span class="shape-name">my:PersonShape</span>, as described in the next section
+          </p>
+          -->
+          <div class="example wrapper">
+            <!-- ShExC example -->
+            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="shape-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="shape-name">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
+<span class="keyword">PREFIX</span> xsd: <span class="shape-name">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> rdf: <span class="shape-name">&lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>&gt;</span><span class="comment">
+</span>
+</span><span class="shape-name">&lt;IssueShape&gt;</span> {
+  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span><span class="keyword">?</span>
+}
+
+<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;PersonShape&gt;</span> {
+  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
+  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI</span>
+}
+
+<span class="shape-name">&lt;UserShape&gt;</span> <span class="keyword">EXTENDS</span> <span class="shape-name">&lt;PersonShape&gt;</span> {
+  <span class="type">ex:</span><span class="constant">representative</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span>
+}
+
+<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;RepShape&gt;</span> {
+  <span class="type">foaf:</span><span class="constant">phone</span> <span class="keyword">IRI+</span>
+}
+
+<span class="shape-name">&lt;EmployeeShape&gt;</span>
+  <span class="keyword">EXTENDS</span> <span class="shape-name">&lt;PersonShape&gt;</span> <span class="shape-name">&lt;RepShape&gt;</span> {
+}</pre>
+
+            <!-- JSON example -->
+            <pre class="nohighlight schema json" style="float:left;"></pre>
+            <pre class="nohighlight instance turtle tryable">
+<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
+<span class="keyword">PREFIX</span> xsd: <span class="fullURL">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
+</span>
+</span><span class="fullURL">&lt;Issue1&gt;</span>
+    <span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="fullURL">&lt;User2&gt;</span> ;
+    <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="fullURL">&lt;Thompson.J&gt;</span> ;
+<span class="keyword">.</span>
+
+<span class="fullURL">&lt;User2&gt;</span>
+    <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Bob Smith"</span> ;
+    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:bob@example.org&gt;</span> ;
+    <span class="type">ex:</span><span class="constant">representative</span> <span class="fullURL">&lt;Thompson.J&gt;</span>
+<span class="keyword">.</span>
+
+<span class="fullURL">&lt;Thompson.J&gt;</span>
+    <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Joe"</span>, <span class="string">"Joseph Thompson"</span> ;
+    <span class="type">foaf:</span><span class="constant">phone</span> <span class="fullURL">&lt;tel:+456&gt;</span> ;
+    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:joe@example.org&gt;</span>
+<span class="keyword">.</span>
+<span class="tryit" data-shape-map="&lt;Issue1&gt;@&lt;IssueShape&gt;"/></pre>
+            <div style="clear:both;"> </div>
+          </div>
+        </div>
+        <p>
+          Marking a shape <span class="keyword">ABSTRACT</span> states that only shapes inheriting from that shape may satisfy that shape.
+          This is analogous to its use in object oriented programming where an ABSTRACT class may not be instantiated; instead only non-abstract derived classes may be created.
+        </p>
+      </section>
       <section id="restriction">
         <h4>Restriction</h4>
         <p>
-          ShEx <span class="keyword">AND</span> can be used to add constraints to multiple shape expressions.
+          Just as <a href="#restriction">extension</a> can be simulated with <a href="#labeled-constraints">triple expression references</a>, ShEx <span class="keyword">AND</span> can be used to add constraints to multiple shape expressions.
           For instance, a <span class="shape-name">AdminShape</span> and an <span class="shape-name">SalesRepShape</span> may both restrict a common definition which we can call <span class="shape-name">PersonShape</span>.
           Additionally, suppose an issue's <span class="type">ex:</span><span class="constant">reportedBy</span> can be someone from either administration or sales:
         </p>
@@ -3708,142 +3868,6 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
             For this, we use the keyword <span class="keyword">ABSTRACT</span>.
           </p>
         </div>
-      </section>
-      <section id="abstract-shapes">
-        <h4>Abstract Shapes</h4>
-        <p>
-          Marking a shape <span class="keyword">ABSTRACT</span> states that only shapes inheriting from that shape may satisfy that shape.
-          This is analogous to its use in object oriented programming where an ABSTRACT class may not be instantiated; instead only non-abstract derived classes may be created.
-        </p>
-      </section>
-        </div>
-      <section id="extension">
-        <h4>Extension</h4>
-        <div class="namespace">
-          <p>
-            Just as <a href="#restriction">restriction</a> can be simulated with <span class="keyword">AND</span>ing shapes, <code>extension</code> can be simulated with <a href="#labeled-constraints">triple expression references</a>, i.e. the <span class="keyword">&amp;</span> operator.
-            For instance, a <span class="shape-name">UserShape</span> and an <span class="shape-name">EmployeeShape</span> may both add properties to a <span class="shape-name">PersonShape</span>.
-          </p>
-          <div class="example wrapper">
-            <!-- ShExC example -->
-            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="shape-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> foaf: <span class="shape-name">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
-<span class="keyword">PREFIX</span> xsd: <span class="shape-name">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> rdf: <span class="shape-name">&lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>&gt;</span><span class="comment">
-</span>
-</span><span class="shape-name">&lt;IssueShape&gt;</span> {
-  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="shape-name">@&lt;UserShape&gt;</span>
-               <span class="keyword">OR</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span><span class="keyword">?</span>
-}
-
-<span class="shape-name">&lt;PersonShape&gt;</span> {
-  $<span class="shape-name">&lt;PersonShape&gt;</span> (
-    <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI</span>
-  )
-}
-
-<span class="shape-name">&lt;UserShape&gt;</span> {
-  &amp;<span class="shape-name">&lt;PersonShape&gt;</span> ;
-  <span class="type">ex:</span><span class="constant">representative</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span>
-}
-
-<span class="shape-name">&lt;EmployeeShape&gt;</span> {
-  &amp;<span class="shape-name">&lt;PersonShape&gt;</span> ;
-  <span class="type">foaf:</span><span class="constant">phone</span> <span class="keyword">IRI+</span>
-}</pre>
-
-            <!-- JSON example -->
-            <pre class="nohighlight schema json" style="float:left;"></pre>
-            <div style="clear:both;"> </div>
-          </div>
-          <p>
-            Here, <span class="shape-name">&lt;UserShape&gt;</span> and <span class="shape-name">&lt;EmployeeShape&gt;</span> both <span class="new">extend</span> <span class="shape-name">&lt;PersonShape&gt;</span> by providing additional properties.
-            As with <span class="keyword">RESTRICTS</span> we can make this more explicit with the keyword <span class="keyword">EXTENDS</span>:
-          </p>
-        </div>
-        <!--
-      <p>
-        In both of these examples, the value of the <span class="type">ex:</span><span class="constant">reproducedBy</span> property could be any of the shapes that were restrictions or extensions of <span class="shape-name">@&lt;PersonShape&gt;</span>.
-        These two examples can be simplified with <span class="keyword">EXTENDS</span> and <span class="keyword">RESTRICTS</span> respectively.
-        These keywords combine the <em>extension</em> and <em>restriction</em> above with a notion of inheritance where a value can be said to match <span class="shape-name">&lt;PersonShape&gt;</span> if the value matched any node which extends or restricts that shape.
-        </p>
-        -->
-        <div class="namespace">
-          <!--
-          <p>
-            The declaration that <span class="shape-name">my:UserShape</span> <span class="keyword">RESTRICTS</span> <span class="shape-name">my:PersonShape</span> has the same effect as <span class="keyword">AND</span>ing <span class="shape-name">my:UserShape</span> with <span class="shape-name">my:PersonShape</span> except that <span class="shape-name">my:UserShape</span> is said to <code>inherit</code> from <span class="shape-name">my:PersonShape</span>, as described in the next section
-          </p>
-          -->
-          <div class="example wrapper">
-            <!-- ShExC example -->
-            <pre id="schema-TE-reuse" class="schema shexc nohighlight" style="float:left;">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="shape-name">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> foaf: <span class="shape-name">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
-<span class="keyword">PREFIX</span> xsd: <span class="shape-name">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> rdf: <span class="shape-name">&lt;<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>&gt;</span><span class="comment">
-</span>
-</span><span class="shape-name">&lt;IssueShape&gt;</span> {
-  <span class="type">ex:</span><span class="constant">reportedBy</span> <span class="shape-name">@&lt;PersonShape&gt;</span>;
-  <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span><span class="keyword">?</span>
-}
-
-<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;PersonShape&gt;</span> {
-  <span class="type">foaf:</span><span class="constant">name</span> <span class="type">xsd:</span><span class="constant">string</span> ;
-  <span class="type">foaf:</span><span class="constant">mbox</span> <span class="keyword">IRI</span>
-}
-
-<span class="shape-name">&lt;UserShape&gt;</span> <span class="keyword">EXTENDS</span> <span class="shape-name">&lt;PersonShape&gt;</span> {
-  <span class="type">ex:</span><span class="constant">representative</span> <span class="shape-name">@&lt;EmployeeShape&gt;</span>
-}
-
-<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;RepShape&gt;</span> {
-  <span class="type">foaf:</span><span class="constant">phone</span> <span class="keyword">IRI+</span>
-}
-
-<span class="shape-name">&lt;EmployeeShape&gt;</span>
-  <span class="keyword">EXTENDS</span> <span class="shape-name">&lt;PersonShape&gt;</span> <span class="shape-name">&lt;RepShape&gt;</span> {
-}</pre>
-
-            <!-- JSON example -->
-            <pre class="nohighlight schema json" style="float:left;"></pre>
-            <pre class="nohighlight instance turtle tryable">
-<span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> ex: <span class="fullURL">&lt;<a href="http://ex.example/#">http://ex.example/#</a>&gt;</span><span class="comment">
-</span><span class="keyword">PREFIX</span> foaf: <span class="fullURL">&lt;<a href="http://xmlns.com/foaf/">http://xmlns.com/foaf/</a>&gt;</span>
-<span class="keyword">PREFIX</span> xsd: <span class="fullURL">&lt;<a href="http://www.w3.org/2001/XMLSchema#">http://www.w3.org/2001/XMLSchema#</a>&gt;</span><span class="comment">
-</span>
-</span><span class="fullURL">&lt;Issue1&gt;</span>
-    <span class="type">ex:</span><span class="constant">reportedBy</span>   <span class="fullURL">&lt;User2&gt;</span> ;
-    <span class="type">ex:</span><span class="constant">reproducedBy</span> <span class="fullURL">&lt;Thompson.J&gt;</span> ;
-<span class="keyword">.</span>
-
-<span class="fullURL">&lt;User2&gt;</span>
-    <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Bob Smith"</span> ;
-    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:bob@example.org&gt;</span> ;
-    <span class="type">ex:</span><span class="constant">representative</span> <span class="fullURL">&lt;Thompson.J&gt;</span>
-<span class="keyword">.</span>
-
-<span class="fullURL">&lt;Thompson.J&gt;</span>
-    <span class="type">foaf:</span><span class="constant">name</span> <span class="string">"Joe"</span>, <span class="string">"Joseph Thompson"</span> ;
-    <span class="type">foaf:</span><span class="constant">phone</span> <span class="fullURL">&lt;tel:+456&gt;</span> ;
-    <span class="type">foaf:</span><span class="constant">mbox</span> <span class="fullURL">&lt;mail:joe@example.org&gt;</span>
-<span class="keyword">.</span>
-<span class="tryit" data-shape-map="&lt;Issue1&gt;@&lt;IssueShape&gt;"/></pre>
-            <div style="clear:both;"> </div>
-          </div>
-        </div>
-        <section id="onSE">
-          <h4>shape expressions on partitions</h4>
-          <div class="namespace">
-            <p>
-               <span class="keyword">ON SHAPE EXPRESSION</span> (or more succinctly, just <span class="keyword">ON</span>) ...
-            </p>
-            <p>
-              For any well-formed schema, any extension of a restriction can be translated to a triple expression with an attached shape expression.
-            </p>
-          </div>
-        </section>
       </section>
     </section>
   </section>
