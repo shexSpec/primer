@@ -3684,8 +3684,10 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
           </div>
         </div>
         <p>
-          We've reused the triple expressions in <span class="shape-name">&lt;PersonShape&gt;</span> in <span class="shape-name">&lt;UserShape&gt;</span> and <span class="shape-name">&lt;EmployeeShape&gt;</span> and then restricted <span class="type">ex:</span><span class="constant">reproducedBy</span> to be either of those shapes.
-          The keywords <span class="keyword">EXTENDS</span> and <span class="keyword">ABSTRACT</span> allow us to say that <span class="type">ex:</span><span class="constant">reproducedBy</span> can be any object which extends <span class="shape-name">&lt;PersonShape&gt;</span>.
+          The example above reuses the triple expressions of <span class="shape-name">&lt;PersonShape&gt;</span> in <span class="shape-name">&lt;UserShape&gt;</span> and <span class="shape-name">&lt;EmployeeShape&gt;</span> and then restricts <span class="type">ex:</span><span class="constant">reproducedBy</span> to be used with either of those shapes.
+        </p>
+        <p>
+          The keywords <span class="keyword">EXTENDS</span> and <span class="keyword">ABSTRACT</span>, when used together, can express that <span class="type">ex:</span><span class="constant">reproducedBy</span> is usable with any object that extends <span class="shape-name">&lt;PersonShape&gt;</span>.
           The following example uses multiple inheritance to construct the <span class="shape-name">&lt;EmployeeShape&gt;</span> from two base shapes:
         </p>
         <!--
@@ -3799,7 +3801,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
             <pre class="nohighlight schema json" style="float:left;"></pre>
           </div>
           <p>
-            Here, <span class="shape-name">&lt;AdminShape&gt;</span> and <span class="shape-name">&lt;SalesRepShape&gt;</span> both <span class="new">restrict</span> the <span class="type">foaf:</span><span class="constant">mbox</span> property in <span class="shape-name">&lt;PersonShape&gt;</span>.
+            Here, <span class="shape-name">&lt;AdminShape&gt;</span> and <span class="shape-name">&lt;SalesRepShape&gt;</span> <span class="new">both</span> restrict the <span class="type">foaf:</span><span class="constant">mbox</span> property in <span class="shape-name">&lt;PersonShape&gt;</span>.
             We can make this intention more explicit by declaring that <span class="shape-name">my:AdminShape</span> <span class="keyword">RESTRICTS</span> <span class="shape-name">my:PersonShape</span>:
           </p>
         <div class="namespace">
