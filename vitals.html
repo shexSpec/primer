@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>A Case for Extends</title>
+    <link rel="stylesheet" href="local.css"/>
+    <style type="text/css">
+      .te-name { color: coral; font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <h1>A Case for Extends</h1>
+    <p>
+      Following is a clinical use case for extending shapes.
+      The first shape, <span class="shape-name">&lt;#Observation&gt;</span>, is the most widely-used shape in any clinical informatics system.
+      Here, a <span class="shape-name">&lt;#PostureVital&gt;</span> extends a <span class="shape-name">&lt;#Vital&gt;</span>, which extends an <span class="shape-name">&lt;#Observation&gt;</span>.
+      A <span class="shape-name">&lt;#ReclineVital&gt;</span> is a <span class="shape-name">&lt;#PostureVital&gt;</span> with a "reclined" posture.
+      A <span class="shape-name">&lt;#BP&gt;</span> (blood pressure) and a <span class="shape-name">&lt;#Pulse&gt;</span> have posture and reclined posture flavors.
+    </p>
+    <p>
+      The left panel, <b>EXTENDS</b>, captures this using a proposed syntax for extends.
+      The right panel, <b>compiled</b>, attempts to capture this using ShEx 2.0 triple expression labels (e.g. <span class="te-name">$&lt;#BP-TE&gt;</span>) injected into the appropriate shapes.
+      This introduces a burden as the maintainer must:
+    </p>
+    <ul>
+      <li>introduce triple expression labels whenever someone wishes to extend a shape.</li>
+      <li>place the closure of all derived shapes in compiled superclasses.</li>
+    </ul>
+    <p>
+      If someone is e.g. extending a posture shape to create a reclined shape, they may be importing the earlier part of the schema and have no way to add disjuncts into the closures or triple expression labels into shapes.
+    </p>
+    <div style="float:left; width: 50%">
+      <h2>EXTENDS</h2>
+    <pre>
+<span class="keyword">PREFIX</span> <span class="type">fhir:</span> &lt;<span class="fullURL">http://hl7.org/ns/fhir</span>&gt;
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> &lt;<span class="fullURL">http://www.w3.org/2001/XMLSchema#</span>&gt;
+
+<span class="shape-name">&lt;#Observation&gt;</span> {
+  <span class="type">fhir:</span><span class="constant">code</span> <span class="keyword">.?</span> ;
+  <span class="type">fhir:</span><span class="constant">component</span> {
+    <span class="type">fhir:</span><span class="constant">code</span> <span class="keyword">.</span> ;
+    <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">.</span>
+  }<span class="keyword">*</span>
+}
+
+
+<span class="comment"># -- super-classes --
+</span><span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;#Vital&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> {}
+</span>
+<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;#PostureVital&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#Vital&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#Posture&gt;</span><span class="comment"> {}
+</span>
+<span class="keyword">ABSTRACT</span> <span class="shape-name">&lt;#ReclinedVital&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#PostureVital&gt;</span><span class="comment"> {}
+</span>  <span class="keyword">AND</span> <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#Reclined&gt;</span><span class="comment"> {}
+</span>
+
+<span class="comment"># -- BP --
+</span><span class="shape-name">&lt;#BP&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#Vital&gt;</span><span class="comment"> {} </span><span class="keyword">AND</span> {
+
+  <span class="type">fhir:</span><span class="constant">component</span> { <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"systolic"</span>] } ;
+  <span class="type">fhir:</span><span class="constant">component</span> { <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"diastolic"</span>] }
+
+}
+
+<span class="shape-name">&lt;#PostureBP&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#BP&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#PostureVital&gt;</span><span class="comment"> { }
+</span>
+
+
+<span class="shape-name">&lt;#ReclinedBP&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#BP&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#ReclinedVital&gt;</span><span class="comment"> { }
+</span>
+
+
+
+<span class="comment"># -- Pulse --
+</span><span class="shape-name">&lt;#Pulse&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#Vital&gt;</span><span class="comment"> {} </span><span class="keyword">AND</span> {
+
+  <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"pulse"</span>]
+}
+
+<span class="shape-name">&lt;#PosturePulse&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#Pulse&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#PostureVital&gt;</span><span class="comment"> { }
+</span>
+
+
+<span class="shape-name">&lt;#ReclinedPulse&gt;</span><span class="comment">
+</span>      <span class="keyword">EXTENDS</span> <span class="variable-name">@&lt;#Pulse&gt;</span><span class="comment"> </span><span class="keyword">EXTENDS</span><span class="comment"> </span><span class="variable-name">@&lt;#ReclinedVital&gt;</span><span class="comment"> { }
+</span>
+
+
+
+<span class="comment"># -- postures --
+</span><span class="shape-name">&lt;#Posture&gt;</span> {
+
+  <span class="type">fhir:</span><span class="constant">component</span> {
+    <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"posture"</span>]
+  }
+}
+
+<span class="shape-name">&lt;#Reclined&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Posture&gt;</span><span class="comment"> </span><span class="keyword">AND</span> {
+
+  <span class="type">fhir:</span><span class="constant">component</span> {
+    <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"posture"</span>] ;
+    <span class="type">fhir:</span><span class="constant">value</span> [<span class="string">"reclined"</span>]
+  }
+}
+
+</pre>
+    </div>
+    <div style="float:left; width: 50%">
+      <h2>compiled</h2>
+    <pre>
+<span class="keyword">PREFIX</span> <span class="type">fhir:</span> &lt;<span class="fullURL">http://hl7.org/ns/fhir</span>&gt;
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> &lt;<span class="fullURL">http://www.w3.org/2001/XMLSchema#</span>&gt;
+
+<span class="shape-name">&lt;#Observation&gt;</span> {
+  <span class="type">fhir:</span><span class="constant">code</span> <span class="keyword">.?</span> ;
+  <span class="type">fhir:</span><span class="constant">component</span> {
+    <span class="type">fhir:</span><span class="constant">code</span> <span class="keyword">.</span> ;
+    <span class="type">fhir:</span><span class="constant">value</span> <span class="keyword">.</span>
+  }<span class="keyword">*</span>
+}
+
+
+<span class="comment"># -- super-classes --
+</span><span class="shape-name">&lt;#Vital&gt;</span><span class="comment">
+</span>     <span class="variable-name">@&lt;#ReclinedBP&gt;</span><span class="comment"> </span><span class="keyword">OR</span><span class="comment"> </span><span class="variable-name">@&lt;#PostureBP&gt;</span><span class="comment"> </span><span class="keyword">OR</span><span class="comment"> </span><span class="variable-name">@&lt;#BP&gt;</span><span class="comment">
+</span>  <span class="keyword">OR</span> <span class="variable-name">@&lt;#ReclinedPulse&gt;</span><span class="comment"> </span><span class="keyword">OR</span><span class="comment"> </span><span class="variable-name">@&lt;#PosturePulse&gt;</span><span class="comment"> </span><span class="keyword">OR</span><span class="comment"> </span><span class="variable-name">@&lt;#Pulse&gt;</span><span class="comment">
+</span><span class="shape-name">&lt;#PostureVital&gt;</span><span class="comment">
+</span>     <span class="variable-name">@&lt;#ReclinedBP&gt;</span><span class="comment"> </span><span class="keyword">OR</span><span class="comment"> </span><span class="variable-name">@&lt;#PostureBP&gt;</span><span class="comment">
+</span>  <span class="keyword">OR</span> <span class="variable-name">@&lt;#ReclinedPulse&gt;</span><span class="comment"> </span><span class="keyword">OR</span><span class="comment"> </span><span class="variable-name">@&lt;#PosturePulse&gt;</span><span class="comment">
+</span><span class="shape-name">&lt;#ReclinedVital&gt;</span><span class="comment">
+</span>     <span class="variable-name">@&lt;#ReclinedBP&gt;</span><span class="comment">
+</span>  <span class="keyword">OR</span> <span class="variable-name">@&lt;#ReclinedPulse&gt;</span><span class="comment">
+</span>
+
+<span class="comment"># -- BP --
+</span><span class="shape-name">&lt;#BP&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> </span><span class="keyword">AND</span><span class="comment"> </span><span class="keyword">EXTRA</span><span class="comment"> </span><span class="type">fhir:</span><span class="constant">component</span> {
+  <span class="te-name">$&lt;#BP-TE&gt;</span><span class="comment"> (
+</span>    <span class="type">fhir:</span><span class="constant">component</span> { <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"systolic"</span>] } ;
+    <span class="type">fhir:</span><span class="constant">component</span> { <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"diastolic"</span>] }
+  )
+}
+
+<span class="shape-name">&lt;#PostureBP&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> </span><span class="keyword">AND</span> {
+ <span class="te-name">&amp;&lt;#BP-TE&gt;</span> ;
+ <span class="te-name">&amp;&lt;#Posture-TE&gt;</span><span class="comment">
+</span>}
+
+<span class="shape-name">&lt;#ReclinedBP&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> </span><span class="keyword">AND</span> {
+ <span class="te-name">&amp;&lt;#BP-TE&gt;</span> ;
+ <span class="te-name">&amp;&lt;#Reclined-TE&gt;</span><span class="comment">
+</span>}
+
+
+<span class="comment"># -- Pulse --
+</span><span class="shape-name">&lt;#Pulse&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> </span><span class="keyword">AND</span> {
+  <span class="te-name">$&lt;#Pulse-TE&gt;</span><span class="comment">
+</span>    <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"pulse"</span>]
+}
+
+<span class="shape-name">&lt;#PosturePulse&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> </span><span class="keyword">AND</span> {
+ <span class="te-name">&amp;&lt;#Pulse-TE&gt;</span> ;
+ <span class="te-name">&amp;&lt;#Posture-TE&gt;</span><span class="comment">
+</span>}
+
+<span class="shape-name">&lt;#ReclinedPulse&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Observation&gt;</span><span class="comment"> </span><span class="keyword">AND</span> {
+ <span class="te-name">&amp;&lt;#Pulse-TE&gt;</span> ;
+ <span class="te-name">&amp;&lt;#Reclined-TE&gt;</span><span class="comment">
+</span>}
+
+
+<span class="comment"># -- postures --
+</span><span class="shape-name">&lt;#Posture&gt;</span><span class="comment"> </span><span class="keyword">EXTRA</span><span class="comment"> </span><span class="type">fhir:</span><span class="constant">component</span> {
+  <span class="te-name">$&lt;#Posture-TE&gt;</span><span class="comment">
+</span>    <span class="type">fhir:</span><span class="constant">component</span> {
+      <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"posture"</span>]
+    }
+}
+
+<span class="shape-name">&lt;#Reclined&gt;</span><span class="comment"> </span><span class="variable-name">@&lt;#Posture&gt;</span><span class="comment"> </span><span class="keyword">AND</span><span class="comment"> </span><span class="keyword">EXTRA</span><span class="comment"> </span><span class="type">fhir:</span><span class="constant">component</span> {
+  <span class="te-name">$&lt;#Reclined-TE&gt;</span><span class="comment">
+</span>    <span class="type">fhir:</span><span class="constant">component</span> {
+      <span class="type">fhir:</span><span class="constant">code</span> [<span class="string">"posture"</span>] ;
+      <span class="type">fhir:</span><span class="constant">value</span> [<span class="string">"reclined"</span>]
+    }
+}
+
+</pre>
+    </div>
+    <div style="clear: both;"> </div>
+  </body>
+</html>

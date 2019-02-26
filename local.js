@@ -79,7 +79,7 @@
     // { label: "local",
     //   link: "http://localhost/shexSpec/shex.js/doc/shex-simple.html?" },
     { label: "js", name: "shex.js",
-      link: "http://rawgit.com/shexSpec/shex.js/on-shape-expression/doc/shex-simple.html?" },
+      link: "http://rawgit.com/shexSpec/shex.js/extends/doc/shex-simple.html?" },
     { label: "scala", name: "rdfshape",
       link: "http://rdfshape.weso.es/validate?triggerMode=ShapeMap&" }
   ];
