@@ -5,20 +5,24 @@
     <link rel="stylesheet" href="local.css"/>
     <style type="text/css">
       .te-name { color: coral; font-weight: bold; }
+      p span { white-space:nowrap; }
     </style>
   </head>
   <body>
-    <h1>A Case for Extends</h1>
+    <h1>ShEx EXTENDS For a Clincal Use Case</h1>
     <p>
-      Following is a clinical use case for extending shapes.
-      The first shape, <span class="shape-name">&lt;#Observation&gt;</span>, is the most widely-used shape in any clinical informatics system.
+      Following is a description of the use of <code>EXTENDS</code> for a clinical use case.
+      It develops a shape hierarchy from <span class="shape-name">&lt;#Observation&gt;</span>, the most widely-used shape in any clinical informatics system.
+      This use case shows how ShEx treates <a href="https://en.wikipedia.org/wiki/Multiple_inheritance#The_diamond_problem">diamond inheritance</a>.
+    </p>
+    <p>
       Here, a <span class="shape-name">&lt;#PostureVital&gt;</span> extends a <span class="shape-name">&lt;#Vital&gt;</span>, which extends an <span class="shape-name">&lt;#Observation&gt;</span>.
       A <span class="shape-name">&lt;#ReclineVital&gt;</span> is a <span class="shape-name">&lt;#PostureVital&gt;</span> with a "reclined" posture.
       A <span class="shape-name">&lt;#BP&gt;</span> (blood pressure) and a <span class="shape-name">&lt;#Pulse&gt;</span> have posture and reclined posture flavors.
     </p>
     <p>
       The left panel, <b>EXTENDS</b>, captures this using a proposed syntax for extends.
-      The right panel, <b>compiled</b>, attempts to capture this using ShEx 2.0 triple expression labels (e.g. <span class="te-name">$&lt;#BP-TE&gt;</span>) injected into the appropriate shapes.
+      The right panel, <b>compiled-ish</b>, attempts to capture this using ShEx 2.0 triple expression labels (e.g. <span class="te-name">$&lt;#BP-TE&gt;</span>) injected into the appropriate shapes.
       This introduces a burden as the maintainer must:
     </p>
     <ul>
@@ -26,7 +30,7 @@
       <li>place the closure of all derived shapes in compiled superclasses.</li>
     </ul>
     <p>
-      If someone is e.g. extending a posture shape to create a reclined shape, they may be importing the earlier part of the schema and have no way to add disjuncts into the closures or triple expression labels into shapes.
+      The semantics of <code>EXTENDS</code> cater to extending schemas outside of one's administrative control. For instance, someone extending a posture shape to create a reclined shape may be importing the posture shape from another schema and have no way to add disjuncts into the closures or triple expression labels into shapes.
     </p>
     <div style="float:left; width: 50%">
       <h2>EXTENDS</h2>
@@ -110,7 +114,7 @@
 </pre>
     </div>
     <div style="float:left; width: 50%">
-      <h2>compiled</h2>
+      <h2>compiled-ish</h2>
     <pre>
 <span class="keyword">PREFIX</span> <span class="type">fhir:</span> &lt;<span class="fullURL">http://hl7.org/ns/fhir</span>&gt;
 <span class="keyword">PREFIX</span> <span class="type">xsd:</span> &lt;<span class="fullURL">http://www.w3.org/2001/XMLSchema#</span>&gt;
