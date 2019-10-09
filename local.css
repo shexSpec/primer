@@ -129,7 +129,7 @@ a.ref:visited { color: #a00550; font-family: monospace; }
     display: inline-block; padding: 2px 8px;
     padding: 0 .2em;
 } */
-.tryit:link {
+.tryit {
     text-decoration: none; font: menu;
     display: inline-block; padding: 2px 8px;
     background: ButtonFace; color: ButtonText;
@@ -151,6 +151,15 @@ a.ref:visited { color: #a00550; font-family: monospace; }
   //top: -1.5ex;
   right: 0;
   top: -0.5ex;
+  font-size: small;
+}
+.tryit a {
+    color: #00e;
+    border: none;
+}
+
+.tryit a:visited {
+    color: #551A8B;
 }
 
       table td { vertical-align: top; }
