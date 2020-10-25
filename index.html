@@ -1567,7 +1567,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
 }</pre>
           <pre class="nohighlight schema json">{ "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:reportedBy",
-      "value": { "type": "ShapeRef", <span class="keyword new lookit">"reference": "my:PersonShape"</span> } } } }</pre>
+      "value": <span class="keyword new lookit">"my:PersonShape"</span> } } }</pre>
           </dd>
         </dl>
 
@@ -2577,9 +2577,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
           },                                              
           <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reportedIssue"</span></span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": false</span>,</span>
-          <span class="reportedIssue lowlight1    ">  <span class="object">"value": { "type": "ShapeRef",</span>                 </span>
-          <span class="reportedIssue lowlight1    ">  <span class="object">  "reference": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
-          <span class="reportedIssue lowlight1    ">  <span class="object">}              </span>                                  </span>
+          <span class="reportedIssue lowlight1    ">  <span class="object">"value": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
           <span class="reportedIssue lowlight1 bot">}                                                  </span>
         ]
       }
@@ -2652,9 +2650,7 @@ prepareHighlight(["state999", "reportedBy", "reportedIssue", "name999", "mbox999
           },                                              
           <span class="reportedIssue lowlight1 top">{ "type": "TripleConstraint",                      </span>
           <span class="reportedIssue lowlight1    ">  <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reportedIssue"</span></span>, <span class="inversePredicate top bot keyword lowlight2">"inverse": true</span>,</span>
-          <span class="reportedIssue lowlight1    ">  <span class="object">"value": { "type": "ShapeRef",</span>                   </span>
-          <span class="reportedIssue lowlight1    ">  <span class="object">  "reference": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
-          <span class="reportedIssue lowlight1    ">  <span class="object">}              </span>                                  </span>
+          <span class="reportedIssue lowlight1    ">  <span class="object">"value": <span class="shape-name">"my:IssueShape"</span></span>                   </span>
           <span class="reportedIssue lowlight1 bot">}                                                  </span>
         ]
       }
@@ -3123,10 +3119,10 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
           <span class="object">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
         { "type": "TripleConstraint", <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reproducedBy"</span></span>,
-          <span class="object">"value": { "type": "ShapeRef", <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span> }
+          <span class="object">"value": <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span>
         },
         { "type": "TripleConstraint", <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reproducedBy"</span></span>,
-          <span class="object">"value": { "type": "ShapeRef", <span class="hilight-programmer lowlight2 top bot">"reference": "my:ProgrammerShape"</span></span> }
+          <span class="object">"value": <span class="hilight-programmer lowlight2 top bot">"my:ProgrammerShape"</span></span>
         }
       ]
     }
