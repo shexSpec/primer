@@ -5,7 +5,7 @@
     <meta charset='utf-8'/>
     <!-- <script src='https://www.w3.org/Tools/respec/respec-w3c-common' -->
     <!--         async="async" class='remove'></script> -->
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common'
+    <script src='https://www.w3.org/Tools/respec/respec-w3c'
             async="async" class='remove'></script>
     <link rel="stylesheet" href="local.css"/>
 
@@ -33,8 +33,7 @@
       company:    "W3C/MIT",
       companyURL: "http://www.w3.org/" }
       ],
-      wg:           "Shape Expressions Community Group",
-      wgURI:        "https://www.w3.org/community/shex/",
+      group:      "cg/shex",
       wgPublicList: "public-shex"
     };
     </script>
@@ -3611,7 +3610,7 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
         ];
         window.addEventListener("load", function() {
           setTimeout(() => { // respecIsReady not yet defined in Chrome.
-            document.respecIsReady.then(function(conf) {
+            document.respec.ready.then(function(conf) {
               console.log("Fix Try It links");
               updateAllTryItLinks($("#langOptions input:checked").val());
             });
