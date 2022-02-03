@@ -5,7 +5,7 @@
     <meta charset='utf-8'/>
     <!-- <script src='https://www.w3.org/Tools/respec/respec-w3c-common' -->
     <!--         async="async" class='remove'></script> -->
-    <script src='https://www.w3.org/Tools/respec/respec-w3c-common'
+    <script src='https://www.w3.org/Tools/respec/respec-w3c'
             async="async" class='remove'></script>
     <link rel="stylesheet" href="local.css"/>
 
@@ -2212,18 +2212,22 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">[ex:unassigned ex:assigned]</span>
 }</pre>
-        <pre class="nohighlight schema json table">
-{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "ex:unassigned", "ex:assigned" ]</span> } } } }</pre>
+        <pre class="nohighlight schema json table" style="float:left">{ "id": <span class="shape-name">"http://a.example/my#IssueShape"</span>, "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": <span class="predicate">"http://a.example/ex#state"</span>,
+    "valueExpr": { "type": "NodeConstraint", "values": [
+      <span class="object new lookit">"http://a.example/ex#unassigned"</span>,
+      <span class="object new lookit">"http://a.example/ex#assigned"</span>
+] } }</pre>
 
         <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">["unassigned" "assigned"]</span>
 }</pre>
-        <pre class="nohighlight schema json table">
-{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+        <pre class="nohighlight schema json table" style="float:left">{ "id": <span class="shape-name">"http://a.example/my#IssueShape"</span>, "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": <span class="predicate">"http://a.example/ex#state"</span>,
+    "valueExpr": { "type": "NodeConstraint", "values": [
+      <span class="object new lookit">{ "value": "unassigned" }</span>,
+      <span class="object new lookit">{ "value": "assigned" }</span>
+] } }</pre>
 
         <pre class="nohighlight schema shexc table" style="float:left">
 <span class="prefixes" style="display:none"><span class="keyword">PREFIX</span> <span class="type">my:</span> <span class="fullURL">&lt;http://my.example/#&gt;</span>
@@ -2232,10 +2236,12 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
 </span><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">label</span></span> <span class="object new lookit">[@en @fr]</span>
 }</pre>
-        <pre class="nohighlight schema json table">
-{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="object new lookit">[ "\"unassigned\'", "\"assigned\"" ]</span> } } } }</pre>
+        <pre class="nohighlight schema json table" style="float:left">{ "id": <span class="shape-name">"http://a.example/my#IssueShape"</span>, "type": "Shape",
+  "expression": { "type": "TripleConstraint", "predicate": <span class="predicate">"http://a.example/ex#state"</span>,
+    "valueExpr": { "type": "NodeConstraint", "values": [
+      <span class="object new lookit">{ "type": "Language", "languageTag": "en" }</span>,
+      <span class="object new lookit">{ "type": "Language", "languageTag": "fr" }</span>
+] } }</pre>
 
         <div style="clear:both;"> </div>
         <p>
@@ -2245,9 +2251,14 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
         <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
   <span class="predicate"><span class="type">rdf:</span><span class="constant">type</span></span> <span class="object new lookit">[foaf:Person]</span>
 }</pre>
-        <pre class="nohighlight schema json table">{ <span class="shape-name">"my:IssueShape"</span>: { "type": "Shape",
-  "expression": { "type": "TripleConstraint", "predicate": "rdf:type",
-    "value": { "type": "NodeConstraint", "values": [ <span class="object new lookit">"foaf:Person"</span> ] } } } }</pre>
+        <pre class="nohighlight schema json table">{ "id": <span class="shape-name">"http://schema.example/my#UserShape"</span>, "type": "Shape",
+  "expression": { "type": "TripleConstraint",
+    "predicate": <span class="object new lookit">"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"</span>,
+    "valueExpr": {
+      "type": "NodeConstraint", "values": [
+        "http://xmlns.com/foaf/0.1/Person"
+    ] }
+} }</pre>
         <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:UserShape</span> {
   <span class="keyword">a</span> <span class="object new lookit">[foaf:Person]</span>
 }</pre>
@@ -3610,8 +3621,8 @@ prepareHighlight(["hilight-tester", "hilight-programmer", "hilight-testgrammer",
           "http://rawgit.com/shexSpec/shex.js/master/doc/shex-simple.html?"
         ];
         window.addEventListener("load", function() {
-          setTimeout(() => { // respecIsReady not yet defined in Chrome.
-            document.respecIsReady.then(function(conf) {
+          setTimeout(() => { // respec.ready not yet defined in Chrome.
+            document.respec.ready.then(function(conf) {
               console.log("Fix Try It links");
               updateAllTryItLinks($("#langOptions input:checked").val());
             });
