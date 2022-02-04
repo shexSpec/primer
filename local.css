@@ -240,3 +240,5 @@ pre.schema:before, pre.instance:before {
     margin-top: 0;
 }
 
+#namespaces table { border-collapse: collapse; border-color: #000000; }
+#namespaces table div { border: 1px; padding: 5px; }
