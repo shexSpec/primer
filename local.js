@@ -68,7 +68,7 @@
 
   window.addEventListener("load", function() {
     setTimeout(() => { // respecIsReady not defined during this event cycle in Chrome.
-      document.respecIsReady.then(function(conf) {
+      document.respec.ready.then(function(conf) {
         console.log("Fix Try It links");
         updateAllTryItLinks($("#langOptions input:checked").val());
       });
