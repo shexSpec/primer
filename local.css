@@ -25,6 +25,14 @@
         /* font-lock-function-name-face */
         color: #0000ff;
       }
+      .relativeURL {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
+      .relativeURL:visited {
+        /* font-lock-function-name-face */
+        color: #0000ff;
+      }
       .keyword, .schema .keyword.object {
         /* font-lock-keyword-face */
         color: #a020f0;
