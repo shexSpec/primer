@@ -75,14 +75,17 @@
     }, 300);
   });
 
-  Interfaces = [
-    // { label: "local",
-    //   link: "http://localhost/shexSpec/shex.js/doc/shex-simple.html?" },
-    { label: "js", name: "shex.js",
-      link: "http://rawgit.com/shexSpec/shex.js/extends/doc/shex-simple.html?" },
-    { label: "scala", name: "rdfshape",
-      link: "http://rdfshape.weso.es/validate?triggerMode=ShapeMap&" }
-  ];
+  const iface = parseQueryString(location.search);
+  Interfaces = "tryits" in iface
+    ? JSON.parse(iface.tryits)
+    : [
+      // { label: "local",
+      //   link: "http://localhost/shexSpec/shex.js/doc/shex-simple.html?" },
+      { label: "js", name: "shex.js",
+        link: "http://shex.io/webapps/shex.js/doc/shex-simple.html?" },
+      { label: "scala", name: "rdfshape",
+        link: "https://rdfshape.weso.es/validate?triggerMode=ShapeMap&interface=minimal&" }
+    ];
   FaveInterface = null;
 
   var pickDefaultValidator_form = $("#defaultValidator-form");
@@ -102,9 +105,8 @@
     )
   )
 
-  $ = JQuery;
   var relay = null; // hacky way to pass context from span event click form Update click action.
-  pickDefaultValidator_dialog = JQuery("#defaultValidator-form").dialog({
+  pickDefaultValidator_dialog = jQuery("#defaultValidator-form").dialog({
     autoOpen: false,
     modal: true,
     width: "auto",
@@ -123,9 +125,19 @@
     }
   });
 
+  function parseQueryString (query) {
+    if (query[0]==='?') query=query.substr(1); // optional leading '?'
+    const map   = {};
+    query.replace(/([^&,=]+)=?([^&,]*)(?:[&,]+|$)/g, function(match, key, value) {
+      key=decodeURIComponent(key);value=decodeURIComponent(value);
+      (map[key] = map[key] || []).push(value);
+    });
+    return map;
+  };
+
   function tryItSpanHandler (evt) {
     console.log(evt);
-    // JQuery("#defaultValidator-form").css("top", evt.pageY).show()
+    // jQuery("#defaultValidator-form").css("top", evt.pageY).show()
     if (FaveInterface && !evt.ctrlKey) {
       validate($(evt.target).parent());
     } else {
