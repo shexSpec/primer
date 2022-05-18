@@ -1368,7 +1368,7 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
     </section>
 
       <section id="rdf-structures">
-        <h2>@@RDF Structures</h2>
+        <h2>RDF Structures</h2>
         <p>
           RDF and RDFS specify some RDF structures.
           This section describes how ShEx can be used to validate instances of those structures.
@@ -1378,7 +1378,9 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
           <h2>RDF Collections</h2>
 
           <p>
-            RDF Collections are a way of creating an ordered lists composed of a chain of <span class="predicate"><span class="type">rdf:</span><span class="constant">first</span></span> and <span class="predicate"><span class="type">rdf:</span><span class="constant">rest</span></span> properties. In the Issue example below, fail0 example violates the constraint that the schema indicates that the list may not be empty. The failU1P1 example fails because the first element is out of range. The failP1U1 example fails because the last item is out of range.
+            RDF Collections are a way of creating an ordered lists composed of a chain of <span class="predicate"><span class="type">rdf:</span><span class="constant">first</span></span> and <span class="predicate"><span class="type">rdf:</span><span class="constant">rest</span></span> properties.
+            In the Issue example below, fail0 example violates the constraint that the schema indicates that the list may not be empty. The failU1P1 example fails because the first element is out of range.
+            The failP1U1 example fails because the last item is out of range.
           </p>
           <div class="namespace">
 
@@ -1513,20 +1515,87 @@ prepareHighlight(["assigned", "med_", "done"], "highlight2", "lowlight2");
               <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
                 <tr class="pass"><td class="relativeURL">passP1  </td><td class="shape-name">Issue</td><td>pass</td><td class="noreason"></td></tr>
                 <tr class="pass"><td class="relativeURL">passP1P2</td><td class="shape-name">Issue</td><td>pass</td><td class="noreason"></td></tr>
-                <tr class="fail"><td class="relativeURL">fail0</td>   <td class="shape-name">User</td><td>fail</td><td class="fail">schema prohibits empty lists.</td></tr>
-                <tr class="fail"><td class="relativeURL">failU1P1</td>   <td class="shape-name">User</td><td>fail</td><td class="fail">bad first element.</td></tr>
-                <tr class="fail"><td class="relativeURL">failP1U1</td>   <td class="shape-name">User</td><td>fail</td><td class="fail">bad last element.</td></tr>
+                <tr class="fail"><td class="relativeURL">fail0</td>   <td class="shape-name">Issue</td><td>fail</td><td class="fail">schema prohibits empty lists.</td></tr>
+                <tr class="fail"><td class="relativeURL">failU1P1</td>   <td class="shape-name">Issue</td><td>fail</td><td class="fail">bad first element.</td></tr>
+                <tr class="fail"><td class="relativeURL">failP1U1</td>   <td class="shape-name">Issue</td><td>fail</td><td class="fail">bad last element.</td></tr>
             </tbody></table>
           </div>
-<pre class="todo nohighlight">
-  add example where User is indistinguishable from Product:
-&lt;#Product&gt; {
-  :name LITERAL
+        </section>
+
+        <section id="ambiguous-grammar">
+          <h2>Ambiguous Grammar</h2>
+
+          <p>
+            In the previous example, Products are distinct from Users in that they have a <span class="predicate"><span class="type">:</span><span class="constant">productNumber</span></span>.
+            Products can, however, masquerade as Users, so long as the User shape is not CLOSED.
+            Specifically, the Product instance (<span class="relativeURL">&lt;#Product1&gt;</span>) meets the criteria for a User, i.e. it has a <span class="type">:</span><span class="constant">name</span>.
+            When validated as a User, the extra <span class="type">:</span><span class="constant">productNumber</span> is irrelevant (so long as the User shape is not CLOSED).
+          </p>
+          <div class="namespace">
+
+            <div class="example wrapper">
+              <!-- ShExC example -->
+              <pre class="nohighlight schema shexc" style="float:left;"><span class="prefixes"><span class="keyword">BASE</span> <span class="relativeURL">&lt;http://a.example/schema&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">:</span> <span class="relativeURL">&lt;#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">xsd:</span> <span class="relativeURL">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span>
+<span class="keyword">PREFIX</span> <span class="type">rdf:</span> <span class="relativeURL">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span>
+
+</span><span class="relativeURL">&lt;#Issue&gt;</span><span class="comment"> { </span><span class="type">:</span><span class="constant">reporter</span><span class="comment"> </span><span class="relativeURL">@&lt;#List_User&gt;</span><span class="comment"> }
+</span>
+<span class="relativeURL">&lt;#List_User&gt;</span><span class="comment"> </span><span class="keyword">CLOSED</span><span class="comment"> {
+</span>  <span class="type">rdf:</span><span class="constant">first</span> <span class="relativeURL">@&lt;#User&gt;</span><span class="comment"> ;
+</span>  <span class="type">rdf:</span><span class="constant">rest</span> [<span class="type">rdf:</span><span class="constant">nil</span>] <span class="keyword">OR</span> <span class="relativeURL">@&lt;#List_User&gt;</span><span class="comment">
+</span>}
+
+<span class="relativeURL">&lt;#User&gt;</span><span class="comment"> </span><span class="comment">/*not CLOSED*/</span><span class="comment"> {
+</span>  <span class="type">:</span><span class="constant">name</span> <span class="keyword">LITERAL</span>
 }
 
-&lt;#Product1&gt; :name "toaster" .
-&lt;#Product2&gt; :name "blender" .
-&lt;#User1&gt;    :name   "Alice" .</pre>
+<span class="relativeURL">&lt;#Product&gt;</span><span class="comment"> {
+</span>  <span class="type">:</span><span class="constant">number</span> <span class="type">xsd:</span><span class="constant">integer</span> ;
+  <span class="type">:</span><span class="constant">name</span> <span class="keyword">LITERAL</span>
+}</pre>
+
+              <!-- JSON example -->
+              <pre class="nohighlight schema json" style="float:left;"></pre>
+              <pre class="nohighlight instance turtle pass tryable"><span class="prefixes"><span class="keyword">BASE</span> <span class="relativeURL">&lt;http://a.example/data#&gt;</span><span class="comment">
+</span><span class="keyword">PREFIX</span> <span class="type">:</span> <span class="relativeURL">&lt;http://a.example/schema#&gt;</span><span class="comment"></span>
+
+</span><span class="relativeURL">&lt;#passU1&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">reporter</span><span class="comment"> (</span><span class="relativeURL">&lt;#User1&gt;</span><span class="comment">) </span><span class="keyword">.</span><span class="comment">
+</span><span class="relativeURL">&lt;#passU1U2&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">reporter</span><span class="comment"> (</span><span class="relativeURL">&lt;#User1&gt;</span><span class="comment"> </span><span class="relativeURL">&lt;#User2&gt;</span><span class="comment">) </span><span class="keyword">.</span>
+
+<span class="comment"># Nodes that would fail if User <span title="note gratuitous use of subjunctive">were</span> CLOSED</span>
+<span class="relativeURL">&lt;#failP1U1&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">reporter</span><span class="comment"> (</span><span class="relativeURL">&lt;#Product1&gt;</span><span class="comment"> </span><span class="relativeURL">&lt;#User1&gt;</span><span class="comment">) </span><span class="keyword">.</span><span class="comment">
+</span><span class="relativeURL">&lt;#failU1P1&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">reporter</span><span class="comment"> (</span><span class="relativeURL">&lt;#User1&gt;</span><span class="comment"> </span><span class="relativeURL">&lt;#Product1&gt;</span><span class="comment">) </span><span class="keyword">.</span><span class="comment">
+</span>
+<span class="relativeURL">&lt;#User1&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">name</span><span class="comment"> </span><span class="string">"Alice"</span><span class="comment"> </span><span class="keyword">.</span><span class="comment">
+</span><span class="relativeURL">&lt;#User2&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">name</span><span class="comment"> </span><span class="string">"Alicia"</span><span class="comment"> </span><span class="keyword">.</span><span class="comment">
+</span>
+<span class="relativeURL">&lt;#Product1&gt;</span><span class="comment"> </span><span class="type">:</span><span class="constant">number</span><span class="comment"> 1 ; </span><span class="type">:</span><span class="constant">name</span><span class="comment">   </span><span class="string">"toaster"</span><span class="comment"> </span><span class="keyword">.</span><a class="tryit" href="" data-shape-map="&lt;#passU1&gt;@&lt;http://a.example/schema#Issue&gt;,
+&lt;#passU1U2&gt;@&lt;http://a.example/schema#Issue&gt;,
+&lt;#failP1U1&gt;@&lt;http://a.example/schema#Issue&gt;,
+&lt;#failU1P1&gt;@&lt;http://a.example/schema#Issue&gt;">try it</a></pre>
+              <div style="clear:both;"></div>
+            </div>
+            <table class="example results">
+              <tbody><tr><th class="data">Node</th><th class="schema">Shape</th><th>Result</th><th>Reason</th></tr>
+                <tr class="pass"><td class="relativeURL">passU1  </td><td class="shape-name">Issue</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="pass"><td class="relativeURL">passU1U2</td><td class="shape-name">Issue</td><td>pass</td><td class="noreason"></td></tr>
+                <tr class="pass"><td class="relativeURL">failP1U1</td>   <td class="shape-name">Issue</td><td>pass</td><td class="pass">first element "looks" like a User.</td></tr>
+                <tr class="pass"><td class="relativeURL">failU1P1</td>   <td class="shape-name">Issue</td><td>pass</td><td class="pass">last element "looks" like a User.</td></tr>
+            </tbody></table>
+          </div>
+
+          <p>
+            If URLs in the data are expected to conform to some naming pattern, this can be enforced with regular expressions on the shape, e.g.            
+          </p>
+          <div class="example wrapper">
+            <pre class="nohighlight schema shexc">
+<span class="shape-name">&lt;#User&gt;</span> <span class="string">/User/</span> {
+  <span class="type">:</span><span class="constant">name</span> <span class="keyword">LITERAL</span>
+}
+            </pre>
+          </div>
         </section>
       </section>
       </section>
