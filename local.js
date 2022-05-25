@@ -75,17 +75,26 @@
     }, 300);
   });
 
+  Interfaces = [
+    // { label: "local",
+    //   link: "http://localhost/shexSpec/shex.js/doc/shex-simple.html?" },
+    { label: "js", name: "shex.js",
+      link: "http://shex.io/webapps/shex.js/doc/shex-simple.html?" },
+    { label: "scala", name: "rdfshape",
+      link: "https://rdfshape.weso.es/validate?triggerMode=ShapeMap&interface=minimal&" }
+  ];
   const iface = parseQueryString(location.search);
-  Interfaces = "tryits" in iface
-    ? JSON.parse(iface.tryits)
-    : [
-      // { label: "local",
-      //   link: "http://localhost/shexSpec/shex.js/doc/shex-simple.html?" },
-      { label: "js", name: "shex.js",
-        link: "http://shex.io/webapps/shex.js/doc/shex-simple.html?" },
-      { label: "scala", name: "rdfshape",
-        link: "https://rdfshape.weso.es/validate?triggerMode=ShapeMap&interface=minimal&" }
-    ];
+  if ("tryits" in iface) {
+    try {
+      Interfaces = JSON.parse(iface.tryits);    // structure like default above
+      if (typeof Interfaces === "string")       // just a quoted string
+        Interfaces = [ { label: "here", link: new URL(Interfaces).href } ]
+      else if (!Array.isArray(Interfaces))      // above object but not in Array
+        Interfaces = [Interfaces];
+    } catch (e) {                               // hopefully a bare URL
+      Interfaces = [ { label: "here", link: new URL(iface.tryits).href } ]
+    }
+  }
   FaveInterface = null;
 
   var pickDefaultValidator_form = $("#defaultValidator-form");
