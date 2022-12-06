@@ -401,7 +401,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <pre class="nohighlight schema json table">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ { "value": "0" }, { "value": "1" } ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ { "value": "0", "type": "http://www.w3.org/2001/XMLSchema#integer" }, { "value": "1", "type": "http://www.w3.org/2001/XMLSchema#integer" } ]</span> } } } }</pre>
           </dd>
           <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the value is described by another shape, e.g.
           <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
