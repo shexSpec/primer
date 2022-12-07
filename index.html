@@ -401,7 +401,7 @@ function prepareHighlight (highlightables, onClass, offClass, slide) {
           <pre class="nohighlight schema json table">
 { "my:IssueShape": { "type": "Shape",
   "expression": { "type": "TripleConstraint", "predicate": "ex:status",
-    "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ { "value": "0" }, { "value": "1" } ]</span> } } } }</pre>
+    "value": { "type": "NodeConstraint", "values": <span class="keyword new lookit">[ { "value": "0", "type": "http://www.w3.org/2001/XMLSchema#integer" }, { "value": "1", "type": "http://www.w3.org/2001/XMLSchema#integer" } ]</span> } } } }</pre>
           </dd>
           <dt id="value-shape" class="new">value shape</dt> <dd>Asserts that the value is described by another shape, e.g.
           <pre class="nohighlight schema shexc table"><span class="shape-name">my:IssueShape</span> {
@@ -1059,7 +1059,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     "valueExpr": { "type": "NodeConstraint", "values": [
       <span class="object new lookit">"http://a.example/ex#unassigned"</span>,
       <span class="object new lookit">"http://a.example/ex#assigned"</span>
-] } }</pre>
+] } } }</pre>
 
         <pre class="nohighlight schema shexc table" style="float:left"><span class="shape-name">my:IssueShape</span> {
   <span class="predicate"><span class="type">ex:</span><span class="constant">state</span></span> <span class="object new lookit">["unassigned" "assigned"]</span>
@@ -1083,7 +1083,7 @@ prepareHighlight(['name', 'gname', 'fname', 'mbox'], "highlight1", "lowlight1");
     "valueExpr": { "type": "NodeConstraint", "values": [
       <span class="object new lookit">{ "type": "Language", "languageTag": "en" }</span>,
       <span class="object new lookit">{ "type": "Language", "languageTag": "fr" }</span>
-] } }</pre>
+] } } }</pre>
 
         <div style="clear:both;"> </div>
         <p>
@@ -1669,7 +1669,7 @@ prepareHighlight(["hilight-componentless", "hilight-component", "hilight-invComp
           <pre class="nohighlight schema json" style="float:left;">
 { "type": "Schema",
   "shapes": [
-    { "type": "Shape", "id": <span class="user lowlight2 top bot">"my:OpenUserShape"</span>
+    { "type": "Shape", "id": <span class="user lowlight2 top bot">"my:OpenUserShape"</span>,
       "expression": { "type": "group",
         "expressions": [
           <span class="">{ "type": "TripleConstraint",                   </span>
@@ -1972,7 +1972,7 @@ prepareHighlight(["entity"], "highlight2", "lowlight2");
           <span class="object">"value": { "type": "NodeConstraint", "values": [ "ex:accepted", "ex:resolved" ]</span> }
         },
         { "type": "TripleConstraint", <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reproducedBy"</span></span>,
-          <span class="object">"value": <span class="hilight-tester lowlight2 top bot">"reference": "my:TesterShape"</span></span>
+          <span class="object">"value": <span class="hilight-tester lowlight2 top bot">"my:TesterShape"</span></span>
         },
         { "type": "TripleConstraint", <span class="predicate"><span class="type">"predicate":</span><span class="constant"> "ex:reproducedBy"</span></span>,
           <span class="object">"value": <span class="hilight-programmer lowlight2 top bot">"my:ProgrammerShape"</span></span>
