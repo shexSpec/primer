@@ -81,7 +81,7 @@
     { label: "js", name: "shex.js",
       link: "http://shex.io/webapps/shex.js/doc/shex-simple.html?" },
     { label: "scala", name: "rdfshape",
-      link: "https://rdfshape.weso.es/validate?triggerMode=ShapeMap&interface=minimal&" }
+      link: "https://rdfshape.weso.es/shexValidate?triggerMode=ShapeMap&interface=minimal&" }
   ];
   const iface = parseQueryString(location.search);
   if ("tryits" in iface) {
